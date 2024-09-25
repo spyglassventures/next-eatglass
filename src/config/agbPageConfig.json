@@ -1,15 +1,15 @@
 {
     "metadata": {
-        "title": "Die AGB's Team der Praxis Kappelihof",
-        "description": "Dr. med. Christoph Berg und das MPA Team der Praxis Kappelihof in Buchs, SG"
+        "title": "Die AGB's Team der Praxis Muster",
+        "description": "Dr. med. Max Musterund das MPA Team der Praxis Muster in Musterort, BE"
     },
     "breadcrumb": {
         "pageName": "Vertragsbedingungen",
-        "description": "Dr. med. Christoph Berg und das MPA Team der Praxis Kappelihof in Buchs, SG."
+        "description": "Dr. med. Max Musterund das MPA Team der Praxis Muster in Musterort, BE."
     },
     "agb": {
-        "medicalServiceName": "Praxis Kappelihof",
-        "locationAddress": "Grünaustrasse 1, 9470 Buchs, SG",
+        "medicalServiceName": "Praxis Muster",
+        "locationAddress": "Grünaustrasse 1, 9470 Musterort, BE",
         "validFromDate": "25. Mai 2024",
         "platformUrl": "www.praxiskappelihof.ch"
     }

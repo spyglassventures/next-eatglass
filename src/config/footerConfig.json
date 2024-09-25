@@ -1,12 +1,12 @@
 {
     "logo": {
-        "light": "/images/logo/logo-2.svg",
-        "dark": "/images/logo/logo.svg",
+        "light": "/images/logo/adler.png",
+        "dark": "/images/logo/adler.png",
         "alt": "logo",
         "width": 140,
         "height": 30
     },
-    "address": "Grünaustrasse 1, 9470 Buchs, SG",
+    "address": "Grünaustrasse 1, 9470 Musterort, BE",
     "sections": [
         {
             "title": "Nützliche Links",

@@ -11,7 +11,7 @@ const documents: DocumentInfo[] = [
         ],
     },
     {
-        partnerart: 'GLN Hausarztpraxis Buchs AG',
+        partnerart: 'GLN Musterpraxis AG',
         details: [
             { label: 'Nummer', value: '7601002146425', type: 'text', copyable: true },
         ],
@@ -31,7 +31,7 @@ const documents: DocumentInfo[] = [
     {
         partnerart: 'UBS Kontoverbindung',
         details: [
-            { label: 'Inhaber', value: 'Hausarztpraxis Buchs AG', type: 'text', copyable: true },
+            { label: 'Inhaber', value: 'Musterpraxis AG', type: 'text', copyable: true },
             { label: 'IBAN', value: 'CH72 0020 6206 1514 6201 J', type: 'text', copyable: true },
             { label: 'BIC', value: 'UBSWCHZH80A', type: 'text', copyable: true },
             { label: 'QR IBAN', value: 'CH233000520615146201J', type: 'text', copyable: true },

@@ -3,13 +3,13 @@
     "link": "https://teams.live.com/meet/9488495745247?p=eXGXAElUNsidZz95fu",
     "_comment": "// # src/config/videocallConfig.json Teams Links muss vom Arzt selbst via Teams erstellt werden",
     "metadata": {
-        "title": "Das Team der Praxis Kappelihof",
-        "description": "Dr. med. Christoph Berg und das MPA Team der Praxis Kappelihof in Buchs, SG"
+        "title": "Das Team der Praxis Muster",
+        "description": "Dr. med. Max Musterund das MPA Team der Praxis Muster in Musterort, BE"
     },
     "pageContent": {
         "Breadcrumb": {
             "pageName": "Videocall",
-            "description": "Dr. med. Christoph Berg und das MPA Team der Praxis Kappelihof ist auch per Videoanruf erreichbar."
+            "description": "Dr. med. Max Musterund das MPA Team der Praxis Muster ist auch per Videoanruf erreichbar."
         }
     },
     "deactivatedMessage": "Diese Funktionalität ist derzeit nicht aktiv.",

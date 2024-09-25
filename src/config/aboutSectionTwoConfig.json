@@ -1,42 +1,30 @@
 {
     "team": [
         {
-            "src": "/images/about/old/16.jpg",
-            "caption": "Dr. Christoph Berg, Facharzt Allgemeine Medizin"
+            "src": "/images/about/doc.png",
+            "caption": "Dr. Max Muster, Facharzt Allgemeine Medizin"
         },
         {
-            "src": "/images/about/old/Rahel.jpg",
-            "caption": "Rahel Riederer, MPA"
-        },
-        {
-            "src": "/images/about/old/Ledi.jpg",
-            "caption": "Ledejna Mehuka, MPA"
-        },
-        {
-            "src": "/images/about/old/Karin.jpg",
-            "caption": "Karin Rhyner, MPA"
-        },
-        {
-            "src": "/images/about/old/Eliza.jpg",
-            "caption": "Eliza Rustemi, MPA in Ausbildung"
+            "src": "/images/about/nurse.png",
+            "caption": "Emma Weber, MPA in Ausbildung"
         }
     ],
     "praxis": [
         {
-            "src": "/images/about/Sprechzimmer.jpg",
-            "caption": "Sprechzimmer"
+            "src": "/images/about/simpsons1.png",
+            "caption": "Unser OP"
         },
         {
-            "src": "/images/about/Empfang.jpg",
-            "caption": "Empfang"
+            "src": "/images/about/simpsons2.png",
+            "caption": "Vertrauensvolle Beratung"
         },
         {
-            "src": "/images/about/Labor.jpg",
-            "caption": "Labor"
+            "src": "/images/about/simpsons3.png",
+            "caption": "Zufriedene Patienten"
         },
         {
-            "src": "/images/about/Wartezimmer.jpg",
-            "caption": "Wartezimmer"
+            "src": "/images/about/simpsons4.png",
+            "caption": "Gute Vitalzeichen"
         }
     ]
 }

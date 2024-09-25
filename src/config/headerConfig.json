@@ -1,7 +1,7 @@
 {
     "logo": {
-        "light": "/images/logo/logo-2.svg",
-        "dark": "/images/logo/logo.svg",
+        "light": "/images/logo/adler.png",
+        "dark": "/images/logo/adler.png",
         "alt": "logo",
         "width": 140,
         "height": 30
@@ -28,5 +28,5 @@
             "path": "/downloadsBestellungen"
         }
     ],
-    "contactNumber": "Tel. 081 756 2121"
+    "contactNumber": "Tel. 081 756 1234"
 }

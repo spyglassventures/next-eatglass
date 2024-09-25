@@ -2,21 +2,21 @@
 
 const documents = [
     {
-        name: 'CIRS Vorlage Praxis Kappelihof',
+        name: 'CIRS Vorlage Praxis Muster',
         filename: 'CIRS_Vorlage_Praxis_Kappelihof.pdf',
         path: '/api/documents/list_documents?filename=CIRS_Vorlage_Praxis_Kappelihof.pdf',
         previewable: true,
         contentType: 'application/pdf',
     },
     {
-        name: 'Praxis Kappelihof Vorlage Arztpraxis CIRS Reporting',
+        name: 'Praxis Muster Vorlage Arztpraxis CIRS Reporting',
         filename: 'Praxis_Kappelihof_Vorlage_Arztpraxis_CIRS_Reporting.docx',
         path: '/api/documents/list_documents?filename=Praxis_Kappelihof_Vorlage_Arztpraxis_CIRS_Reporting.docx',
         previewable: false,
         contentType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     },
     {
-        name: 'Praxis Kappelihof Vorlage Arztpraxis CIRS Reporting',
+        name: 'Praxis Muster Vorlage Arztpraxis CIRS Reporting',
         filename: 'Praxis_Kappelihof_Vorlage_Arztpraxis_CIRS_Reporting.pdf',
         path: '/api/documents/list_documents?filename=Praxis_Kappelihof_Vorlage_Arztpraxis_CIRS_Reporting.pdf',
         previewable: true,

@@ -18,7 +18,7 @@
                 }
             ]
         },
-         {
+        {
             "label": "Adresse",
             "variable": "adresse",
             "options": [
@@ -33,8 +33,8 @@
             "variable": "telRueckfragen",
             "options": [
                 {
-                    "value": "+41817562121",
-                    "label": "+41 81 756 2121"
+                    "value": "+41811234567",
+                    "label": "+41 81 756 1234"
                 }
             ]
         },
@@ -85,8 +85,8 @@
             "variable": "telefon",
             "options": [
                 {
-                    "value": "+41817562121",
-                    "label": "+41 81 756 2121"
+                    "value": "+41811234567",
+                    "label": "+41 81 756 1234"
                 }
             ]
         },

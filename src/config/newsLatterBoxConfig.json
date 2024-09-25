@@ -3,12 +3,12 @@
     "address": {
         "title": "Adresse",
         "content": [
-            "Hausarztpraxis Buchs AG (Praxis Kappelihof)",
-            "Grünaustrasse 1",
-            "9470 Buchs SG",
-            "E-Mail: praxisbuchs@hin.ch",
-            "Telefon: +41 81 756 21 21",
-            "CHE-459.995.311"
+            "Hausarztpraxis Muster AG",
+            "Bahnhofstr. 1",
+            "7777 Musterstadt BE",
+            "E-Mail: praxismuster@hin.ch",
+            "Telefon: +41 81 123 45 67",
+            "CHE-459.222.111"
         ]
     },
     "openingHours": {
