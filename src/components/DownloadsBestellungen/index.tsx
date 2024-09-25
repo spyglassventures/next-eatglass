@@ -61,7 +61,7 @@ const DownloadsBestellungen = () => {
                 <a
                   href={medikamentForm.path + medikamentForm.filename}
                   download={medikamentForm.filename}
-                  className="inline-flex items-center px-4 py-2 bg-amber-500 text-white font-semibold rounded-lg hover:bg-amber-600 transition"
+                  className="inline-flex items-center px-4 py-2 bg-primary text-white font-semibold rounded-lg hover:bg-amber-600 transition"
                 >
                   Download {medikamentForm.name}
                 </a>
@@ -82,13 +82,13 @@ const DownloadsBestellungen = () => {
               <div className="flex space-x-2">
                 <button
                   onClick={() => handleSortChange('name')}
-                  className={`px-4 py-2 rounded-lg font-medium ${sortKey === 'name' ? 'bg-amber-500 text-white' : 'bg-gray-400 text-white hover:bg-amber-500'}`}
+                  className={`px-4 py-2 rounded-lg font-medium ${sortKey === 'name' ? 'bg-primary text-white' : 'bg-gray-400 text-white hover:bg-amber-600'}`}
                 >
                   Name {sortKey === 'name' && (sortOrder === 'asc' ? '↑' : '↓')}
                 </button>
                 <button
                   onClick={() => handleSortChange('filename')}
-                  className={`px-4 py-2 rounded-lg font-medium ${sortKey === 'filename' ? 'bg-amber-500 text-white' : 'bg-gray-400 text-white hover:bg-amber-500'}`}
+                  className={`px-4 py-2 rounded-lg font-medium ${sortKey === 'filename' ? 'bg-primary text-white' : 'bg-gray-400 text-white hover:bg-amber-600'}`}
                 >
                   Dateiname {sortKey === 'filename' && (sortOrder === 'asc' ? '↑' : '↓')}
                 </button>
@@ -96,7 +96,7 @@ const DownloadsBestellungen = () => {
                 {/* Language Filter Toggle */}
                 <button
                   onClick={toggleLanguage}
-                  className={`px-4 py-2 rounded-lg ${language === 'DE' ? 'bg-amber-500 text-white' : 'bg-amber-500 text-white hover:bg-amber-600'}`}
+                  className={`px-4 py-2 rounded-lg ${language === 'DE' ? 'bg-primary text-white' : 'bg-primary text-white hover:bg-amber-600'}`}
                 >
                   {language === 'DE' ? 'nur PDFs in Deutsch' : 'nur PDFs in Englisch'}
                 </button>

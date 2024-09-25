@@ -23,8 +23,8 @@
             "variable": "adresse",
             "options": [
                 {
-                    "value": "Grünaustrasse 1, 9470 Buchs SG",
-                    "label": "Grünaustrasse 1, 9470 Buchs SG"
+                    "value": "Musterstrasse 100, 9470 Buchs SG",
+                    "label": "Musterstrasse 100, 9470 Buchs SG"
                 }
             ]
         },

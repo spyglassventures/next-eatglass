@@ -1,11 +1,11 @@
 {
     "hero": {
-        "showBackground": false,
+        "showBackground": true,
         "backgroundClass": "bg-white dark:bg-gray-dark",
         "backgroundMedia": {
             "type": "video",
             "comment": "can be video or image",
-            "src": "favicon.ico",
+            "src": "/images/hero/mikro.mp4",
             "comment2": "Beispiel /images/hero/background.jpg or /images/about/video1.mov  <- nur Bsp",
             "comment3": "favicon.ico can be used as a placeholder picture"
         },
@@ -13,22 +13,22 @@
         "description": "Das Wohl unserer Patienten steht im Mittelpunkt unserer ärztlichen Bemühungen. Mit der Zielsetzung, die medizinische Versorgung auf höchstem Niveau zu halten, bieten wir moderne Geräte, eine entsprechende Infrastruktur, patientenfreundliche Sprechzeiten und ein gut ausgebildetes Praxisteam.",
         "callToAction": {
             "showCallButton": true,
-            "showWhatsAppChatButton": false,
-            "showOnlineTerminButton": false,
+            "showWhatsAppChatButton": true,
+            "showOnlineTerminButton": true,
             "callButton": {
                 "label": "Anrufen",
                 "link": "tel:+41811234567",
-                "class": "ease-in duration-300 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-80"
+                "class": "ease-in duration-300 bg-primary hover:-translate-y-1 hover:scale-110 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-80"
             },
             "whatsappButton": {
                 "label": "Schreiben Sie uns per WhatsApp",
-                "link": "https://wa.me/41765391726/?text=Liebes%20Praxisteam,%20Ich%20",
+                "link": "https://wa.me/41798329298/?text=Liebes%20Praxisteam,%20Ich%20",
                 "class": "ease-in duration-300 bg-green-500 hover:-translate-y-1 hover:scale-110 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded w-80"
             },
             "onlineBookingButton": {
                 "label": "Online Termine buchen",
                 "link": "https://www.onedoc.ch/de/gruppenpraxis/stafa/e5nx/praxis-kirchbuhl-ag-stafa",
-                "class": "ease-in duration-300 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-80"
+                "class": "ease-in duration-300 bg-primary hover:-translate-y-1 hover:scale-110 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-80"
             }
         },
         "svgGradientStops": [
