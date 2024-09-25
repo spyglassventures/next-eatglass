@@ -1,0 +1,37 @@
+{
+    "isActive": true,
+    "link": "https://teams.live.com/meet/9488495745247?p=eXGXAElUNsidZz95fu",
+    "_comment": "// # src/config/videocallConfig.json Teams Links muss vom Arzt selbst via Teams erstellt werden",
+    "metadata": {
+        "title": "Das Team der Praxis Kappelihof",
+        "description": "Dr. med. Christoph Berg und das MPA Team der Praxis Kappelihof in Buchs, SG"
+    },
+    "pageContent": {
+        "Breadcrumb": {
+            "pageName": "Videocall",
+            "description": "Dr. med. Christoph Berg und das MPA Team der Praxis Kappelihof ist auch per Videoanruf erreichbar."
+        }
+    },
+    "deactivatedMessage": "Diese Funktionalität ist derzeit nicht aktiv.",
+    "instructions": {
+        "title": "Anleitung zum Beitreten eines Microsoft Teams Anrufs",
+        "steps": [
+            {
+                "title": "Schritt 1: Link öffnen",
+                "content": "Klicken Sie auf den untenstehenden Link, um den Microsoft Teams Anruf zu öffnen."
+            },
+            {
+                "title": "Schritt 2: App oder Browser",
+                "content": "Sie werden gefragt, ob Sie die Microsoft Teams App herunterladen möchten oder dem Anruf über Ihren Browser beitreten möchten. Wählen Sie die für Sie passende Option."
+            },
+            {
+                "title": "Schritt 3: Anmelden",
+                "content": "Melden Sie sich mit Ihrem Microsoft-Konto an oder treten Sie als Gast bei, indem Sie Ihren Namen eingeben."
+            },
+            {
+                "title": "Schritt 4: Anruf beitreten",
+                "content": "Folgen Sie den Anweisungen auf dem Bildschirm, um dem Anruf beizutreten. Stellen Sie sicher, dass Ihre Kamera und Ihr Mikrofon funktionieren."
+            }
+        ]
+    }
+}

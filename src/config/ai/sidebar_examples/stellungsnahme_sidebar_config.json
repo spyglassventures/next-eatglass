@@ -1,0 +1,17 @@
+{
+    "examples": [
+        "Medi Rybelsus, Diabetis",
+        "Ernaehrungsberatung, Adipositas",
+        "LZ-Physio, Cerebralem Insult L",
+        "Psychotherapie, Depression",
+        "Rehabilitation, Rückenmarksverletzung",
+        "Ergotherapie, Schlaganfall",
+        "Hörgerät, Schwerhörigkeit",
+        "Diätberatung, Fettleibigkeit"
+    ],
+    "abkuerzungen": [
+        "W: Woche",
+        "M: Monat",
+        "K: Krankheit"
+    ]
+}

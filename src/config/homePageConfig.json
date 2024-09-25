@@ -1,0 +1,21 @@
+{
+    "metadata": {
+        "title": "Praxis Kappelihof, Buchs",
+        "description": "Ihre Hausarztpraxis in St. Gallen, - Doktor. Berg"
+    },
+    "modules": {
+        "ScrollUp": true,
+        "Hero": true,
+        "NewsTicker": true,
+        "AboutSectionTwo": false,
+        "Openinghours": false,
+        "Features": true,
+        "Video": false,
+        "Brands": true,
+        "AboutSectionOne": false,
+        "Testimonials": false,
+        "Pricing": false,
+        "Blog": false,
+        "Contact": false
+    }
+}

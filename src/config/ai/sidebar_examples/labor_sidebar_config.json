@@ -1,0 +1,41 @@
+{
+    "filename": "labor_sidebar_config.json",
+    "examples": [
+        "chr pankreatitis",
+        "grippaler Infekt, 3 T, 45 J, w",
+        "w, 20j, Fieber, 38, seit 2 T, Diabetes",
+        "Bauchschmerzen, 25 J, m, Ibuprofen",
+        "Blut im Stuhl, 50 J, m, Aspirin",
+        "Lungenembolie, 60 J, OP",
+        "LOINC Glucose im Serum",
+        "... umrechnen in SI"
+    ],
+    "abkuerzungen": [
+        "T: Tage",
+        "J: Jahre",
+        "w: weiblich",
+        "m: männlich",
+        "chr: chronische",
+        "Medis: Medikamente",
+        "KG: Krankengeschichte",
+        "F: Fieber",
+        "Sz: Schmerzen",
+        "BD: Blutdruck",
+        "RR: Blutdruck (Riva-Rocci)",
+        "P: Puls",
+        "HF: Herzfrequenz",
+        "AF: Atemfrequenz",
+        "O2: Sauerstoffsättigung",
+        "BZ: Blutzucker",
+        "EKG: Elektrokardiogramm",
+        "CT: Computertomographie",
+        "MRT: Magnetresonanztomographie",
+        "US: Ultraschall",
+        "OP: Operation",
+        "NW: Nebenwirkungen",
+        "LZ: Langzeit",
+        "Vd: Verdacht auf",
+        "WS: Wirbelsäule",
+        "Frakt: Fraktur"
+    ]
+}

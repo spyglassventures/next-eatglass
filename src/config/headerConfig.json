@@ -1,0 +1,32 @@
+{
+    "logo": {
+        "light": "/images/logo/logo-2.svg",
+        "dark": "/images/logo/logo.svg",
+        "alt": "logo",
+        "width": 140,
+        "height": 30
+    },
+    "menu": [
+        {
+            "title": "Home",
+            "path": "/"
+        },
+        {
+            "title": "Team",
+            "path": "/about"
+        },
+        {
+            "title": "Unser Angebot",
+            "path": "/services"
+        },
+        {
+            "title": "Lageplan und Kontakt",
+            "path": "/contactForm"
+        },
+        {
+            "title": "Medibestellung & Formulare",
+            "path": "/downloadsBestellungen"
+        }
+    ],
+    "contactNumber": "Tel. 081 756 2121"
+}

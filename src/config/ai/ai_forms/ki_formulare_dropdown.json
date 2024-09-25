@@ -1,0 +1,138 @@
+{
+    "dropdowns": [
+        {
+            "label": "AHV/IV Stelle (falls zutreffend)",
+            "variable": "ahviv",
+            "options": [
+                {
+                    "value": "SVA St.Gallen, Brauerstrasse 54, 9016 St.Gallen",
+                    "label": "St. Gallen"
+                },
+                {
+                    "value": "AHV/IV Bern",
+                    "label": "Bern"
+                },
+                {
+                    "value": "AHV/IV Genf",
+                    "label": "Genf"
+                }
+            ]
+        },
+         {
+            "label": "Adresse",
+            "variable": "adresse",
+            "options": [
+                {
+                    "value": "Grünaustrasse 1, 9470 Buchs SG",
+                    "label": "Grünaustrasse 1, 9470 Buchs SG"
+                }
+            ]
+        },
+        {
+            "label": "Tel. Nummer für Rückfragen",
+            "variable": "telRueckfragen",
+            "options": [
+                {
+                    "value": "+41817562121",
+                    "label": "+41 81 756 2121"
+                }
+            ]
+        },
+        {
+            "label": "Zeitfenster für Rückfragen",
+            "variable": "zeitfensterRueckfragen",
+            "options": [
+                {
+                    "value": "Fr, 14:00 - 16:00 Uhr",
+                    "label": "Fr, 14:00 - 16:00 Uhr"
+                },
+                {
+                    "value": "Di, 10:00 - 12:00 Uhr",
+                    "label": "Di, 10:00 - 12:00 Uhr"
+                },
+                {
+                    "value": "Mi, 14:00 - 16:00 Uhr",
+                    "label": "Mi, 14:00 - 16:00 Uhr"
+                }
+            ]
+        },
+        {
+            "label": "Arztname",
+            "variable": "arztname",
+            "options": [
+                {
+                    "value": "Christoph Berg",
+                    "label": "Christoph Berg"
+                },
+                {
+                    "value": "Vertreter",
+                    "label": "Vertreter"
+                }
+            ]
+        },
+        {
+            "label": "Fachrichtung",
+            "variable": "fachrichtung",
+            "options": [
+                {
+                    "value": "FA Allgemeinmedizin",
+                    "label": "FA Allgemeinmedizin"
+                }
+            ]
+        },
+        {
+            "label": "Telefon",
+            "variable": "telefon",
+            "options": [
+                {
+                    "value": "+41817562121",
+                    "label": "+41 81 756 2121"
+                }
+            ]
+        },
+        {
+            "label": "GLN",
+            "variable": "gln",
+            "options": [
+                {
+                    "value": "7601007461295",
+                    "label": "CB, 7601007461295"
+                },
+                {
+                    "value": "7601002146425",
+                    "label": "Praxis, 7601002146425"
+                }
+            ]
+        },
+        {
+            "label": "ZSR",
+            "variable": "zsr",
+            "options": [
+                {
+                    "value": "I280017",
+                    "label": "I280017"
+                }
+            ]
+        },
+        {
+            "label": "Fax",
+            "variable": "fax",
+            "options": [
+                {
+                    "value": "-",
+                    "label": "-"
+                }
+            ]
+        },
+        {
+            "label": "eMail",
+            "variable": "email",
+            "options": [
+                {
+                    "value": "praxiskappelihof@hin.ch",
+                    "label": "praxiskappelihof@hin.ch"
+                }
+            ]
+        }
+    ]
+}

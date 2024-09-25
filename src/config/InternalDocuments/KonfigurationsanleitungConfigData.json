@@ -1,0 +1,94 @@
+{
+    "aboutPageContent.json": {
+        "editable": "Textinhalt auf der Team-Seite",
+        "example": "Überschrift über den Bildern"
+    },
+    "aboutSectionOneConfig.json": {
+        "editable": "Inhalt des Abschnitts 'Unser Angebot'",
+        "example": "Unterpunkte wie 'Was Sie von uns erwarten können', 'Moderne Diagnostik mit adäquater Therapie', 'Früherkennung von Krankheiten'"
+    },
+    "aboutSectionTwoConfig.json": {
+        "editable": "Teamseite: Namen der MPAs, Bilderpfade",
+        "example": "Bearbeitung Infos zu Teammitglieder"
+    },
+    "agbPageConfig.json": {
+        "editable": "Inhalt der AGB, Datenschutz, Allgemeine Geschäftsbedingungen",
+        "example": "Aktualisierung rechtlicher Hinweise"
+    },
+    "brandsData.tsx": {
+        "editable": "Partnerlogos auf der Startseite (Labor, Großhändler, etc.)",
+        "example": "Hinzufügen einer neuen Marke: Name, Link, Bildpfad werden benötigt"
+    },
+    "contactPageConfig.json": {
+        "editable": "Kontaktdetails (meist nicht genutzt)",
+        "example": "Änderung der Support-E-Mail-Adresse"
+    },
+    "featuresData.tsx": {
+        "editable": "Liste des Angebots auf der Startseite mit kleinen Logos",
+        "example": "Hinzufügen einer neuen Funktion"
+    },
+    "footerConfig.json": {
+        "editable": "Inhalt der Fußzeile",
+        "example": "Aktualisierung der Links zu den einzelnen Seiten, Anpassung der Spalteninhalte"
+    },
+    "headerConfig.json": {
+        "editable": "Navigation im Kopfbereich",
+        "example": "Hinzufügen eines neuen Menüpunkts, Änderung der Telefonnummer"
+    },
+    "heroConfig.json": {
+        "editable": "Hauptbereich auf der Startseite",
+        "example": "Änderung des Hintergrundbildes, Hinzufügen von Buttons (z.B. für WhatsApp, One Doc, Anruf), Änderung der Telefonnummer, SVG oben rechts"
+    },
+    "homePageConfig.json": {
+        "editable": "Abschnitte der Startseite",
+        "example": "Ein- oder Ausblenden von Abschnitten der Startseite (true/false)"
+    },
+    "lageplanConfig.json": {
+        "editable": "Lageplan und Kontaktinformationen",
+        "example": "Standort der Praxis, Google Maps-Skizze"
+    },
+    "modalConfig.json": {
+        "editable": "Steuerung des Popups auf der Startseite (z.B. für Praxisnews, Ferien, etc.)",
+        "example": "`isModalEnabled`: \n- Beispiel: \n  - `true`: Das Modal wird beim Laden der Seite angezeigt.\n  - `false`: Das Modal wird nicht angezeigt."
+    },
+    "newsLatterBoxConfig.json": {
+        "editable": "Öffnungszeiten, Adresse, Notfallnummern",
+        "example": "Anpassung von Öffnungszeiten, Notfallnummern, etc."
+    },
+    "newsTickerConfig.json": {
+        "editable": "Inhalt des Newstickers auf der Startseite",
+        "example": "Aktualisierung der Nachricht, z.B. 'Wir bitten um telefonische Terminvereinbarung...'"
+    },
+    "servicesPageConfig.json": {
+        "editable": "Unser Angebot",
+        "example": "Ein- oder Ausblenden der Abschnitte 1 und 2, Öffnungszeiten ein- oder ausblenden"
+    },
+    "videocallConfig.json": {
+        "editable": "Einstellungen für Videoanrufe",
+        "example": "Änderung des Standard-Meetinglinks (z.B. für Teams), Aktivieren oder Deaktivieren des Buttons"
+    },
+    "Aemtlis.js": {
+        "editable": "Ämterliste, noch in Entwicklung",
+        "example": "Änderung des Leitbildes"
+    },
+    "DocNumbers.ts": {
+        "editable": "Praxisnummern",
+        "example": "GLN, ZSR, IBAN, Konto, Logins, etc."
+    },
+    "DrugShortageData.ts": {
+        "editable": "Informationen zu nicht bestellbaren Medikamenten (Test noch nicht automatisiert)",
+        "example": "Änderung der eingelesenen Dateien"
+    },
+    "filesConfig.js": {
+        "editable": "Interne Dokumente - PDFs und Word-Dokumente zum Download",
+        "example": "Neue Dateien müssen hier eingetragen werden."
+    },
+    "KonfigurationsanleitungConfigData.json": {
+        "editable": "Text in dieser Tabelle",
+        "example": "Beim Hinzufügen einer neuen Config-Datei muss diese hier eingetragen werden."
+    },
+    "components.js": {
+        "editable": "Navigation im internen Bereich",
+        "example": "Menüelemente können ein- und ausgeschaltet werden (visible: true/false)"
+    }
+}

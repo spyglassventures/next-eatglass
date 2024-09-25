@@ -1,0 +1,21 @@
+{
+    "filename": "diagnose_sidebar_config.json",
+    "examples": [
+        "Impfass: Liste welche Impfungen wann gemacht wurde. Nenne dann welche Impfungen wann zur Auffrischung fällig sind (rechne den Termin auf Basis der letzten Impfung). In einem neuen Block: Nenne zudem welche Impfungen noch fehlen. Überschriften sind mit ** zu kennzeichnen.",
+        "Wundbeschreibung: Beschreibe die Wunde für eine medizinische Dokumentation. Nenne adjektive die spezifisch für die Wunde sind. Nenne Besonderheiten. Empfehle naechste Schritte.",
+        "Hautanalyse: Du bist ein Dermatologe und gibst du best moegliche Beschreibung der Haut deines Patienten. Nenne Besonderheiten und spezifische Adjektive. Empfehle Untersuchungen.",
+        "EKG: Du bist ein Kardiologe. Beschreibe das EKG deines Patienten. Nenne Besonderheiten und gib Empfehlungen.",
+        "Röntgenbild: Du bist ein Radiologe. Beschreibe das Röntgenbild deines Patienten. Nenne Besonderheiten und gib Empfehlungen.",
+        "Ultraschallbild: Du bist ein Internist. Beschreibe das Ultraschallbild deines Patienten. Nenne Besonderheiten und gib Empfehlungen."
+    ],
+    "abkuerzungen": [
+        "nicht relevant"
+    ],
+    "imagePaths": [
+        "/images/imageAnalysis/Impass_ausgefuellt.jpeg",
+        "/images/imageAnalysis/Wunde.jpg",
+        "/images/imageAnalysis/haut.jpg",
+        "/images/imageAnalysis/ekg.jpg",
+        "/images/imageAnalysis/xray2.jpg"
+    ]
+}

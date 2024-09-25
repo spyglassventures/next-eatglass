@@ -1,0 +1,15 @@
+{
+    "filename": "ernaehrung_sidebar_config.json",
+    "examples": [
+        "Kapselzerrung, Schmerzen, Schwellung",
+        "Wespenstich, Schwellung, Rötung",
+        "Bremsenstich/Bräme Stich",
+        "Knöchel umgeknickt, Schmerzen, k. Schwellung",
+        "Quetschung, Schmerzen, blauer Fleck",
+        "Schleimbeutelentzündung, k.S"
+    ],
+    "abkuerzungen": [
+        "L: Links",
+        "R: Rechts"
+    ]
+}

@@ -1,0 +1,42 @@
+{
+    "team": [
+        {
+            "src": "/images/about/old/16.jpg",
+            "caption": "Dr. Christoph Berg, Facharzt Allgemeine Medizin"
+        },
+        {
+            "src": "/images/about/old/Rahel.jpg",
+            "caption": "Rahel Riederer, MPA"
+        },
+        {
+            "src": "/images/about/old/Ledi.jpg",
+            "caption": "Ledejna Mehuka, MPA"
+        },
+        {
+            "src": "/images/about/old/Karin.jpg",
+            "caption": "Karin Rhyner, MPA"
+        },
+        {
+            "src": "/images/about/old/Eliza.jpg",
+            "caption": "Eliza Rustemi, MPA in Ausbildung"
+        }
+    ],
+    "praxis": [
+        {
+            "src": "/images/about/Sprechzimmer.jpg",
+            "caption": "Sprechzimmer"
+        },
+        {
+            "src": "/images/about/Empfang.jpg",
+            "caption": "Empfang"
+        },
+        {
+            "src": "/images/about/Labor.jpg",
+            "caption": "Labor"
+        },
+        {
+            "src": "/images/about/Wartezimmer.jpg",
+            "caption": "Wartezimmer"
+        }
+    ]
+}

@@ -1,0 +1,25 @@
+{
+    "filename": "medis_sidebar_config.json",
+    "examples": [
+        "Ramipril, Diabetiker T2",
+        "arlevert, schwindel",
+        "Aspirin, Blutdruck hoch, 55 J, w",
+        "Ibuprofen, Magenprobleme, 40 J, m",
+        "Metformin, Gewichtsverlust, 60 J, m",
+        "Paracetamol, Fieber, 35 J, w",
+        "Simvastatin, Cholesterin hoch, 50 J, m",
+        "Amoxicillin, Infektion, 30 J, 92kg, bakt.",
+        "Losartan, Bluthochdruck, 65 J, m"
+    ],
+    "abkuerzungen": [
+        "T: Tage",
+        "J: Jahre",
+        "w: weiblich",
+        "m: männlich",
+        "Medis: Medikamente",
+        "NW: Nebenwirkungen",
+        "GFR: Glomeruläre Filtrationsrate",
+        "GTIN: Global Trade Item Number",
+        "Pharmacode: Pharmazeutischer Code"
+    ]
+}

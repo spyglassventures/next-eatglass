@@ -1,0 +1,13 @@
+{
+    "filename": "freitext_sidebar_config.json",
+    "examples": [
+        "Wie kannst du mir helfen?",
+        "Erstellt mir ein ...",
+        "Erklaere mir ...",
+        "Schreibe mir ein ..."
+    ],
+    "abkuerzungen": [
+        "T: Tage",
+        "J: Jahre"
+    ]
+}

@@ -1,0 +1,143 @@
+/* Importing Google Font */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+  body {
+    font-family: "Inter", sans-serif;
+  }
+}
+
+
+@layer components {
+  input[type="checkbox"]:checked~label span svg {
+    @apply inline-flex;
+  }
+
+
+  .sticky .header-logo {
+    @apply py-5 lg:py-2;
+  }
+
+
+  .sticky .menu-scroll.active {
+    @apply opacity-70;
+  }
+
+
+  input#togglePlan:checked~.dot {
+    @apply translate-x-full;
+  }
+
+
+  input#checkboxLabel:checked~.box span {
+    @apply opacity-100;
+  }
+}
+
+
+button:disabled {
+  background-color: #fff;
+  color: #fff;
+}
+
+/* Modal related */
+.ReactModal__Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #fff;
+  z-index: 1000;
+}
+
+
+@media (max-width: 768px) {
+  .ReactModal__Overlay {
+    background-color: #fff;
+  }
+}
+
+
+.ReactModal__Content {
+  width: 50%;
+  height: auto;
+  max-width: 600px;
+  max-height: 38vh;
+  margin: auto;
+  position: relative;
+  padding: 20px;
+  overflow: auto;
+  border-radius: 8px;
+  background-color: #fff;
+  /* Default light mode background */
+  box-shadow: 0 4px 6px #fff;
+}
+
+@media (max-width: 768px) {
+  .ReactModal__Content {
+    width: 100%;
+    max-width: 90%;
+    height: 55%;
+    max-height: 55%;
+    border-radius: 0;
+    margin: auto;
+    position: fixed;
+    /* Use fixed to position relative to the viewport */
+
+    transform: translate(-5%, -10%);
+    /* Offset the modal to the exact center */
+
+  }
+}
+
+
+
+/* Pulsing for microphone */
+@keyframes pulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7), 0 0 0 0 rgba(0, 0, 0, 0.7);
+  }
+
+  50% {
+    box-shadow: 0 0 0 20px rgba(255, 255, 255, 0), 0 0 0 20px rgba(0, 0, 0, 0);
+  }
+}
+
+
+.pulse-ring {
+  animation: pulse 2.0s infinite;
+}
+
+
+/* Backround for landing page styles/index.css */
+.background-image {
+  background-image: url('/images/hero/background.jpg');
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.overlay {
+  background: rgba(0, 0, 0, 0.5);
+  /* Adjust the color and opacity as needed */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}

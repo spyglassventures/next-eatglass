@@ -1,0 +1,141 @@
+{
+    "fields": [
+        {
+            "id": "A_1",
+            "label": "Allgemeine Angaben: Die Behandlung erfolgte wann und durch wen?",
+            "placeholder": "Die Behandlung erfolgte wann und durch wen?"
+        },
+        {
+            "id": "A_2",
+            "label": "Allgemeine Angaben: Wie oft ist der Patient gegenwärtig in Behandlung?",
+            "placeholder": "Wie oft ist der Patient gegenwärtig in Behandlung?"
+        },
+        {
+            "id": "A_3",
+            "label": "Allgemeine Angaben: Wie sieht der Verlauf der bisher attestierten Arbeitsunfähigkeit aus?",
+            "placeholder": "Wie sieht der Verlauf der bisher attestierten Arbeitsunfähigkeit aus?"
+        },
+        {
+            "id": "A_4",
+            "label": "Allgemeine Angaben: Subjektive Angaben des Patienten",
+            "placeholder": "Subjektive Angaben des Patienten"
+        },
+        {
+            "id": "A_5",
+            "label": "Allgemeine Angaben: Welche früheren Erkrankungen und Unfälle beeinflussen den Heilungsverlauf?",
+            "placeholder": "Welche früheren Erkrankungen und Unfälle beeinflussen den Heilungsverlauf?"
+        },
+        {
+            "id": "A_6",
+            "label": "Allgemeine Angaben: Für welche Tätigkeiten haben Sie die Arbeitsunfähigkeit attestiert?",
+            "placeholder": "Für welche Tätigkeiten haben Sie die Arbeitsunfähigkeit attestiert?"
+        },
+        {
+            "id": "A_7",
+            "label": "Allgemeine Angaben: Gibt es weitere Behandler (Spezialärzte, Spitäler oder Therapeuten)?",
+            "placeholder": "Gibt es weitere Behandler (Spezialärzte, Spitäler oder Therapeuten)?"
+        },
+        {
+            "id": "B_1",
+            "label": "Medizinische Situation: Vorgeschichte und Entwicklung der Patientin/des Patienten",
+            "placeholder": "Vorgeschichte und Entwicklung der Patientin/des Patienten"
+        },
+        {
+            "id": "B_2",
+            "label": "Medizinische Situation: Aktuelle medizinische Symptomatik und Situation",
+            "placeholder": "Aktuelle medizinische Symptomatik und Situation"
+        },
+        {
+            "id": "B_8",
+            "label": "Medizinische Situation: Aktuelle Medikation (einschl. Dosis)",
+            "placeholder": "Aktuelle Medikation (einschl. Dosis)"
+        },
+        {
+            "id": "B_3",
+            "label": "Medizinische Situation: Ausführliche objektive Befunde auf Basis Ihrer Untersuchungen",
+            "placeholder": "Ausführliche objektive Befunde auf Basis Ihrer Untersuchungen"
+        },
+        {
+            "id": "B_4",
+            "label": "Medizinische Situation: Diagnosen mit Auswirkung auf die Arbeitsfähigkeit (Bei psychischen Erkrankungen bitte ICD-10- oder DSM-5-Codes angeben.) Wann wurden welche Diagnosen gestellt?",
+            "placeholder": "Diagnosen mit Auswirkung auf die Arbeitsfähigkeit (ICD-10 oder DSM-5). Wann wurden welche Diagnosen gestellt?"
+        },
+        {
+            "id": "B_5",
+            "label": "Medizinische Situation: Diagnosen ohne Auswirkung auf die Arbeitsfähigkeit. Wann wurden welche Diagnosen gestellt?",
+            "placeholder": "Diagnosen ohne Auswirkung auf die Arbeitsfähigkeit. Wann wurden welche Diagnosen gestellt?"
+        },
+        {
+            "id": "B_6",
+            "label": "Medizinische Situation: Ihre Prognose zur Arbeitsfähigkeit",
+            "placeholder": "Ihre Prognose zur Arbeitsfähigkeit"
+        },
+        {
+            "id": "B_7",
+            "label": "Medizinische Situation: Ihr weiteres Vorgehen / Ihr Behandlungsplan (Therapien, operative Eingriffe, Medikation)",
+            "placeholder": "Ihr weiteres Vorgehen / Ihr Behandlungsplan (Therapien, operative Eingriffe, Medikation)"
+        },
+        {
+            "id": "C_1",
+            "label": "Berufliche Situation: Welche Tätigkeit übt der Patient, die Patientin gegenwärtig aus?",
+            "placeholder": "Welche Tätigkeit übt der Patient, die Patientin gegenwärtig aus?"
+        },
+        {
+            "id": "C_2",
+            "label": "Berufliche Situation: Welche Informationen zur beruflichen Situation liegen Ihnen vor?",
+            "placeholder": "Welche Informationen zur beruflichen Situation liegen Ihnen vor?"
+        },
+        {
+            "id": "C_3",
+            "label": "Berufliche Situation: Welche Anforderungen stellt die aktuelle Tätigkeit an Ihre Patientin, Ihren Patienten? (Zum Beispiel: körperlich streng / wechselbelastend / repetitiv / Führungsfunktion / Schichtarbeit / Teamarbeit / Kundenkontakt. Oder Ähnliches.)",
+            "placeholder": "Welche Anforderungen stellt die aktuelle Tätigkeit an Ihre Patientin, Ihren Patienten?"
+        },
+        {
+            "id": "C_6",
+            "label": "Berufliche Situation: Welche Funktionseinschränkungen bestehen? Wie wirken sie sich auf die bisherige Tätigkeit aus? Bitte beschreiben Sie die Einschränkungen.",
+            "placeholder": "Welche Funktionseinschränkungen bestehen? Wie wirken sie sich auf die bisherige Tätigkeit aus? Bitte beschreiben Sie die Einschränkungen."
+        },
+        {
+            "id": "C_4",
+            "label": "Berufliche Situation: Hat Ihr Patient, Ihre Patientin Ressourcen, die für eine Eingliederung hilfreich sein können? (Zum Beispiel: Sprachkenntnisse / Weiterbildungen / Tagesablauf / ehrenamtliche Tätigkeiten / Hobbys / Freizeit / Kontakte zu Freunden / Reisen).",
+            "placeholder": "Hat Ihr Patient, Ihre Patientin Ressourcen, die für eine Eingliederung hilfreich sein können?"
+        },
+        {
+            "id": "C_5",
+            "label": "Berufliche Situation: Gibt es Zweifel an der Fahreignung? Welche?",
+            "placeholder": "Gibt es Zweifel an der Fahreignung? Welche?"
+        },
+        {
+            "id": "D_1",
+            "label": "Potenzial für die Eingliederung: Wie viele Stunden pro Tag ist die bisherige Tätigkeit zumutbar?",
+            "placeholder": "Wie viele Stunden pro Tag ist die bisherige Tätigkeit zumutbar?"
+        },
+        {
+            "id": "D_2",
+            "label": "Potenzial für die Eingliederung: Wie viele Stunden pro Tag ist eine dem Leiden angepasste Tätigkeit zumutbar?",
+            "placeholder": "Wie viele Stunden pro Tag ist eine dem Leiden angepasste Tätigkeit zumutbar?"
+        },
+        {
+            "id": "D_3",
+            "label": "Potenzial für die Eingliederung: Wie ist Ihre Prognose zur Eingliederung?",
+            "placeholder": "Wie ist Ihre Prognose zur Eingliederung?"
+        },
+        {
+            "id": "D_4",
+            "label": "Potenzial für die Eingliederung: Welche Faktoren stehen einer Eingliederung im Wege?",
+            "placeholder": "Welche Faktoren stehen einer Eingliederung im Wege?"
+        },
+        {
+            "id": "D_5",
+            "label": "Potenzial für die Eingliederung: In welchem Ausmaß ist Ihre Patientin, Ihr Patient bei Aufgaben im Haushalt eingeschränkt? (Zum Beispiel: Haushaltführung / Ernährung / Wohnungspflege / Einkauf / Wäsche / Kinderbetreuung.)",
+            "placeholder": "In welchem Ausmaß ist Ihre Patientin, Ihr Patient bei Aufgaben im Haushalt eingeschränkt?"
+        },
+        {
+            "id": "E_1",
+            "label": "Diverses: Was wäre für die Beurteilung des Falles außerdem wichtig? Möchten Sie uns noch etwas mitteilen?",
+            "placeholder": "Was wäre für die Beurteilung des Falles außerdem wichtig? Möchten Sie uns noch etwas mitteilen?"
+        }
+    ],
+    "docTemplatePath": "/forms/SVA_Berufliche_Integration_SG.docx",
+    "saveFileName": "Updated_SVA_Berufliche_Integration_SG.docx"
+}

@@ -1,0 +1,15 @@
+{
+    "filename": "reise_sidebar_config.json",
+    "examples": [
+        "Japan, in 2 Wochen, keine K",
+        "Brasilien, in 1 Monat, Diabetes T1",
+        "Kenya, 3 W, schwanger",
+        "Indien, in 2 M, Asthma",
+        "Sued Afrika, in 1 W, herz"
+    ],
+    "abkuerzungen": [
+        "W: Woche",
+        "M: Monat",
+        "K: Krankheit"
+    ]
+}

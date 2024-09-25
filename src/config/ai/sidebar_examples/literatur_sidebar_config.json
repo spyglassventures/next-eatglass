@@ -1,0 +1,37 @@
+{
+    "filename": "literatur_sidebar_config.json",
+    "examples": [
+        "helicobacter pylori eradikation",
+        "diabetes mellitus typ 2",
+        "coronaimpf kind",
+        "Borreliose Verlauf",
+        "Fliegen nach Herzinfarkt",
+        "Hämochromatose wie oft MRT Leber"
+    ],
+    "abkuerzungen": [
+        "FMH: Verbindung der CH Ärzte",
+        "FOPH: Bundesamt für Gesundheit, BAG",
+        "SGAIM: Gesellschaft für AIM.",
+        "SSPH+: Swiss School of Public Health",
+        "EBM: Evidence-Based Medicine",
+        "RKI: Robert Koch-Institut",
+        "SGUM: CH Gesellschaft für Sono",
+        "QMS: Qualitätsmanagementsystem",
+        "EBM: Evidenzbasierte Medizin",
+        "KVG: Krankenversicherungsgesetz",
+        "STIKO: Ständige Impfkommission",
+        "WHO: World Health Organization",
+        "S3: S3-Leitlinie",
+        "RCT: Randomized Controlled Trial",
+        "CME: Continuing Medical Education",
+        "CPG: Clinical Practice Guideline",
+        "SOAP: Dokumentationsschema",
+        "SBAR: Situation, Background, Assessment, Recommendation",
+        "PPV: Pneumococcal Polysaccharide Vaccine",
+        "TDAP: Tetanus, Diphtheria, Pertussis Vaccine",
+        "QOF: Quality and Outcomes Framework",
+        "CPD: Continuing Professional Development",
+        "CHF: Congestive Heart Failure",
+        "CKD: Chronic Kidney Disease"
+    ]
+}

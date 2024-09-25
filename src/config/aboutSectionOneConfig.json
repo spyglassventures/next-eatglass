@@ -1,0 +1,56 @@
+{
+    "sections": [
+        {
+            "title": "Was Sie von uns erwarten können.",
+            "paragraph": "Wir bieten Ihnen eine umfassende Gesundheitsversorgung an.:",
+            "listItems": [
+                "modere Diagnosetechnik",
+                "hausarztzentrierte Versorung",
+                "wir leisten Notfalldienst",
+                "Hausarztmodell für Versicherte"
+            ]
+        },
+        {
+            "title": "Moderne Diagnostik mit adäquater Therapie.",
+            "paragraph": "Wir bieten Ihnen eine Patientenversorgung auf hohem Niveau und werden uns Zeit fuer Sie nehmen. Folgendes bieten wir an:",
+            "listItems": [
+                "Eigene Praxisapotheke",
+                "Unfallversorgung/-therapie",
+                "Infusionsbehandlungen",
+                "Allergietestungen und Desensibilisierungen",
+                "Verkehrsmedizinische Untersuchungen (STVA Stufe 1)",
+                "Sport- und Taucheruntersuchung",
+                "Schmerztherapie",
+                "Eiseninfusion",
+                "EKG",
+                "Röntgen",
+                "24h-Blutdruckmessung",
+                "Ultraschalldiagnostik",
+                "Lungenfunktionsmessung",
+                "Blutsauerstoffmessung",
+                "Kleinchirurgische Eingriffe",
+                "Inkontinenzartikel",
+                "orthopädische Hilfesmittel",
+                "Nachtuntersuchungen"
+            ]
+        },
+        {
+            "title": "Früherkennung von Krankheiten",
+            "paragraph": "Gerne untersuchen wir Sie mitunter um Krankheiten möglichst früh zu erkennen.",
+            "listItems": [
+                "Check-up Untersuchung",
+                "Krebsvorsorge",
+                "Impfungen",
+                "Ultraschalldiagnostik",
+                "Ernährungsberatung",
+                "Vitalstoffanalysen",
+                "grosser Laborcheck",
+                "Reisemedizinische Beratung"
+            ]
+        }
+    ],
+    "images": {
+        "light": "/images/about/about-image.svg",
+        "dark": "/images/about/about-image-dark.svg"
+    }
+}

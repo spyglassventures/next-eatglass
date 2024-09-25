@@ -1,0 +1,90 @@
+@keyframes magnify {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.input-magnify {
+    animation: magnify 1s ease-in-out 3;
+}
+
+.attention-symbol {
+    position: absolute;
+    left: -2rem;
+    top: 0.5rem;
+}
+
+.attention-symbol::before {
+    content: '';
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid green;
+    /* Left-to-right arrow */
+    animation: fade-in-out 1s ease-in-out 3, hide-arrow 3s forwards;
+    /* Add hide-arrow animation */
+}
+
+@keyframes fade-in-out {
+
+    0%,
+    100% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+@keyframes hide-arrow {
+
+    0%,
+    66% {
+        visibility: visible;
+    }
+
+    100% {
+        visibility: hidden;
+    }
+}
+
+/* src/components/AI/styles.css used for popping the enter button when example is clicked*/
+/* src/components/AI/styles.css */
+.button-pop {
+    transition: transform 2.5s ease-in-out;
+    /* Increased duration for more noticeable effect */
+    /* border: 2px solid red;
+    background-color: yellow; */
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        background-color: green;
+        /* Initial state color */
+    }
+
+    50% {
+        transform: scale(1.1);
+        background-color: orange;
+        /* Pulse state color */
+    }
+}
+
+.button-pop.popped {
+    animation: pulse 1s infinite;
+    /* 1s duration, infinite loop */
+}

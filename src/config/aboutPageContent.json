@@ -1,0 +1,13 @@
+{
+  "_comment": "// # src/config/aboutPageContent.json",
+  "metadata": {
+    "title": "Das Team der Praxis Kappelihof",
+    "description": "Dr. med. Christoph Berg und das MPA Team der Praxis Kappelihof in Buchs, SG"
+  },
+  "pageContent": {
+    "Breadcrumb": {
+      "pageName": "Die Praxis Kappelihof",
+      "description": "Dr. med. Christoph Berg und das MPA Team der Praxis Kappelihof in Buchs, SG."
+    }
+  }
+}

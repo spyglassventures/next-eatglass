@@ -1,0 +1,32 @@
+{
+    "filename": "ernaehrung_sidebar_config.json",
+    "examples": [
+        "Reflux, Sodbrennen, saurer Magen, Verdauungsprobleme",
+        "Gicht, Harnsäure, Gelenkschmerzen, Purine",
+        "Gewichtsreduktion, Adipositas, Übergewicht, Kalorienmanagement",
+        "Diabetes, Blutzuckerspiegel, Insulinresistenz, glykämischer Index",
+        "Fettstoffwechselstörung, Cholesterin, Triglyceride, Hyperlipidämie",
+        "Nahrungsmittelunverträglichkeit, Laktoseintoleranz, Fruktosemalabsorption, Glutenunverträglichkeit",
+        "Reizdarmsyndrom (IBS), Blähungen, Durchfall, Bauchschmerzen",
+        "Gicht, Harnsäure, Gelenkschmerzen, Purine",
+        "Zöliakie, Gluten, Dünndarmprobleme, Autoimmunerkrankung",
+        "Nahrungsmittelallergie, Anaphylaxie, Hautausschlag, Immunreaktion",
+        "Nierenerkrankung, Niereninsuffizienz, Proteinurie, Elektrolythaushalt",
+        "bei Chemotherapie, Übelkeit, Immunschwäche, Appetitlosigkeit",
+        "Fettleber, Lebersteatose, Leberenzyme, Alkoholmissbrauch",
+        "Hypothyreose und Hyperthyreose, Müdigkeit, Gewichtsveränderungen, Hormonhaushalt",
+        "Vit. Mangel, Anämie, Eisenmangel, Vitamin-D-Mangel",
+        "Stress, Cortisol, Schlafstörungen, psychische Belastung",
+        "Biomarker, Blutwerte, Cholesterin, CRP (C-reaktives Protein)",
+        "Ernährungsumstellung, Diätplanung, Essgewohnheiten, Nährstoffbalance",
+        "Bluthochdruck, Salzreduktion, Herz-Kreislauf-Gesundheit, Blutdruckkontrolle",
+        "Körperliche Aktivität, Bewegung, Fitness, Ausdauer",
+        "Verdauungsstörungen, Blähungen, Verstopfung, Unwohlsein",
+        "Müdigkeit, Erschöpfung, Schlafqualität, Energiemangel",
+        "Achtsames Essen, Essverhalten, Sättigungsgefühl, emotionale Ernährung"
+    ],
+    "abkuerzungen": [
+        "L: Links",
+        "R: Rechts"
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "filename": "news_sidebar_config.json",
+    "examples": [
+        "FMH",
+        "BAG",
+        "AB",
+        "SAEZ",
+        "AGZ",
+        "NZZ",
+        "alle"
+    ],
+    "abkuerzungen": [
+        "T: Tage",
+        "J: Jahre"
+    ]
+}

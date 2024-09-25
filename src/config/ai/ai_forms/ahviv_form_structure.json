@@ -1,0 +1,116 @@
+{
+    "fields": [
+        {
+            "id": "A_1",
+            "label": "Anamnese: Wann und wie hat sich das Leiden erstmals manifestiert?",
+            "placeholder": "Wann und wie hat sich das Leiden erstmals manifestiert?"
+        },
+        {
+            "id": "A_2",
+            "label": "Anamnese: War der Patient wegen dieses Leidens schon früher in Behandlung?",
+            "placeholder": "War der Patient wegen dieses Leidens schon früher in Behandlung? Wenn ja, wo?"
+        },
+        {
+            "id": "A_3",
+            "label": "Anamnese: Bisherige Therapien",
+            "placeholder": "Bisherige Therapien:"
+        },
+        {
+            "id": "B_1",
+            "label": "Anamnese: Subjektive Angaben des Patienten",
+            "placeholder": "Subjektive Angaben des Patienten"
+        },
+        {
+            "id": "B_2",
+            "label": "Anamnese: Welche früheren Erkrankungen und Unfälle beeinflussen den Heilungsverlauf?",
+            "placeholder": "Frühere Erkrankungen und Unfälle, die den Heilungsverlauf beeinflussen"
+        },
+        {
+            "id": "B_3",
+            "label": "Anamnese: Weiteres",
+            "placeholder": "Weitere relevante Angaben"
+        },
+        {
+            "id": "C_1",
+            "label": "Objektive Befunde: Morphologisches Schadensbild",
+            "placeholder": "Beschreiben Sie das morphologische Schadensbild"
+        },
+        {
+            "id": "C_2",
+            "label": "Objektive Befunde: Funktionelles Schadensbild",
+            "placeholder": "Beschreiben Sie das funktionelle Schadensbild"
+        },
+        {
+            "id": "C_3",
+            "label": "Objektive Befunde: Untersuchungen und bildgebende Verfahren mit Kopien der Befunde",
+            "placeholder": "Ergebnisse der Untersuchungen und bildgebenden Verfahren"
+        },
+        {
+            "id": "D_1",
+            "label": "Diagnose: ICD-Code und allfällige Differenzialdiagnose(n) mit Auswirkung auf die Arbeitsunfähigkeit",
+            "placeholder": "ICD-Code und Differenzialdiagnose(n) mit Auswirkung auf die Arbeitsunfähigkeit"
+        },
+        {
+            "id": "D_2",
+            "label": "Diagnose: ICD-Code und allfällige Differenzialdiagnose(n) ohne Auswirkung auf die Arbeitsunfähigkeit",
+            "placeholder": "ICD-Code und Differenzialdiagnose(n) ohne Auswirkung auf die Arbeitsunfähigkeit"
+        },
+        {
+            "id": "D_3",
+            "label": "Diagnose: Objektive Einschränkung bei der gegenwärtigen Tätigkeit",
+            "placeholder": "Objektive Einschränkung bei der gegenwärtigen Tätigkeit"
+        },
+        {
+            "id": "E_1",
+            "label": "Andere Faktoren: Gibt es besondere Umstände, welche den Heilungsverlauf ungünstig beeinflussen können?",
+            "placeholder": "Besondere Umstände, die den Heilungsverlauf beeinflussen (z.B. berufliches Umfeld, soziale Umstände)"
+        },
+        {
+            "id": "F_1",
+            "label": "Therapie: Gegenwärtige Behandlung",
+            "placeholder": "Beschreiben Sie die gegenwärtige Behandlung"
+        },
+        {
+            "id": "F_2",
+            "label": "Therapie: Prozedere/Vorschläge",
+            "placeholder": "Vorschläge oder geplante Maßnahmen (z.B. bildgebende Diagnostik, fachärztliche Untersuchungen)"
+        },
+        {
+            "id": "F_3",
+            "label": "Ist/wird der Patient hospitalisiert oder operiert?",
+            "placeholder": "Ist oder wird der Patient hospitalisiert oder operiert?"
+        },
+        {
+            "id": "F_4",
+            "label": "Andere involvierte Ärzte oder Therapeuten",
+            "placeholder": "Weitere involvierte Ärzte oder Therapeuten"
+        },
+        {
+            "id": "G_1",
+            "label": "Arbeitsunfähigkeit: Beginn und voraussichtliche Dauer",
+            "placeholder": "Beginn und voraussichtliche Dauer der Arbeitsunfähigkeit"
+        },
+        {
+            "id": "H_1",
+            "label": "Daten der bisherigen Konsultationen",
+            "placeholder": "Daten der bisherigen Konsultationen"
+        },
+        {
+            "id": "H_2",
+            "label": "Nächster Termin",
+            "placeholder": "Datum des nächsten Termins"
+        },
+        {
+            "id": "I_1",
+            "label": "Andere Versicherer",
+            "placeholder": "Angaben zu anderen Versicherern"
+        },
+        {
+            "id": "J_1",
+            "label": "Bemerkungen - Insbesondere in Bezug auf Förderung der Wiedereingliederung",
+            "placeholder": "Bemerkungen zur Förderung der Wiedereingliederung"
+        }
+    ],
+    "docTemplatePath": "/forms/KTG_Aerztlicher_Erstbericht.docx",
+    "saveFileName": "Updated_KTG_Aerztlicher_Erstbericht.docx"
+}

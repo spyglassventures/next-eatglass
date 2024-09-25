@@ -1,0 +1,56 @@
+{
+    "logo": {
+        "light": "/images/logo/logo-2.svg",
+        "dark": "/images/logo/logo.svg",
+        "alt": "logo",
+        "width": 140,
+        "height": 30
+    },
+    "address": "Grünaustrasse 1, 9470 Buchs, SG",
+    "sections": [
+        {
+            "title": "Nützliche Links",
+            "links": [
+                {
+                    "href": "/about",
+                    "text": "Arzt und Team"
+                },
+                {
+                    "href": "/services",
+                    "text": "Unser Angebot"
+                }
+            ]
+        },
+        {
+            "title": "Rechtliches",
+            "links": [
+                {
+                    "href": "/agb",
+                    "text": "TOS"
+                },
+                {
+                    "href": "/agb",
+                    "text": "Datenschutz"
+                }
+            ]
+        },
+        {
+            "title": "Hilfe und Kontakt",
+            "links": [
+                {
+                    "href": "/contactForm",
+                    "text": "Kontaktformular"
+                },
+                {
+                    "href": "/videocall",
+                    "text": "Videosprechstunde"
+                },
+                {
+                    "href": "/intern",
+                    "text": "Intern"
+                }
+            ]
+        }
+    ],
+    "footerNote": "Swiss Made Software"
+}

@@ -1,0 +1,27 @@
+{
+    "title": "Lageplan",
+    "sections": [
+        {
+            "title": "Anreise mit dem Auto",
+            "content": "Aus Zürich kommend via A3 Richtung Chur. Hinter Sargans Ausfahrt A13 Richtung St.Margrethen/ St.Gallen. Ausfahrt Buchs/Schaan FL. Aus St. Gallen kommend via A1 Richtung St. Margrethen/Kreuzlingen. Weiter auf A13. Ausfahrt Buchs/ Schaan FL. Entlang den Schildern, durch mehrere Kreisel hindurch, Richtung Bahnhof."
+        },
+        {
+            "title": "Anreise mit den ÖV",
+            "content": "Wir sind nur wenige Gehminuten vom Bahnhof Buchs, SG entfernt. Für den SBB Fahrplan direkt zur Grünaustrasse/ Kappelihof einfach ",
+            "link": {
+                "text": "hier klicken.",
+                "href": "https://www.sbb.ch/de/kaufen/pages/fahrplan/fahrplan.xhtml?nach=buchs+kappelihof",
+                "class": "text-primary dark:text-primary-light"
+            }
+        },
+        {
+            "title": "Parkplätze",
+            "content": "Um das Praxisgebäude finden sich reichlich Parkmöglichkeiten. Zudem gibt es einen öffentlichen Parkplatz (Rondelle) schräg gegenüber vom Gebäude."
+        }
+    ],
+    "map": {
+        "src": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2761.591233834092!2d9.472419676157577!3d47.16582597191656!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479b2f9571e883ff%3A0x8f4a31e2b9f6ff2a!2sGr%C3%BCnaustrasse%201%2C%209470%20Buchs%2C%20Switzerland!5e0!3m2!1sen!2sus!4v1659710645694!5m2!1sen!2sus",
+        "width": 600,
+        "height": 450
+    }
+}

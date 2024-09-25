@@ -1,0 +1,37 @@
+{
+    "filename": "template_sidebar_config.json",
+    "examples": [
+        "Kardiologe, verdacht KHK, Thoraxs., EKG unauff., BD 140/90, Cholest. 250, Lisinopril 10mg, Atorvastatin 20mg, zeitnahe",
+        "Orthoädie, chr rückens, v.a. bandscheibenv, mrt lendenw, rtg unauff., ibupo 600mg tilidin 50mg, dringend",
+        "Diabetologie, Typ2, hba1c, nieren u augenhintergrund, k retinopathi, meformin 850mg, glimepirid 2 mg, Routine",
+        "Neurologe, v.a. MS, MRT Schädel, Lumbalpunktion, Kortison, Interferon, zeitnah",
+        "Gastroenterologe, v.a. CED, Koloskopie, MRT Abdomen, Infliximab, Azathioprin, zeitnah",
+        "Psychiater, v.a. Depression, Suizidgedanken, Sertralin, Mirtazapin, Venlafaxin, dringend",
+        "Endokrinologe, v.a. Schilddrüse, TSH 0.01, fT4 2.5, fT3 8.0, L-Thyroxin 100, zeitnah",
+        "Hämatologe, v.a. Anämie, Hb 8.0, Ferritin 10, B12 100, Folsäure 2, Eiseninfusion, zeitnah",
+        "Pneumologe, v.a. COPD, Lungenfkt, Rö-Thorax, Spiriva, Symbicort, zeitnah",
+        "Dermatologe, v.a. Psoriasis, Hautstatus, Fumarsäure, Ciclosporin, zeitnah",
+        "Urologe, v.a. Prostata, PSA 10, Uroflow, Tamsulosin, zeitnah",
+        "Gynäkologe, v.a. Myom, Ultraschall, Mirena, zeitnah",
+        "HNO, v.a. Schwindel, Hörtest, MRT Schädel, Betahistin, zeitnah",
+        "Augenarzt, v.a. Glaukom, Augendruck, Gesichtsfeld, Timolol, zeitnah",
+        "Rheumatologe, v.a. RA, Gelenkschmerzen, Rö-Hand, MTX, Leflunomid, zeitnah",
+        "Neurochirurg, v.a. Bandscheibenvorfall, MRT HWS, PRT, Ibuprofen, Tilidin, dringend",
+        "Kinderarzt, v.a. ADHS, Verhaltensauffälligkeiten, Methylphenidat, zeitnah",
+        "Allergologe, v.a. Heuschnupfen, Pricktest, Desensibilisierung, zeitnah",
+        "Internist, v.a. Hypertonie, BD 160/100, EKG, Cholest. 300, Lisinopril 20mg, Atorvastatin 40mg, zeitnah",
+        "Chirurg, v.a. Appendizitis, Abdomenstatus, Sonographie, Laparoskopie, dringend",
+        "Nephrologe, v.a. Niereninsuff., Kreatinin 3.0, GFR 30, ACE-Hemmer, Diuretika, zeitnah",
+        "Palliativmedizin, v.a. Tumor, Schmerzen, Palliativteam, zeitnah",
+        "Gerontopsychiater, v.a. Demenz, Verwirrtheit, Memantin, Donepezil, zeitnah",
+        "Neonatologe, v.a. Frühgeburt, Atemnot, Sauerstoff, Kortison, dringend",
+        "Geriater, v.a. Sturz, Gangunsicherheit, MMST, Ginkgo, Donepezil, zeitnah",
+        "Kinderkardiologe, v.a. Herzfehler, Herzultraschall, EKG, ACE-Hemmer, Diuretika, zeitnah",
+        "Kinderorthopäde, v.a. Hüftdysplasie, Ultraschall, Spreizhose, zeitnah",
+        "Kinderneurologe, v.a. Epilepsie, EEG, MRT Schädel, Levetiracetam, zeitnah",
+        "Kinderpneumologe, v.a. Asthma, Lungenfkt, Rö-Thorax, Salbutamol, zeitnah"
+    ],
+    "abkuerzungen": [
+        "EDIT"
+    ]
+}

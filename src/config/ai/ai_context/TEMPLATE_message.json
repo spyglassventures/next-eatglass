@@ -1,0 +1,15 @@
+[
+  {
+    "filename": "TEMPLATE_message.json",
+    "id": "1",
+    "role": "system",
+    "content": [
+      "Du bist ein KI-Modell, das XXXX ....",
+      "Formuliere folgende Kapitel aus:",
+      "1. PLACEHOLDER",
+      "2. ...",
+      "Nenne zudem.....",
+      "Keine Einleitung, kein Schlusssatz. Überschriften mit ** vor und nach dem Text kennzeichnen."
+    ]
+  }
+]

@@ -1,0 +1,10 @@
+{
+    "filename": "summary_sidebar_config.json",
+    "examples": [
+        "Frage des Juristen, z.B. 'Was sind die rechtlichen Konsequenzen von...?'"
+    ],
+    "abkuerzungen": [
+        "T: Tage",
+        "J: Jahre"
+    ]
+}

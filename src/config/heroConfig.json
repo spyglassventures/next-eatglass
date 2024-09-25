@@ -1,0 +1,75 @@
+{
+    "hero": {
+        "showBackground": false,
+        "backgroundClass": "bg-white dark:bg-gray-dark",
+        "backgroundMedia": {
+            "type": "video",
+            "comment": "can be video or image",
+            "src": "favicon.ico",
+            "comment2": "Beispiel /images/hero/background.jpg or /images/about/video1.mov  <- nur Bsp",
+            "comment3": "favicon.ico can be used as a placeholder picture"
+        },
+        "title": "Herzlich Willkommen in der Hausarztpraxis Buchs (Kappelihof)",
+        "description": "Das Wohl unserer Patienten steht im Mittelpunkt unserer ärztlichen Bemühungen. Mit der Zielsetzung, die medizinische Versorgung auf höchstem Niveau zu halten, bieten wir moderne Geräte, eine entsprechende Infrastruktur, patientenfreundliche Sprechzeiten und ein gut ausgebildetes Praxisteam.",
+        "callToAction": {
+            "showCallButton": true,
+            "showWhatsAppChatButton": false,
+            "showOnlineTerminButton": false,
+            "callButton": {
+                "label": "Anrufen",
+                "link": "tel:+41817562121",
+                "class": "ease-in duration-300 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-80"
+            },
+            "whatsappButton": {
+                "label": "Schreiben Sie uns per WhatsApp",
+                "link": "https://wa.me/41765391726/?text=Liebes%20Praxisteam,%20Ich%20",
+                "class": "ease-in duration-300 bg-green-500 hover:-translate-y-1 hover:scale-110 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded w-80"
+            },
+            "onlineBookingButton": {
+                "label": "Online Termine buchen",
+                "link": "https://www.onedoc.ch/de/gruppenpraxis/stafa/e5nx/praxis-kirchbuhl-ag-stafa",
+                "class": "ease-in duration-300 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-80"
+            }
+        },
+        "svgGradientStops": [
+            {
+                "id": "paint0_linear_25:217",
+                "x1": "-54.5003",
+                "y1": "-178",
+                "x2": "222",
+                "y2": "288",
+                "colors": [
+                    {
+                        "offset": "0",
+                        "stopColor": "#FFD700",
+                        "comment": "FFD700 is gold/yellow"
+                    },
+                    {
+                        "offset": "1",
+                        "stopColor": "#FFD700",
+                        "stopOpacity": "0"
+                    }
+                ]
+            },
+            {
+                "id": "paint1_radial_25:217",
+                "cx": "0",
+                "cy": "0",
+                "r": "1",
+                "gradientTransform": "translate(17.9997 182) rotate(90) scale(18)",
+                "colors": [
+                    {
+                        "offset": "0.145833",
+                        "stopColor": "#FFD700",
+                        "stopOpacity": "0"
+                    },
+                    {
+                        "offset": "1",
+                        "stopColor": "#FFD700",
+                        "stopOpacity": "0.08"
+                    }
+                ]
+            }
+        ]
+    }
+}

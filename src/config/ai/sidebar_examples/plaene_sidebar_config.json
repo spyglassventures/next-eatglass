@@ -1,0 +1,28 @@
+{
+    "filename": "plaene_sidebar_config.json",
+    "examples": [
+        "Diaetplan, 45 J, w"
+    ],
+    "abkuerzungen": [
+        "T: Tage",
+        "J: Jahre",
+        "w: weiblich",
+        "m: männlich",
+        "Medis: Medikamente",
+        "KG: Krankengeschichte",
+        "F: Fieber",
+        "Sz: Schmerzen",
+        "BD: Blutdruck",
+        "P: Puls",
+        "HF: Herzfrequenz",
+        "AF: Atemfrequenz",
+        "O2: Sauerstoffsättigung",
+        "BZ: Blutzucker",
+        "EKG: Elektrokardiogramm",
+        "CT: Computertomographie",
+        "LZ: Langzeit",
+        "Vd: Verdacht auf",
+        "WS: Wirbelsäule",
+        "Frakt: Fraktur"
+    ]
+}

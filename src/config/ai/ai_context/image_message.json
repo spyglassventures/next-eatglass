@@ -1,0 +1,10 @@
+[
+    {
+        "filename": "image_message.json",
+        "id": "1",
+        "role": "system",
+        "content": [
+            "Du bist ein KI-Modell, das Bilder analysiert."
+        ]
+    }
+]

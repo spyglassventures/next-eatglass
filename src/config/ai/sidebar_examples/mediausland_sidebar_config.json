@@ -1,0 +1,42 @@
+{
+    "filename": "template_sidebar_config.json",
+    "examples": [
+        "Chr. Hyperthonie, Lisinopril 10mg, Atorvastatin 20mg, Metoprolol 50mg, Reise vom 1.12-18.12, USA",
+        "Diabetes Typ 2, Insulin glargin 100 E/ml, Metformin 850 mg, Empagliflozin 10 mg, Reise vom 5.10-20.10, Australien",
+        "Chronische Schmerzsyndrom, Oxycodon 20 mg, Pregabalin 150 mg, Diclofenac 75 mg, Reise vom 15.03-30.03, Thailand",
+        "Rheumatoide Arthritis, Methotrexat 10 mg, Prednisolon 5 mg, Folsäure 5 mg, Reise vom 20.07-04.08, Japan",
+        "Epilepsie, Lamotrigin 100 mg, Levetiracetam 500 mg, Clonazepam 1 mg, Reise vom 10.04-25.04, Vereinigte Arabische Emirate",
+        "Asthma bronchiale, Salbutamol Inhalationslösung, Budesonid/Formoterol 160/4.5 µg, Montelukast 10 mg, Reise vom 01.09-15.09, Kanada",
+        "Chronisch-entzündliche Darmerkrankung (Morbus Crohn), Infliximab 100 mg Infusion, Azathioprin 50 mg, Loperamid 2 mg, Reise vom 18.11-02.12, Südafrika",
+        "Schizophrenie, Risperidon 2 mg, Quetiapin 100 mg, Aripiprazol 10 mg, Reise vom 25.06-10.07, Neuseeland",
+        "Depression, Sertralin 50 mg, Mirtazapin 30 mg, Venlafaxin 75 mg, Reise vom 30.05-14.06, Brasilien",
+        "HIV-Infektion, Tenofovir/Emtricitabin 300/200 mg, Dolutegravir 50 mg, Ritonavir 100 mg, Reise vom 12.08-27.08, Mexiko",
+        "Chronische Nierenerkrankung, Epoetin alfa 4000 IE, Calcitriol 0.25 µg, Furosemid 40 mg, Reise vom 22.02-08.03, Indien",
+        "Chronische Hepatitis C, Sofosbuvir 400 mg, Daclatasvir 60 mg, Ribavirin 200 mg, Reise vom 07.06-22.06, Argentinien",
+        "Multiple Sklerose, Interferon beta-1a 44 µg, Glatirameracetat 20 mg, Dimethylfumarat 240 mg, Reise vom 03.11-18.11, Südkorea",
+        "Chronische Herzinsuffizienz, Ivabradin 5 mg, Bisoprolol 5 mg, Ramipril 5 mg, Reise vom 14.01-29.01, Russland",
+        "Chronische Migräne, Topiramat 50 mg, Propranolol 40 mg, Sumatriptan 50 mg, Reise vom 19.04-04.05, Türkei",
+        "Chronische Hepatitis B, Tenofovir 300 mg, Entecavir 0.5 mg, Telbivudin 600 mg, Reise vom 29.09-14.10, Ägypten",
+        "Chronische Herzrhythmusstörung, Amiodaron 200 mg, Dronedaron 400 mg, Verapamil 120 mg, Reise vom 09.12-24.12, Peru",
+        "Chronische Schilddrüsenunterfunktion, Levothyroxin 100 µg, Liothyronin 20 µg, Jodid 200 µg, Reise vom 24.08-08.09, Chile",
+        "Chronische Schilddrüsenüberfunktion, Thiamazol 5 mg, Propranolol 40 mg, Jodid 200 µg, Reise vom 17.05-01.06, Kolumbien",
+        "Chronische Osteoporose, Alendronat 70 mg, Calcitonin 50 IE, Colecalciferol 1000 IE, Reise vom 06.07-21.07, Costa Rica",
+        "Chronische COPD, Tiotropium 18 µg, Formoterol 12 µg, Budesonid 400 µg, Reise vom 11.10-26.10, Norwegen",
+        "Chronische Psoriasis, Methotrexat 10 mg, Ciclosporin 100 mg, Fumarsäureester 240 mg, Reise vom 26.01-10.02, Finnland",
+        "Chronische Gicht, Allopurinol 300 mg, Colchicin 0.5 mg, Prednisolon 5 mg, Reise vom 02.03-17.03, Schweden",
+        "Chronische Narkolepsie, Modafinil 100 mg, Methylphenidat 10 mg, Venlafaxin 75 mg, Reise vom 28.04-13.05, Dänemark",
+        "Chronische Glaukom, Timolol 0.5 %, Dorzolamid/Timolol 20/5 mg/ml, Latanoprost 50 µg/ml, Reise vom 23.06-08.07, Irland",
+        "Chronische Opioidabhängigkeit, Methadon 100 mg, Buprenorphin 8 mg, Naloxon 2 mg, Reise vom 04.08-19.08, Niederlande",
+        "Chronische Alkoholabhängigkeit, Acamprosat 333 mg, Disulfiram 250 mg, Naltrexon 50 mg, Reise vom 20.12-04.01, Belgien",
+        "Chronische Nikotinabhängigkeit, Vareniclin 1 mg, Bupropion 150 mg, Nicotin 14 mg, Reise vom 15.09-30.09, Schweiz",
+        "Chronische Adipositas, Orlistat 120 mg, Liraglutid 1.2 mg, Naltrexon/Bupropion 8/90 mg, Reise vom 01.05-16.05, Portugal",
+        "Chronische Diabetes mellitus Typ 1, Insulin glargin 100 E/ml, Insulin lispro 100 E/ml, Insulin aspart 100 E/ml, Reise vom 13.03-28.03, Spanien",
+        "Chronische Diabetes mellitus Typ 2, Insulin glargin 100 E/ml, Metformin 850 mg, Empagliflozin 10 mg, Reise vom 05.10-20.10, Australien",
+        "Chronische Hyperthonie, Lisinopril 10 mg, Atorvastatin 20 mg, Metoprolol 50 mg, Reise vom 01.12-18.12, USA",
+        "Chronische Hyperthyreose, Thiamazol 5 mg, Propranolol 40 mg, Jodid 200 µg, Reise vom 17.05-01.06, Kolumbien",
+        "Chronische Hypothyreose, Levothyroxin 100 µg, Liothyronin 20 µg, Jodid 200 µg, Reise vom 24.08-08.09, Chile"
+    ],
+    "abkuerzungen": [
+        "USA"
+    ]
+}

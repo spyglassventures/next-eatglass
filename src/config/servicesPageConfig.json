@@ -1,0 +1,15 @@
+{
+    "metadata": {
+        "title": "Leistungsspektrum der Praxis Kappilihof, Buchs",
+        "description": "Hier finden Sie Informationen ueber die Untersuchungen, welche wir anbieten."
+    },
+    "breadcrumb": {
+        "pageName": "Leistungsspektrum",
+        "description": "Hier finden Sie Informationen zu unserem Leistungsspektrum."
+    },
+    "sections": {
+        "AboutSectionOne": true,
+        "AboutSectionTwo": false,
+        "Openinghours": false
+    }
+}

@@ -1,0 +1,82 @@
+{
+    "metadata": {
+        "title": "Downloads der Praxis Kappilihof, Buchs",
+        "description": "Hier finden Sie Informationen über die Downloads, welche wir anbieten."
+    },
+    "breadcrumb": {
+        "pageName": "Medikamentenbestellung & Formulare",
+        "description": "Hier finden Sie Informationen zu unserem Downloads."
+    },
+    "sections": {
+        "AboutSectionOne": false,
+        "AboutSectionTwo": false,
+        "Openinghours": false,
+        "Documents": [
+            {
+                "name": "Medikamentbestellformular",
+                "filename": "Medikamentbestellformular-de.pdf",
+                "path": "/downloadsBestellungen/",
+                "previewable": true,
+                "numPages": 2,
+                "contentType": "application/pdf"
+            },
+            {
+                "name": "FMH Wegleitung",
+                "filename": "fmh_wegleitung-de.pdf",
+                "path": "/downloadsBestellungen/",
+                "previewable": true,
+                "numPages": 5,
+                "contentType": "application/pdf"
+            },
+            {
+                "name": "FMH Directive",
+                "filename": "fmh_wegleitung-en-v1.pdf",
+                "path": "/downloadsBestellungen/",
+                "previewable": true,
+                "numPages": 7,
+                "contentType": "application/pdf"
+            },
+            {
+                "name": "FMH Advance Directive detailed",
+                "filename": "fmh-advance-directive-long-en-v1.pdf",
+                "path": "/downloadsBestellungen/",
+                "previewable": true,
+                "numPages": 13,
+                "contentType": "application/pdf"
+            },
+            {
+                "name": "FMH Advance Directive Short",
+                "filename": "fmh-advance-directive-short-en-v1.pdf",
+                "path": "/downloadsBestellungen/",
+                "previewable": true,
+                "numPages": 7,
+                "contentType": "application/pdf"
+            },
+            {
+                "name": "FMH Patientenverfügung Detailliert",
+                "filename": "fmh-patientenverfuegung-detailliert-de.pdf",
+                "path": "/downloadsBestellungen/",
+                "previewable": true,
+                "numPages": 13,
+                "contentType": "application/pdf"
+            },
+           
+            {
+                "name": "FMH Patientenverfügung Kurz",
+                "filename": "fmh-patientenverfuegung-kurz-de.pdf",
+                "path": "/downloadsBestellungen/",
+                "previewable": true,
+                "numPages": 7,
+                "contentType": "application/pdf"
+            },
+            {
+                "name": "Spenderausweis",
+                "filename": "Spendekarte-de.pdf",
+                "path": "/downloadsBestellungen/",
+                "previewable": true,
+                "numPages": 2,
+                "contentType": "application/pdf"
+            }
+        ]
+    }
+}

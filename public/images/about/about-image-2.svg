@@ -1,0 +1,22 @@
+<svg width="600" height="450" viewBox="0 0 600 450" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background for the entire SVG -->
+  <rect width="600" height="450" rx="4" fill="#f0f2f5" stroke="#b0bec5" stroke-width="1"/>
+
+  <!-- Section for doctor's information -->
+  <rect x="20" y="20" width="270" height="80" rx="5" fill="#ffffff" stroke="#b0bec5" stroke-width="1"/>
+  <text x="30" y="50" font-size="16" font-family="Cursive" fill="#455a64">Dr. Max Mustermann</text>
+  <text x="30" y="70" font-size="16" font-family="Cursive" fill="#455a64">Allgemeinmedizin</text>
+
+  <!-- Patient's information section -->
+  <rect x="310" y="20" width="270" height="160" rx="5" fill="#ffffff" stroke="#b0bec5" stroke-width="1"/>
+  <text x="320" y="50" font-size="16" font-family="Cursive" fill="#455a64">Name: Anna Schmidt</text>
+  <text x="320" y="80" font-size="16" font-family="Cursive" fill="#455a64">Geb. Datum: 01.01.1980</text>
+  <text x="320" y="110" font-size="16" font-family="Cursive" fill="#455a64">Patient Nr.: 123456789</text>
+
+  <!-- Medical history section -->
+  <rect x="20" y="120" width="560" height="310" rx="5" fill="#ffffff" stroke="#b0bec5" stroke-width="1"/>
+  <text x="30" y="150" font-size="16" font-family="Lobster" fill="#455a64">Beschwerden: Unwohlsein und Müdigkeit...</text>
+  <text x="30" y="180" font-size="16" font-family="Lobster" fill="#455a64">Behandlung: Ausruhen und viel Flüssigkeit...</text>
+  <text x="30" y="210" font-size="16" font-family="Lobster" fill="#455a64">Weitere Notizen: Regelmäßige Kontrollen...</text>
+
+</svg>

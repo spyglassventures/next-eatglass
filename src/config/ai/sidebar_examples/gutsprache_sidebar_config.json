@@ -1,0 +1,30 @@
+{
+    "filename": "gutsprache_sidebar_config.json AI: Xarelto, Eliquis, Jardiance, Amlodipin, Fremanezumab, Galvus, MabThera, Trulicity, Humira, Xgeva",
+    "examples": [
+        "Atorvastatin, Hypercholesterinämie, apoplexie, Carotisstenose r, bereits Minor Stroke",
+        "RW: Simvastatin, Mitralinsuffizienz, MitraClip, sek Hypertonie, Koronarsklerose o Stenosen, systolische LVEF o Wandb.",
+        "RW: Forxiga, Makro-Mikroangiopathi, Herzinsuffizienz, dab Stoffwechsllage, Niereninsuffizienz, vorgängig Spital Männedorf",
+        "Zyban, COPD Gold, Risiko A, pneumolog betreut, Abnahme Diffusionskapazität, Raucherentwöhnung",
+        "RW: Rybelsus, Diabetes Typ 2, Adipositas, Hypertonie, Hyperlipidämie, beginnende Niereninsuffizienz",
+        "PT-Langzeit, stn Cerebralem Insult l, spast. Meiparese L, Gangunsichereit, vermeidung Pflege",
+        "Orlistat, bereits frustane Versuche, Steatosis Hepatis, Erfolg mit Medi >25kg",
+        "RW: Xarelto, Thromboseprophylaxe, rezidivierende tiefe Venenthrombosen, postoperative Betreuung, minimal-invasive Chirurgie",
+        "Eliquis, Vorhofflimmern, TVT, Lungenembolie, Bluthochdruck, Antikoagulation",
+        "RW: Jardiance, Diabetes Typ 2, Adipositas, Hypertonie, Insulinresistenz, beginnende Niereninsuffizienz",
+        "Amlodipin, arterielle Hypertonie, chronische Niereninsuffizienz, hypertensive Herzkrankheit, Proteinurie",
+        "Fremanezumab, chronische Migräne, Depression, Angststörungen, bisherige Therapieresistenz",
+        "RW: Galvus, Diabetes Typ 2, Hypertonie, Hyperlipidämie, nephrologische Betreuung, leichte Niereninsuffizienz",
+        "MabThera, rheumatoide Arthritis, Autoimmunerkrankung, Langzeittherapie, keine Besserung unter bisherigen DMARDs",
+        "Trulicity, Diabetes Typ 2, BMI > 35, Hypertonie, bestehende Metformin-Therapie, begleitende Ernährungsberatung",
+        "RW: Humira, Morbus Crohn, schwere Verläufe, Fistelbildung, bisherige Therapieresistenz, gastroenterologische Betreuung",
+        "Xgeva, metastasierendes Mammakarzinom, Osteoporose, erhöhte Frakturgefahr, onkologische Langzeitbetreuung"
+    ],
+    "abkuerzungen": [
+        "RW: Rückweisung",
+        "LZ: Langzeit",
+        "Physio: Physiotherapie",
+        "PT: Physiotherapie",
+        "L: Links",
+        "R: Rechts"
+    ]
+}

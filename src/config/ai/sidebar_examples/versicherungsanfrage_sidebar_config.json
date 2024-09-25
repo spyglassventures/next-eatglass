@@ -1,0 +1,9 @@
+{
+    "filename": "versicherungsanfrage_sidebar_config.json",
+    "examples": [
+        "(Verlaufseintrag mit Infos), Fragekatalog von Versicherung: 1. Anamnese? 2. Welche Beschwerden und/oder Einschränkungen beklagt die versicherte Person? 3. Welche objektiven Befunde erheben Sie? 4. Welche Diagnosen stellen Sie? 5. Stand die versicherte Person wegen dem unter Nr. 4 diagnostizierten Leiden schon früher in ärztlicher Behandlung? Wenn ja, wann? 6. Ist die versicherte Person arbeitsunfähig? Wenn ja: in welchem Zeitraum und zu wie viel Prozent? 7. Wie beurteilen Sie die Arbeitsunfähigkeit der versicherten Person bei einer anderen zumutbaren Erwerbstätigkeit? 8. Rechnen Sie mit einer künftigen Erhöhung der Arbeitsfähigkeit? Wenn ja: a. Ab wann? b. In welchem Umfang? 9. Welche Behandlungen und Therapien werden gegenwärtig durchgeführt? 10. Welche Resultate zeigen diese Behandlungen? 11. Welche Behandlungen und Therapien sind noch vorgesehen? 12. Kann dadurch die Arbeitsfähigkeit erhöht werden? Bitte begründen Sie Ihre Antwort."
+    ],
+    "abkuerzungen": [
+        "keine"
+    ]
+}
