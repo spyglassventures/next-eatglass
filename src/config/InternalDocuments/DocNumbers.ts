@@ -5,94 +5,88 @@ export interface DocumentInfo {
 
 const documents: DocumentInfo[] = [
     {
-        partnerart: 'GLN Dr. Christoph Berg',
+        partnerart: 'GLN Dr. Mustername',
         details: [
-            { label: 'Nummer', value: '7601007461295', type: 'text', copyable: true },
+            { label: 'Nummer', value: '7601000000001', type: 'text', copyable: true },
         ],
     },
     {
         partnerart: 'GLN Musterpraxis AG',
         details: [
-            { label: 'Nummer', value: '7601002146425', type: 'text', copyable: true },
+            { label: 'Nummer', value: '7601000000002', type: 'text', copyable: true },
         ],
     },
     {
-        partnerart: 'GLN Labor (Qualab)',
+        partnerart: 'GLN Musterlabor (Qualab)',
         details: [
-            { label: 'Nummer', value: '7601001772595', type: 'text', copyable: true },
+            { label: 'Nummer', value: '7601000000003', type: 'text', copyable: true },
         ],
     },
     {
-        partnerart: 'ZSR Nummer Praxis',
+        partnerart: 'ZSR Nummer Musterpraxis',
         details: [
-            { label: 'Nummer', value: '1280017', type: 'text', copyable: true },
+            { label: 'Nummer', value: '9999999', type: 'text', copyable: true },
         ],
     },
     {
-        partnerart: 'UBS Kontoverbindung',
+        partnerart: 'UBS Kontoverbindung Musterpraxis',
         details: [
             { label: 'Inhaber', value: 'Musterpraxis AG', type: 'text', copyable: true },
-            { label: 'IBAN', value: 'CH72 0020 6206 1514 6201 J', type: 'text', copyable: true },
-            { label: 'BIC', value: 'UBSWCHZH80A', type: 'text', copyable: true },
-            { label: 'QR IBAN', value: 'CH233000520615146201J', type: 'text', copyable: true },
-            { label: 'Bank', value: 'UBS AG, Postfach, 8098 Zürich', type: 'text', copyable: true }
+            { label: 'IBAN', value: 'CH00 0020 0000 0000 0000 A', type: 'text', copyable: true },
+            { label: 'BIC', value: 'UBSWCHZH00A', type: 'text', copyable: true },
+            { label: 'QR IBAN', value: 'CH000000000000000000A', type: 'text', copyable: true },
+            { label: 'Bank', value: 'UBS AG, Musteradresse, 8000 Zürich', type: 'text', copyable: true }
         ],
     },
     {
         partnerart: 'Kontakt Vermieter',
         details: [
-            { label: 'Vermieter', value: 'Rohner Robert und Elisabeth (-Würth)', type: 'text', copyable: true },
-            { label: 'Adresse', value: 'Kappelistrasse 5\n9470 Buchs SG', type: 'text', copyable: true },
+            { label: 'Vermieter', value: 'Mustervermieter AG', type: 'text', copyable: true },
+            { label: 'Adresse', value: 'Musterstrasse 1\n8000 Zürich', type: 'text', copyable: true },
             { label: 'Tel', value: 'unbekannt', type: 'text', copyable: true },
             { label: 'Natel', value: 'unbekannt', type: 'text', copyable: true },
             { label: 'E-Mail', value: 'unbekannt', type: 'text', copyable: true },
         ],
     },
     {
-        partnerart: 'SVA St.Gallen',
+        partnerart: 'SVA Musterstadt',
         details: [
-            { label: 'Nummer', value: 'R91.713', type: 'text', copyable: true },
+            { label: 'Nummer', value: 'R91.999', type: 'text', copyable: true },
         ],
     },
     {
-        partnerart: 'SwissLife',
+        partnerart: 'SwissLife Musterkunden',
         details: [
-            { label: 'Nummer', value: '15DEA8', type: 'text', copyable: true },
+            { label: 'Nummer', value: '15DEA9', type: 'text', copyable: true },
         ],
     },
-
     {
-        partnerart: 'Galexis',
+        partnerart: 'Musterlieferant Galexis',
         details: [
             { label: 'Kundennummer', value: '123456', type: 'text', copyable: true },
             { label: 'Url', value: 'https://www.e-galexis.com/de/login.php', type: 'url', copyable: true },
-
-
-
         ],
     },
     {
-        partnerart: 'Polymed',
+        partnerart: 'Musterlieferant Polymed',
         details: [
-            { label: 'Kundennummer', value: '123456', type: 'text', copyable: true },
+            { label: 'Kundennummer', value: '654321', type: 'text', copyable: true },
             { label: 'Url', value: 'https://polyeasy.polymed.ch/', type: 'url', copyable: true },
         ],
     },
     {
-        partnerart: 'Gesundeprodukte',
+        partnerart: 'Musterprodukte',
         details: [
-            { label: 'Benutzername', value: 'praxiskappelihof@hin.ch', type: 'text', copyable: true },
+            { label: 'Benutzername', value: 'musterpraxis@hin.ch', type: 'text', copyable: true },
             { label: 'Password', value: 'Noch nicht nutzbar. Sorry', type: 'password' },
-            { label: 'URL', value: 'https://www.gesundeprodukte.ch', type: 'url', copyable: true }
-
+            { label: 'URL', value: 'https://www.gesundeprodukte.ch', type: 'url', copyable: true },
         ],
     },
     {
-        partnerart: 'Compendium',
+        partnerart: 'Compendium Musterdatenbank',
         details: [
-            { label: 'Benutzername', value: 'praxiskappelihof@hin.ch', type: 'text', copyable: true },
-            { label: 'URL', value: 'https://compendium.ch/', type: 'url', copyable: true }
-
+            { label: 'Benutzername', value: 'musterpraxis@hin.ch', type: 'text', copyable: true },
+            { label: 'URL', value: 'https://compendium.ch/', type: 'url', copyable: true },
         ],
     },
 ];
