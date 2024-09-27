@@ -75,7 +75,7 @@ const documents: DocumentInfo[] = [
         ],
     },
     {
-        partnerart: 'Musterprodukte',
+        partnerart: 'Gesundeprodukte',
         details: [
             { label: 'Benutzername', value: 'musterpraxis@hin.ch', type: 'text', copyable: true },
             { label: 'Password', value: 'Noch nicht nutzbar. Sorry', type: 'password' },
