@@ -1,23 +1,35 @@
 {
     "dropdowns": [
         {
-            "label": "AHV/IV Stelle (falls zutreffend)",
-            "variable": "ahviv",
-            "options": [
-                {
-                    "value": "SVA St.Gallen, Brauerstrasse 54, 9016 St.Gallen",
-                    "label": "St. Gallen"
-                },
-                {
-                    "value": "AHV/IV Bern",
-                    "label": "Bern"
-                },
-                {
-                    "value": "AHV/IV Genf",
-                    "label": "Genf"
-                }
-            ]
-        },
+            "label": "SVA Stelle (falls zutreffend)",
+      "variable": "sva",
+      "options": [
+        { "value": "Sozialversicherungszentrum Thurgau, St. Gallerstr. 11, Postfach 8501 Frauenfeld", "label": "Thurgau" },
+        { "value": "SVA Zürich Ausgleichskasse, Röntgenstrasse 17, Postfach, 8087 Zürich", "label": "Zürich" },
+        { "value": "WAS Wirtschaft Arbeit Soziales, Ausgleichskasse Luzern, Würzenbachstrasse 8, Postfach, 6000 Luzern 15", "label": "Luzern" },
+        { "value": "SVA Aargau, Bahnhofplatz 3C, 5001 Aarau", "label": "Aargau" },
+        { "value": "Ausgleichskasse Appenzell Innerrhoden, Poststrasse 9, Postfach 62, 9050 Appenzell", "label": "Appenzell Innerrhoden" },
+        { "value": "Sozialversicherungen Appenzell Ausserrhoden, Neue Steig 15, Postfach 1254, 9100 Herisau", "label": "Appenzell Ausserrhoden" },
+        { "value": "SVA Basel-Landschaft, Hauptstrasse 109, 4102 Binningen", "label": "Basel-Landschaft" },
+        { "value": "Ausgleichskasse Basel-Stadt, Wettsteinplatz 1, Postfach, 4001 Basel", "label": "Basel-Stadt" },
+        { "value": "Ausgleichskasse des Kantons Bern, Chutzenstrasse 10, 3007 Bern", "label": "Bern" },
+        { "value": "Ausgleichskasse des Kantons Freiburg, Impasse de la Colline 1, Postfach, 1762 Givisiez", "label": "Freiburg" },
+        { "value": "Office cantonal des assurances sociales, Caisse genevoise de compensation, Rue des Gares 12, Case postale 2595, 1211 Genf 2", "label": "Genf" },
+        { "value": "Sozialversicherungen Glarus, Burgstrasse 6, 8750 Glarus", "label": "Glarus" },
+        { "value": "Sozialversicherungsanstalt des Kantons Graubünden, Ottostrasse 24, Postfach, 7001 Chur", "label": "Graubünden" },
+        { "value": "Etablissement cantonal des assurances sociales, Rue Bel-Air 3, Postfach 368, 2350 Saignelégier", "label": "Jura" },
+        { "value": "Ausgleichskasse des Kantons Neuenburg, Fbg de l'Hôpital 28, Postfach 2116, 2001 Neuenburg", "label": "Neuenburg" },
+        { "value": "Ausgleichskasse Nidwalden, Stansstaderstrasse 88, Postfach, 6371 Stans", "label": "Nidwalden" },
+        { "value": "Ausgleichskasse IV-Stelle Obwalden, Brünigstrasse 144, 6060 Sarnen", "label": "Obwalden" },
+        { "value": "SVA Schaffhausen, Oberstadt 9, 8200 Schaffhausen", "label": "Schaffhausen" },
+        { "value": "Ausgleichskasse des Kantons Solothurn, Allmendweg 6, 4528 Zuchwil", "label": "Solothurn" },
+        { "value": "Istituto delle assicurazioni sociali, Via Ghiringhelli 15a, 6501 Bellinzona", "label": "Tessin" },
+        { "value": "Sozialversicherungsstelle Uri, Dätwylerstrasse 11, 6460 Altdorf", "label": "Uri" },
+        { "value": "Caisse cantonale vaudoise de compensation, Rue des Moulins 3, 1800 Vevey", "label": "Waadt" },
+        { "value": "Ausgleichskasse des Kantons Wallis, Avenue Pratifori 22, 1950 Sitten", "label": "Wallis" },
+        { "value": "Ausgleichskasse Zug, Baarerstrasse 11, Postfach, 6302 Zug", "label": "Zug" }
+      ]
+    },
         {
             "label": "Adresse",
             "variable": "adresse",
