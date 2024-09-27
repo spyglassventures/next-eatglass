@@ -131,13 +131,15 @@
                 {
                     "value": "musterpraxis@hin.ch",
                     "label": "musterpraxis@hin.ch"
-                },
-                {
-            "label": "praxis, arzt, adresse",
-            "variable": "praxis, arzt, adresse",
+                }
+            ]
+        },
+        {
+            "label": "Praxis, Arzt, Adresse",
+            "variable": "praxis_arzt_adresse",
             "options": [
                 {
-                    "value": "Musterpraxis, Dr. Peter Mustermann, Musterstrasse 100, 1234 Musterstadt ",
+                    "value": "Musterpraxis, Dr. Peter Mustermann, Musterstrasse 100, 1234 Musterstadt",
                     "label": "Musterpraxis, Dr. Peter Mustermann, Musterstrasse 100, 1234 Musterstadt"
                 }
             ]
