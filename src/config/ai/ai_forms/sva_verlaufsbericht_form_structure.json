@@ -1,0 +1,106 @@
+{
+    "fields": [
+        {
+            "id": "A_1",
+            "label": "Welche Faktoren haben einen Einfluss auf die Arbeitsfähigkeit?",
+            "placeholder": "Welche Faktoren haben einen Einfluss auf die Arbeitsfähigkeit?"
+        },
+        {
+            "id": "A_1.2",
+            "label": "Seit wann und in welchem Ausmaß?",
+            "placeholder": "Seit wann und in welchem Ausmaß?"
+        },
+        {
+            "id": "A_2",
+            "label": "Verlauf / veränderte Befunde",
+            "placeholder": "Verlauf / veränderte Befunde"
+        },
+        {
+            "id": "A_3",
+            "label": "Therapeutische Maßnahmen / Prognose",
+            "placeholder": "Therapeutische Maßnahmen / Prognose"
+        },
+        {
+            "id": "A_4",
+            "label": "Datum der letzten ärztlichen Kontrolle",
+            "placeholder": "Datum der letzten ärztlichen Kontrolle"
+        },
+        {
+            "id": "A_5",
+            "label": "Wie wirkt sich die gesundheitliche Störung bei der bisherigen Tätigkeit aus?",
+            "placeholder": "Wie wirkt sich die gesundheitliche Störung bei der bisherigen Tätigkeit aus?"
+        },
+        {
+            "id": "A_5.1",
+            "label": "Wenn ja, in welchem zeitlichen Rahmen (Stunden pro Tag)?",
+            "placeholder": "Wenn ja, in welchem zeitlichen Rahmen (Stunden pro Tag)?"
+        },
+        {
+            "id": "A_5.2",
+            "label": "Wenn ja, in welchem Ausmaß?",
+            "placeholder": "Wenn ja, in welchem Ausmaß?"
+        },
+        {
+            "id": "A_6",
+            "label": "Wenn ja, mit welchen zumutbaren Maßnahmen (z.B. medizinische Maßnahmen, Hilfsmittel, Umgestaltung des Arbeitsplatzes, etc.)?",
+            "placeholder": "Wenn ja, mit welchen zumutbaren Maßnahmen (z.B. medizinische Maßnahmen, Hilfsmittel, Umgestaltung des Arbeitsplatzes, etc.)?"
+        },
+        {
+            "id": "A_6.1",
+            "label": "Wie wirken sich diese Maßnahmen auf die Arbeitsfähigkeit aus?",
+            "placeholder": "Wie wirken sich diese Maßnahmen auf die Arbeitsfähigkeit aus?"
+        },
+        {
+            "id": "A_7",
+            "label": "Wenn ja, welcher Art könnten diese Tätigkeiten sein?",
+            "placeholder": "Wenn ja, welcher Art könnten diese Tätigkeiten sein?"
+        },
+        {
+            "id": "A_7.1",
+            "label": "Was wäre dabei besonders zu beachten?",
+            "placeholder": "Was wäre dabei besonders zu beachten?"
+        },
+        {
+            "id": "A_7.2",
+            "label": "In welchem zeitlichen Rahmen sind diese Tätigkeiten zumutbar (Stunden pro Tag)?",
+            "placeholder": "In welchem zeitlichen Rahmen sind diese Tätigkeiten zumutbar (Stunden pro Tag)?"
+        },
+        {
+            "id": "A_8",
+            "label": "Wenn ja, in welchem Ausmaß?",
+            "placeholder": "Wenn ja, in welchem Ausmaß?"
+        },
+        {
+            "id": "A_8.1",
+            "label": "Wenn keine anderen Tätigkeiten mehr zumutbar sind, wie lässt sich dies begründen?",
+            "placeholder": "Wenn keine anderen Tätigkeiten mehr zumutbar sind, wie lässt sich dies begründen?"
+        },
+        {
+            "id": "A_9",
+            "label": "Zumutbare Arbeitsfähigkeit in adaptierter Tätigkeit? Zusatzfrage bei Teilarbeitsfähigkeit: Ist die von Ihnen attestierte Arbeitsfähigkeit realisierbar (ganztags mit reduzierter Leistung?/in Teilzeit mit voller Leistung?)",
+            "placeholder": "Zumutbare Arbeitsfähigkeit in adaptierter Tätigkeit? Zusatzfrage bei Teilarbeitsfähigkeit: Ist die von Ihnen attestierte Arbeitsfähigkeit realisierbar (ganztags mit reduzierter Leistung?/in Teilzeit mit voller Leistung?)"
+        },
+        {
+            "id": "A_10",
+            "label": "Besteht heute eine bleibende Einschränkung von mindestens 20% in der jetzigen Tätigkeit? Wenn nein, muss aus medizinischer Sicht innert Jahresfrist mit Einschränkungen im bisherigen Aufgabenbereich gerechnet werden? Welche Arbeiten und in welchem zeitlichen Umfang sind dem Versicherten noch zumutbar?",
+            "placeholder": "Besteht heute eine bleibende Einschränkung von mindestens 20% in der jetzigen Tätigkeit? Wenn nein, muss aus medizinischer Sicht innert Jahresfrist mit Einschränkungen im bisherigen Aufgabenbereich gerechnet werden? Welche Arbeiten und in welchem zeitlichen Umfang sind dem Versicherten noch zumutbar?"
+        },
+        {
+            "id": "A_11",
+            "label": "Sind besondere Maßnahmen während der erstmaligen beruflichen Ausbildung aus behinderungsbedingten Gründen erforderlich? Wenn ja, welche?",
+            "placeholder": "Sind besondere Maßnahmen während der erstmaligen beruflichen Ausbildung aus behinderungsbedingten Gründen erforderlich? Wenn ja, welche?"
+        },
+        {
+            "id": "A_12",
+            "label": "Rentenrevision – Hat sich der Gesundheitszustand der versicherten Person seit dem letzten Bericht geändert? Wenn ja, mit welcher zusätzlichen Auswirkung auf die Arbeitsfähigkeit und seit wann? Prognose bezüglich der Arbeitsfähigkeit?",
+            "placeholder": "Rentenrevision – Hat sich der Gesundheitszustand der versicherten Person seit dem letzten Bericht geändert? Wenn ja, mit welcher zusätzlichen Auswirkung auf die Arbeitsfähigkeit und seit wann? Prognose bezüglich der Arbeitsfähigkeit?"
+        },
+        {
+            "id": "A_13",
+            "label": "Wenn ja, in welchem Bereich? Wir bitten um möglichst ausführliche Angaben. Sofern auch bezüglich Beginn des Aufwandes Angaben gemacht werden können, sind wir Ihnen dankbar.",
+            "placeholder": "Wenn ja, in welchem Bereich? Wir bitten um möglichst ausführliche Angaben. Sofern auch bezüglich Beginn des Aufwandes Angaben gemacht werden können, sind wir Ihnen dankbar."
+        }
+    ],
+    "docTemplatePath": "/forms/SVA_Verlaufsbericht.docx",
+    "saveFileName": "Updated_SVA_Verlaufsbericht.docx"
+}

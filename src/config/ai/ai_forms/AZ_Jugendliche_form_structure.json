@@ -1,0 +1,106 @@
+{
+    "fields": [
+        {
+            "id": "A_1",
+            "label": "Diagnosen: Bei psychiatrischen Erkrankungen bitte ICD-10- oder DSM-IV-Codes angeben. Erstmals gestellt am:",
+            "placeholder": "Diagnosen: Bei psychiatrischen Erkrankungen bitte ICD-10- oder DSM-IV-Codes angeben. Erstmals gestellt am:"
+        },
+        {
+            "id": "A_2",
+            "label": "Wirkt sich der Gesundheitszustand auf den Schulbesuch oder die berufliche Ausbildung aus? Wenn ja, wie und seit wann?",
+            "placeholder": "Wirkt sich der Gesundheitszustand auf den Schulbesuch oder die berufliche Ausbildung aus? Wenn ja, wie und seit wann?"
+        },
+        {
+            "id": "A_3",
+            "label": "Liegen ein oder mehrere Geburtsgebrechen gemäss GgV vor? Wenn ja, Ziffer(n):",
+            "placeholder": "Liegen ein oder mehrere Geburtsgebrechen gemäss GgV vor? Wenn ja, Ziffer(n):"
+        },
+        {
+            "id": "A_4",
+            "label": "Benötigt die versicherte Person Behandlung/Therapie? Wenn ja, welche Therapieart?",
+            "placeholder": "Benötigt die versicherte Person Behandlung/Therapie? Wenn ja, welche Therapieart?"
+        },
+        {
+            "id": "A_5",
+            "label": "Wann beginnt die Therapie?",
+            "placeholder": "Wann beginnt die Therapie?"
+        },
+        {
+            "id": "A_6",
+            "label": "Wie lange dauert die geplante Therapie?",
+            "placeholder": "Wie lange dauert die geplante Therapie?"
+        },
+        {
+            "id": "A_7",
+            "label": "Umfang Therapie (Häufigkeit und Dauer der Sitzung):",
+            "placeholder": "Umfang Therapie (Häufigkeit und Dauer der Sitzung):"
+        },
+        {
+            "id": "A_8",
+            "label": "Therapie: Durchführungsstelle: Wo wird die Behandlung durchgeführt? Domizilbehandlungen nur bei medizinischer Notwendigkeit (bitte begründen):",
+            "placeholder": "Therapie: Durchführungsstelle: Wo wird die Behandlung durchgeführt? Domizilbehandlungen nur bei medizinischer Notwendigkeit (bitte begründen):"
+        },
+        {
+            "id": "A_9",
+            "label": "Therapie: Vorschläge oder geplante Maßnahmen (z.B. bildgebende Diagnostik, fachärztliche Untersuchungen):",
+            "placeholder": "Therapie: Vorschläge oder geplante Maßnahmen (z.B. bildgebende Diagnostik, fachärztliche Untersuchungen):"
+        },
+        {
+            "id": "A_10",
+            "label": "Benötigt die versicherte Person Behandlungsgeräte oder Hilfsmittel? Wenn ja, welche?",
+            "placeholder": "Benötigt die versicherte Person Behandlungsgeräte oder Hilfsmittel? Wenn ja, welche?"
+        },
+        {
+            "id": "A_11",
+            "label": "Hilflosigkeit: Besteht ein behinderungsbedingter Mehraufwand an Hilfeleistung oder persönlicher Überwachung im Vergleich zu einem Nichtbehinderten gleichen Alters? Wenn ja: Bitte begründen Sie:",
+            "placeholder": "Hilflosigkeit: Besteht ein behinderungsbedingter Mehraufwand an Hilfeleistung oder persönlicher Überwachung im Vergleich zu einem Nichtbehinderten gleichen Alters? Wenn ja: Bitte begründen Sie:"
+        },
+        {
+            "id": "B_1",
+            "label": "Ärztliche Angaben: Behandlung vom:",
+            "placeholder": "Ärztliche Angaben: Behandlung vom:"
+        },
+        {
+            "id": "B_2",
+            "label": "Ärztliche Angaben: Behandlung bis:",
+            "placeholder": "Ärztliche Angaben: Behandlung bis:"
+        },
+        {
+            "id": "B_3",
+            "label": "Letzte Untersuchung vom:",
+            "placeholder": "Letzte Untersuchung vom:"
+        },
+        {
+            "id": "B_4",
+            "label": "Anamnese (chronologischer Verlauf, bisherige Therapie, aktuelle Symptome):",
+            "placeholder": "Anamnese (chronologischer Verlauf, bisherige Therapie, aktuelle Symptome):"
+        },
+        {
+            "id": "B_5",
+            "label": "Ärztlicher Befund:",
+            "placeholder": "Ärztlicher Befund:"
+        },
+        {
+            "id": "B_6",
+            "label": "Prognose:",
+            "placeholder": "Prognose:"
+        },
+        {
+            "id": "B_7",
+            "label": "Spezialärztliche Untersuchungen:",
+            "placeholder": "Spezialärztliche Untersuchungen:"
+        },
+        {
+            "id": "B_8",
+            "label": "Behandlungsplan (Beginn/Dauer):",
+            "placeholder": "Behandlungsplan (Beginn/Dauer):"
+        },
+        {
+            "id": "B_9",
+            "label": "Haben Sie therapeutische Massnahmen in Hauspflege verordnet? Wenn ja, welche, wie oft und wie lange, durch wen?",
+            "placeholder": "Haben Sie therapeutische Massnahmen in Hauspflege verordnet? Wenn ja, welche, wie oft und wie lange, durch wen?"
+        }
+    ],
+    "docTemplatePath": "/forms/AZ_Jugendliche.docx",
+    "saveFileName": "Updated_AZ_Jugendliche.docx"
+}

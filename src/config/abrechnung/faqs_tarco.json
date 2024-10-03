@@ -1,0 +1,191 @@
+{
+    "tarmed_faq": {
+        "introduction": {
+            "title": "Einführung in TARMED und TARCO",
+            "content": "TARMED ist das standardisierte Tarifwerk für ambulante Leistungen in der Schweiz. Es wurde ursprünglich im Jahr 2002 genehmigt und soll eine einheitliche und faire Abrechnung der medizinischen Leistungen ermöglichen. TARMED wird in naher Zukunft durch TARCO ersetzt, ein neueres System, das eine modernisierte und gerechtere Bewertung der medizinischen Leistungen sicherstellen soll."
+        },
+        "chapters": [
+            {
+                "title": "Geschichte und Ursprung von TARMED",
+                "content": [
+                    "Der Ursprung des TARMED war ein Projekt zur Gesamtrevision des Arzttarifes (GRAT), das 1984 gestartet wurde. Ziel war es, die bestehenden Abrechnungsstrukturen zu vereinheitlichen.",
+                    "1994, mit der Revision des Krankenversicherungsgesetzes (KVG), erhielt dieses Projekt eine neue Bedeutung. Das KVG verlangte, dass Einzelleistungstarife auf einer einheitlichen Tarifstruktur beruhen müssen.",
+                    "Im Jahr 2002 wurde die erste Version des TARMED genehmigt, die 2003 eingeführt wurde. Seitdem wurde TARMED regelmäßig angepasst, um den medizinischen Fortschritt und die Änderungen im Gesundheitssystem widerzuspiegeln."
+                ]
+            },
+            {
+                "title": "Grundlagen des TARMED",
+                "sections": [
+                    {
+                        "title": "Tarifwesen und Struktur",
+                        "content": "Der TARMED ist in verschiedene Leistungspositionen unterteilt, die nach einem einheitlichen Schema strukturiert sind. Jede Position enthält detaillierte Angaben zur Leistung, zur Dauer und zur Art der durchzuführenden Untersuchung."
+                    },
+                    {
+                        "title": "Leistungsarten",
+                        "content": [
+                            {
+                                "sub_title": "Hauptleistungen",
+                                "details": "Hauptleistungen können einzeln abgerechnet werden und sind die Basisleistungen, die eine ärztliche Tätigkeit beschreiben."
+                            },
+                            {
+                                "sub_title": "Zuschlagsleistungen",
+                                "details": "Zuschlagsleistungen können nur in Kombination mit einer Hauptleistung abgerechnet werden. Sie sind als Ergänzung zu den Hauptleistungen gedacht."
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "title": "Geschichte und Ursprung von TARMED",
+                "sections": [
+                    {
+                        "title": "Projekt Gesamtrevision des Arzttarifes (GRAT)",
+                        "content": "Der Ursprung des TARMED war ein Projekt zur Gesamtrevision des Arzttarifes (GRAT), das 1984 gestartet wurde. Ziel war es, die bestehenden Abrechnungsstrukturen zu vereinheitlichen."
+                    },
+                    {
+                        "title": "Revision des Krankenversicherungsgesetzes (KVG)",
+                        "content": "1994, mit der Revision des Krankenversicherungsgesetzes (KVG), erhielt dieses Projekt eine neue Bedeutung. Das KVG verlangte, dass Einzelleistungstarife auf einer einheitlichen Tarifstruktur beruhen müssen."
+                    },
+                    {
+                        "title": "Einführung der ersten Version",
+                        "content": "Im Jahr 2002 wurde die erste Version des TARMED genehmigt, die 2003 eingeführt wurde. Seitdem wurde TARMED regelmäßig angepasst, um den medizinischen Fortschritt und die Änderungen im Gesundheitssystem widerzuspiegeln."
+                    },
+                    {
+                        "title": "Entwicklung des TARCO",
+                        "content": "Das Projekt TARCO, das 2010 begann, zielte darauf ab, die Schwächen von TARMED zu beseitigen und den Tarif an aktuelle medizinische und wirtschaftliche Realitäten anzupassen."
+                    }
+                ]
+            },
+            {
+                "title": "Grundlagen des TARMED",
+                "sections": [
+                    {
+                        "title": "Tarifwesen und Struktur",
+                        "content": "Der TARMED ist in verschiedene Leistungspositionen unterteilt, die nach einem einheitlichen Schema strukturiert sind. Jede Position enthält detaillierte Angaben zur Leistung, zur Dauer und zur Art der durchzuführenden Untersuchung. Die Vergütung basiert auf der Aufteilung in technische Leistung (TL) und ärztliche Leistung (AL)."
+                    },
+                    {
+                        "title": "Leistungsarten",
+                        "content": [
+                            {
+                                "sub_title": "Hauptleistungen",
+                                "details": "Hauptleistungen können einzeln abgerechnet werden und sind die Basisleistungen, die eine ärztliche Tätigkeit beschreiben. Sie bilden die Grundlage der Behandlung und decken Tätigkeiten wie Diagnosestellung, Untersuchung und medizinische Beratung ab."
+                            },
+                            {
+                                "sub_title": "Zuschlagsleistungen",
+                                "details": "Zuschlagsleistungen können nur in Kombination mit einer Hauptleistung abgerechnet werden. Sie sind als Ergänzung zu den Hauptleistungen gedacht und decken zusätzliche Aufwände ab, wie etwa die Verwendung von speziellen medizinischen Geräten oder zusätzliche Betreuungszeiten."
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Dokumentation und Berichtspflicht",
+                        "content": "Für jede erbrachte Leistung ist eine ordnungsgemäße Dokumentation erforderlich. Diese Dokumentation ist ein integraler Bestandteil der Leistung und muss auf Verlangen den Versicherungen oder dem Vertrauensarzt des Versicherers vorgelegt werden. Sie dient sowohl der Qualitätssicherung als auch der Nachweisführung."
+                    }
+                ]
+            },
+            {
+                "title": "Wichtige generelle Interpretationen",
+                "sections": [
+                    {
+                        "title": "Sitzung und Kumulation",
+                        "content": [
+                            {
+                                "sub_title": "Definition der Sitzung",
+                                "details": "Eine Sitzung ist der Zeitraum zwischen Kontaktaufnahme und Kontaktende im ambulanten Bereich. Versäumte Sitzungen können nicht zu Lasten der Sozialversicherungen abgerechnet werden."
+                            },
+                            {
+                                "sub_title": "Kumulation und Kumulationseinschränkungen",
+                                "details": "Grundsätzlich können alle Hauptleistungen kumuliert werden, sofern keine Einschränkungen bestehen. Diese Einschränkungen betreffen entweder spezifische Leistungskombinationen oder zeitliche Begrenzungen."
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Dokumentationsanforderungen",
+                        "content": "Jede Leistung ist in geeigneter Form, z.B. in Schrift, als Ausdruck, Ton- oder Bildträger, zu dokumentieren. Die Dokumentation ist nicht nur Teil der Leistung, sondern auch eine Voraussetzung für die Vergütung."
+                    }
+                ]
+            },
+            {
+                "title": "Übergang zu TARCO",
+                "sections": [
+                    {
+                        "title": "Warum wird TARMED ersetzt?",
+                        "content": "TARMED wird durch TARCO ersetzt, da die bestehende Tarifstruktur den Anforderungen der modernen Medizin nicht mehr gerecht wird. Die Aktualisierung der Tarifstruktur soll eine genauere und fairere Bewertung der erbrachten Leistungen sicherstellen."
+                    },
+                    {
+                        "title": "Unterschiede zwischen TARMED und TARCO",
+                        "content": [
+                            {
+                                "sub_title": "Kostenmodelle",
+                                "details": "TARCO verwendet aktualisierte Kostenmodelle, die den aktuellen wirtschaftlichen Rahmenbedingungen entsprechen. Während TARMED auf veralteten Berechnungsgrundlagen basiert, wird TARCO eine realistischere Kostenbewertung bieten."
+                            },
+                            {
+                                "sub_title": "Vereinfachte Struktur",
+                                "details": "TARCO soll die Tarifstruktur und die damit verbundenen Regeln vereinfachen, um die Abrechnung für Leistungserbringer und Versicherungen gleichermaßen transparenter zu gestalten."
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Zeitplan für die Einführung",
+                        "content": "Der Übergang zu TARCO ist für das kommende Jahr geplant. In der Übergangsphase werden Schulungen angeboten, um Ärzten und weiteren Leistungserbringern die Umstellung zu erleichtern."
+                    }
+                ]
+            }
+        ],
+        "quiz": [
+            {
+                "question": "Was ist der Hauptunterschied zwischen Hauptleistungen und Zuschlagsleistungen?",
+                "options": [
+                    "Hauptleistungen können alleine abgerechnet werden, Zuschlagsleistungen nur mit einer Hauptleistung.",
+                    "Beide können nur zusammen abgerechnet werden.",
+                    "Zuschlagsleistungen sind die Hauptleistungen."
+                ],
+                "correctAnswerIndex": 0
+            },
+            {
+                "question": "Wann wurde die erste Version von TARMED eingeführt?",
+                "options": [
+                    "1984",
+                    "2003",
+                    "2010"
+                ],
+                "correctAnswerIndex": 1
+            },
+            {
+                "question": "Was beschreibt eine Hauptleistung?",
+                "options": [
+                    "Die Basisleistungen, die eine ärztliche Tätigkeit beschreiben",
+                    "Zusätzliche Leistungen, die nur in Kombination mit Hauptleistungen abgerechnet werden",
+                    "Dokumentation und Berichtspflicht"
+                ],
+                "correctAnswerIndex": 0
+            },
+            {
+                "question": "Warum wird TARMED durch TARCO ersetzt?",
+                "options": [
+                    "Weil TARMED nicht mehr den Anforderungen der modernen Medizin entspricht",
+                    "Weil TARMED zu einfach ist",
+                    "Weil die Versicherungen dies verlangen"
+                ],
+                "correctAnswerIndex": 0
+            },
+            {
+                "question": "Welche Leistung kann nur in Kombination mit einer Hauptleistung abgerechnet werden?",
+                "options": [
+                    "Hauptleistung",
+                    "Zuschlagsleistung",
+                    "Technische Leistung"
+                ],
+                "correctAnswerIndex": 1
+            },
+            {
+                "question": "Welche Art der Dokumentation ist erforderlich, um Leistungen korrekt abzurechnen?",
+                "options": [
+                    "Schriftliche, Ton- oder Bilddokumentation",
+                    "Nur mündliche Beschreibung",
+                    "Keine Dokumentation erforderlich"
+                ],
+                "correctAnswerIndex": 0
+            }
+        ]
+    }
+}

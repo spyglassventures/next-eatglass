@@ -30,20 +30,23 @@ export const NAV_ITEMS = {
         { key: 'ueberweisungV2', name: 'Überweisung Facharzt V2 - coming soon', visible: false },
         { key: 'verordnung', name: 'Verordnung', visible: true },
         { key: 'verhaltensempfehlung', name: 'Verhaltensempfehlung', visible: true },
-        // { key: 'ahviv', name: 'AHV/IV 1 - coming soon', visible: true }, // FORM
-        // { key: 'ktg_erstbericht', name: 'KTG Erstbericht', visible: true }, // FORM
-        // { key: 'sva_berufliche_integration', name: 'SVA Berufliche Integration', visible: true }, // FORM
-        // { key: 'versicherungsanfrage', name: 'Versicherungsanfrage - coming soon', visible: false }, // FORM
+
     ],
     summariesDropdown: [
         { key: 'documents', name: 'Dokumente', visible: true },
         { key: 'pdf', name: 'PDF', visible: true },
         { key: 'image', name: 'Bild (Upload)', visible: true },
     ],
-    formsDropdown: [ // 1 item is required
+    formsDropdown: [
+        { key: 'az_jugendliche', name: 'AZ Jugendliche', visible: true },
         { key: 'ktg_erstbericht', name: 'KTG Erstbericht', visible: true },
+        { key: 'sva_aerztlicher_bericht_eingliederung', name: 'SVA Bericht Eingliederung', visible: true },
         { key: 'sva_berufliche_integration', name: 'SVA Berufliche Integration', visible: true },
+        { key: 'sva_verlaufsbericht', name: 'SVA Verlaufsbericht', visible: true },
+        { key: 'zwischenbericht_kvg_ktg', name: 'Zwischenbericht KVG ', visible: true },
+        { key: 'zwischenbericht_uvg_unfall', name: 'Zwischenbericht UVG', visible: true },
     ],
+
 
     freitextDropdown: [ // 1 item is required
         { key: 'freitext', name: 'Freitext', visible: true },
@@ -54,7 +57,10 @@ export const NAV_ITEMS = {
         { key: 'Aemtiplan', name: 'Ämtiplan', visible: true },
         { key: 'Zahlungen', name: 'Zahlungseingänge', visible: true },
         { key: 'Lieferengpass', name: 'Lieferengpass', visible: true },
-        { key: 'Translate', name: 'Translate', visible: true },
+        { key: 'Translate', name: 'Übersetzung (DeepL)', visible: true },
+        { key: 'HIN', name: 'HIN - in Arbeit', visible: true },
+        { key: 'QM', name: 'QM - in Arbeit', visible: true },
+        { key: 'Abrechnung', name: 'Abrechnung - in Arbeit', visible: true },
         { key: 'Konfigurationsanleitung', name: 'Konfigurationsanleitung', visible: true },
         { key: 'LernvideosPage', name: 'Lernvideos', visible: true },
         { key: 'Welcome', name: 'Willkommen - Hier starten', visible: true },
@@ -92,8 +98,12 @@ import {
     CreditCardIcon,          // Import for Zahlungen
     SparklesIcon,           // Import for Welcome
     ExclamationTriangleIcon,           // Import for Lieferengpass
-    Cog6ToothIcon,  // GlobeAsiaAustraliaIcon // Import for Translate
-    PlayIcon // Import for LernvideosPage
+    Cog6ToothIcon,          // GlobeAsiaAustraliaIcon // Import for Translate
+    PlayIcon,               // Import for LernvideosPage
+    HeartIcon,              // For QM
+    AcademicCapIcon,        // For HIN
+    CheckBadgeIcon,      // For Abrechnung
+
 
 } from '@heroicons/react/24/solid';
 
@@ -107,8 +117,11 @@ import Lieferengpass from '@/components/IntDrugshortage'; //
 import Translate from '@/components/IntTranslate'; //
 import Konfigurationsanleitung from '@/components/IntKonfigurationsanleitung'; //
 import LernvideosPage from '@/components/IntLernvideos'; //
+import HIN from '@/components/IntHIN'; //
+import QM from '@/components/IntQM'; //
+import Abrechnung from '@/components/IntAbrechnung'; //
 
-// NAME in Title: name
+// NAME in Header Page, just below the menu
 export const COMPONENTS = {
     diagnose: {
         name: 'Differentialdiagnosen',
@@ -180,21 +193,6 @@ export const COMPONENTS = {
         component: 'Chat_verhaltensempfehlung',
         buttonText: 'Verhaltensempfehlung'
     },
-    // ahviv: {
-    //     name: 'AHV/IV Formular Hilfe',
-    //     component: 'Chat_ahviv',
-    //     buttonText: 'ahviv'
-    // },
-    ktg_erstbericht: {
-        name: 'KTG Erstbericht',
-        component: 'Chat_ktg_erstbericht',
-        buttonText: 'ktg_erstbericht'
-    },
-    sva_berufliche_integration: {
-        name: 'SVA Berufliche Integration',
-        component: 'Chat_sva_berufliche_integration',
-        buttonText: 'sva_berufliche_integration'
-    },
     versicherungsanfrage: {
         name: 'Versicherungsanfrage Hilfe',
         component: 'Chat_versicherungsanfrage',
@@ -224,6 +222,43 @@ export const COMPONENTS = {
         name: 'Interne Dokumente',
         component: 'Chat_interne',
         buttonText: 'Interne Dokumente'
+    },
+
+    // KI FORMS
+    ktg_erstbericht: {
+        name: 'KTG Erstbericht',
+        component: 'Chat_KI_FORMS_ktg_erstbericht',
+        buttonText: 'ktg_erstbericht'
+    },
+    az_jugendliche: {
+        name: 'AZ Jugendliche',
+        component: 'Chat_KI_FORMS_AZ_Jugendliche',
+        buttonText: 'az_jugendliche'
+    },
+    sva_aerztlicher_bericht_eingliederung: {
+        name: 'SVA Ärztlicher Bericht Eingliederung',
+        component: 'chat_KI_FORMS_sva_aerztlicher_bericht_eingliederung',
+        buttonText: 'sva_aerztlicher_bericht_eingliederung'
+    },
+    sva_berufliche_integration: {
+        name: 'SVA Berufliche Integration',
+        component: 'Chat_KI_FORMS_sva_berufliche_integration',
+        buttonText: 'sva_berufliche_integration'
+    },
+    sva_verlaufsbericht: {
+        name: 'SVA Verlaufsbericht',
+        component: 'Chat_KI_FORMS_sva_verlaufsbericht',
+        buttonText: 'sva_verlaufsbericht'
+    },
+    zwischenbericht_kvg_ktg: {
+        name: 'Zwischenbericht KVG',
+        component: 'Chat_KI_FORMS_Zwischenbericht_kvg_ktg',
+        buttonText: 'zwischenbericht_kvg_ktg'
+    },
+    zwischenbericht_uvg_unfall: {
+        name: 'Zwischenbericht UVG',
+        component: 'Chat_KI_FORMS_Zwischenbericht_uvg_unfall',
+        buttonText: 'zwischenbericht_uvg_unfall'
     }
 };
 
@@ -241,11 +276,6 @@ export const ICONS = {
     ueberweisungV2: ArrowDownRightIcon,
     verordnung: HomeModernIcon,
     verhaltensempfehlung: FaceSmileIcon,
-    // ahviv: DocumentDuplicateIcon, // FORM
-    ktg_erstbericht: PencilIcon, // FORM
-    sva_berufliche_integration: DocumentDuplicateIcon, // FORM
-    versicherungsanfrage: DocumentDuplicateIcon, // FORM
-    // Interne Dokumente
     InternalDocument: DocumentDuplicateIcon,
     DocNumbers: HashtagIcon,
     Aemtiplan: CalendarIcon,
@@ -254,7 +284,10 @@ export const ICONS = {
     Lieferengpass: ExclamationTriangleIcon,
     Translate: GlobeAsiaAustraliaIcon,
     Konfigurationsanleitung: Cog6ToothIcon,
-    LernvideosPage: PlayIcon
+    LernvideosPage: PlayIcon,
+    HIN: AcademicCapIcon,
+    QM: HeartIcon,
+    Abrechnung: CheckBadgeIcon
 
 };
 
@@ -262,9 +295,8 @@ export const GROUPS = {
     mainComponents: ['diagnose', 'kostengutsprache', 'medis', 'labor'],
     toolsDropdown: ['stellungsnahme', 'labor', 'literatur', 'medis', 'calculator', 'reise', 'ernaehrung', 'mediausland', 'ueberweisung', 'ueberweisungV2', 'verordnung', 'verhaltensempfehlung', 'ahviv', 'ktg_erstbericht', 'sva_berufliche_integration', 'versicherungsanfrage'],
     summariesDropdown: ['documents', 'pdf', 'image'],
-    freitextDropdown: ['freitext'],
-    formsDropdown: ['freitext'],
-    // interneDropdown: ['interne'], // NOT USED
+    freitextDropdown: ['freitext']
+
 };
 
 
@@ -289,6 +321,12 @@ export const getActiveComponent = (activeComponent) => {
             return Konfigurationsanleitung;
         case 'LernvideosPage':
             return LernvideosPage;
+        case 'HIN':
+            return HIN;
+        case 'QM':
+            return QM;
+        case 'Abrechnung':
+            return Abrechnung;
         default:
             return components[COMPONENTS[activeComponent]?.component];
     }

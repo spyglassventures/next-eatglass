@@ -1,0 +1,61 @@
+{
+    "fields": [
+        {
+            "id": "A_1",
+            "label": "ICD-Code und allfällige Differenzialdiagnose(n):",
+            "placeholder": "ICD-Code und allfällige Differenzialdiagnose(n):"
+        },
+        {
+            "id": "B_1",
+            "label": "Gegenwärtige Behandlung:",
+            "placeholder": "Gegenwärtige Behandlung:"
+        },
+        {
+            "id": "B_2",
+            "label": "Prozedere/Vorschläge (weitere Behandlung, Röntgen, versicherungsmed. Untersuchung):",
+            "placeholder": "Prozedere/Vorschläge (weitere Behandlung, Röntgen, versicherungsmed. Untersuchung):"
+        },
+        {
+            "id": "B_3",
+            "label": "In welchen Abständen finden Konsultationen statt?",
+            "placeholder": "In welchen Abständen finden Konsultationen statt?"
+        },
+        {
+            "id": "B_4",
+            "label": "Voraussichtliche Dauer der Behandlung?",
+            "placeholder": "Voraussichtliche Dauer der Behandlung?"
+        },
+        {
+            "id": "C_1",
+            "label": "Bisheriger Verlauf und gegenwärtiger Zustand (subjektiv und objektiv):",
+            "placeholder": "Bisheriger Verlauf und gegenwärtiger Zustand (subjektiv und objektiv):"
+        },
+        {
+            "id": "C_2",
+            "label": "Prognose:",
+            "placeholder": "Prognose:"
+        },
+        {
+            "id": "C_3",
+            "label": "Gibt es besondere Umstände, welche den Heilungsverlauf ungünstig beeinflussen können (z.B. frühere Erkrankungen, Unfälle, soziale Umstände)? Wenn ja, welche?",
+            "placeholder": "Gibt es besondere Umstände, welche den Heilungsverlauf ungünstig beeinflussen können (z.B. frühere Erkrankungen, Unfälle, soziale Umstände)? Wenn ja, welche?"
+        },
+        {
+            "id": "D_1",
+            "label": "Welche körperlichen, geistigen, psychischen Einschränkungen bestehen und welche konkreten Auswirkungen haben diese Einschränkungen auf die aktuelle Tätigkeit (Arbeitsaufgaben)?",
+            "placeholder": "Welche körperlichen, geistigen, psychischen Einschränkungen bestehen und welche konkreten Auswirkungen haben diese Einschränkungen auf die aktuelle Tätigkeit (Arbeitsaufgaben)?"
+        },
+        {
+            "id": "D_2",
+            "label": "Können konkrete Massnahmen die Leistungsfähigkeit am Arbeitsplatz positiv beeinflussen (z.B. Zuweisung geeigneter Arbeit, Arbeitswegunterstützung, Arbeitsplatzanpassung, Job-Coaching usw.)? Wenn ja welche?",
+            "placeholder": "Können konkrete Massnahmen die Leistungsfähigkeit am Arbeitsplatz positiv beeinflussen (z.B. Zuweisung geeigneter Arbeit, Arbeitswegunterstützung, Arbeitsplatzanpassung, Job-Coaching usw.)? Wenn ja welche?"
+        },
+        {
+            "id": "D_3",
+            "label": "Ist ein bleibender Nachteil zu erwarten? Wenn ja, welcher und in welchem Ausmass?",
+            "placeholder": "Ist ein bleibender Nachteil zu erwarten? Wenn ja, welcher und in welchem Ausmass?"
+        }
+    ],
+    "docTemplatePath": "/forms/Zwischenbericht_uvg_unfall.docx",
+    "saveFileName": "Updated_Zwischenbericht_uvg_unfall.docx"
+}

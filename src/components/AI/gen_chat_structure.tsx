@@ -173,11 +173,19 @@ export default function ChatStructure({
 
                 <div className='flex flex-wrap mb-3 '>
                     <div className='w-full md:w-2/3 mb-3 md:mb-0'>
-                        <div
-                            className='h-[500px] rounded-md border dark:border-zinc-700 overflow-auto bg-white dark:bg-zinc-900 p-4 '
-                            ref={ref}
-                        >
-                            {messages.map((m) => <Message key={m.id} message={m} />)}
+                        <div className='h-[500px] rounded-md border dark:border-zinc-700 overflow-auto bg-white dark:bg-zinc-900 p-4' ref={ref}>
+                            {messages.length > 1 ? (
+                                messages.map((m) => <Message key={m.id} message={m} />)
+                            ) : (
+                                <div className='flex flex-col items-center justify-center h-full'>
+                                    <p className='text-xl md:text-2xl font-bold text-gray-700 dark:text-gray-300 mb-6'>
+                                        Bitte geben Sie Ihre Anfrage in die Zeile unten ein
+                                    </p>
+                                    <div className='text-6xl  text-gray-500 dark:text-gray-400 animate-bounce'>
+                                        ↓
+                                    </div>
+                                </div>
+                            )}
                         </div>
                         {showFollowUpButtons && (
                             <FollowUpButtons setInput={setInput} handlePopEffect={handlePopEffect} followupBtn={followupBtn} />

@@ -24,11 +24,20 @@ import Chat_freitext from '@/components/AI/chat_freitext';
 import Chat_reise from '@/components/AI/chat_reise';
 import Chat_pdf from '@/components/AI/chat_pdf';
 import Chat_image from '@/components/AI/chat_image';
-import Chat_ktg_erstbericht from '@/components/AI/chat_ktg_erstbericht';
-import Chat_sva_berufliche_integration from '@/components/AI/chat_sva_berufliche_integration';
-// import Chat_ahviv from '@/components/AI/chat_ahviv';
 import Chat_versicherungsanfrage from '@/components/AI/chat_versicherungsanfrage';
-// import { Chat } from 'openai/resources'; // not used? check if really can be disabled
+
+// KI FORMS
+import Chat_KI_FORMS_AZ_Jugendliche from '@/components/AI/KI_FORMS/chat_KI_FORMS_AZ_Jugendliche';
+import Chat_KI_FORMS_ktg_erstbericht from '@/components/AI/KI_FORMS/chat_KI_FORMS_ktg_erstbericht';
+import chat_KI_FORMS_sva_aerztlicher_bericht_eingliederung from '@/components/AI/KI_FORMS/chat_KI_FORMS_SVA_Aerztlicher_Bericht_Eingliederung';
+import Chat_KI_FORMS_sva_berufliche_integration from '@/components/AI/KI_FORMS/chat_KI_FORMS_sva_berufliche_integration';
+import Chat_KI_FORMS_sva_verlaufsbericht from '@/components/AI/KI_FORMS/chat_KI_FORMS_SVA_Verlaufsbericht';
+import Chat_KI_FORMS_Zwischenbericht_kvg_ktg from '@/components/AI/KI_FORMS/chat_KI_FORMS_Zwischenbericht_kvg_ktg';
+import Chat_KI_FORMS_Zwischenbericht_uvg_unfall from '@/components/AI/KI_FORMS/chat_KI_FORMS_Zwischenbericht_uvg_unfall';
+
+
+
+
 
 export default {
     Chat_diagnose,
@@ -52,7 +61,16 @@ export default {
     Chat_ueberweisungfacharztV2,
     Chat_verordnung,
     Chat_verhaltensempfehlung,
-    Chat_ktg_erstbericht,
-    Chat_sva_berufliche_integration,
     Chat_versicherungsanfrage,
+
+    // KI FORMS
+    Chat_KI_FORMS_AZ_Jugendliche,
+    Chat_KI_FORMS_ktg_erstbericht,
+    chat_KI_FORMS_sva_aerztlicher_bericht_eingliederung,
+    Chat_KI_FORMS_sva_berufliche_integration,
+    Chat_KI_FORMS_sva_verlaufsbericht,
+    Chat_KI_FORMS_Zwischenbericht_kvg_ktg,
+    Chat_KI_FORMS_Zwischenbericht_uvg_unfall,
+    // END KI FORMS
+
 };

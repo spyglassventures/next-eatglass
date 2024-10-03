@@ -1,0 +1,76 @@
+{
+    "fields": [
+        {
+            "id": "A_1",
+            "label": "Objektive Befunde: Untersuchungen und bildgebende Befunde (bitte Kopien beilegen):",
+            "placeholder": "Objektive Befunde: Untersuchungen und bildgebende Befunde (bitte Kopien beilegen):"
+        },
+        {
+            "id": "B_1",
+            "label": "Diagnose(n) mit: Auswirkung auf die Arbeitsunfähigkeit: ICD-Code und allfällige Differenzialdiagnose(n): ",
+            "placeholder": "Diagnose(n) mit: Auswirkung auf die Arbeitsunfähigkeit: ICD-Code und allfällige Differenzialdiagnose(n):"
+        },
+        {
+            "id": "B_2",
+            "label": "Diagnose(n) ohne: Auswirkung auf die Arbeitsunfähigkeit: ICD-Code und allfällige Differenzialdiagnose(n):",
+            "placeholder": "Diagnose(n) ohne: Auswirkung auf die Arbeitsunfähigkeit: ICD-Code und allfällige Differenzialdiagnose(n):"
+        },
+        {
+            "id": "B_3",
+            "label": "Objektive Einschränkung bei der gegenwärtigen Tätigkeit:",
+            "placeholder": "Objektive Einschränkung bei der gegenwärtigen Tätigkeit:"
+        },
+        {
+            "id": "C_1",
+            "label": "Gegenwärtige Behandlung:",
+            "placeholder": "Gegenwärtige Behandlung:"
+        },
+        {
+            "id": "C_2",
+            "label": "Prozedere/Vorschläge zur weiteren Behandlung:",
+            "placeholder": "Prozedere/Vorschläge zur weiteren Behandlung:"
+        },
+        {
+            "id": "C_3",
+            "label": "Prognose:",
+            "placeholder": "Prognose:"
+        },
+        {
+            "id": "D_1",
+            "label": "Bisheriger Verlauf und gegenwärtiger Zustand (subjektiv und objektiv):",
+            "placeholder": "Bisheriger Verlauf und gegenwärtiger Zustand (subjektiv und objektiv):"
+        },
+        {
+            "id": "D_2",
+            "label": "Prognose:",
+            "placeholder": "Prognose:"
+        },
+        {
+            "id": "E_1",
+            "label": "Gibt es besondere Umstände, welche den Heilungsverlauf und die Wiederaufnahme der Arbeit ungünstig beeinflussen können (z.B. berufliches Umfeld, soziale Umstände, Arbeitsweg, Sucht)? Wenn ja, welche?",
+            "placeholder": "Gibt es besondere Umstände, welche den Heilungsverlauf und die Wiederaufnahme der Arbeit ungünstig beeinflussen können (z.B. berufliches Umfeld, soziale Umstände, Arbeitsweg, Sucht)? Wenn ja, welche?"
+        },
+        {
+            "id": "F_1",
+            "label": "Welche körperlichen, geistigen, psychischen Einschränkungen bestehen und welche konkreten Auswirkungen haben diese Einschränkungen auf die aktuelle Tätigkeit (Arbeitsaufgaben)?",
+            "placeholder": "Welche körperlichen, geistigen, psychischen Einschränkungen bestehen und welche konkreten Auswirkungen haben diese Einschränkungen auf die aktuelle Tätigkeit (Arbeitsaufgaben)?"
+        },
+        {
+            "id": "G_1",
+            "label": "Arbeitsfähigkeit nach Stabilisierung des Gesundheitszustandes? Wenn ja, welches ist das Belastungsprofil und welche sind die notwendigen Anpassungen?",
+            "placeholder": "Arbeitsfähigkeit nach Stabilisierung des Gesundheitszustandes? Wenn ja, welches ist das Belastungsprofil und welche sind die notwendigen Anpassungen?"
+        },
+        {
+            "id": "H_1",
+            "label": "Integrationsmassnahmen: Können zusätzliche konkrete Massnahmen die Leistungsfähigkeit positiv beeinflussen? Wenn ja, mit welchen Massnahmen können wir die versicherte Person Ihrer Meinung nach unterstützen?\n- Medizinische Massnahmen?\n- Berufliche Massnahmen (z.B. Arbeitswegunterstützung, Job-Coaching)?\n- Psycho-soziale Massnahmen?",
+            "placeholder": "Integrationsmassnahmen: Können zusätzliche konkrete Massnahmen die Leistungsfähigkeit positiv beeinflussen? Wenn ja, mit welchen Massnahmen können wir die versicherte Person Ihrer Meinung nach unterstützen?\n- Medizinische Massnahmen?\n- Berufliche Massnahmen (z.B. Arbeitswegunterstützung, Job-Coaching)?\n- Psycho-soziale Massnahmen?"
+        },
+        {
+            "id": "I_1",
+            "label": "Bemerkungen",
+            "placeholder": "Bemerkungen"
+        }
+    ],
+    "docTemplatePath": "/forms/Zwischenbericht_kvg_ktg.docx",
+    "saveFileName": "Updated_Zwischenbericht_kvg_ktg.docx"
+}

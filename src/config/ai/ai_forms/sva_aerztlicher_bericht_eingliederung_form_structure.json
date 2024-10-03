@@ -1,0 +1,46 @@
+{
+    "fields": [
+        {
+            "id": "A_1",
+            "label": "Angaben zum Gesundheitsschaden (sofern möglich, mit Diagnosen)",
+            "placeholder": "Angaben zum Gesundheitsschaden (sofern möglich, mit Diagnosen)"
+        },
+        {
+            "id": "A_2",
+            "label": "Seit wann besteht die Arbeitsunfähigkeit, welche Arbeitsunfähigkeit haben Sie bisher bescheinigt?",
+            "placeholder": "Seit wann besteht die Arbeitsunfähigkeit, welche Arbeitsunfähigkeit haben Sie bisher bescheinigt?"
+        },
+        {
+            "id": "A_3",
+            "label": "Welche Funktionsstörungen schränken die Arbeitsfähigkeit ein?",
+            "placeholder": "Welche Funktionsstörungen schränken die Arbeitsfähigkeit ein?"
+        },
+        {
+            "id": "A_4",
+            "label": "Welche Tätigkeiten könnte die versicherte Person noch ausüben? Wie viele Stunden pro Tag?",
+            "placeholder": "Welche Tätigkeiten könnte die versicherte Person noch ausüben? Wie viele Stunden pro Tag?"
+        },
+        {
+            "id": "A_5",
+            "label": "Laufende und geplante Behandlungsmassnahmen",
+            "placeholder": "Laufende und geplante Behandlungsmassnahmen"
+        },
+        {
+            "id": "A_6",
+            "label": "Prognose",
+            "placeholder": "Prognose"
+        },
+        {
+            "id": "A_7",
+            "label": "Gibt es Gründe, die gegen einen sofortigen Beginn der Wiedereingliederung sprechen?",
+            "placeholder": "Gibt es Gründe, die gegen einen sofortigen Beginn der Wiedereingliederung sprechen?"
+        },
+        {
+            "id": "A_8",
+            "label": "Ergänzende Bemerkungen",
+            "placeholder": "Ergänzende Bemerkungen"
+        }
+    ],
+    "docTemplatePath": "/forms/SVA_Aerztlicher_Bericht_Eingliederung.docx",
+    "saveFileName": "Updated_SVA_Aerztlicher_Bericht_Eingliederung.docx"
+}

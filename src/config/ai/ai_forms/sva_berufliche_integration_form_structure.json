@@ -136,6 +136,6 @@
             "placeholder": "Was wäre für die Beurteilung des Falles außerdem wichtig? Möchten Sie uns noch etwas mitteilen?"
         }
     ],
-    "docTemplatePath": "/forms/SVA_Berufliche_Integration_SG.docx",
-    "saveFileName": "Updated_SVA_Berufliche_Integration_SG.docx"
+    "docTemplatePath": "/forms/SVA_Berufliche_Integration.docx",
+    "saveFileName": "Updated_SVA_Berufliche_Integration.docx"
 }

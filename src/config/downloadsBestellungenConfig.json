@@ -60,7 +60,6 @@
                 "numPages": 13,
                 "contentType": "application/pdf"
             },
-           
             {
                 "name": "FMH Patientenverfügung Kurz",
                 "filename": "fmh-patientenverfuegung-kurz-de.pdf",
@@ -75,6 +74,30 @@
                 "path": "/downloadsBestellungen/",
                 "previewable": true,
                 "numPages": 2,
+                "contentType": "application/pdf"
+            },
+            {
+                "name": "Ärztliches Attest ADAC",
+                "filename": "Formular-Aerztliches-Attest_ADAC-de.pdf",
+                "path": "/downloadsBestellungen/",
+                "previewable": true,
+                "numPages": 1,
+                "contentType": "application/pdf"
+            },
+            {
+                "name": "Einzahlungsschein QR IBAN",
+                "filename": "ES_QRIBAN_UBS-de-en.pdf",
+                "path": "/downloadsBestellungen/",
+                "previewable": true,
+                "numPages": 1,
+                "contentType": "application/pdf"
+            },
+            {
+                "name": "Einzahlungsschein QR TWINT",
+                "filename": "ES_QRTWINT-de-en.pdf",
+                "path": "/downloadsBestellungen/",
+                "previewable": true,
+                "numPages": 1,
                 "contentType": "application/pdf"
             }
         ]
