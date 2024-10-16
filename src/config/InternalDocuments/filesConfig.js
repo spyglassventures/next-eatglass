@@ -57,6 +57,13 @@ const documents = [
         previewable: true,
         contentType: 'application/pdf',
     },
+    {
+        name: 'Inkontinenz Bestellformular',
+        filename: 'Inkontinenz_Bestellformular.pdf',
+        path: '/api/documents/list_documents?filename=Inkontinenz_Bestellformular.pdf',
+        previewable: true,
+        contentType: 'application/pdf',
+    },
 ];
 
 export default documents;
