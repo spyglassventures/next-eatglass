@@ -52,8 +52,8 @@ const documents = [
     },
     {
         name: 'Inkontinenz Ablauf',
-        filename: 'Inkontinenz_Ablauf.docx',
-        path: '/api/documents/list_documents?filename=Inkontinenz_Ablauf.docx',
+        filename: 'Inkontinenz_Ablauf.pdf',
+        path: '/api/documents/list_documents?filename=Inkontinenz_Ablauf.pdf',
         previewable: true,
         contentType: 'application/pdf',
     },
