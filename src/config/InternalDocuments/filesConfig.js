@@ -50,6 +50,13 @@ const documents = [
         previewable: true,
         contentType: 'application/pdf',
     },
+    {
+        name: 'Inkontinenz Ablauf',
+        filename: 'Inkontinenz_Ablauf.docx',
+        path: '/api/documents/list_documents?filename=Inkontinenz_Ablauf.docx',
+        previewable: true,
+        contentType: 'application/pdf',
+    },
 ];
 
 export default documents;
