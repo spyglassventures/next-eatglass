@@ -2,12 +2,12 @@
   "_comment": "// # src/config/aboutPageContent.json",
   "metadata": {
     "title": "Das Team der Praxis Muster",
-    "description": "Dr. med. Max Muster und das MPA Team der Praxis Muster in Musterort, BE"
+    "description": "Dr. med. Maximilian Muster und das MPA Team der Praxis Muster in Musterort, BE"
   },
   "pageContent": {
     "Breadcrumb": {
       "pageName": "Die Praxis Muster",
-      "description": "Dr. med. Max Muster und das MPA Team der Praxis Muster in Musterort, BE."
+      "description": "Dr. med. Maximilian Muster und das MPA Team der Praxis Muster in Musterort, BE."
     }
   }
 }
