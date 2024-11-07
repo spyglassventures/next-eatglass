@@ -6,9 +6,31 @@
 // edited: 29.8.24, Daniel Mueller, Navi structure changed, Ticket Text added
 
 // CAVE: also add to src/config/ai/imports.js
+// and  into src/intern/ClientPage.tsx
 
 
-// NAME in NAVIGATION
+// new items also need to be added to case statements at the bottom of this file
+import InternalDocuments from '@/components/IntInternalDocuments'; //
+import DocNumbers from '@/components/IntDocNumbers'; //
+import Aemtiplan from '@/components/IntAemtliplan'; // 
+import Zahlungen from '@/components/IntZahlungseingaenge'; // 
+import Welcome from '@/components/IntWelcomeMessage/Welcome';
+import components from '@/config/ai/imports';
+import Lieferengpass from '@/components/IntDrugshortage'; // 
+import Translate from '@/components/IntTranslate'; //
+import Konfigurationsanleitung from '@/components/IntKonfigurationsanleitung'; //
+import LernvideosPage from '@/components/IntLernvideos'; //
+import HIN from '@/components/IntHIN'; //
+import QM from '@/components/IntQM'; //
+import Abrechnung from '@/components/IntAbrechnung'; //
+import QR from '@/components/IntQR'; //
+// import CHDT from '@/components/MedienCHDT'; // nein da kein AI chat, nicht hier drin
+import Diktat from '@/components/MedienDiktat'; //
+import Cal from '@/components/IntCal'; //
+
+
+
+// NAME in NAVIGATION // NEVER HAVE SAME ITEM IN MULTIPLE DROPDOWNS
 export const NAV_ITEMS = {
     mainComponents: [
         { key: 'diagnose', name: 'Differentialdiagnosen', visible: true },
@@ -31,12 +53,18 @@ export const NAV_ITEMS = {
         { key: 'verordnung', name: 'Verordnung', visible: true },
         { key: 'verhaltensempfehlung', name: 'Verhaltensempfehlung', visible: true },
 
-    ],
+    ], // Medien KI
     summariesDropdown: [
         { key: 'documents', name: 'Dokumente', visible: true },
         { key: 'pdf', name: 'PDF', visible: true },
         { key: 'image', name: 'Bild (Upload)', visible: true },
+        { key: 'Diktat', name: 'Diktat', visible: true },
+        { key: 'verlaufsoptimierer', name: 'Verlaufsoptimierer', visible: true },
+        { key: 'chdt', name: 'Mundart -> Schriftdeutsch', visible: true },
+        { key: 'antwortemail', name: 'Antwortemail', visible: true },
     ],
+
+    // KI Formulare
     formsDropdown: [
         { key: 'az_jugendliche', name: 'AZ Jugendliche', visible: true },
         { key: 'ktg_erstbericht', name: 'KTG Erstbericht', visible: true },
@@ -50,7 +78,10 @@ export const NAV_ITEMS = {
 
     freitextDropdown: [ // 1 item is required
         { key: 'freitext', name: 'Freitext', visible: true },
+
+
     ],
+
     interneDropdown: [ // adjust to change name in Naviation
         { key: 'InternalDocument', name: 'Interne Dokumente', visible: true },
         { key: 'DocNumbers', name: 'Dokumenten-Nummern', visible: true },
@@ -58,12 +89,20 @@ export const NAV_ITEMS = {
         { key: 'Zahlungen', name: 'Zahlungseingänge', visible: true },
         { key: 'Lieferengpass', name: 'Lieferengpass', visible: true },
         { key: 'Translate', name: 'Übersetzung (DeepL)', visible: true },
-        { key: 'HIN', name: 'HIN - in Arbeit', visible: true },
+        { key: 'HIN', name: 'HIN Teilnehmer Suche', visible: true },
         { key: 'QM', name: 'QM - in Arbeit', visible: true },
         { key: 'Abrechnung', name: 'Abrechnung - in Arbeit', visible: true },
         { key: 'Konfigurationsanleitung', name: 'Konfigurationsanleitung', visible: true },
         { key: 'LernvideosPage', name: 'Lernvideos', visible: true },
         { key: 'Welcome', name: 'Willkommen - Hier starten', visible: true },
+        { key: 'QR', name: 'QR Codes', visible: true },
+
+
+        { key: 'Cal', name: 'Kalendereinträge', visible: true },
+
+        // { key: 'antwortemail', name: 'antwortemail', visible: true }
+
+        // no comma ! in last item
     ]
 };
 
@@ -107,24 +146,11 @@ import {
 
 } from '@heroicons/react/24/solid';
 
-import InternalDocuments from '@/components/IntInternalDocuments'; //
-import DocNumbers from '@/components/IntDocNumbers'; //
-import Aemtiplan from '@/components/IntAemtliplan'; // 
-import Zahlungen from '@/components/IntZahlungseingaenge'; // 
-import Welcome from '@/components/IntWelcomeMessage/Welcome';
-import components from '@/config/ai/imports';
-import Lieferengpass from '@/components/IntDrugshortage'; // 
-import Translate from '@/components/IntTranslate'; //
-import Konfigurationsanleitung from '@/components/IntKonfigurationsanleitung'; //
-import LernvideosPage from '@/components/IntLernvideos'; //
-import HIN from '@/components/IntHIN'; //
-import QM from '@/components/IntQM'; //
-import Abrechnung from '@/components/IntAbrechnung'; //
 
 // NAME in Header Page, just below the menu
 export const COMPONENTS = {
     diagnose: {
-        name: 'Differentialdiagnosen',
+        name: 'Differentialdiagnosen', // Name in Header Page, below grey navigation, free form
         component: 'Chat_diagnose',
         buttonText: 'Diagnose'
     },
@@ -152,6 +178,11 @@ export const COMPONENTS = {
         name: 'Stellungsnahme',
         component: 'Chat_stellungsnahme',
         buttonText: 'Stellungsnahme'
+    },
+    antwortmail: {
+        name: 'Antwortmail',
+        component: 'Chat_antwortmail',
+        buttonText: 'Antwortmail'
     },
     literatur: {
         name: 'Literatur',
@@ -208,11 +239,34 @@ export const COMPONENTS = {
         component: 'Chat_pdf',
         buttonText: 'PDF (via URL)'
     },
+    antwortemail: {
+        name: 'Antwortemail',
+        component: 'Chat_antwortemail',
+        buttonText: 'Antwortemail'
+    },
+    verlaufsoptimierer: {
+        name: 'Verlaufsoptimierer',
+        component: 'Chat_verlaufsoptimierer',
+        buttonText: 'Verlaufsoptimierer'
+    },
     image: {
         name: 'Bild (Upload)',
         component: 'Chat_image',
         buttonText: 'Bild (Upload)'
     },
+    chdt: {
+        name: 'Mundart -> Schriftdeutsch',
+        component: 'Chat_chdt',
+        buttonText: 'CHDT'
+    },
+
+    Diktat: {
+        name: 'Diktat',
+        component: 'Chat_Diktat',
+        buttonText: 'Diktat'
+    },
+
+
     freitext: {
         name: 'Freitext',
         component: 'Chat_freitext',
@@ -287,15 +341,22 @@ export const ICONS = {
     LernvideosPage: PlayIcon,
     HIN: AcademicCapIcon,
     QM: HeartIcon,
-    Abrechnung: CheckBadgeIcon
+    Abrechnung: CheckBadgeIcon,
+    QR: CheckBadgeIcon,
+    // CHDT: CheckBadgeIcon,
+    Diktat: CheckBadgeIcon,
+    Cal: CheckBadgeIcon,
+    // antwortmail: CheckBadgeIcon,
+    // verlaufsoptimierer: CheckBadgeIcon
 
 };
 
+// not required
 export const GROUPS = {
     mainComponents: ['diagnose', 'kostengutsprache', 'medis', 'labor'],
     toolsDropdown: ['stellungsnahme', 'labor', 'literatur', 'medis', 'calculator', 'reise', 'ernaehrung', 'mediausland', 'ueberweisung', 'ueberweisungV2', 'verordnung', 'verhaltensempfehlung', 'ahviv', 'ktg_erstbericht', 'sva_berufliche_integration', 'versicherungsanfrage'],
-    summariesDropdown: ['documents', 'pdf', 'image'],
-    freitextDropdown: ['freitext']
+    summariesDropdown: ['documents', 'pdf', 'image', 'verlaufsoptimierer', 'antwortmail', 'chdt'],
+    freitextDropdown: ['freitext'],
 
 };
 
@@ -325,6 +386,16 @@ export const getActiveComponent = (activeComponent) => {
             return HIN;
         case 'QM':
             return QM;
+        case 'QR':
+            return QR;
+        case 'Diktat':
+            return Diktat;
+        case 'Cal':
+            return Cal;
+        // case 'CHDT':
+        //     return CHDT; // no its an AI component
+        case 'Antwortemail':
+            return Antwortemail;
         case 'Abrechnung':
             return Abrechnung;
         default:

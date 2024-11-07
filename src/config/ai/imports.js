@@ -26,6 +26,15 @@ import Chat_pdf from '@/components/AI/chat_pdf';
 import Chat_image from '@/components/AI/chat_image';
 import Chat_versicherungsanfrage from '@/components/AI/chat_versicherungsanfrage';
 
+// Freitext
+// import Chat_antwortemail from '@/components/AI/chat_antwortemail';
+// import Chat_verlaufsoptimierer from '@/components/AI/chat_verlaufsoptimierer';
+
+// Medien KI
+import Chat_antwortemail from '@/components/AI/chat_antwortemail';
+import Chat_verlaufsoptimierer from '@/components/AI/chat_verlaufsoptimierer';
+import Chat_chdt from '@/components/AI/chat_chdt';
+
 // KI FORMS
 import Chat_KI_FORMS_AZ_Jugendliche from '@/components/AI/KI_FORMS/chat_KI_FORMS_AZ_Jugendliche';
 import Chat_KI_FORMS_ktg_erstbericht from '@/components/AI/KI_FORMS/chat_KI_FORMS_ktg_erstbericht';
@@ -72,5 +81,16 @@ export default {
     Chat_KI_FORMS_Zwischenbericht_kvg_ktg,
     Chat_KI_FORMS_Zwischenbericht_uvg_unfall,
     // END KI FORMS
+
+    // Freitext
+
+
+
+    // Medien KI
+    Chat_chdt,
+    Chat_verlaufsoptimierer,
+    Chat_antwortemail
+
+
 
 };

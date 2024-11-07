@@ -1,0 +1,10 @@
+{
+    "filename": "news_sidebar_config.json",
+    "examples": [
+        "Patient klagt über brennen beim Wasserlöse, Prostatprobleme sind bekannt und der Patient ist diesbezüglich in Spital Chur in Behandlung. RR, UST, Lboar CRP, Leukos, HWI, Cenphromn 1-1-1, Empfehlung Hagebutte-Tee, US-Abdomen. Bitte zum Ultraschall-Abdomen einbestellen!",
+        "Patienten klagt über Kopfschmerzen und WS-Beschwerden, welche bereits bekannt sind. Möchte gerne eine Untersuchung beim Wirbelsäule Spezialisten. Keine Medikamte nötig oder hat bereits Medikamente, AUF von – bis. Aufgebot WS-Spezialisten"
+    ],
+    "abkuerzungen": [
+        "keine"
+    ]
+}

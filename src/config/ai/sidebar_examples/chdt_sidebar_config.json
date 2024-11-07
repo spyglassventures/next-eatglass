@@ -1,0 +1,18 @@
+{
+    "filename": "news_sidebar_config.json",
+    "examples": [
+        "Grüezi Herr Meier, mir müend morn e Kontrolluntersuchig mache, drum möcht ich Sie bitte, nüchtern zu bliebe und kei Medikament vorhär z’näh.",
+        "Ich han nöd alles verstande, chönd Sie bitte langsam widerhole, was für Medikament Sie momentan nähmed und wie lang das scho der Fall isch?",
+        "Es isch wichtig, dass mir alli nötige Info vo de Krankegschicht zämehänke, drum frogi Sie, ob Sie scho früehner e Allergietest gmacht händ.",
+        "Chönd Sie mir bitte erkläre, was gschter passiert isch, wo Sie d’Beschwerde am stärkste gspürt händ und ob es irgendi Episod mit Schwindel oder Schwäche gäh hät?",
+        "D’Ärztin wird sich d’Resultat vo de Blutprobe genau aaluege und mit Ihne bespreche, was für Schritt mir als nöchscht müend näh.",
+        "Mir händ öppis us de neuste Studie analysiert und wänd das mit Ihnen in de nächste Sprechstund bespreche, drum wäre es guet, wenn Sie sich e Ziit reserviere chönd.",
+        "Bitte melded Sie sich, wenn Sie diä Medikament nöd verträgid oder ungewönligi Symptöm bemerket, damit mir d’Behandlung adpasse chönd.",
+        "Es isch wichtig, dass Sie sich in de nöchste paar Täg ruue und kei strängi Aktivität mache, bis d’Entzündig zrugg gaht und Sie sich besser fühled.",
+        "Chönd Sie mir no emal erkläre, wie oft und zu welche Ziitpunkt Sie diä Medikament z’nähend, damit mir sicher sind, dass d’Dosierig stimme?",
+        "Mir müend sichergeh, dass Sie d’Anleitung für d’Rehabilitationsüebige guet verstande händ, chönd Sie mir säge, wie Sie vorhänd gaht?"
+    ],
+    "abkuerzungen": [
+        "keine"
+    ]
+}

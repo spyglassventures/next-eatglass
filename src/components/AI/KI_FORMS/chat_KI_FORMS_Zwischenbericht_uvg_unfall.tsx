@@ -1,4 +1,5 @@
 import { useChat } from 'ai/react';
+import React from 'react';
 import { useEffect, useState } from 'react';
 import ChatStructure from '../KI_FORMS/kiForms_chat_structure';
 import GenDocxStructure from './gen_docx_structure';
