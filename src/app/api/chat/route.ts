@@ -1,5 +1,6 @@
-// next-kappelihof/src/app/api/chat/route.ts
+// /src/app/api/chat/route.ts
 // we also need the pages/api/log.ts file to log the AI request and response to the database
+// feeds into ... 
 
 
 import OpenAI from 'openai'

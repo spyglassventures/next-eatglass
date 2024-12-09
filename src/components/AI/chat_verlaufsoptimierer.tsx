@@ -1,34 +1,110 @@
-'use client'
+'use client';
 
-import ChatStructure from './gen_chat_structure' // Importing the main chat structure component
-import { useChat } from 'ai/react' // Importing useChat hook to handle chat functionality
-import { warning_msg, followupBtn, placeHolderInput, examplesData, rawInitialMessages } from '@/config/ai/ai_tabs/verlaufsoptimierer_message' // Importing the initial messages for the chat, not plural
+import { useState } from 'react';
+import ChatStructure from './gen_chat_structure';
+import {
+  warning_msg,
+  followupBtn,
+  placeHolderInput,
+  examplesData,
+  rawInitialMessages,
+} from '@/config/ai/ai_tabs/verlaufsoptimierer_message';
+import ModelSelector from './ModelSelector';
 
-// Main component for the Kostengutsprache chat: set showPraeparatSearch to false to disable the PraeparatSearchForm 
+// Define the type for a message
+interface Message {
+  id: string;
+  role: 'function' | 'user' | 'system' | 'assistant' | 'data' | 'tool';
+  content: string;
+}
+
 export default function ChatVerlaufsoptimierer({ showPraeparatSearch = false }) {
-  // useChat hook is used to handle the chat messages, input, and submission
-  const { messages, input, setInput, handleInputChange, handleSubmit, isLoading, error } = useChat({
-    // Transforming the initial messages into the correct format
-    initialMessages: rawInitialMessages.map(message => ({
+  const [messages, setMessages] = useState<Message[]>(
+    rawInitialMessages.map((message) => ({
       ...message,
-      role: message.role as 'function' | 'system' | 'user' | 'assistant' | 'data' | 'tool', // Ensuring the role is correctly typed
-      content: message.content.join('\n') // Joining content into a single string
-    })),
-  });
+      role: message.role as Message['role'],
+      content: message.content.join('\n'),
+    }))
+  );
+  const [input, setInput] = useState('');
+  const [modelPath, setModelPath] = useState('/api/chat-4o-mini'); // Default model
 
-  // Rendering the chat structure component with specific props for diagnose
+  const handleModelChange = (value: string) => {
+    setModelPath(value);
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setInput(event.target.value);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!input.trim()) return;
+
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      role: 'user',
+      content: input,
+    };
+    setMessages((prev) => [...prev, userMessage]);
+    setInput('');
+
+    try {
+      const response = await fetch(modelPath, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: [...messages, userMessage] }),
+      });
+
+      if (!response.ok) {
+        console.error('API error:', await response.text());
+        return;
+      }
+
+      const reader = response.body?.getReader();
+      const decoder = new TextDecoder();
+      let accumulatedResponse = '';
+
+      if (reader) {
+        let done = false;
+
+        while (!done) {
+          const { value, done: readerDone } = await reader.read();
+          done = readerDone;
+
+          if (value) {
+            const chunk = decoder.decode(value, { stream: true });
+            accumulatedResponse += chunk;
+
+            setMessages((prev) => [
+              ...prev.filter((m) => m.role !== 'assistant'),
+              { id: Date.now().toString(), role: 'assistant', content: accumulatedResponse },
+            ]);
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Error submitting message:', error);
+    }
+  };
+
   return (
-    <ChatStructure
-      messages={messages} // Array of chat messages
-      input={input} // Current input value
-      setInput={setInput} // Function to set the input value
-      handleInputChange={handleInputChange} // Function to handle changes in the input field
-      handleSubmit={handleSubmit} // Function to handle form submission
-      warningMessage={warning_msg} // Custom warning message for this chat
-      followupBtn={followupBtn} // Follow-up button texts
-      placeHolderInput={placeHolderInput[0]} // Placeholder text for the input field
-      examplesData={examplesData} // Examples data for clickable suggestions
-      showPraeparatSearch={showPraeparatSearch}  // Boolean to control rendering of the PraeparatSearchForm
-    />
+    <div>
+      {/* Compact Model Selector */}
+      <ModelSelector modelPath={modelPath} onModelChange={handleModelChange} />
+
+      <ChatStructure
+        messages={messages}
+        input={input}
+        setInput={setInput}
+        handleInputChange={handleInputChange}
+        handleSubmit={handleSubmit}
+        warningMessage={warning_msg}
+        followupBtn={followupBtn}
+        placeHolderInput={placeHolderInput[0]}
+        examplesData={examplesData}
+        showPraeparatSearch={showPraeparatSearch}
+      />
+    </div>
   );
 }

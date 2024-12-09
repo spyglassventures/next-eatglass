@@ -12,6 +12,7 @@
 // new items also need to be added to case statements at the bottom of this file
 import InternalDocuments from '@/components/IntInternalDocuments'; //
 import DocNumbers from '@/components/IntDocNumbers'; //
+import Vertrauensaerzte from '@/components/IntVertrauensaerzte'; //
 import Aemtiplan from '@/components/IntAemtliplan'; // 
 import Zahlungen from '@/components/IntZahlungseingaenge'; // 
 import Welcome from '@/components/IntWelcomeMessage/Welcome';
@@ -85,6 +86,7 @@ export const NAV_ITEMS = {
     interneDropdown: [ // adjust to change name in Naviation
         { key: 'InternalDocument', name: 'Interne Dokumente', visible: true },
         { key: 'DocNumbers', name: 'Dokumenten-Nummern', visible: true },
+        { key: 'Vertrauensaerzte', name: 'Vertrauensärzte', visible: true },
         { key: 'Aemtiplan', name: 'Ämtiplan', visible: true },
         { key: 'Zahlungen', name: 'Zahlungseingänge', visible: true },
         { key: 'Lieferengpass', name: 'Lieferengpass', visible: true },
@@ -107,6 +109,7 @@ export const NAV_ITEMS = {
 };
 
 
+// turned off as long no partners booked feature
 export const tickerAd = (
     <>
         Partner News: Freie Plätze bei Laborkurs (Grundkurs Urinteststreifen, Refresher-Kurs Präanalytik, Aufbaukurs Urinstreifen). Jetzt buchen!{' '}
@@ -142,6 +145,7 @@ import {
     HeartIcon,              // For QM
     AcademicCapIcon,        // For HIN
     CheckBadgeIcon,      // For Abrechnung
+    ArrowRightEndOnRectangleIcon, // Vertrauensarzt
 
 
 } from '@heroicons/react/24/solid';
@@ -332,6 +336,7 @@ export const ICONS = {
     verhaltensempfehlung: FaceSmileIcon,
     InternalDocument: DocumentDuplicateIcon,
     DocNumbers: HashtagIcon,
+    Vertrauensaerzte: ArrowRightEndOnRectangleIcon,
     Aemtiplan: CalendarIcon,
     Zahlungen: CreditCardIcon,
     Welcome: SparklesIcon,
@@ -368,6 +373,8 @@ export const getActiveComponent = (activeComponent) => {
             return InternalDocuments;
         case 'DocNumbers':
             return DocNumbers; // Ensure this maps to the correct component
+        case 'Vertrauensaerzte':
+            return Vertrauensaerzte; // Ensure this maps to the correct component
         case 'Aemtiplan':
             return Aemtiplan;
         case 'Zahlungen':
