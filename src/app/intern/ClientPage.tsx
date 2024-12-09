@@ -52,17 +52,21 @@ export default function ClientPage() {
     <>
       <section className="pb-3">
         {showTicker && (
+          // {/* truned off as long as no partner booked it */}
           <div className="container p-3">
-            <div className="ticker-ad rounded shadow-lg relative">
+            {/* <div className="ticker-ad rounded shadow-lg relative">
               <div className="ticker-wrapper">
+                
                 <div className="ticker-content">{tickerAd}</div>
               </div>
               <button onClick={() => setShowTicker(false)} className="close-button absolute right-2 top-1/2 transform -translate-y-1/2">
                 &times;
               </button>
-            </div>
+            </div> */}
           </div>
         )}
+
+
         <div className="container mx-auto px-4">
           <div className="mt-4 flex flex-wrap justify-between gap-2">
             {NAV_ITEMS.mainComponents
