@@ -1,0 +1,325 @@
+[
+    {
+        "BAG-Nr": "8",
+        "Krankenkasse": "CSS",
+        "Adresse": "Tribschenstrasse 21, Postfach 2568, 6002 Luzern",
+        "Tel": "058 277 13 30",
+        "Fax": "058 277 90 10",
+        "Email": "avd.d@css.ch (HIN)"
+    },
+    {
+        "BAG-Nr": "32",
+        "Krankenkasse": "Aquilana",
+        "Adresse": "Bruggerstrasse 46, 5400 Baden",
+        "Tel": "056 203 44 44",
+        "Email": "vad@aquilana.ch (HIN)"
+    },
+    {
+        "BAG-Nr": "57",
+        "Krankenkasse": "Sympany",
+        "Adresse": "Peter Merian-Weg 2, 4002 Basel",
+        "Tel": "058 262 40 70",
+        "Fax": "058 262 42 97",
+        "Email": "vertrauensaerztlicher-dienst@sympany.ch (HIN)"
+    },
+    {
+        "BAG-Nr": "62",
+        "Krankenkasse": "SUPRA",
+        "Adresse": "Postfach 680, 1919 Martigny",
+        "Tel": "0848 803 333",
+        "Email": "medizinischer-dienst@groupemutuel.ch (HIN)"
+    },
+    {
+        "BAG-Nr": "134",
+        "Krankenkasse": "Einsiedler Krankenkasse",
+        "Adresse": "Postfach 57, 8840 Einsiedeln",
+        "Tel": "055 418 07 41",
+        "Email": "kkeinsiedeln@hin.ch (HIN)"
+    },
+    {
+        "BAG-Nr": "182",
+        "Krankenkasse": "SWICA",
+        "Adresse": "Postfach 900, 8901 Urdorf",
+        "Tel": "052 244 22 33",
+        "Email": [
+            "vad@swica.ch (HIN)",
+            "reha.vad@swica.ch (HIN)"
+        ]
+    },
+    {
+        "BAG-Nr": "246",
+        "Krankenkasse": "Krankenkasse Steffisburg",
+        "Adresse": "Postfach 297, 3612 Steffisburg",
+        "Tel": "033 439 40 20",
+        "Email": "kkst@hin.ch (HIN)"
+    },
+    {
+        "BAG-Nr": "290",
+        "Krankenkasse": "CONCORDIA",
+        "Adresse": "Bundesplatz 15, 6002 Luzern",
+        "Tel": "041 228 16 14",
+        "Email": "vertrauensarzt@concordia.ch (HIN)"
+    },
+    {
+        "BAG-Nr": "312",
+        "Krankenkasse": "Atupri",
+        "Adresse": "Zieglerstrasse 29, 3000 Bern 65",
+        "Tel": "031 555 08 15",
+        "Fax": "031 555 09 12",
+        "Email": "vad@atupri.ch (HIN)"
+    },
+    {
+        "BAG-Nr": "343",
+        "Krankenkasse": "Avenir",
+        "Adresse": "Postfach 680, 1919 Martigny",
+        "Tel": "0848 803 333",
+        "Email": "medizinischer-dienst@groupemutuel.ch (HIN)"
+    },
+    {
+        "BAG-Nr": "360",
+        "Krankenkasse": "KKLH",
+        "Adresse": "Luzernstrasse 19, 6144 Zell",
+        "Tel": "041 989 70 00",
+        "Fax": "041 989 70 01",
+        "Email": "vad@kklh.ch (HIN)"
+    },
+    {
+        "BAG-Nr": "376",
+        "Krankenkasse": "KPT",
+        "Adresse": "Postfach, 3001 Bern",
+        "Tel": "058 310 99 10",
+        "Fax": "058 310 83 34",
+        "Email": "vakdeutschweiz@kpt.ch (HIN)"
+    },
+    {
+        "BAG-Nr": "455",
+        "Krankenkasse": "ÖKK",
+        "Adresse": "Bahnhofstrasse 13, 7302 Landquart",
+        "Tel": "058 456 10 15",
+        "Fax": "058 456 10 14",
+        "Email": "vad@oekk.ch (HIN)"
+    },
+    {
+        "BAG-Nr": "509",
+        "Krankenkasse": "Vivao Sympany",
+        "Adresse": "Peter Merian-Weg 2, 4002 Basel",
+        "Tel": "058 262 40 70",
+        "Fax": "058 262 42 97",
+        "Email": "vertrauensaerztlicher-dienst@sympany.ch (HIN)"
+    },
+    {
+        "BAG-Nr": "774",
+        "Krankenkasse": "Easy Sana",
+        "Adresse": "Postfach 680, 1919 Martigny",
+        "Tel": "0848 803 333",
+        "Email": "medizinischer-dienst@groupemutuel.ch (HIN)"
+    },
+    {
+        "BAG-Nr": "780",
+        "Krankenkasse": "GLKV",
+        "Adresse": "Abläsch 8, Postfach, 8762 Schwanden",
+        "Tel": "055 642 25 25",
+        "Email": "vad.glkv@hin.ch (HIN)"
+    },
+    {
+        "BAG-Nr": "820",
+        "Krankenkasse": "LUMNEZIANA",
+        "Adresse": "Postfach 22, 7144 Vella",
+        "Tel": "081 931 35 35",
+        "Email": "lumneziana@hin.ch (HIN)"
+    },
+    {
+        "BAG-Nr": "881",
+        "Krankenkasse": "EGK",
+        "Adresse": "Birspark 1, 4242 Laufen",
+        "Tel": "061 765 51 11",
+        "Email": "vad@egk.ch (HIN)"
+    },
+    {
+        "BAG-Nr": "901",
+        "Krankenkasse": "Sanavals RVK",
+        "Adresse": "Haldenstrasse 25, 6006 Luzern",
+        "Tel": "041 417 05 15",
+        "Email": "sekretariat.mcp@rvk.ch (HIN)"
+    },
+    {
+        "BAG-Nr": "923",
+        "Krankenkasse": "SLKK",
+        "Adresse": "Hofwiesenstrasse 370, Postfach 5652, 8050 Zürich",
+        "Tel": "044 368 70 56",
+        "Fax": "044 368 70 58",
+        "Email": "vad.slkk@hin.ch (HIN)"
+    },
+    {
+        "BAG-Nr": "941",
+        "Krankenkasse": "Sodalis RVK",
+        "Adresse": "Haldenstrasse 25, 6006 Luzern",
+        "Tel": "041 417 05 15",
+        "Email": "sekretariat.mcp@rvk.ch (HIN)"
+    },
+    {
+        "BAG-Nr": "966",
+        "Krankenkasse": "vita surselva",
+        "Adresse": "Postfach 44, 7130 Ilanz",
+        "Tel": "081 925 61 60",
+        "Fax": "081 925 61 73",
+        "Email": "vitasurselva.vad@hin.ch (HIN)"
+    },
+    {
+        "BAG-Nr": "1040",
+        "Krankenkasse": "KK Visperterminen RVK",
+        "Adresse": "Haldenstrasse 25, 6006 Luzern",
+        "Tel": "041 417 05 15",
+        "Email": "sekretariat.mcp@rvk.ch (HIN)"
+    },
+    {
+        "BAG-Nr": "1113",
+        "Krankenkasse": "CMVEO",
+        "Adresse": "Place Centrale 5, 1937 Orsières",
+        "Tel": "027 783 25 87",
+        "Fax": "027 783 30 18",
+        "Email": "service-medical@groupemutuel.ch (HIN)"
+    },
+    {
+        "BAG-Nr": "1142",
+        "Krankenkasse": "Krankenkasse Institut Ingenbohl",
+        "Adresse": "Kronenstrasse 19, Postfach 57, 8840 Einsiedeln",
+        "Tel": "055 418 07 41",
+        "Email": "kkingenbohl@hin.ch (HIN)"
+    },
+    {
+        "BAG-Nr": "1318",
+        "Krankenkasse": "Krankenkasse Wädenswil",
+        "Adresse": "Industriestrasse 15, 8820 Wädenswil",
+        "Tel": "043 477 71 71",
+        "Email": "vad.kkwaedenswil@hin.ch (HIN)"
+    },
+    {
+        "BAG-Nr": "1322",
+        "Krankenkasse": "Krankenkasse Birchmeier",
+        "Adresse": "Hauptstrasse 22, 5444 Künten",
+        "Tel": "056 485 60 40",
+        "Email": "kkbirchmeier@hin.ch (HIN)"
+    },
+    {
+        "BAG-Nr": "1331",
+        "Krankenkasse": "Krankenkasse Stoffel, Mels",
+        "Adresse": "Im Zinggen 1, 8475 Ossingen",
+        "Tel": "052 317 32 11",
+        "Email": "krankenkassestoffel@hin.ch (HIN)"
+    },
+    {
+        "BAG-Nr": "1384",
+        "Krankenkasse": "SWICA",
+        "Adresse": "Postfach 900, 8901 Urdorf",
+        "Tel": "052 244 22 33",
+        "Email": [
+            "vad@swica.ch (HIN)",
+            "reha.vad@swica.ch (HIN)"
+        ]
+    },
+    {
+        "BAG-Nr": "1386",
+        "Krankenkasse": "Galenos",
+        "Adresse": "Weltpoststrasse 19, Postfach, 3000 Bern 16",
+        "Email": "vad@visana.ch (HIN)"
+    },
+    {
+        "BAG-Nr": "1401",
+        "Krankenkasse": "rhenusana",
+        "Adresse": "Widnauerstrasse 6, 9435 Heerbrugg",
+        "Tel": "071 727 88 06",
+        "Email": "va-rhenusana@hin.ch (HIN)"
+    },
+    {
+        "BAG-Nr": "1479",
+        "Krankenkasse": "Mutuel",
+        "Adresse": "Postfach 680, 1919 Martigny",
+        "Tel": "0848 803 333",
+        "Email": "medizinischer-dienst@groupemutuel.ch (HIN)"
+    },
+    {
+        "BAG-Nr": "1507",
+        "Krankenkasse": "AMB",
+        "Adresse": "Postfach 680, 1919 Martigny",
+        "Tel": "0848 803 333",
+        "Email": "medizinischer-dienst@groupemutuel.ch (HIN)"
+    },
+    {
+        "BAG-Nr": "1509",
+        "Krankenkasse": "Sanitas",
+        "Adresse": "Servicecenter Aarau, Bahnhofstrasse 41, 5000 Aarau",
+        "Tel": "062 837 53 53",
+        "Fax": "062 837 54 72",
+        "Email": "vadsanitas@sanitas.com (HIN)"
+    },
+    {
+        "BAG-Nr": "1535",
+        "Krankenkasse": "Philos",
+        "Adresse": "Postfach 680, 1919 Martigny",
+        "Tel": "0848 803 333",
+        "Email": "medizinischer-dienst@groupemutuel.ch (HIN)"
+    },
+    {
+        "BAG-Nr": "1542",
+        "Krankenkasse": "Assura",
+        "Adresse": "Case postale 7, 1052 Le Mont-sur-Lausanne",
+        "Tel": "031 556 73 85",
+        "Fax": "031 556 73 99",
+        "Email": "medizinischer-dienst@assura.ch (HIN)"
+    },
+    {
+        "BAG-Nr": "1555",
+        "Krankenkasse": "Visana",
+        "Adresse": "Postfach 199, 3000 Bern 15",
+        "Tel": "031 357 80 44",
+        "Fax": "031 357 81 23",
+        "Email": "vad@visana.ch (HIN)"
+    },
+    {
+        "BAG-Nr": "1560",
+        "Krankenkasse": "Agrisano",
+        "Adresse": "Laurstrasse 10, 5201 Brugg",
+        "Tel": "056 461 71 11",
+        "Fax": "056 461 71 08",
+        "Email": "info.vad@agrisano.ch (HIN)"
+    },
+    {
+        "BAG-Nr": "1562",
+        "Krankenkasse": "Helsana",
+        "Adresse": "Worblaufenstrasse 200, 3048 Worblaufen",
+        "Tel": "058 340 37 61",
+        "Fax": "058 340 00 59",
+        "Email": "vad.bern@helsana.ch (HIN)"
+    },
+    {
+        "BAG-Nr": "1568",
+        "Krankenkasse": "sana24",
+        "Adresse": "Postfach 199, 3000 Bern 15",
+        "Tel": "031 357 80 44",
+        "Fax": "031 357 81 23",
+        "Email": "vad@visana.ch (HIN)"
+    },
+    {
+        "BAG-Nr": "1570",
+        "Krankenkasse": "vivacare",
+        "Adresse": "Postfach 199, 3000 Bern 15",
+        "Tel": "031 357 80 44",
+        "Fax": "031 357 81 23",
+        "Email": "vad@visana.ch (HIN)"
+    },
+    {
+        "BAG-Nr": "1179",
+        "Krankenkasse": "Mutuelle Neuchâteloise",
+        "Adresse": "Postfach 680, 1919 Martigny",
+        "Tel": "0848 803 333",
+        "Email": "medizinischer-dienst@groupemutuel.ch (HIN)"
+    },
+    {
+        "BAG-Nr": "1520",
+        "Krankenkasse": "HOTELA",
+        "Adresse": "Rue de la Gare 18, 1820 Montreux",
+        "Tel": "021 962 49 49",
+        "Email": "hotela@hin.ch (HIN)"
+    }
+]

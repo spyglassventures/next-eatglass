@@ -7,7 +7,7 @@ import Hero from "@/components/Hero";
 import NewsTicker from "@/components/Hero/NewsTicker";
 
 import AboutSectionOne from "@/components/About/AboutSectionOne";
-// import Testimonials from "@/components/Testimonials";
+import Testimonials from "@/components/Testimonials";
 import Pricing from "@/components/Pricing";
 
 import Contact from "@/components/Contact";
@@ -35,7 +35,7 @@ export default function Home() {
 
       {modules.Brands && <Brands />}
       {modules.AboutSectionOne && <AboutSectionOne />}
-      {/* {modules.Testimonials && <Testimonials />} */}
+      {modules.Testimonials && <Testimonials />}
       {modules.Pricing && <Pricing />}
 
       {modules.Contact && <Contact />}

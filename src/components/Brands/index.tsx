@@ -18,9 +18,21 @@ const SingleBrand = ({ brand }: { brand: Brand }) => {
         rel="nofollow noreferrer"
         className="relative h-10 w-full opacity-70 transition hover:opacity-100 dark:opacity-60 dark:hover:opacity-100"
       >
-        <Image src={image} alt={name} fill sizes="(min-width: 808px) 50vw, 100vw" className="block dark:hidden" />
+        <Image
+          src={image}
+          alt={name}
+          fill
+          sizes="(min-width: 1280px) 20vw, (min-width: 768px) 30vw, 50vw"
+          className="block dark:hidden"
+        />
         {imageLight && (
-          <Image src={imageLight} alt={name} fill className="hidden dark:block" />
+          <Image
+            src={imageLight}
+            alt={name}
+            fill
+            sizes="(min-width: 1280px) 20vw, (min-width: 768px) 30vw, 50vw"
+            className="hidden dark:block"
+          />
         )}
       </a>
     </div>

@@ -1,6 +1,6 @@
 [
     {
-        "filename": "gutsprache_message.json",
+        "filename": "freitext_message.json",
         "id": "1",
         "role": "system",
         "content": [

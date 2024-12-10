@@ -6,6 +6,8 @@ import FeedbackModal from './FeedbackModal'
 import PraeparatSearchForm from '../PraeparatSearchForm'
 import { FaLightbulb, FaCheckCircle, FaExclamationTriangle, FaTimesCircle } from 'react-icons/fa' // Add more icons
 import './styles.css'; // Import the styles
+import chatThemes from './chatThemes';
+import ThemeSelector from './ThemeSelector';
 
 // Helper function to format the message content
 const FormatMessageContent = ({ content }) => {
@@ -15,32 +17,39 @@ const FormatMessageContent = ({ content }) => {
 };
 
 // Styling of chat between user and copilot
-const Message = ({ message }) => (
-    <div key={message.id} className='mr-6 whitespace-pre-wrap md:mr-12 p-2 '>
-        {message.role === 'user' && (
-            <div className='flex gap-3 relative right-0 justify-end'>
-                <div className='bg-blue-100 dark:bg-blue-900 p-3 rounded-md '>
-                    <p className='font-semibold text-blue-800 dark:text-blue-300'>Ihre Eingabe:</p>
-                    <div className='mt-1.5 text-sm text-blue-700 dark:text-blue-200'>
-                        <FormatMessageContent content={message.content} />
+const Message = ({ message, currentTheme }) => {
+    const userMessageClass = `${currentTheme.messageUser} p-3 rounded-md`;
+    const assistantMessageClass = `${currentTheme.messageAssistant} p-3 rounded-md`;
+
+    return (
+        <div key={message.id} className="mr-6 whitespace-pre-wrap md:mr-12 p-2">
+            {message.role === 'user' && (
+                <div className="flex gap-3 relative right-0 justify-end">
+                    <div className={`${userMessageClass} ${currentTheme.fontSize} ${currentTheme.fontWeight}`}>
+                        <p className="font-semibold">Ihre Eingabe:</p>
+                        <div className="mt-1.5">
+                            <FormatMessageContent content={message.content} />
+                        </div>
                     </div>
                 </div>
-            </div>
-        )}
-        {message.role === 'assistant' && (
-            <div className='flex gap-3'>
-                <div className='w-full bg-gray-100 dark:bg-gray-800 p-3 rounded-md'>
-                    <div className='flex justify-between'>
-                        <p className='font-semibold text-green-800 dark:text-green-300'>Copilot</p>
-                    </div>
-                    <div className='mt-2 text-sm text-green-700 dark:text-green-200'>
-                        <FormatMessageContent content={message.content} />
+            )}
+            {message.role === 'assistant' && (
+                <div className="flex gap-3">
+                    <div className={`${assistantMessageClass} ${currentTheme.fontSize} ${currentTheme.fontWeight}`}>
+                        <div className="flex justify-between">
+                            <p className="font-semibold">Copilot</p>
+                        </div>
+                        <div className="mt-2">
+                            <FormatMessageContent content={message.content} />
+                        </div>
                     </div>
                 </div>
-            </div>
-        )}
-    </div>
-);
+            )}
+        </div>
+    );
+
+};
+
 
 // FollowUpButtons Component
 const FollowUpButtons = ({ setInput, handlePopEffect, followupBtn }) => (
@@ -90,6 +99,23 @@ export default function ChatStructure({
     examplesData,
     showPraeparatSearch, // Added this prop
 }) {
+
+    const [theme, setTheme] = useState('default');
+
+    const currentTheme = chatThemes[theme];
+    // Retrieve theme from localStorage on initial load
+    useEffect(() => {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            setTheme(savedTheme);
+        }
+    }, []);
+    // Save theme to localStorage whenever it changes
+    const handleSetTheme = (newTheme) => {
+        setTheme(newTheme);
+        localStorage.setItem('theme', newTheme);
+    };
+
     const ref = useRef<HTMLDivElement>(null);
     const [showModal, setShowModal] = useState(false);
     const [showSuggestionsModal, setShowSuggestionsModal] = useState(false);
@@ -153,7 +179,8 @@ export default function ChatStructure({
     }, []);
 
     return (
-        <section className='py-1 text-zinc-700 dark:text-zinc-300'>
+        <section className={currentTheme.section}>
+            <ThemeSelector setTheme={handleSetTheme} currentTheme={theme} />
             <div className='p-0'>
                 <div className='flex flex-wrap items-center mb-3'>
                     <div className='w-full md:w-2/3'>
@@ -171,56 +198,57 @@ export default function ChatStructure({
                     </div>
                 </div>
 
-                <div className='flex flex-wrap mb-3 '>
-                    <div className='w-full md:w-2/3 mb-3 md:mb-0'>
-                        <div className='h-[500px] rounded-md border dark:border-zinc-700 overflow-auto bg-white dark:bg-zinc-900 p-4' ref={ref}>
+                <div className="flex flex-wrap mb-3">
+                    <div className="w-full md:w-2/3 mb-3 md:mb-0">
+                        <div className={`h-[500px] rounded-md border overflow-auto p-4 ${currentTheme.container}`} ref={ref}>
                             {messages.length > 1 ? (
-                                messages.map((m) => <Message key={m.id} message={m} />)
+                                messages.map((m) => <Message key={m.id} message={m} currentTheme={currentTheme} />)
                             ) : (
-                                <div className='flex flex-col items-center justify-center h-full'>
-                                    <p className='text-xl md:text-2xl font-bold text-gray-700 dark:text-gray-300 mb-6'>
+                                <div className="flex flex-col items-center justify-center h-full">
+                                    <p className="text-xl md:text-2xl font-bold mb-6">
                                         Bitte geben Sie Ihre Anfrage in die Zeile unten ein
                                     </p>
-                                    <div className='text-6xl  text-gray-500 dark:text-gray-400 animate-bounce'>
-                                        ↓
-                                    </div>
+                                    <div className="text-6xl animate-bounce">↓</div>
                                 </div>
                             )}
                         </div>
                         {showFollowUpButtons && (
-                            <FollowUpButtons setInput={setInput} handlePopEffect={handlePopEffect} followupBtn={followupBtn} />
+                            <FollowUpButtons
+                                setInput={setInput}
+                                handlePopEffect={handlePopEffect}
+                                followupBtn={followupBtn}
+                            />
                         )}
                     </div>
 
                     <div className="w-full md:w-1/3 pl-3 hidden md:block">
-                        <div className="bg-gray-100 dark:bg-gray-800 rounded-md max-h-[500px] overflow-y-auto p-4">
-                            {showPraeparatSearch && <PraeparatSearchForm />} {/* Conditionally render the PraeparatSearchForm */}
-                            <p className="font-semibold text-zinc-900 dark:text-zinc-100 mb-2">Beispiele für Eingaben (klickbar zur Demo):</p>
-                            <ul className="text-sm text-zinc-700 dark:text-zinc-300">
+                        <div
+                            className={`rounded-md max-h-[500px] overflow-y-auto p-4 ${currentTheme.container}`}
+                        >
+                            {showPraeparatSearch && <PraeparatSearchForm />}
+                            <p className="font-semibold mb-2">Beispiele für Eingaben (klickbar zur Demo):</p>
+                            <ul className="text-sm">
                                 {examplesData.examples.map((example, index) => (
                                     <li
                                         key={index}
                                         onClick={() => handleLiClick(example)}
-                                        className="cursor-pointer border border-gray-300 dark:border-gray-600 rounded-md p-1 mb-1"
+                                        className="cursor-pointer border rounded-md p-1 mb-1"
                                     >
                                         {example}
                                     </li>
                                 ))}
                             </ul>
                             <br />
-                            <p className="font-semibold text-zinc-900 dark:text-zinc-100 mb-2">Bekannte Abkürzungen:</p>
-                            <ul className="text-sm text-zinc-700 dark:text-zinc-300">
+                            <p className="font-semibold mb-2">Bekannte Abkürzungen:</p>
+                            <ul className="text-sm">
                                 {examplesData.abkuerzungen.map((example, index) => (
-                                    <li
-                                        key={index}
-                                    >
-                                        {example}
-                                    </li>
+                                    <li key={index}>{example}</li>
                                 ))}
                             </ul>
                         </div>
                     </div>
                 </div>
+
 
                 <div className='flex flex-wrap items-center mt-2 pb-0'>
                     <div className='w-full md:w-2/3'>
