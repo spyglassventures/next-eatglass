@@ -1,5 +1,7 @@
 'use client';
+
 import { ChangeEvent, useState, useRef, useEffect, FormEvent, useCallback } from 'react';
+import Image from 'next/image';
 import { Input } from '@/components/ui/input';
 import FeedbackModal from './FeedbackModal';
 import { useChat } from 'ai/react';
@@ -147,7 +149,7 @@ export default function ImageAnalysisBot() {
                             <h2 className='text-xl font-bold mb-4'>Vorschau:</h2>
                             {image ? (
                                 <div className='mb-4 overflow-hidden'>
-                                    <img src={image} className='w-full object-contain max-h-72' alt='Hochgeladenes Bild' />
+                                    <Image src={image} width={500} height={300} className='w-full object-contain max-h-72' alt='Hochgeladenes Bild' />
                                 </div>
                             ) : (
                                 <div className='mb-4 p-8 text-center'>
@@ -256,10 +258,12 @@ export default function ImageAnalysisBot() {
                             <ul className='text-sm text-zinc-700 dark:text-zinc-300 grid grid-cols-2 gap-2'>
                                 {sidebarExamples.imagePaths.map((imagePath, index) => (
                                     <li key={index} onClick={() => handleImageClick(imagePath)} className='cursor-pointer'>
-                                        <img
+                                        <Image
                                             src={imagePath}
                                             alt={`Sidebar Bild ${index + 1}`}
-                                            className='border border-gray-300 dark:border-gray-600 rounded-md object-contain h-24 w-full'
+                                            width={100}
+                                            height={100}
+                                            className='border border-gray-300 dark:border-gray-600 rounded-md object-contain'
                                         />
                                     </li>
                                 ))}

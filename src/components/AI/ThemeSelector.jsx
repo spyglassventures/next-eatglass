@@ -6,6 +6,8 @@ const themes = [
     { value: 'default', label: 'Standard' },
     { value: 'dark', label: 'Dunkel' },
     { value: 'light', label: 'Hell' },
+    { value: 'matrix', label: 'Matrix' },
+    { value: 'cypherpunk', label: 'Cypherpunk' },
 ];
 
 const ThemeSelector = ({ setTheme, currentTheme }) => {

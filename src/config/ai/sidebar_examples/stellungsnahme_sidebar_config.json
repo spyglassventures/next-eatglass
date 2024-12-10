@@ -1,17 +1,25 @@
 {
+    "filename": "stellungsnahme_sidebar_config.json",
     "examples": [
-        "Medi Rybelsus, Diabetis",
-        "Ernaehrungsberatung, Adipositas",
-        "LZ-Physio, Cerebralem Insult L",
-        "Psychotherapie, Depression",
-        "Rehabilitation, Rückenmarksverletzung",
-        "Ergotherapie, Schlaganfall",
-        "Hörgerät, Schwerhörigkeit",
-        "Diätberatung, Fettleibigkeit"
+        "chr Rückenschmerzen, 45 j, MRT Bandscheibenvorfall L4/L5, multimodale T. empfohlen, konservative Therapie ausgeschöpft, AU länger als 6 W, KG Reha",
+        "65 J, DT 2, Hypertonie, Hypercholesterinämie, Niereninsuffizienz, KHK, Schlaganfall, Apoplex, Kostengutsprache Eliquis",
+        "30 J, Asthma bronchiale, allergische Rhinitis, inhalative Steroide unzureichend, regelmäßige Exazerbationen, KG Biologika, Bäcker",
+        "55 J, Adipositas, Diabetes Typ 2, arterielle Hypertonie, Kniegelenksarthrose, KG bariatrische OP, konservative Maßnahmen erfolglos, Mobilität eingeschränkt",
+        "70 J, chr Herzinsuffizienz, NYHA III, Schlafapnoe, CPAP-Intoleranz, KG implantierbarer Schlafapnoe-Stimulator, Schlafqualität stark beeinträchtigt",
+        "40 J, chr Migräne, 15 Schmerztage/Monat, KG CGRP-Antagonist, Prophylaxe mit Beta-Blockern/Topiramat erfolglos",
+        "62 J, COPD GOLD III, Langzeit-O2-Therapie indiziert, hypoxämisch bei Belastung, KG tragbares O2-Gerät, Lebensqualität verbessern",
+        "50 J, rheumatoide Arthritis, MTX und Leflunomid unverträglich, KG JAK-Inhibitor, Gelenkzerstörung droht",
+        "45 J, Mamma-Ca nach adjuvanter Chemo, BRCA1 positiv, KG prophylaktische Mastektomie, familiäres Risiko hoch",
+        "35 J, chronische Depression, Therapie-resistent, KG Esketamin Nasenspray, bisherige Therapien erfolglos, Suizidalität",
+        "60 J, degenerative Netzhauterkrankung, Visus stark eingeschränkt, KG VEGF-Inhibitor-Injektion, Erblindung vermeiden",
+        "75 J, Osteoporose, multiple Wirbelkörperfrakturen, KG Teriparatid, Bisphosphonate kontraindiziert, Mobilität sichern"
     ],
     "abkuerzungen": [
-        "W: Woche",
-        "M: Monat",
-        "K: Krankheit"
+        "RW: Rückweisung",
+        "LZ: Langzeit",
+        "Physio: Physiotherapie",
+        "PT: Physiotherapie",
+        "L: Links",
+        "R: Rechts"
     ]
 }

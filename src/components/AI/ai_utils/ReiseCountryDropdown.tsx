@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import countries from './countriesData';
 
 const CountryDropdown = () => {
@@ -35,7 +36,7 @@ const CountryDropdown = () => {
                                 Websuche Reisehinweise:
                             </td>
                             <td className="w-[40px] align-middle">
-                                <img src="/images/brands/google.png" alt="Google Logo" className="h-4" />
+                                <Image src="/images/brands/google.png" alt="Google Logo" width={16} height={16} />
                             </td>
                             <td className="align-middle">
                                 <select
@@ -59,7 +60,7 @@ const CountryDropdown = () => {
                                 Aktuelle Reisehinweise:
                             </td>
                             <td className="w-[40px] align-middle">
-                                <img src="/images/brands/ed.png" alt="EDA Logo" className="h-4" />
+                                <Image src="/images/brands/ed.png" alt="EDA Logo" width={16} height={16} />
                             </td>
                             <td className="align-middle">
                                 <select
@@ -82,7 +83,7 @@ const CountryDropdown = () => {
                         <tr>
                             <td></td>
                             <td>
-                                <img src="/images/brands/aamt.png" alt="Auswärtiges Amt Logo" className="h-4" />
+                                <Image src="/images/brands/aamt.png" alt="Auswärtiges Amt Logo" width={16} height={16} />
                             </td>
                             <td>
                                 <a
@@ -95,8 +96,6 @@ const CountryDropdown = () => {
                                 </a>
                             </td>
                         </tr>
-
-
                     </tbody>
                 </table>
             </div>

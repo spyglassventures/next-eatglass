@@ -36,7 +36,8 @@ export const NAV_ITEMS = {
     mainComponents: [
         { key: 'diagnose', name: 'Differentialdiagnosen', visible: true },
         { key: 'kostengutsprache', name: 'Kostengutsprache', visible: true },
-        { key: 'medis', name: 'Medikamente', visible: true },
+        // { key: 'medis', name: 'Medikamente', visible: true },
+        { key: 'literatur', name: 'Literatur', visible: true },
         { key: 'labor', name: 'Laborwerte', visible: false },
         { key: 'freitext', name: 'Freitext', visible: true },
     ],

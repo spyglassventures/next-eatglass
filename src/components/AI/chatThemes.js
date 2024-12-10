@@ -40,6 +40,34 @@ const chatThemes = {
         fontSize: 'text-lg', // Larger font size for light mode
         fontWeight: 'font-medium', // Medium font weight for light mode
     },
+    matrix: {
+        section: 'py-1 text-green-400 dark:text-green-400',
+        container: 'bg-gray-900 text-green-400', // Dark grey background and green text
+        button: 'bg-green-600 text-black',
+        buttonHover: 'hover:bg-green-500',
+        messageUser: 'bg-gray-800 text-green-300', // Slightly lighter background for user messages
+        messageAssistant: 'bg-gray-700 text-green-500', // Slightly darker for assistant messages
+        placeholder: 'placeholder:text-green-600',
+        border: 'border border-green-500',
+        input: 'bg-gray-800 text-green-400',
+        fontSize: 'text-base', // Keep the font size readable
+        fontWeight: 'font-mono', // Terminal-style monospaced font
+        fontFamily: 'font-terminal', // Custom font-family for terminal style
+    },
+    cypherpunk: {
+        section: 'py-1 text-purple-400 dark:text-fuchsia-400',
+        container: 'bg-black text-fuchsia-300',
+        button: 'bg-fuchsia-700 text-black',
+        buttonHover: 'hover:bg-purple-700',
+        messageUser: 'bg-gradient-to-r from-pink-500 to-purple-600 text-white',
+        messageAssistant: 'bg-gradient-to-r from-purple-700 to-blue-800 text-white',
+        placeholder: 'placeholder:text-purple-400',
+        border: 'border border-fuchsia-500',
+        input: 'bg-black text-fuchsia-300',
+        fontSize: 'text-lg',
+        fontWeight: 'font-extrabold',
+        neonGlow: 'shadow-[0_0_10px_rgba(245,66,255,0.8)]', // Neon glow effect
+    },
 };
 
 export default chatThemes;

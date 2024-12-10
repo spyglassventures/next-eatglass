@@ -103,6 +103,18 @@ export default function ChatStructure({
     const [theme, setTheme] = useState('default');
 
     const currentTheme = chatThemes[theme];
+    // Retrieve theme from localStorage on initial load
+    useEffect(() => {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            setTheme(savedTheme);
+        }
+    }, []);
+    // Save theme to localStorage whenever it changes
+    const handleSetTheme = (newTheme) => {
+        setTheme(newTheme);
+        localStorage.setItem('theme', newTheme);
+    };
 
     const ref = useRef<HTMLDivElement>(null);
     const [showModal, setShowModal] = useState(false);
@@ -168,7 +180,7 @@ export default function ChatStructure({
 
     return (
         <section className={currentTheme.section}>
-            <ThemeSelector setTheme={setTheme} currentTheme={theme} />
+            <ThemeSelector setTheme={handleSetTheme} currentTheme={theme} />
             <div className='p-0'>
                 <div className='flex flex-wrap items-center mb-3'>
                     <div className='w-full md:w-2/3'>
