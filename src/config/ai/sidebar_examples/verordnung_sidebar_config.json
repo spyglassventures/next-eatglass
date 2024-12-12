@@ -1,0 +1,24 @@
+{
+    "filename": "verfuegung_sidebar_config.json",
+    "examples": [
+        "Physio, Chr. Rückenschmerzen, 6x Krankengymnastik, Wirbelsäule, verb. Beweglichkeit, 4w",
+        "Reha, nach Bankdscheiben OP, statio. ortho. Rheba, 3w",
+        "Logo, Dysarthrie nach Schlaganfall, 10x artikulation, 5w",
+        "Ergo, Demenz, 10x Gedächtnistraining, 5w",
+        "Ergo, Schlaganfall, 10x ADL, 5w",
+        "Physio, Knie-TEP, 6x KG, 4w",
+        "Pflege, postoperative Wundversorgung, tägl. Verbandswechsel, 14 Tage",
+        "Palliativ, Bronchialkarzinom, Schmerztherapie, unbefristet",
+        "Hilfsmittel, Arthrose Knie, Knieorthese, Stabilisierung",
+        "Logo, Aphasie nach Schlaganfall, 10x Sprachtherapie, 5w",
+        "Physio, Schulter-OP, 6x Mobilisation, 4w",
+        "Ergo, Parkinson, 10x Feinmotorik-Training, 5w",
+        "Pflege, Dekubitus, Wundversorgung, tägl. Verbandswechsel, 14 Tage",
+        "Palliativ, Pankreaskarzinom, Schmerztherapie, unbefristet",
+        "Hilfsmittel, Arthrose Hüfte, Gehhilfe, Entlastung",
+        "Logo, Dysphagie nach Schlaganfall, 10x Schlucktherapie, 5w"
+    ],
+    "abkuerzungen": [
+        ""
+    ]
+}

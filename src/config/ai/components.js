@@ -11,6 +11,7 @@
 
 // new items also need to be added to case statements at the bottom of this file
 import InternalDocuments from '@/components/IntInternalDocuments'; //
+import Wissensdatenbank from '@/components/IntWissensdatenbank'; //
 import DocNumbers from '@/components/IntDocNumbers'; //
 import Vertrauensaerzte from '@/components/IntVertrauensaerzte'; //
 import Aemtiplan from '@/components/IntAemtliplan'; // 
@@ -28,82 +29,82 @@ import QR from '@/components/IntQR'; //
 // import CHDT from '@/components/MedienCHDT'; // nein da kein AI chat, nicht hier drin
 import Diktat from '@/components/MedienDiktat'; //
 import Cal from '@/components/IntCal'; //
-
+// 
 
 
 // NAME in NAVIGATION // NEVER HAVE SAME ITEM IN MULTIPLE DROPDOWNS
 export const NAV_ITEMS = {
     mainComponents: [
-        { key: 'diagnose', name: 'Differentialdiagnosen', visible: true },
-        { key: 'kostengutsprache', name: 'Kostengutsprache', visible: true },
-        // { key: 'medis', name: 'Medikamente', visible: true },
-        { key: 'literatur', name: 'Literatur', visible: true },
-        { key: 'labor', name: 'Laborwerte', visible: false },
-        { key: 'freitext', name: 'Freitext', visible: true },
+        { key: 'diagnose', name: 'Differentialdiagnosen', visible_mpa: false, visible_arzt: true, visible_pro: true },
+        { key: 'kostengutsprache', name: 'Kostengutsprache', visible_mpa: true, visible_arzt: true, visible_pro: true },
+        { key: 'literatur', name: 'Literatur', visible_mpa: false, visible_arzt: true, visible_pro: true },
+        { key: 'reise', name: 'Reiseberatung', visible_mpa: true, visible_arzt: false, visible_pro: false },
+        { key: 'freitext', name: 'Freitext', visible_mpa: true, visible_arzt: true, visible_pro: true },
+        { key: 'image', name: 'Bild (Upload)', visible_mpa: true, visible_arzt: false, visible_pro: false },
     ],
+
     toolsDropdown: [
-        { key: 'stellungsnahme', name: 'Stellungsnahme', visible: true },
-        { key: 'labor', name: 'Laborwerte', visible: true },
-        { key: 'literatur', name: 'Literatur', visible: true },
-        { key: 'medis', name: 'Medikamente', visible: true },
-        { key: 'calculator', name: 'Rechner', visible: true },
-        { key: 'reise', name: 'Reiseberatung', visible: true },
-        { key: 'ernaehrung', name: 'Ernährungsempfehlung', visible: true },
-        { key: 'mediausland', name: 'Auslandsmedikation', visible: true },
-        { key: 'ueberweisung', name: 'Überweisung Facharzt', visible: true },
-        { key: 'ueberweisungV2', name: 'Überweisung Facharzt V2 - coming soon', visible: false },
-        { key: 'verordnung', name: 'Verordnung', visible: true },
-        { key: 'verhaltensempfehlung', name: 'Verhaltensempfehlung', visible: true },
+        { key: 'stellungsnahme', name: 'Stellungsnahme', visible_mpa: false, visible_arzt: true, visible_pro: true },
+        { key: 'labor', name: 'Laborwerte', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'literatur', name: 'Literatur', visible_mpa: true, visible_arzt: true, visible_pro: true },
+        { key: 'medis', name: 'Medikamente', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'calculator', name: 'Rechner', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'reise', name: 'Reiseberatung', visible_mpa: true, visible_arzt: true, visible_pro: true },
+        { key: 'ernaehrung', name: 'Ernährungsempfehlung', visible_mpa: true, visible_arzt: true, visible_pro: true },
+        { key: 'mediausland', name: 'Auslandsmedikation', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'ueberweisung', name: 'Überweisung Facharzt', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'ueberweisungV2', name: 'Überweisung Facharzt V2 - coming soon', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'verordnung', name: 'Verordnung', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'verhaltensempfehlung', name: 'Verhaltensempfehlung', visible_mpa: false, visible_arzt: false, visible_pro: true },
 
     ], // Medien KI
     summariesDropdown: [
-        { key: 'documents', name: 'Dokumente', visible: true },
-        { key: 'pdf', name: 'PDF', visible: true },
-        { key: 'image', name: 'Bild (Upload)', visible: true },
-        { key: 'Diktat', name: 'Diktat', visible: true },
-        { key: 'verlaufsoptimierer', name: 'Verlaufsoptimierer', visible: true },
-        { key: 'chdt', name: 'Mundart -> Schriftdeutsch', visible: true },
-        { key: 'antwortemail', name: 'Antwortemail', visible: true },
+        { key: 'documents', name: 'Dokumente', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'pdf', name: 'PDF', visible_mpa: false, visible_arzt: true, visible_pro: true },
+        { key: 'image', name: 'Bild (Upload)', visible_mpa: true, visible_arzt: true, visible_pro: true },
+        { key: 'Diktat', name: 'Diktat', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'verlaufsoptimierer', name: 'Verlaufsoptimierer', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'chdt', name: 'Mundart -> Schriftdeutsch', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'antwortemail', name: 'Antwortemail', visible_mpa: false, visible_arzt: false, visible_pro: true },
     ],
 
     // KI Formulare
     formsDropdown: [
-        { key: 'az_jugendliche', name: 'AZ Jugendliche', visible: true },
-        { key: 'ktg_erstbericht', name: 'KTG Erstbericht', visible: true },
-        { key: 'sva_aerztlicher_bericht_eingliederung', name: 'SVA Bericht Eingliederung', visible: true },
-        { key: 'sva_berufliche_integration', name: 'SVA Berufliche Integration', visible: true },
-        { key: 'sva_verlaufsbericht', name: 'SVA Verlaufsbericht', visible: true },
-        { key: 'zwischenbericht_kvg_ktg', name: 'Zwischenbericht KVG ', visible: true },
-        { key: 'zwischenbericht_uvg_unfall', name: 'Zwischenbericht UVG', visible: true },
+        { key: 'az_jugendliche', name: 'AZ Jugendliche', visible_mpa: true, visible_arzt: true, visible_pro: true },
+        { key: 'ktg_erstbericht', name: 'KTG Erstbericht', visible_mpa: true, visible_arzt: true, visible_pro: true },
+        { key: 'sva_aerztlicher_bericht_eingliederung', name: 'SVA Bericht Eingliederung', visible_mpa: true, visible_arzt: true, visible_pro: true },
+        { key: 'sva_berufliche_integration', name: 'SVA Berufliche Integration', visible_mpa: true, visible_arzt: true, visible_pro: true },
+        { key: 'sva_verlaufsbericht', name: 'SVA Verlaufsbericht', visible_mpa: true, visible_arzt: true, visible_pro: true },
+        { key: 'zwischenbericht_kvg_ktg', name: 'Zwischenbericht KVG ', visible_mpa: true, visible_arzt: true, visible_pro: true },
+        { key: 'zwischenbericht_uvg_unfall', name: 'Zwischenbericht UVG', visible_mpa: true, visible_arzt: true, visible_pro: true },
     ],
 
 
     freitextDropdown: [ // 1 item is required
-        { key: 'freitext', name: 'Freitext', visible: true },
+        { key: 'freitext', name: 'Freitext', visible_mpa: true, visible_arzt: true, visible_pro: true },
 
 
     ],
 
     interneDropdown: [ // adjust to change name in Naviation
-        { key: 'InternalDocument', name: 'Interne Dokumente', visible: true },
-        { key: 'DocNumbers', name: 'Dokumenten-Nummern', visible: true },
-        { key: 'Vertrauensaerzte', name: 'Vertrauensärzte', visible: true },
-        { key: 'Aemtiplan', name: 'Ämtiplan', visible: true },
-        { key: 'Zahlungen', name: 'Zahlungseingänge', visible: true },
-        { key: 'Lieferengpass', name: 'Lieferengpass', visible: true },
-        { key: 'Translate', name: 'Übersetzung (DeepL)', visible: true },
-        { key: 'HIN', name: 'HIN Teilnehmer Suche', visible: true },
-        { key: 'QM', name: 'QM - in Arbeit', visible: true },
-        { key: 'Abrechnung', name: 'Abrechnung - in Arbeit', visible: true },
-        { key: 'Konfigurationsanleitung', name: 'Konfigurationsanleitung', visible: true },
-        { key: 'LernvideosPage', name: 'Lernvideos', visible: true },
-        { key: 'Welcome', name: 'Willkommen - Hier starten', visible: true },
-        { key: 'QR', name: 'QR Codes', visible: true },
+        { key: 'InternalDocument', name: 'Interne Dokumente', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'Wissensdatenbank', name: 'Wissensdatenbank', visible_mpa: false, visible_arzt: true, visible_pro: true },
+        { key: 'DocNumbers', name: 'Dokumenten-Nummern', visible_mpa: true, visible_arzt: true, visible_pro: true },
+        { key: 'Vertrauensaerzte', name: 'Vertrauensärzte', visible_mpa: true, visible_arzt: true, visible_pro: true },
+        { key: 'Aemtiplan', name: 'Ämtiplan', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'Zahlungen', name: 'Zahlungseingänge', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'Lieferengpass', name: 'Lieferengpass', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'Translate', name: 'Übersetzung (DeepL)', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'HIN', name: 'HIN Teilnehmer Suche', visible_mpa: true, visible_arzt: true, visible_pro: true },
+        { key: 'QM', name: 'QM - in Arbeit', visible_mpa: true, visible_arzt: true, visible_pro: true },
+        { key: 'Abrechnung', name: 'Abrechnung - in Arbeit', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'Konfigurationsanleitung', name: 'Konfigurationsanleitung', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'LernvideosPage', name: 'Lernvideos', visible_mpa: true, visible_arzt: true, visible_pro: true },
+        { key: 'Welcome', name: 'Willkommen - Hier starten', visible_mpa: true, visible_arzt: true, visible_pro: true },
+        { key: 'QR', name: 'QR Codes', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'Cal', name: 'Kalendereinträge', visible_mpa: false, visible_arzt: false, visible_pro: true },
 
-
-        { key: 'Cal', name: 'Kalendereinträge', visible: true },
-
-        // { key: 'antwortemail', name: 'antwortemail', visible: true }
+        // { key: 'antwortemail', name: 'antwortemail', visible_mpa: false, visible_arzt: true, visible_pro: true }
 
         // no comma ! in last item
     ]
@@ -282,6 +283,11 @@ export const COMPONENTS = {
         component: 'Chat_interne',
         buttonText: 'Interne Dokumente'
     },
+    Wissensdatenbank: {
+        name: 'Wissensdatenbank',
+        component: 'Chat_knowledge',
+        buttonText: 'Wissensdatenbank'
+    },
 
     // KI FORMS
     ktg_erstbericht: {
@@ -336,6 +342,7 @@ export const ICONS = {
     verordnung: HomeModernIcon,
     verhaltensempfehlung: FaceSmileIcon,
     InternalDocument: DocumentDuplicateIcon,
+    Wissensdatenbank: BookOpenIcon,
     DocNumbers: HashtagIcon,
     Vertrauensaerzte: ArrowRightEndOnRectangleIcon,
     Aemtiplan: CalendarIcon,
@@ -372,6 +379,8 @@ export const getActiveComponent = (activeComponent) => {
     switch (activeComponent) {
         case 'InternalDocument':
             return InternalDocuments;
+        case 'Wissensdatenbank':
+            return Wissensdatenbank;
         case 'DocNumbers':
             return DocNumbers; // Ensure this maps to the correct component
         case 'Vertrauensaerzte':

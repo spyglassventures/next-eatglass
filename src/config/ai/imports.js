@@ -15,8 +15,8 @@ import Chat_summary from '@/components/AI/chat_summary';
 import Chat_calculator from '@/components/AI/chat_calculator';
 import Chat_plaene from '@/components/AI/chat_plaene';
 import Chat_mediausland from '@/components/AI/chat_mediausland';
+// import Chat_ueberweisungfacharzt from '@/components/AI/chat_ueberweisungfacharzt';
 import Chat_ueberweisungfacharzt from '@/components/AI/chat_ueberweisungfacharzt';
-import Chat_ueberweisungfacharztV2 from '@/components/AI/chat_ueberweisungfacharztV2';
 import Chat_verordnung from '@/components/AI/chat_verordnung';
 import Chat_verhaltensempfehlung from '@/components/AI/chat_verhaltensempfehlung';
 import Chat_news from '@/components/AI/chat_news';
@@ -67,7 +67,6 @@ export default {
     Chat_image,
     Chat_mediausland,
     Chat_ueberweisungfacharzt,
-    Chat_ueberweisungfacharztV2,
     Chat_verordnung,
     Chat_verhaltensempfehlung,
     Chat_versicherungsanfrage,

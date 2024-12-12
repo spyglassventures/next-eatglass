@@ -6,6 +6,9 @@ import FeedbackModal from './FeedbackModal'
 import PraeparatSearchForm from '../PraeparatSearchForm'
 import { FaLightbulb, FaCheckCircle, FaExclamationTriangle, FaTimesCircle } from 'react-icons/fa' // Add more icons
 import './styles.css'; // Import the styles
+
+// Hiding of theme selector
+import { useFilter } from '@/components/AI/FilterContext'; // Import the useFilter hook
 import chatThemes from './chatThemes';
 import ThemeSelector from './ThemeSelector';
 
@@ -100,6 +103,7 @@ export default function ChatStructure({
     showPraeparatSearch, // Added this prop
 }) {
 
+    const { activeFilter } = useFilter(); // Get the active filter from context, local storage to see if pro is selected or not. if not, dont show theme selector
     const [theme, setTheme] = useState('default');
 
     const currentTheme = chatThemes[theme];
@@ -180,7 +184,10 @@ export default function ChatStructure({
 
     return (
         <section className={currentTheme.section}>
-            <ThemeSelector setTheme={handleSetTheme} currentTheme={theme} />
+            {/* Conditionally render ThemeSelector based on activeFilter */}
+            {activeFilter === 'Pro' && (
+                <ThemeSelector setTheme={handleSetTheme} currentTheme={theme} />
+            )}
             <div className='p-0'>
                 <div className='flex flex-wrap items-center mb-3'>
                     <div className='w-full md:w-2/3'>
