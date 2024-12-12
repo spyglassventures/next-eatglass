@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useFilter } from '@/components/AI/FilterContext'; // for mpa, arzt, pro mode filter for models and theme Context hook
 import ChatStructure from './gen_chat_structure';
 import {
   warning_msg,
@@ -17,7 +18,13 @@ interface Message {
   role: 'function' | 'user' | 'system' | 'assistant' | 'data' | 'tool';
   content: string;
 }
+
 export default function ChatLiteratur({ showPraeparatSearch = false }) {
+  const { activeFilter } = useFilter(); // to hide theme and model if not pro mode
+
+  useEffect(() => {
+    console.log('Active Filter in  Chat Component:', activeFilter);
+  }, [activeFilter]);
 
   const [messages, setMessages] = useState<Message[]>(
     rawInitialMessages.map((message) => ({
@@ -28,6 +35,8 @@ export default function ChatLiteratur({ showPraeparatSearch = false }) {
   );
   const [input, setInput] = useState('');
   const [modelPath, setModelPath] = useState('/api/chat-4o-mini'); // Default model
+
+
 
   const handleModelChange = (value: string) => {
     setModelPath(value);
@@ -91,7 +100,9 @@ export default function ChatLiteratur({ showPraeparatSearch = false }) {
   return (
     <div>
       {/* Compact Model Selector */}
-      <ModelSelector modelPath={modelPath} onModelChange={handleModelChange} />
+      {activeFilter === 'Pro' && (
+        <ModelSelector modelPath={modelPath} onModelChange={handleModelChange} />
+      )}
 
       <ChatStructure
         messages={messages}

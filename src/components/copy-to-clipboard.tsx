@@ -10,6 +10,31 @@ interface ChatMessageActionsProps extends React.ComponentProps<'div'> {
   message: Message
 }
 
+const allowedLanguages = [
+  { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
+  { code: 'en', name: 'Englisch', flag: '🇬🇧' },
+  { code: 'fr', name: 'Französisch', flag: '🇫🇷' },
+  { code: 'it', name: 'Italienisch', flag: '🇮🇹' },
+  { code: 'es', name: 'Spanisch', flag: '🇪🇸' },
+  { code: 'pt', name: 'Portugiesisch', flag: '🇵🇹' },
+  { code: 'tr', name: 'Türkisch', flag: '🇹🇷' },
+  { code: 'sr', name: 'Serbisch', flag: '🇷🇸' },
+  { code: 'hr', name: 'Kroatisch', flag: '🇭🇷' },
+  { code: 'zh', name: 'Chinesisch', flag: '🇨🇳' },
+  { code: 'hi', name: 'Hindi', flag: '🇮🇳' },
+  { code: 'ru', name: 'Russisch', flag: '🇷🇺' },
+  { code: 'uk', name: 'Ukrainisch', flag: '🇺🇦' },
+  { code: 'ja', name: 'Japanisch', flag: '🇯🇵' },
+  { code: 'ko', name: 'Koreanisch', flag: '🇰🇷' },
+  { code: 'ar', name: 'Arabisch', flag: '🇸🇦' },
+  { code: 'nl', name: 'Niederländisch', flag: '🇳🇱' },
+  { code: 'pl', name: 'Polnisch', flag: '🇵🇱' },
+  { code: 'sv', name: 'Schwedisch', flag: '🇸🇪' },
+  { code: 'fi', name: 'Finnisch', flag: '🇫🇮' },
+  { code: 'da', name: 'Dänisch', flag: '🇩🇰' },
+  { code: 'he', name: 'Hebräisch', flag: '🇮🇱' }
+]
+
 export default function CopyToClipboard({
   message,
   className = '',
@@ -19,35 +44,6 @@ export default function CopyToClipboard({
   const [isSpeaking, setIsSpeaking] = useState(false)
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([])
   const [selectedVoice, setSelectedVoice] = useState<string>('')
-
-  const allowedLanguages = [
-    { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
-    { code: 'en', name: 'Englisch', flag: '🇬🇧' },
-    { code: 'fr', name: 'Französisch', flag: '🇫🇷' },
-    { code: 'it', name: 'Italienisch', flag: '🇮🇹' },
-    { code: 'es', name: 'Spanisch', flag: '🇪🇸' },
-    { code: 'pt', name: 'Portugiesisch', flag: '🇵🇹' },
-    { code: 'tr', name: 'Türkisch', flag: '🇹🇷' },
-    { code: 'sr', name: 'Serbisch', flag: '🇷🇸' },
-    { code: 'hr', name: 'Kroatisch', flag: '🇭🇷' },
-    { code: 'zh', name: 'Chinesisch', flag: '🇨🇳' },
-    { code: 'hi', name: 'Hindi', flag: '🇮🇳' },
-    { code: 'ru', name: 'Russisch', flag: '🇷🇺' },
-    { code: 'uk', name: 'Ukrainisch', flag: '🇺🇦' },
-    { code: 'ja', name: 'Japanisch', flag: '🇯🇵' },
-    { code: 'ko', name: 'Koreanisch', flag: '🇰🇷' },
-    { code: 'ar', name: 'Arabisch', flag: '🇸🇦' },
-    { code: 'nl', name: 'Niederländisch', flag: '🇳🇱' },
-    { code: 'pl', name: 'Polnisch', flag: '🇵🇱' },
-    { code: 'sv', name: 'Schwedisch', flag: '🇸🇪' },
-    { code: 'fi', name: 'Finnisch', flag: '🇫🇮' },
-    { code: 'da', name: 'Dänisch', flag: '🇩🇰' },
-    { code: 'he', name: 'Hebräisch', flag: '🇮🇱' }
-    // { code: 'bs', name: 'Bosnisch', flag: '🇧🇦' },
-    // { code: 'no', name: 'Norwegisch', flag: '🇳🇴' },
-    // { code: 'fa', name: 'Persisch', flag: '🇮🇷' },
-    // { code: 'sq', name: 'Albanisch', flag: '🇦🇱' },
-  ]
 
   useEffect(() => {
     const updateVoices = () => {
@@ -84,7 +80,7 @@ export default function CopyToClipboard({
     if (typeof window !== 'undefined' && window.speechSynthesis) {
       window.speechSynthesis.onvoiceschanged = updateVoices
     }
-  }, [])
+  }, [allowedLanguages]) // Explicitly include allowedLanguages in the dependency array
 
   const onCopy = () => {
     if (isCopied) return

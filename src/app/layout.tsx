@@ -8,6 +8,8 @@ import { Inter } from "next/font/google";
 import { Analytics } from '@vercel/analytics/react'; // used for vercel Analytics, login to vercel to see events, page usage
 import "node_modules/react-modal-video/css/modal-video.css";
 import "../styles/index.css";
+import { FilterProvider } from '@/components/AI/FilterContext'; // for mpa, arzt, pro mode filter for models and theme
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -45,6 +47,10 @@ export default function RootLayout({
       </head>
 
       <body className={`bg-[#FCFCFC] dark:bg-black ${inter.className}`}>
+
+        {/* Filter between pro, mpa und arzt modus for selectors */}
+
+
         {/* Google Tag Manager (noscript) */}
         <noscript>
           <iframe
@@ -54,13 +60,17 @@ export default function RootLayout({
             style={{ display: 'none', visibility: 'hidden' }}
           ></iframe>
         </noscript>
-        <Providers>
-          <Header />
-          {children}
-          <Analytics mode={'production'} />;
-          <Footer />
-          <ScrollToTop />
-        </Providers>
+        <FilterProvider>
+          <Providers>
+            <Header />
+
+            {children}
+
+            <Analytics mode={'production'} />
+            <Footer />
+            <ScrollToTop />
+          </Providers>
+        </FilterProvider>
       </body>
     </html>
   );

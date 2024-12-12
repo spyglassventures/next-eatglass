@@ -1,7 +1,7 @@
 'use client'
 
 // ADAPT PER USECASE
-import { warning_msg, followupBtn, placeHolderInput, examplesData, rawInitialMessages } from '@/config/ai/ai_tabs/verordung_message' // Importing configuration and initial messages (.ts file)
+import { warning_msg, followupBtn, placeHolderInput, examplesData, rawInitialMessages } from '@/config/ai/ai_tabs/verordnung_message' // Importing configuration and initial messages (.ts file)
 
 
 // Adjust to be INTERN
