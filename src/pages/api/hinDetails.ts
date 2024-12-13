@@ -1,7 +1,7 @@
 // pages/api/hinDetails.ts
 
 import type { NextApiRequest, NextApiResponse } from 'next';
-import tokenData from './token.json'; // Importing token from JSON file
+import tokenData from './token.json'; // Importing token from JSON file, NOT OAuth2TokenSDS.json
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const { integrationId } = req.query; // Extract the integrationId from the query

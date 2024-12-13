@@ -7,11 +7,11 @@ const themes = [
     { value: 'dark', label: 'Dunkel' },
     { value: 'light', label: 'Hell' },
     { value: 'matrix', label: 'Matrix' },
-    { value: 'martini', label: 'Martini' },
     { value: 'gulf', label: 'Gulf' },
     { value: 'brumos', label: 'Brumos' },
     { value: 'castrol', label: 'Castrol' },
     { value: 'redbull', label: 'Redbull' },
+    { value: 'martini', label: 'Martini' }, // Updated: Martini added
 ];
 
 interface ThemeSelectorProps {
@@ -23,10 +23,15 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({ setTheme, currentTheme })
     const containerRef = useRef<HTMLDivElement>(null);
     const [sliderStyle, setSliderStyle] = useState({ width: '0px', left: '0px' });
 
+    // Resolve current theme, fallback to default if undefined or invalid
+    const resolvedTheme = themes.some((theme) => theme.value === currentTheme)
+        ? currentTheme
+        : 'default';
+
     useEffect(() => {
         if (containerRef.current) {
             const buttons = Array.from(containerRef.current.querySelectorAll('button'));
-            const activeIndex = themes.findIndex((theme) => theme.value === currentTheme);
+            const activeIndex = themes.findIndex((theme) => theme.value === resolvedTheme);
 
             if (buttons[activeIndex]) {
                 const activeButton = buttons[activeIndex] as HTMLElement;
@@ -36,7 +41,7 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({ setTheme, currentTheme })
                 });
             }
         }
-    }, [currentTheme]);
+    }, [resolvedTheme]);
 
     return (
         <div
@@ -54,12 +59,12 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({ setTheme, currentTheme })
                 }}
             ></div>
 
-            {/* Buttons */}
+            {/* Theme Buttons */}
             {themes.map((theme) => (
                 <button
                     key={theme.value}
                     onClick={() => setTheme(theme.value)}
-                    className={`relative z-3 text-[10px] px-3 py-1 font-medium transition-colors duration-300 ${currentTheme === theme.value ? 'text-black' : 'text-gray-600 hover:text-black'
+                    className={`relative z-3 text-[10px] px-3 py-1 font-medium transition-colors duration-300 ${resolvedTheme === theme.value ? 'text-black' : 'text-gray-600 hover:text-black'
                         }`}
                 >
                     {theme.label}

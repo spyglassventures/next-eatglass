@@ -78,4 +78,9 @@ module.exports = {
     },
   },
   plugins: [],
+  safelist: [
+    'border',
+    'border-red-500',
+    'border-yellow-500', // Add all potential classes
+  ],
 };

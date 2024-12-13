@@ -23,14 +23,18 @@ const FormatMessageContent = ({ content }) => {
 
 // Styling of chat between user and copilot
 const Message = ({ message, currentTheme }) => {
-    const userMessageClass = `${currentTheme.messageUser} p-3 rounded-md`;
-    const assistantMessageClass = `${currentTheme.messageAssistant} p-3 rounded-md`;
+    const userMessageClass = `${currentTheme?.messageUser || chatThemes.default.messageUser} p-3 rounded-md`;
+    const assistantMessageClass = `${currentTheme?.messageAssistant || chatThemes.default.messageAssistant} p-3 rounded-md`;
+
 
     return (
         <div key={message.id} className="mr-6 whitespace-pre-wrap md:mr-12 p-2">
             {message.role === 'user' && (
                 <div className="flex gap-3 relative right-0 justify-end">
-                    <div className={`${userMessageClass} ${currentTheme.fontSize} ${currentTheme.fontWeight}`}>
+                    <div
+                        className={`${userMessageClass} ${currentTheme?.fontSize || chatThemes.default.fontSize} ${currentTheme?.fontWeight || chatThemes.default.fontWeight
+                            }`}
+                    >
                         <p className="font-semibold">Ihre Eingabe:</p>
                         <div className="mt-1.5">
                             <FormatMessageContent content={message.content} />
@@ -40,7 +44,10 @@ const Message = ({ message, currentTheme }) => {
             )}
             {message.role === 'assistant' && (
                 <div className="flex gap-3">
-                    <div className={`${assistantMessageClass} ${currentTheme.fontSize} ${currentTheme.fontWeight}`}>
+                    <div
+                        className={`${assistantMessageClass} ${currentTheme?.fontSize || chatThemes.default.fontSize} ${currentTheme?.fontWeight || chatThemes.default.fontWeight
+                            }`}
+                    >
                         <div className="flex justify-between">
                             <p className="font-semibold">Copilot</p>
                         </div>
@@ -52,8 +59,8 @@ const Message = ({ message, currentTheme }) => {
             )}
         </div>
     );
-
 };
+
 
 
 // FollowUpButtons Component
@@ -185,7 +192,7 @@ export default function ChatStructure({
     }, []);
 
     return (
-        <section className={currentTheme.section}>
+        <section className={currentTheme?.section || chatThemes.default.section}>
             {/* Conditionally render ThemeSelector based on activeFilter */}
             {activeFilter === 'Pro' && (
                 <ThemeSelector setTheme={handleSetTheme} currentTheme={theme} />
@@ -209,7 +216,11 @@ export default function ChatStructure({
 
                 <div className="flex flex-wrap mb-3">
                     <div className="w-full md:w-2/3 mb-3 md:mb-0">
-                        <div className={`h-[500px] rounded-md border overflow-auto p-4 ${currentTheme.container}`} ref={ref}>
+                        <div
+                            className={`h-[500px] rounded-md border overflow-auto p-4 ${currentTheme?.stripeEffect || currentTheme?.container || chatThemes.default.container
+                                }`}
+                            ref={ref}
+                        >
                             {messages.length > 1 ? (
                                 messages.map((m) => <Message key={m.id} message={m} currentTheme={currentTheme} />)
                             ) : (
@@ -232,7 +243,8 @@ export default function ChatStructure({
 
                     <div className="w-full md:w-1/3 pl-3 hidden md:block">
                         <div
-                            className={`rounded-md max-h-[500px] overflow-y-auto p-4 ${currentTheme.container}`}
+                            className={`rounded-md max-h-[500px] overflow-y-auto p-4 ${currentTheme?.container || chatThemes.default.container
+                                }`}
                         >
                             {showPraeparatSearch && <PraeparatSearchForm />}
                             <p className="font-semibold mb-2">Beispiele für Eingaben (klickbar zur Demo):</p>
