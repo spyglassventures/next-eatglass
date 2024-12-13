@@ -7,7 +7,11 @@ const themes = [
     { value: 'dark', label: 'Dunkel' },
     { value: 'light', label: 'Hell' },
     { value: 'matrix', label: 'Matrix' },
-    { value: 'cypherpunk', label: 'Cypherpunk' },
+    { value: 'martini', label: 'Martini' },
+    { value: 'gulf', label: 'Gulf' },
+    { value: 'brumos', label: 'Brumos' },
+    { value: 'castrol', label: 'Castrol' },
+    { value: 'redbull', label: 'Redbull' },
 ];
 
 interface ThemeSelectorProps {
