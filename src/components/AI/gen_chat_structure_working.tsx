@@ -11,8 +11,6 @@ import './styles.css'; // Import the styles
 import { useFilter } from '@/components/AI/FilterContext'; // Import the useFilter hook
 import chatThemes from './chatThemes';
 import ThemeSelector from './ThemeSelector';
-import DownloadButton from './ai_utils/DownloadButton'; // Import the new DownloadButton component
-
 
 // Helper function to format the message content
 const FormatMessageContent = ({ content }) => {
@@ -283,21 +281,15 @@ export default function ChatStructure({
                                 Enter
                             </button>
                         </form>
-
                     </div>
 
-                    <div className='w-full md:w-1/3 flex items-start pl-3 pb-5 justify-center md:justify-start md:flex'>
-                        {/* <button
+                    <div className='w-full md:w-1/3 flex items-start pl-2 pb-2 justify-center md:justify-start md:flex'>
+                        <button
                             className='h-9 w-full bg-gray-600 text-white flex items-center justify-center px-4 rounded-md resize-none border'
                             onClick={() => setShowSuggestionsModal(true)}
                         >
                             Was können wir besser machen?
-                        </button> */}
-                        {messages.length > 1 && (
-                            <div className="mt-4">
-                                <DownloadButton message={messages[messages.length - 1]?.content || 'No message available'} />
-                            </div>
-                        )}
+                        </button>
                     </div>
                 </div>
             </div>
@@ -305,8 +297,6 @@ export default function ChatStructure({
             <p className={`mt-2 text-sm ${tokenStatus.color} flex items-center`}>
                 {tokenStatus.icon} <span className="ml-2">{tokenStatus.message}</span>: {tokenCount}
             </p>
-            {/* Add the download button below the chat area */}
-
         </section>
     )
 }

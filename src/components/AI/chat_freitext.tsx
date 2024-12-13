@@ -9,7 +9,7 @@ import {
   placeHolderInput,
   examplesData,
   rawInitialMessages,
-} from '@/config/ai/ai_tabs/stellungsnahme_message';
+} from '@/config/ai/ai_tabs/freitext_message';
 import ModelSelector from './ModelSelector';
 
 // Define the type for a message
@@ -19,7 +19,7 @@ interface Message {
   content: string;
 }
 
-export default function ChatStellungsnahme({ showPraeparatSearch = false }) {
+export default function ChatFreitext({ showPraeparatSearch = false }) {
   const { activeFilter } = useFilter(); // to hide theme and model if not pro mode
 
   useEffect(() => {

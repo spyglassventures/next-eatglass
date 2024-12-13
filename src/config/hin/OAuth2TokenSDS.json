@@ -3,5 +3,6 @@
     "expires_in": 2592000,
     "hin_id": "sysspyg1",
     "refresh_token": "mT#@XaxBHA@mJdpraQ7u=JuGojkLukBNn9zM+TD7",
-    "token_type": "Bearer"
+    "token_type": "Bearer",
+    "commen_dm": "using the access token with Eo has worked with Postman"
 }
