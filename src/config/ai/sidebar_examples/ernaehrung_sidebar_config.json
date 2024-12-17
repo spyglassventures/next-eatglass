@@ -28,5 +28,10 @@
     "abkuerzungen": [
         "L: Links",
         "R: Rechts"
+    ],
+    "videoPath": "/data/video/AnleitungErnaehrung.mp4",
+    "hinweise": [
+        "Hinweis 1: Bitte keine Patientennamen eingeben.",
+        "Hinweis 2: Die KI kann Fehler machen. Bitte überprüfen Sie die Antworten."
     ]
 }

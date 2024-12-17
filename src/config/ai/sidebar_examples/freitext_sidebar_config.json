@@ -1,13 +1,23 @@
 {
     "filename": "freitext_sidebar_config.json",
     "examples": [
-        "Wie kannst du mir helfen?",
+        "Entwurf Kündigung Swisscom, Anschlussnummer 1245",
+        "Was ist der Unterschied zwischen MRT, CT und PET CT?",
+        "Wie kannst du mir helfen? Nenne mir 3 Beispiele für KI in der Medizin.",
         "Erstellt mir ein ...",
         "Erklaere mir ...",
-        "Schreibe mir ein ..."
+        "Schreibe mir ein ...",
+        "Schoenste Hotels in Florida mit Berwertung und Lage",
+        "Witze über Chirurgen",
+        "Tipps zur Organisation des Praxisalltags"
     ],
     "abkuerzungen": [
         "T: Tage",
         "J: Jahre"
+    ],
+    "videoPath": "/data/video/AnleitungFreitext.mp4",
+    "hinweise": [
+        "Hinweis 1: Bitte keine Patientennamen eingeben.",
+        "Hinweis 2: Die KI kann Fehler machen. Bitte überprüfen Sie die Antworten."
     ]
 }

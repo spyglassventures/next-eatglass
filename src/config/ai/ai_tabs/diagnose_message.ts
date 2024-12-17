@@ -8,4 +8,5 @@ export const followupBtn = ['mehr Argumente', 'eloquenter formulieren', 'überse
 
 export const placeHolderInput = ['Symptome, Details, Alter, Geschlecht, Medis eingeben...'];
 
+
 export { examplesData, rawInitialMessages };

@@ -8,4 +8,6 @@ export const followupBtn = ['vegane Gerichte', 'Fleisch Gerichte', 'vegetarische
 
 export const placeHolderInput = ['Ernährungskontext eingeben...'];
 
+
+
 export { examplesData, rawInitialMessages };
