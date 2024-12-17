@@ -33,5 +33,12 @@
         "Vd: Verdacht auf",
         "WS: Wirbelsäule",
         "Frakt: Fraktur"
+    ],
+    "videoPath": "/data/video/AnleitungDiagnose.mp4",
+    "hinweise": [
+        "Markieren: Halten Sie die linke Maustaste gedrückt und fahren Sie mit der Maus über den zu kopierenden Text. Dieser ist nun blau hinterlegt.",
+        "Kopieren: Ist der Text markiert, dann drücken Sie gleichzeit Strg + C um den Text in die Zwischenablage zu kopieren.",
+        "Einfügen: Klicken Sie mit der Maus an eine beliebige Stelle, an der Sie den Text einfügen möchten. Dann drücken Sie gleichzeit Strg + V.",
+        "Alternativen: Sie können auch mit der rechten Maustaste auf den markierten Text klicken und dann 'Kopieren' bzw. 'Einfügen' auswählen."
     ]
 }

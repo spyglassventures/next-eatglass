@@ -13,6 +13,8 @@ import chatThemes from './chatThemes';
 import ThemeSelector from './ThemeSelector';
 import DownloadButton from './ai_utils/DownloadButton'; // Import the new DownloadButton component
 
+import SidebarPanel from './ai_utils/sidebarPanel';
+
 
 // Helper function to format the message content
 const FormatMessageContent = ({ content }) => {
@@ -241,33 +243,13 @@ export default function ChatStructure({
                         )}
                     </div>
 
-                    <div className="w-full md:w-1/3 pl-3 hidden md:block">
-                        <div
-                            className={`rounded-md max-h-[500px] overflow-y-auto p-4 ${currentTheme?.container || chatThemes.default.container
-                                }`}
-                        >
-                            {showPraeparatSearch && <PraeparatSearchForm />}
-                            <p className="font-semibold mb-2">Beispiele für Eingaben (klickbar zur Demo):</p>
-                            <ul className="text-sm">
-                                {examplesData.examples.map((example, index) => (
-                                    <li
-                                        key={index}
-                                        onClick={() => handleLiClick(example)}
-                                        className="cursor-pointer border rounded-md p-1 mb-1"
-                                    >
-                                        {example}
-                                    </li>
-                                ))}
-                            </ul>
-                            <br />
-                            <p className="font-semibold mb-2">Bekannte Abkürzungen:</p>
-                            <ul className="text-sm">
-                                {examplesData.abkuerzungen.map((example, index) => (
-                                    <li key={index}>{example}</li>
-                                ))}
-                            </ul>
-                        </div>
-                    </div>
+                    <SidebarPanel // sidebar panel
+                        currentTheme={currentTheme}
+                        showPraeparatSearch={showPraeparatSearch}
+                        examplesData={examplesData}
+                        handleLiClick={handleLiClick}
+                    />
+
                 </div>
 
 
