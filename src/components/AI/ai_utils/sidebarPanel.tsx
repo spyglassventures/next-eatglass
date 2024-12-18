@@ -16,19 +16,15 @@ interface SidebarPanelProps {
     handleLiClick: (text: string) => void;
 }
 
-
 const SidebarPanel = ({ currentTheme, showPraeparatSearch, examplesData, handleLiClick }: SidebarPanelProps) => {
-    // Default state: video open, others closed
     const defaultSections = {
         video: true,
         examples: false,
         hints: false,
     };
 
-    // State to manage section open/close
     const [openSections, setOpenSections] = useState(defaultSections);
 
-    // Load states from local storage on component mount
     useEffect(() => {
         const savedState = localStorage.getItem('sidebarSections');
         if (savedState) {
@@ -36,7 +32,6 @@ const SidebarPanel = ({ currentTheme, showPraeparatSearch, examplesData, handleL
         }
     }, []);
 
-    // Update local storage whenever section states change
     const toggleSection = (section: string) => {
         setOpenSections((prev) => {
             const updatedSections = {
@@ -46,6 +41,16 @@ const SidebarPanel = ({ currentTheme, showPraeparatSearch, examplesData, handleL
             localStorage.setItem('sidebarSections', JSON.stringify(updatedSections));
             return updatedSections;
         });
+    };
+
+    const getEmbedUrl = (videoPath: string) => {
+        if (videoPath.includes("watch?v=")) {
+            return videoPath.replace("watch?v=", "embed/");
+        }
+        if (videoPath.includes("shorts/")) {
+            return videoPath.replace("shorts/", "embed/shorts/");
+        }
+        return videoPath;
     };
 
     return (
@@ -67,14 +72,15 @@ const SidebarPanel = ({ currentTheme, showPraeparatSearch, examplesData, handleL
                         <div className="relative w-full overflow-hidden pt-2" style={{ height: '530px' }}>
                             <div className="w-full h-full scale-90 transform origin-top-left overflow-hidden rounded-md">
                                 {examplesData.videoPath ? (
-                                    <video
-                                        controls
+                                    <iframe
                                         className="w-full h-[140%] object-cover rounded-md"
                                         style={{ transform: 'translateY(-30%)', objectPosition: 'top center' }}
-                                    >
-                                        <source src={examplesData.videoPath} type="video/mp4" />
-                                        Ihr Browser unterstützt dieses Videoformat nicht.
-                                    </video>
+                                        src={getEmbedUrl(examplesData.videoPath)}
+                                        title="YouTube video player"
+                                        frameBorder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                    ></iframe>
                                 ) : (
                                     <div className="w-full h-full flex items-center justify-center bg-gray-100 dark:bg-gray-700 rounded-md">
                                         <p className="text-sm text-gray-600 dark:text-gray-400">
@@ -86,7 +92,6 @@ const SidebarPanel = ({ currentTheme, showPraeparatSearch, examplesData, handleL
                         </div>
                     )}
                 </div>
-
 
                 {/* Section 2: Beispiele */}
                 <div className="mb-2 pt-2">
@@ -143,9 +148,6 @@ const SidebarPanel = ({ currentTheme, showPraeparatSearch, examplesData, handleL
                         </div>
                     )}
                 </div>
-
-
-
             </div>
         </div>
     );

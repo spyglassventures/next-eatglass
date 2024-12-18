@@ -12,7 +12,7 @@
         "M: Monat",
         "K: Krankheit"
     ],
-    "videoPath": "/data/video/AnleitungReise.mp4",
+    "videoPath": "https://www.youtube.com/embed/qjsUDGGThCQ",
     "hinweise": [
         "Hinweis 1: Bitte keine Patientennamen eingeben.",
         "Hinweis 2: Die KI kann Fehler machen. Bitte überprüfen Sie die Antworten."
