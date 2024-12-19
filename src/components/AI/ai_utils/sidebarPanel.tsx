@@ -16,19 +16,17 @@ interface SidebarPanelProps {
     handleLiClick: (text: string) => void;
 }
 
-
 const SidebarPanel = ({ currentTheme, showPraeparatSearch, examplesData, handleLiClick }: SidebarPanelProps) => {
-    // Default state: video open, others closed
     const defaultSections = {
         video: true,
         examples: false,
         hints: false,
     };
 
-    // State to manage section open/close
+    console.log('showPraeparatSearch:', showPraeparatSearch);
+
     const [openSections, setOpenSections] = useState(defaultSections);
 
-    // Load states from local storage on component mount
     useEffect(() => {
         const savedState = localStorage.getItem('sidebarSections');
         if (savedState) {
@@ -36,7 +34,6 @@ const SidebarPanel = ({ currentTheme, showPraeparatSearch, examplesData, handleL
         }
     }, []);
 
-    // Update local storage whenever section states change
     const toggleSection = (section: string) => {
         setOpenSections((prev) => {
             const updatedSections = {
@@ -48,53 +45,30 @@ const SidebarPanel = ({ currentTheme, showPraeparatSearch, examplesData, handleL
         });
     };
 
+    const getEmbedUrl = (videoPath: string) => {
+        if (videoPath.includes("watch?v=")) {
+            return videoPath.replace("watch?v=", "embed/");
+        }
+        if (videoPath.includes("shorts/")) {
+            return videoPath.replace("shorts/", "embed/shorts/");
+        }
+        return videoPath;
+    };
+
     return (
         <div className="w-full md:w-1/3 pl-2 hidden md:block">
             <div
                 className={`rounded-md max-h-[500px] overflow-y-auto p-1 ${currentTheme?.container || 'bg-white border dark:bg-zinc-800'
                     }`}
             >
-                {/* Video Section */}
-                <div className="mb-0">
-                    <div
-                        className="flex items-center justify-between cursor-pointer"
-                        onClick={() => toggleSection('video')}
-                    >
-                        <h3 className="font-semibold">1. Videoanleitung</h3>
-                        {openSections.video ? <FaChevronDown /> : <FaChevronRight />}
-                    </div>
-                    {openSections.video && (
-                        <div className="relative w-full overflow-hidden pt-2" style={{ height: '530px' }}>
-                            <div className="w-full h-full scale-90 transform origin-top-left overflow-hidden rounded-md">
-                                {examplesData.videoPath ? (
-                                    <video
-                                        controls
-                                        className="w-full h-[140%] object-cover rounded-md"
-                                        style={{ transform: 'translateY(-30%)', objectPosition: 'top center' }}
-                                    >
-                                        <source src={examplesData.videoPath} type="video/mp4" />
-                                        Ihr Browser unterstützt dieses Videoformat nicht.
-                                    </video>
-                                ) : (
-                                    <div className="w-full h-full flex items-center justify-center bg-gray-100 dark:bg-gray-700 rounded-md">
-                                        <p className="text-sm text-gray-600 dark:text-gray-400">
-                                            Anleitungsvideo noch nicht erstellt
-                                        </p>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-                    )}
-                </div>
 
-
-                {/* Section 2: Beispiele */}
-                <div className="mb-2 pt-2">
+                {/* Section 1: Beispiele */}
+                <div className="mb-0 pt-1">
                     <div
                         className="flex items-center justify-between cursor-pointer"
                         onClick={() => toggleSection('examples')}
                     >
-                        <h3 className="font-semibold">2. Beispiele für Eingaben</h3>
+                        <h3 className="font-semibold">1. Beispiele für Eingaben (klicken für mehr Details)</h3>
                         {openSections.examples ? <FaChevronDown /> : <FaChevronRight />}
                     </div>
                     {openSections.examples && (
@@ -105,7 +79,7 @@ const SidebarPanel = ({ currentTheme, showPraeparatSearch, examplesData, handleL
                                     <li
                                         key={index}
                                         onClick={() => handleLiClick(example)}
-                                        className="cursor-pointer border rounded-md p-1 mb-1"
+                                        className="cursor-pointer border rounded-md p-1 mb-0"
                                     >
                                         {example}
                                     </li>
@@ -116,12 +90,12 @@ const SidebarPanel = ({ currentTheme, showPraeparatSearch, examplesData, handleL
                 </div>
 
                 {/* Section 3: Hinweise */}
-                <div className="mb-2 pt-2">
+                <div className="mb-1 pt-1">
                     <div
                         className="flex items-center justify-between cursor-pointer"
                         onClick={() => toggleSection('hints')}
                     >
-                        <h3 className="font-semibold">3. Hinweise</h3>
+                        <h3 className="font-semibold">2. Hinweise</h3>
                         {openSections.hints ? <FaChevronDown /> : <FaChevronRight />}
                     </div>
                     {openSections.hints && (
@@ -143,6 +117,44 @@ const SidebarPanel = ({ currentTheme, showPraeparatSearch, examplesData, handleL
                         </div>
                     )}
                 </div>
+
+
+                {/* Video Section */}
+
+                <div
+                    className="flex items-center justify-between cursor-pointer pb-2"
+                    onClick={() => toggleSection('video')}
+                >
+                    <h3 className="font-semibold">3. Videoanleitung</h3>
+                    {openSections.video ? <FaChevronDown /> : <FaChevronRight />}
+                </div>
+                {openSections.video && (
+                    <div className="relative w-full overflow-hidden pt-1" style={{ height: '400px' }}>
+                        <div className="w-full h-full scale-105 pt-7 transform origin-top-left overflow-hidden ">
+                            {examplesData.videoPath ? (
+                                <iframe
+                                    className="w-full h-[150%] object-cover"
+                                    style={{ transform: 'translateY(-27%)', objectPosition: 'top center' }}
+                                    src={getEmbedUrl(examplesData.videoPath)}
+                                    title="YouTube video player"
+                                    frameBorder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                ></iframe>
+                            ) : (
+                                <div className="w-full h-full flex items-center justify-center bg-gray-100 dark:bg-gray-700">
+                                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                                        Anleitungsvideo noch nicht erstellt
+                                    </p>
+                                </div>
+                            )}
+
+                        </div>
+
+                    </div>
+
+                )}
+
 
 
 

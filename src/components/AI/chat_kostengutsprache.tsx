@@ -19,7 +19,7 @@ interface Message {
   content: string;
 }
 
-export default function ChatKostengutsprache({ showPraeparatSearch = false }) {
+export default function ChatKostengutsprache({ showPraeparatSearch = true }) {
   const { activeFilter } = useFilter(); // to hide theme and model if not pro mode
 
   useEffect(() => {

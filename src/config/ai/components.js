@@ -6,7 +6,7 @@
 // edited: 29.8.24, Daniel Mueller, Navi structure changed, Ticket Text added
 
 // CAVE: also add to src/config/ai/imports.js
-// and  into src/intern/ClientPage.tsx
+// and  into src/app/intern/ClientPage.tsx
 
 
 // new items also need to be added to case statements at the bottom of this file
@@ -29,6 +29,7 @@ import QR from '@/components/IntQR'; //
 // import CHDT from '@/components/MedienCHDT'; // nein da kein AI chat, nicht hier drin
 import Diktat from '@/components/MedienDiktat'; //
 import Cal from '@/components/IntCal'; //
+import StammdatenIGM from '@/components/IntStammdatenIGM'; //
 // 
 
 
@@ -103,6 +104,7 @@ export const NAV_ITEMS = {
         { key: 'Welcome', name: 'Willkommen - Hier starten', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'QR', name: 'QR Codes', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'Cal', name: 'Kalendereinträge', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'StammdatenIGM', name: 'Medi und MiGel Datei', visible_mpa: true, visible_arzt: false, visible_pro: true },
 
         // { key: 'antwortemail', name: 'antwortemail', visible_mpa: false, visible_arzt: true, visible_pro: true }
 
@@ -358,7 +360,8 @@ export const ICONS = {
     QR: CheckBadgeIcon,
     // CHDT: CheckBadgeIcon,
     Diktat: CheckBadgeIcon,
-    Cal: CheckBadgeIcon,
+    Cal: CalendarIcon,
+    StammdatenIGM: PencilIcon
     // antwortmail: CheckBadgeIcon,
     // verlaufsoptimierer: CheckBadgeIcon
 
@@ -409,6 +412,8 @@ export const getActiveComponent = (activeComponent) => {
             return Diktat;
         case 'Cal':
             return Cal;
+        case 'StammdatenIGM':
+            return StammdatenIGM;
         // case 'CHDT':
         //     return CHDT; // no its an AI component
         case 'Antwortemail':

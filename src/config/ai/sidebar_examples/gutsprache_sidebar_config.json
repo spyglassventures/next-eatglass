@@ -27,7 +27,7 @@
         "L: Links",
         "R: Rechts"
     ],
-    "videoPath": "/data/video/AnleitungKostengutsprache.mp4",
+    "videoPath": "https://www.youtube.com/embed/awJ-qIe2yPk",
     "hinweise": [
         "Hinweis 1: Die Liste der Vertrauensaerzte finden Sie im Reiter Intern -> Vertrauensaerzte.",
         "Hinweis 2: Bitte keine Patientennamen, Geburtsdatum oder sonstige identifizierende Merkmale eingeben."
