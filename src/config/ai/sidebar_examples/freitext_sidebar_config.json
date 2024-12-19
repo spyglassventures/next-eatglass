@@ -15,7 +15,7 @@
         "T: Tage",
         "J: Jahre"
     ],
-    "videoPath": "/data/video/AnleitungFreitext.mp4",
+    "videoPath": "https://www.youtube.com/embed/n-bgjjoi2n0",
     "hinweise": [
         "Hinweis 1: Bitte keine Patientennamen eingeben.",
         "Hinweis 2: Die KI kann Fehler machen. Bitte überprüfen Sie die Antworten."

@@ -34,7 +34,7 @@
         "WS: Wirbelsäule",
         "Frakt: Fraktur"
     ],
-    "videoPath": "/data/video/AnleitungDiagnose.mp4",
+    "videoPath": "https://www.youtube.com/embed/j3AXQ1RraaE",
     "hinweise": [
         "Markieren: Halten Sie die linke Maustaste gedrückt und fahren Sie mit der Maus über den zu kopierenden Text. Dieser ist nun blau hinterlegt.",
         "Kopieren: Ist der Text markiert, dann drücken Sie gleichzeit Strg + C um den Text in die Zwischenablage zu kopieren.",

@@ -245,7 +245,7 @@ export default function ChatStructure({
 
                     <SidebarPanel // sidebar panel
                         currentTheme={currentTheme}
-                        showPraeparatSearch={showPraeparatSearch}
+                        showPraeparatSearch={showPraeparatSearch} // {true} //         
                         examplesData={examplesData}
                         handleLiClick={handleLiClick}
                     />

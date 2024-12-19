@@ -19,7 +19,7 @@ interface Message {
   content: string;
 }
 
-export default function ChatMedis({ showPraeparatSearch = false }) {
+export default function ChatMedis({ showPraeparatSearch = true }) {
   const { activeFilter } = useFilter(); // to hide theme and model if not pro mode
 
   useEffect(() => {

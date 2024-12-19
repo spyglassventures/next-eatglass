@@ -47,7 +47,7 @@
         "CHF: Congestive Heart Failure",
         "CKD: Chronic Kidney Disease"
     ],
-    "videoPath": "/data/video/AnleitungLiteratur.mp4",
+    "videoPath": "https://www.youtube.com/embed/yx--8cHKZbU",
     "hinweise": [
         "Hinweis 1: Bitte keine Patientennamen eingeben.",
         "Hinweis 2: Die KI kann Fehler machen. Bitte überprüfen Sie die Antworten."
