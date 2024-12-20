@@ -9,6 +9,7 @@ import {
   placeHolderInput,
   examplesData,
   rawInitialMessages,
+  inputCloudBtn,
 } from '@/config/ai/ai_tabs/reise_message';
 import ModelSelector from './ModelSelector';
 import CountryDropdown from './ai_utils/ReiseCountryDropdown';
@@ -113,6 +114,7 @@ export default function ChatReise({ showPraeparatSearch = false }) {
           handleInputChange={handleInputChange}
           handleSubmit={handleSubmit}
           warningMessage={warning_msg}
+          inputCloudBtn={inputCloudBtn}
           followupBtn={followupBtn}
           placeHolderInput={placeHolderInput[0]}
           examplesData={examplesData}

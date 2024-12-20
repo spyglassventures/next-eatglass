@@ -30,6 +30,7 @@ const Message = ({ message, currentTheme }) => {
     const userMessageClass = `${currentTheme?.messageUser || chatThemes.default.messageUser} p-3 rounded-md`;
     const assistantMessageClass = `${currentTheme?.messageAssistant || chatThemes.default.messageAssistant} p-3 rounded-md`;
 
+
     return (
         <div key={message.id} className="mr-6 whitespace-pre-wrap md:mr-12 p-2">
             {message.role === 'user' && (

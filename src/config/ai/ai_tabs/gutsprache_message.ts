@@ -5,6 +5,13 @@ import rawInitialMessages from '../ai_context/gutsprache_message.json';
 export const warning_msg = 'Closed-Beta Test: Gutspracheart und Diagnose eingeben ➜ Formulierungsvorschlag für eine Kostengutsprache erhalten';
 
 export const followupBtn = ['mehr Argumente', 'eloquenter formulieren', 'übersetze in Ukrainisch'];
+// if in existence, then the cloud buttons will be displayed. Otherwise the request to enter the prompt will be displayed.
+export const inputCloudBtn = {
+    // Heading_1: [
+    //     "Option 1",
+    //     "Option 2",
+    // ],
+}
 
 export const placeHolderInput = ['[RW:] Mediname/Therapie, Umstände, Begründung'];
 

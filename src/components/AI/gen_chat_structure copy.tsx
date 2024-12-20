@@ -14,8 +14,6 @@ import ThemeSelector from './ThemeSelector';
 import DownloadButton from './ai_utils/DownloadButton'; // Import the new DownloadButton component
 
 import SidebarPanel from './ai_utils/sidebarPanel';
-import FollowUpButtons from './ai_utils/FollowUpButtons'
-import InputCloud from './ai_utils/InputCloud'
 
 
 // Helper function to format the message content
@@ -29,6 +27,7 @@ const FormatMessageContent = ({ content }) => {
 const Message = ({ message, currentTheme }) => {
     const userMessageClass = `${currentTheme?.messageUser || chatThemes.default.messageUser} p-3 rounded-md`;
     const assistantMessageClass = `${currentTheme?.messageAssistant || chatThemes.default.messageAssistant} p-3 rounded-md`;
+
 
     return (
         <div key={message.id} className="mr-6 whitespace-pre-wrap md:mr-12 p-2">
@@ -66,6 +65,25 @@ const Message = ({ message, currentTheme }) => {
 
 
 
+// FollowUpButtons Component
+const FollowUpButtons = ({ setInput, handlePopEffect, followupBtn }) => (
+    <div className='flex justify-start mt-3 space-x-3'>
+        {followupBtn.map((btnText, index) => (
+            <button
+                key={index}
+                className='bg-gray-200 text-black px-4 py-2 rounded cursor-pointer flex items-center space-x-2'
+                onClick={() => {
+                    setInput(btnText);
+                    handlePopEffect();
+                }}
+            >
+                <FaLightbulb className='text-yellow-500' />
+                <span>{btnText}</span>
+            </button>
+        ))}
+    </div>
+);
+
 // Token counter function
 const countTokens = (text) => {
     return text.split(/\s+/).filter(Boolean).length; // Count tokens (words)
@@ -91,7 +109,6 @@ export default function ChatStructure({
     handleSubmit,
     warningMessage,
     followupBtn,
-    inputCloudBtn,
     placeHolderInput,
     examplesData,
     showPraeparatSearch, // Added this prop
@@ -119,7 +136,6 @@ export default function ChatStructure({
     const [showSuggestionsModal, setShowSuggestionsModal] = useState(false);
     const [hasAnswer, setHasAnswer] = useState(false);
     const [showFollowUpButtons, setShowFollowUpButtons] = useState(false);
-    const [showInputCloud, setShowInputCloud] = useState(false);
     const [isPopped, setIsPopped] = useState(false);
 
     const tokenCount = countTokens(input);
@@ -208,40 +224,23 @@ export default function ChatStructure({
                             ref={ref}
                         >
                             {messages.length > 1 ? (
-                                messages.map((m) => (
-                                    <Message key={m.id} message={m} currentTheme={currentTheme} />
-                                ))
+                                messages.map((m) => <Message key={m.id} message={m} currentTheme={currentTheme} />)
                             ) : (
                                 <div className="flex flex-col items-center justify-center h-full">
-                                    <InputCloud
-                                        setInput={setInput}
-                                        handlePopEffect={handlePopEffect}
-                                        inputCloudBtn={inputCloudBtn}
-                                        input={input}
-                                    />
-                                    {/* show this row if there are not options in the inputCloudBtn provided */}
-                                    {(!inputCloudBtn || Object.keys(inputCloudBtn).length === 0) && (
-                                        <>
-                                            <p className="text-xl md:text-2xl font-bold mb-6">
-                                                Bitte geben Sie Ihre Anfrage in die Zeile unten ein
-                                            </p>
-                                            <div className="text-6xl animate-bounce">↓</div>
-                                        </>
-                                    )}
+                                    <p className="text-xl md:text-2xl font-bold mb-6">
+                                        Bitte geben Sie Ihre Anfrage in die Zeile unten ein
+                                    </p>
+                                    <div className="text-6xl animate-bounce">↓</div>
                                 </div>
                             )}
                         </div>
                         {showFollowUpButtons && (
-                            <>
-                                <FollowUpButtons
-                                    setInput={setInput}
-                                    handlePopEffect={handlePopEffect}
-                                    followupBtn={followupBtn}
-                                />
-
-                            </>
+                            <FollowUpButtons
+                                setInput={setInput}
+                                handlePopEffect={handlePopEffect}
+                                followupBtn={followupBtn}
+                            />
                         )}
-
                     </div>
 
                     <SidebarPanel // sidebar panel
@@ -256,9 +255,6 @@ export default function ChatStructure({
 
                 <div className='flex flex-wrap items-center mt-2 pb-0'>
                     <div className='w-full md:w-2/3'>
-                        {/* Add InputCloud above the textarea */}
-
-
                         <form onSubmit={onSubmit} className='relative'>
                             <textarea
                                 name='message'

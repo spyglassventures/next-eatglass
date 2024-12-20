@@ -102,7 +102,7 @@ const chatThemes = {
     castrol: {
         section: 'py-1 text-green-700 dark:text-red-400',
         container: 'bg-white text-green-700',
-        button: 'bg-red-500 text-white',
+        button: 'text-red',
         buttonHover: 'hover:bg-green-500',
         messageUser: 'bg-green-200 text-green-800',
         messageAssistant: 'bg-white text-red-500',

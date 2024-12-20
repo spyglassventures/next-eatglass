@@ -1,7 +1,7 @@
 'use client'
 
 // ADAPT PER USECASE
-import { warning_msg, followupBtn, placeHolderInput, examplesData, rawInitialMessages } from '@/config/ai/ai_tabs/verordnung_message' // Importing configuration and initial messages (.ts file)
+import { warning_msg, followupBtn, placeHolderInput, examplesData, rawInitialMessages, inputCloudBtn } from '@/config/ai/ai_tabs/verordnung_message' // Importing configuration and initial messages (.ts file)
 
 
 // Adjust to be INTERN
@@ -32,6 +32,7 @@ export default function Chat({ showPraeparatSearch = false }) { // disables for 
       handleSubmit={handleSubmit} // Function to handle form submission
       warningMessage={warning_msg} // Custom warning message for this chat
       followupBtn={followupBtn} // Follow-up button texts
+      inputCloudBtn={inputCloudBtn}
       placeHolderInput={placeHolderInput[0]} // Placeholder text for the input field
       examplesData={examplesData} // Examples data for clickable suggestions
       showPraeparatSearch={showPraeparatSearch}  // Boolean to control rendering of the PraeparatSearchForm

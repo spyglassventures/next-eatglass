@@ -142,7 +142,8 @@ const SidebarPanel = ({ currentTheme, showPraeparatSearch, examplesData, handleL
                                     allowFullScreen
                                 ></iframe>
                             ) : (
-                                <div className="w-full h-full flex items-center justify-center bg-gray-100 dark:bg-gray-700">
+                                <div className="w-full h-full flex items-center justify-center ${currentTheme?.container  dark:bg-gray-700">
+
                                     <p className="text-sm text-gray-600 dark:text-gray-400">
                                         Anleitungsvideo noch nicht erstellt
                                     </p>
