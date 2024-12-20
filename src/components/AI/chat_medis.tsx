@@ -9,6 +9,7 @@ import {
   placeHolderInput,
   examplesData,
   rawInitialMessages,
+  inputCloudBtn,
 } from '@/config/ai/ai_tabs/medis_message';
 import ModelSelector from './ModelSelector';
 
@@ -112,6 +113,7 @@ export default function ChatMedis({ showPraeparatSearch = true }) {
         handleSubmit={handleSubmit}
         warningMessage={warning_msg}
         followupBtn={followupBtn}
+        inputCloudBtn={inputCloudBtn}
         placeHolderInput={placeHolderInput[0]}
         examplesData={examplesData}
         showPraeparatSearch={showPraeparatSearch}

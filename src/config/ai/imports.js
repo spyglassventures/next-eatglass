@@ -25,6 +25,7 @@ import Chat_reise from '@/components/AI/chat_reise';
 import Chat_pdf from '@/components/AI/chat_pdf';
 import Chat_image from '@/components/AI/chat_image';
 import Chat_versicherungsanfrage from '@/components/AI/chat_versicherungsanfrage';
+import Chat_triage from '@/components/AI/chat_triage';
 
 // Freitext
 // import Chat_antwortemail from '@/components/AI/chat_antwortemail';
@@ -50,6 +51,7 @@ import Chat_KI_FORMS_Zwischenbericht_uvg_unfall from '@/components/AI/KI_FORMS/c
 
 export default {
     Chat_diagnose,
+    Chat_triage,
     Chat_kostengutsprache,
     Chat_ernaehrung,
     Chat_stellungsnahme,

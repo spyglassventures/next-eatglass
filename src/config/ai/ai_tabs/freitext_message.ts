@@ -4,7 +4,13 @@ import rawInitialMessages from '../ai_context/freitext_message.json';
 
 export const warning_msg = 'Closed-Beta Test: Eingeben was Sie möchten';
 
-export const followupBtn = ['anders', 'ausfuehrlicher', 'etwas kreativer'];
+export const followupBtn = ['anders', 'ausfuehrlicher', 'etwas kreativer'];// if in existence, then the cloud buttons will be displayed. Otherwise the request to enter the prompt will be displayed.
+export const inputCloudBtn = {
+    // Heading_1: [
+    //     "Option 1",
+    //     "Option 2",
+    // ],
+}
 
 export const placeHolderInput = ['Was ist der Sinn des Lebens?'];
 

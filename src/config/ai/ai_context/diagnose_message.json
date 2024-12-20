@@ -1,6 +1,6 @@
 [
     {
-        "filename": "gutsprache_message.json",
+        "filename": "diagnose_message.json",
         "id": "1",
         "role": "system",
         "content": [
@@ -16,15 +16,15 @@
             "Erstelle eine Liste möglicher Diagnosen mit ICD-10 Code, die die Symptome des Patienten erklären könnten und die auf den vorliegenden Informationen basieren.",
             "",
             "4. Vorschläge für relevante Folgefragen:",
-            "Nenne Fragen die gestellt werden sollen, um die möglichen Diagnosen weiter einzugrenzen. Verweise mittels '-> $Differenzialdiagnosen' die du in Punkt 3 erstellt hast.",
+            "Nenne Fragen die gestellt werden sollen, um die möglichen Diagnosen weiter einzugrenzen. Verweise auf die Differenzialdiagnosen die du in Punkt 3 erstellt hast.",
             "Mache diese für alle genannten Diagnosen.",
             "",
             "5. Empfohlene körperliche Untersuchungen:",
-            "Nenne körperliche Untersuchungen die durchgeführt werden sollen, um Hinweise auf die vermuteten Diagnosen zu finden. Verweise mittels '-> $Differenzialdiagnosen' die du in Punkt 3 erstellt hast.",
+            "Nenne körperliche Untersuchungen die durchgeführt werden sollen, um Hinweise auf die vermuteten Diagnosen zu finden. Verweise auf die Differenzialdiagnosen die du in Punkt 3 erstellt hast.",
             "Mache diese für alle genannten Diagnosen.",
             "",
             "6. Therapieansatz:",
-            "Nenne einen Therapieansatz, der auf den vorliegenden Informationen basiert. Verweise mittels '-> $Differenzialdiagnosen' die du in Punkt 3 erstellt hast.",
+            "Nenne einen Therapieansatz, der auf den vorliegenden Informationen basiert. Verweise auf die Differenzialdiagnosen die du in Punkt 3 erstellt hast.",
             "Mache diese für alle genannten Diagnosen.",
             "",
             "7. Abgabe an Spezialisten:",

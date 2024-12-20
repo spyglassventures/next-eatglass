@@ -1,12 +1,8 @@
 // src/config/ai/components.js
 // shows which AI components are shown into src/intern/ClientPage.tsx
 // see also src/config/ai/imports.js
-// changed: 6.8.24, Daniel Mueller, refactored
-// edited: 13.8.24, Daniel Mueller, added Ernährungsberatung and restructure of chat general structure
-// edited: 29.8.24, Daniel Mueller, Navi structure changed, Ticket Text added
 
 // CAVE: also add to src/config/ai/imports.js
-// and  into src/app/intern/ClientPage.tsx
 
 
 // new items also need to be added to case statements at the bottom of this file
@@ -47,6 +43,7 @@ export const NAV_ITEMS = {
     toolsDropdown: [
         { key: 'stellungsnahme', name: 'Stellungsnahme', visible_mpa: false, visible_arzt: true, visible_pro: true },
         { key: 'labor', name: 'Laborwerte', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'triage', name: 'Triage', visible_mpa: true, visible_arzt: false, visible_pro: true },
         { key: 'literatur', name: 'Literatur', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'medis', name: 'Medikamente', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'calculator', name: 'Rechner', visible_mpa: false, visible_arzt: false, visible_pro: true },
@@ -161,6 +158,11 @@ export const COMPONENTS = {
         name: 'Differentialdiagnosen', // Name in Header Page, below grey navigation, free form
         component: 'Chat_diagnose',
         buttonText: 'Diagnose'
+    },
+    triage: {
+        name: 'Triage',
+        component: 'Chat_triage',
+        buttonText: 'Triage'
     },
     kostengutsprache: {
         name: 'Kostengutsprache',
@@ -334,6 +336,7 @@ export const ICONS = {
     labor: BeakerIcon,
     literatur: BookOpenIcon,
     medis: BriefcaseIcon,
+    triage: SparklesIcon,
     calculator: CalculatorIcon,
     reise: GlobeAltIcon,
     freitext: PencilIcon,
@@ -368,13 +371,13 @@ export const ICONS = {
 };
 
 // not required
-export const GROUPS = {
-    mainComponents: ['diagnose', 'kostengutsprache', 'medis', 'labor'],
-    toolsDropdown: ['stellungsnahme', 'labor', 'literatur', 'medis', 'calculator', 'reise', 'ernaehrung', 'mediausland', 'ueberweisung', 'ueberweisungV2', 'verordnung', 'verhaltensempfehlung', 'ahviv', 'ktg_erstbericht', 'sva_berufliche_integration', 'versicherungsanfrage'],
-    summariesDropdown: ['documents', 'pdf', 'image', 'verlaufsoptimierer', 'antwortmail', 'chdt'],
-    freitextDropdown: ['freitext'],
+// export const GROUPS = {
+//     mainComponents: ['diagnose', 'kostengutsprache', 'medis', 'labor'],
+//     toolsDropdown: ['stellungsnahme', 'triage', 'labor', 'literatur', 'medis', 'calculator', 'reise', 'ernaehrung', 'mediausland', 'ueberweisung', 'ueberweisungV2', 'verordnung', 'verhaltensempfehlung', 'ahviv', 'ktg_erstbericht', 'sva_berufliche_integration', 'versicherungsanfrage'],
+//     summariesDropdown: ['documents', 'pdf', 'image', 'verlaufsoptimierer', 'antwortmail', 'chdt'],
+//     freitextDropdown: ['freitext'],
 
-};
+// };
 
 
 // also adjust Components in // /Users/danielmueller/dev/next-kappelihof/src/app/intern/ClientPage.tsx approx line 168

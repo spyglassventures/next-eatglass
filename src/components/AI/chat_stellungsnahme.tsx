@@ -9,6 +9,7 @@ import {
   placeHolderInput,
   examplesData,
   rawInitialMessages,
+  inputCloudBtn,
 } from '@/config/ai/ai_tabs/stellungsnahme_message';
 import ModelSelector from './ModelSelector';
 
@@ -112,6 +113,7 @@ export default function ChatStellungsnahme({ showPraeparatSearch = false }) {
         handleSubmit={handleSubmit}
         warningMessage={warning_msg}
         followupBtn={followupBtn}
+        inputCloudBtn={inputCloudBtn}
         placeHolderInput={placeHolderInput[0]}
         examplesData={examplesData}
         showPraeparatSearch={showPraeparatSearch}

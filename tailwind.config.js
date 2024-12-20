@@ -82,5 +82,7 @@ module.exports = {
     'border',
     'border-red-500',
     'border-yellow-500', // Add all potential classes
+    'bg-emerald-500', 'text-white', 'hover:bg-emerald-600',
+    'bg-gray-200', 'text-black', 'hover:bg-gray-300',
   ],
 };

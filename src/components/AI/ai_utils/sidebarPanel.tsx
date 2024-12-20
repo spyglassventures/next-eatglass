@@ -79,7 +79,8 @@ const SidebarPanel = ({ currentTheme, showPraeparatSearch, examplesData, handleL
                                     <li
                                         key={index}
                                         onClick={() => handleLiClick(example)}
-                                        className="cursor-pointer border rounded-md p-1 mb-0"
+                                        className={`border rounded-md p-1 mb-1 cursor-pointer transition-colors ${currentTheme?.button || 'bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700'
+                                            }`}
                                     >
                                         {example}
                                     </li>
@@ -89,7 +90,7 @@ const SidebarPanel = ({ currentTheme, showPraeparatSearch, examplesData, handleL
                     )}
                 </div>
 
-                {/* Section 3: Hinweise */}
+                {/* Section 2: Hinweise */}
                 <div className="mb-1 pt-1">
                     <div
                         className="flex items-center justify-between cursor-pointer"
@@ -105,7 +106,8 @@ const SidebarPanel = ({ currentTheme, showPraeparatSearch, examplesData, handleL
                                     {examplesData.hinweise.map((hinweis, index) => (
                                         <li
                                             key={index}
-                                            className="border rounded-md p-2 mb-1 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 transition-colors"
+                                            className={`border rounded-md p-2 mb-1 transition-colors ${currentTheme?.button || 'bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700'
+                                                }`}
                                         >
                                             {hinweis}
                                         </li>
@@ -117,6 +119,7 @@ const SidebarPanel = ({ currentTheme, showPraeparatSearch, examplesData, handleL
                         </div>
                     )}
                 </div>
+
 
 
                 {/* Video Section */}
@@ -142,7 +145,8 @@ const SidebarPanel = ({ currentTheme, showPraeparatSearch, examplesData, handleL
                                     allowFullScreen
                                 ></iframe>
                             ) : (
-                                <div className="w-full h-full flex items-center justify-center bg-gray-100 dark:bg-gray-700">
+                                <div className="w-full h-full flex items-center justify-center ${currentTheme?.container  dark:bg-gray-700">
+
                                     <p className="text-sm text-gray-600 dark:text-gray-400">
                                         Anleitungsvideo noch nicht erstellt
                                     </p>

@@ -7,6 +7,7 @@ import {
   warning_msg,
   followupBtn,
   placeHolderInput,
+  inputCloudBtn,
   examplesData,
   rawInitialMessages,
 } from '@/config/ai/ai_tabs/antwortmail_message';
@@ -112,6 +113,7 @@ export default function ChatAntwortmail({ showPraeparatSearch = false }) {
         handleSubmit={handleSubmit}
         warningMessage={warning_msg}
         followupBtn={followupBtn}
+        inputCloudBtn={inputCloudBtn}
         placeHolderInput={placeHolderInput[0]}
         examplesData={examplesData}
         showPraeparatSearch={showPraeparatSearch}
