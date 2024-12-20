@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, useCallback } from 'react'
 import CopyToClipboard from '@/components/copy-to-clipboard'
 import FeedbackModal from './FeedbackModal'
 import PraeparatSearchForm from '../PraeparatSearchForm'
-import { FaLightbulb, FaCheckCircle, FaExclamationTriangle, FaTimesCircle } from 'react-icons/fa' // Add more icons
+import { FaLightbulb, FaCheckCircle, FaExclamationTriangle, FaTimesCircle, FaChevronDown, FaChevronRight, FaParagraph, FaLayerGroup } from 'react-icons/fa' // Add more icons
 import './styles.css'; // Import the styles
 
 // Hiding of theme selector
@@ -14,32 +14,154 @@ import ThemeSelector from './ThemeSelector';
 import DownloadButton from './ai_utils/DownloadButton'; // Import the new DownloadButton component
 
 import SidebarPanel from './ai_utils/sidebarPanel';
+import FollowUpButtons from './ai_utils/FollowUpButtons'
+import InputCloud from './ai_utils/InputCloud'
 
 
-// Helper function to format the message content
-const FormatMessageContent = ({ content }) => {
-    return content.split('**').map((part, index) =>
-        index % 2 === 1 ? <strong key={index}>{part}</strong> : part
+// Component to handle expandable sections
+const ExpandableSection = ({ title, children, defaultExpanded }) => {
+    const [isExpanded, setIsExpanded] = useState(defaultExpanded);
+
+    const toggleExpand = () => {
+        setIsExpanded(!isExpanded);
+    };
+
+    return (
+        <div className="mb-2 border-b pb-2">
+            <div
+                className="flex items-center cursor-pointer"
+                onClick={toggleExpand}
+            >
+                {isExpanded ? (
+                    <FaChevronDown className="mr-2" />
+                ) : (
+                    <FaChevronRight className="mr-2" />
+                )}
+                <strong>{title}</strong>
+            </div>
+            {isExpanded && <div className="pl-1 mt-1">{children}</div>}
+        </div>
     );
 };
 
+// Enhanced function to format the message content
+const FormatMessageContent = ({ content }) => {
+    // Remove all '$' from the content first
+    const cleanContent = content.replace(/\$/g, '');
+
+    // Match sections for headers like `**N. Chaptername:**` or `N. **Chaptername:**`
+    const sections = cleanContent.split(/(\*\*[1-9]\.\s.*?\*\*|[1-9]\.\s\*\*.*?\*\*)/g);
+
+    return sections.map((section, index) => {
+        const trimmedSection = section.trim();
+
+        // Header sections (odd indices matching the regex)
+        if (index % 2 === 1) {
+            // Extract the title by removing unnecessary `**` and leading numbers
+            const title = trimmedSection
+                .replace(/^\*\*|\*\*$/g, '') // Remove surrounding `**`
+                .replace(/^[1-9]\.\s/, ''); // Remove leading number and period
+
+            return (
+                <ExpandableSection
+                    key={index}
+                    title={title}
+                    defaultExpanded={Math.floor(index / 2) === 2} // Expand the 3rd section
+                >
+                    {sections[index + 1]?.trim()}
+                </ExpandableSection>
+            );
+        }
+
+        // Plain text sections (at even indices)
+        if (trimmedSection) {
+            // If this even section directly follows a header (odd index), skip it
+            if ((index - 1) % 2 === 1) {
+                return null;
+            }
+
+            // Otherwise, render as plain text
+            return <p key={index}>{trimmedSection}</p>;
+        }
+
+        return null; // Skip empty sections
+    });
+};
+
+
+
+// Function to retain bold rendering in raw view
+const RawMessageContent = ({ content }) => {
+    const sections = content.split(/(\*\*.*?\*\*)/g); // Match bold sections
+
+    return sections.map((section, index) => {
+        if (/\*\*(.*?)\*\*/.test(section)) {
+            // Render bold text
+            return <strong key={index}>{section.replace(/\*\*/g, '')}</strong>;
+        }
+        return <span key={index}>{section}</span>;
+    });
+};
+
+
+
+
 // Styling of chat between user and copilot
-const Message = ({ message, currentTheme }) => {
+const Message = ({ message, currentTheme, isStreaming }) => {
+    const [showFormatted, setShowFormatted] = useState(false);
+    const [messageContent, setMessageContent] = useState(message.content);
+
     const userMessageClass = `${currentTheme?.messageUser || chatThemes.default.messageUser} p-3 rounded-md`;
     const assistantMessageClass = `${currentTheme?.messageAssistant || chatThemes.default.messageAssistant} p-3 rounded-md`;
+    // const buttonClass = `${currentTheme?.button || chatThemes.default.button} mt-2 px-2 py-1 rounded border hover:bg-opacity-90`;
+    const buttonClass = `${currentTheme?.button || chatThemes.default.button} mt-2 px-2 py-1 rounded border hover:bg-opacity-90 flex items-center gap-2`;
 
+    const toggleView = () => {
+        setShowFormatted(!showFormatted);
+    };
+
+    useEffect(() => {
+        if (isStreaming) {
+            // Simulate real-time streaming by appending new content to the existing messageContent
+            const streamInterval = setInterval(() => {
+                setMessageContent((prevContent) => {
+                    // Simulated logic to append new streamed content
+                    // Replace with actual logic for your streaming data
+                    const newContent = message.content.slice(prevContent.length, prevContent.length + 10);
+                    return prevContent + newContent;
+                });
+            }, 100); // Append content every 100ms
+
+            return () => clearInterval(streamInterval); // Clear interval when streaming stops
+        }
+    }, [isStreaming, message.content]);
+
+    useEffect(() => {
+        if (!isStreaming) {
+            setMessageContent(message.content); // Ensure full content is rendered when streaming completes
+        }
+    }, [isStreaming, message.content]);
+
+
+    useEffect(() => {
+        // Simulate API content update
+        const timeout = setTimeout(() => {
+            setMessageContent(message.content); // Assume message.content comes from API
+        }, 2000); // Simulated delay
+
+        return () => clearTimeout(timeout);
+    }, [message.content]);
 
     return (
-        <div key={message.id} className="mr-6 whitespace-pre-wrap md:mr-12 p-2">
+        <div key={message.id} className="mr-6 whitespace-pre-wrap md:mr-2 p-2">
             {message.role === 'user' && (
                 <div className="flex gap-3 relative right-0 justify-end">
                     <div
-                        className={`${userMessageClass} ${currentTheme?.fontSize || chatThemes.default.fontSize} ${currentTheme?.fontWeight || chatThemes.default.fontWeight
-                            }`}
+                        className={`${userMessageClass} ${currentTheme?.fontSize || chatThemes.default.fontSize} ${currentTheme?.fontWeight || chatThemes.default.fontWeight}`}
                     >
                         <p className="font-semibold">Ihre Eingabe:</p>
                         <div className="mt-1.5">
-                            <FormatMessageContent content={message.content} />
+                            <RawMessageContent content={messageContent} />
                         </div>
                     </div>
                 </div>
@@ -47,15 +169,32 @@ const Message = ({ message, currentTheme }) => {
             {message.role === 'assistant' && (
                 <div className="flex gap-3">
                     <div
-                        className={`${assistantMessageClass} ${currentTheme?.fontSize || chatThemes.default.fontSize} ${currentTheme?.fontWeight || chatThemes.default.fontWeight
-                            }`}
+                        className={`${assistantMessageClass} ${currentTheme?.fontSize || chatThemes.default.fontSize} ${currentTheme?.fontWeight || chatThemes.default.fontWeight}`}
                     >
                         <div className="flex justify-between">
                             <p className="font-semibold">Copilot</p>
                         </div>
                         <div className="mt-2">
-                            <FormatMessageContent content={message.content} />
+                            {showFormatted ? (
+                                <FormatMessageContent content={messageContent} />
+                            ) : (
+                                <RawMessageContent content={messageContent} />
+                            )}
                         </div>
+                        <button
+                            className={`${buttonClass}`}
+                            onClick={toggleView}
+                        >
+                            {showFormatted ? (
+                                <>
+                                    <FaParagraph className="mr-1" /> Darstellung als Fliesstext
+                                </>
+                            ) : (
+                                <>
+                                    <FaLayerGroup className="mr-1" /> zu Hauptkapitel aggregieren
+                                </>
+                            )}
+                        </button>
                     </div>
                 </div>
             )}
@@ -65,24 +204,8 @@ const Message = ({ message, currentTheme }) => {
 
 
 
-// FollowUpButtons Component
-const FollowUpButtons = ({ setInput, handlePopEffect, followupBtn }) => (
-    <div className='flex justify-start mt-3 space-x-3'>
-        {followupBtn.map((btnText, index) => (
-            <button
-                key={index}
-                className='bg-gray-200 text-black px-4 py-2 rounded cursor-pointer flex items-center space-x-2'
-                onClick={() => {
-                    setInput(btnText);
-                    handlePopEffect();
-                }}
-            >
-                <FaLightbulb className='text-yellow-500' />
-                <span>{btnText}</span>
-            </button>
-        ))}
-    </div>
-);
+
+
 
 // Token counter function
 const countTokens = (text) => {
@@ -109,6 +232,7 @@ export default function ChatStructure({
     handleSubmit,
     warningMessage,
     followupBtn,
+    inputCloudBtn,
     placeHolderInput,
     examplesData,
     showPraeparatSearch, // Added this prop
@@ -116,6 +240,7 @@ export default function ChatStructure({
 
     const { activeFilter } = useFilter(); // Get the active filter from context, local storage to see if pro is selected or not. if not, dont show theme selector
     const [theme, setTheme] = useState('default');
+    const [isStreaming, setIsStreaming] = useState(false);
 
     const currentTheme = chatThemes[theme];
     // Retrieve theme from localStorage on initial load
@@ -136,6 +261,7 @@ export default function ChatStructure({
     const [showSuggestionsModal, setShowSuggestionsModal] = useState(false);
     const [hasAnswer, setHasAnswer] = useState(false);
     const [showFollowUpButtons, setShowFollowUpButtons] = useState(false);
+    const [showInputCloud, setShowInputCloud] = useState(false);
     const [isPopped, setIsPopped] = useState(false);
 
     const tokenCount = countTokens(input);
@@ -224,23 +350,40 @@ export default function ChatStructure({
                             ref={ref}
                         >
                             {messages.length > 1 ? (
-                                messages.map((m) => <Message key={m.id} message={m} currentTheme={currentTheme} />)
+                                messages.map((m) => (
+                                    <Message key={m.id} message={m} currentTheme={currentTheme} isStreaming={isStreaming} />
+                                ))
                             ) : (
                                 <div className="flex flex-col items-center justify-center h-full">
-                                    <p className="text-xl md:text-2xl font-bold mb-6">
-                                        Bitte geben Sie Ihre Anfrage in die Zeile unten ein
-                                    </p>
-                                    <div className="text-6xl animate-bounce">↓</div>
+                                    <InputCloud
+                                        setInput={setInput}
+                                        handlePopEffect={handlePopEffect}
+                                        inputCloudBtn={inputCloudBtn}
+                                        input={input}
+                                    />
+                                    {/* show this row if there are not options in the inputCloudBtn provided */}
+                                    {(!inputCloudBtn || Object.keys(inputCloudBtn).length === 0) && (
+                                        <>
+                                            <p className="text-xl md:text-2xl font-bold mb-6">
+                                                Bitte geben Sie Ihre Anfrage in die Zeile unten ein
+                                            </p>
+                                            <div className="text-6xl animate-bounce">↓</div>
+                                        </>
+                                    )}
                                 </div>
                             )}
                         </div>
                         {showFollowUpButtons && (
-                            <FollowUpButtons
-                                setInput={setInput}
-                                handlePopEffect={handlePopEffect}
-                                followupBtn={followupBtn}
-                            />
+                            <>
+                                <FollowUpButtons
+                                    setInput={setInput}
+                                    handlePopEffect={handlePopEffect}
+                                    followupBtn={followupBtn}
+                                />
+
+                            </>
                         )}
+
                     </div>
 
                     <SidebarPanel // sidebar panel
@@ -255,6 +398,9 @@ export default function ChatStructure({
 
                 <div className='flex flex-wrap items-center mt-2 pb-0'>
                     <div className='w-full md:w-2/3'>
+                        {/* Add InputCloud above the textarea */}
+
+
                         <form onSubmit={onSubmit} className='relative'>
                             <textarea
                                 name='message'

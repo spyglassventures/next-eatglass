@@ -16,7 +16,7 @@ const chatThemes = {
     dark: {
         section: 'py-1 text-zinc-700 dark:text-zinc-300',
         container: 'bg-gray-800 text-gray-300',
-        button: 'bg-gray-700 text-white',
+        button: 'bg-gray-700 text-white text-sm, font-light',
         buttonHover: 'hover:bg-gray-600',
         messageUser: 'bg-gray-700 text-gray-300',
         messageAssistant: 'bg-gray-750 text-gray-300',
@@ -44,7 +44,7 @@ const chatThemes = {
     matrix: {
         section: 'py-1 text-green-400 dark:text-green-400',
         container: 'bg-black text-green-400',
-        button: 'bg-green-600 text-black',
+        button: 'bg-green-600 text-black font-mono text-xs',
         buttonHover: 'hover:bg-green-500',
         messageUser: 'bg-gray-800 text-green-300',
         messageAssistant: 'bg-gray-700 text-green-500',
@@ -59,7 +59,7 @@ const chatThemes = {
     cypherpunk: {
         section: 'py-1 text-purple-400 dark:text-fuchsia-400',
         container: 'bg-black text-fuchsia-300',
-        button: 'bg-fuchsia-700 text-black',
+        button: 'bg-fuchsia-700 text-black shadow-[0_0_10px_rgba(245,66,255,0.8)]',
         buttonHover: 'hover:bg-purple-700',
         messageUser: 'bg-gradient-to-r from-pink-500 to-purple-600 text-white',
         messageAssistant: 'bg-gradient-to-r from-purple-700 to-blue-800 text-white',
@@ -74,7 +74,7 @@ const chatThemes = {
     gulf: {
         section: 'py-1 text-black dark:text-blue-300',
         container: 'bg-white text-orange-500',
-        button: 'bg-orange-600 text-white',
+        button: 'bg-orange-600 text-white font-light',
         buttonHover: 'hover:bg-orange-500',
         messageUser: 'bg-white text-black',
         messageAssistant: 'bg-orange-200 text-blue-900',
@@ -88,7 +88,7 @@ const chatThemes = {
     brumos: {
         section: 'py-1 text-red-700 dark:text-blue-400',
         container: 'bg-white text-blue-700',
-        button: 'bg-red-500 text-white',
+        button: 'bg-red-500 text-white font-light',
         buttonHover: 'hover:bg-blue-500',
         messageUser: 'bg-red-200 text-red-800',
         messageAssistant: 'bg-blue-200 text-black',
@@ -102,7 +102,7 @@ const chatThemes = {
     castrol: {
         section: 'py-1 text-green-700 dark:text-red-400',
         container: 'bg-white text-green-700',
-        button: 'text-red',
+        button: 'bg-green-500 text-black font-light',
         buttonHover: 'hover:bg-green-500',
         messageUser: 'bg-green-200 text-green-800',
         messageAssistant: 'bg-white text-red-500',
@@ -130,7 +130,7 @@ const chatThemes = {
     redbull: {
         section: 'py-1 text-[#121F45] dark:text-[#223971]',
         container: 'bg-[#121F45] text-[#FFC906]',
-        button: 'bg-[#CC1E4A] text-white',
+        button: 'bg-[#121F45] text-yellow font-extralight',
         buttonHover: 'hover:bg-[#FFC906]',
         messageUser: 'bg-[#FFC906] text-[#121F45]',
         messageAssistant: 'bg-[#223971] text-[#FFC906]',
@@ -145,7 +145,7 @@ const chatThemes = {
     martini: {
         section: 'py-1 text-black dark:text-red-500',
         container: 'bg-white text-black',
-        button: 'bg-red-500 text-white',
+        button: 'bg-red-500 text-white font-light',
         buttonHover: 'hover:bg-blue-500',
         messageUser: 'bg-blue-100 text-blue-900',
         messageAssistant: 'bg-red-100 text-red-900',

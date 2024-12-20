@@ -1,17 +1,16 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useFilter } from '@/components/AI/FilterContext'; // If needed
-import ChatStructure from './gen_chat_structure_expandable';
+import { useFilter } from '@/components/AI/FilterContext'; // for mpa, arzt, pro mode filter for models and theme Context hook
+import ChatStructure from './gen_chat_structure';
 import {
   warning_msg,
   followupBtn,
-  inputCloudBtn,
   placeHolderInput,
   examplesData,
   rawInitialMessages,
-} from '@/config/ai/ai_tabs/diagnose_message';
-
+  inputCloudBtn,
+} from '@/config/ai/ai_tabs/freitext_message';
 import ModelSelector from './ModelSelector';
 
 // Define the type for a message
@@ -21,22 +20,24 @@ interface Message {
   content: string;
 }
 
-export default function ChatDiagnose({ showPraeparatSearch = false }: { showPraeparatSearch?: boolean }) {
-  const { activeFilter } = useFilter(); // If you have this context
-  const [modelPath, setModelPath] = useState('/api/chat-4o-mini'); // Default model path
-  const [messages, setMessages] = useState<Message[]>(() =>
+export default function ChatFreitext({ showPraeparatSearch = false }) {
+  const { activeFilter } = useFilter(); // to hide theme and model if not pro mode
+
+  useEffect(() => {
+    console.log('Active Filter in  Chat Component:', activeFilter);
+  }, [activeFilter]);
+
+  const [messages, setMessages] = useState<Message[]>(
     rawInitialMessages.map((message) => ({
       ...message,
       role: message.role as Message['role'],
-      content: Array.isArray(message.content) ? message.content.join('\n') : message.content,
+      content: message.content.join('\n'),
     }))
   );
   const [input, setInput] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [modelPath, setModelPath] = useState('/api/chat-4o-mini'); // Default model
 
-  useEffect(() => {
-    console.log('Active Filter in Chat Component:', activeFilter);
-  }, [activeFilter]);
+
 
   const handleModelChange = (value: string) => {
     setModelPath(value);
@@ -48,20 +49,16 @@ export default function ChatDiagnose({ showPraeparatSearch = false }: { showPrae
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const trimmedInput = input.trim();
-    if (!trimmedInput) return;
+    if (!input.trim()) return;
 
-    // Add the user's message
     const userMessage: Message = {
       id: Date.now().toString(),
       role: 'user',
-      content: trimmedInput,
+      content: input,
     };
-
     setMessages((prev) => [...prev, userMessage]);
     setInput('');
 
-    setIsLoading(true);
     try {
       const response = await fetch(modelPath, {
         method: 'POST',
@@ -71,7 +68,6 @@ export default function ChatDiagnose({ showPraeparatSearch = false }: { showPrae
 
       if (!response.ok) {
         console.error('API error:', await response.text());
-        setIsLoading(false);
         return;
       }
 
@@ -81,6 +77,7 @@ export default function ChatDiagnose({ showPraeparatSearch = false }: { showPrae
 
       if (reader) {
         let done = false;
+
         while (!done) {
           const { value, done: readerDone } = await reader.read();
           done = readerDone;
@@ -89,46 +86,27 @@ export default function ChatDiagnose({ showPraeparatSearch = false }: { showPrae
             const chunk = decoder.decode(value, { stream: true });
             accumulatedResponse += chunk;
 
-            // Update or append the assistant message as it streams in
-            setMessages((prev) => {
-              // Remove any partial assistant message being constructed for streaming
-              const filtered = prev.filter((m) => !(m.role === 'assistant' && m.id === 'streaming'));
-              return [
-                ...filtered,
-                {
-                  id: 'streaming',
-                  role: 'assistant',
-                  content: accumulatedResponse
-                },
-              ];
-            });
+            setMessages((prev) => [
+              ...prev.filter((m) => m.role !== 'assistant'),
+              { id: Date.now().toString(), role: 'assistant', content: accumulatedResponse },
+            ]);
           }
         }
-
-        // Once done, replace the streaming message id with a proper unique id
-        setMessages((prev) =>
-          prev.map((m) =>
-            m.id === 'streaming'
-              ? { ...m, id: Date.now().toString() }
-              : m
-          )
-        );
       }
-    } catch (err) {
-      console.error('Error submitting message:', err);
-    } finally {
-      setIsLoading(false);
+    } catch (error) {
+      console.error('Error submitting message:', error);
     }
   };
 
   return (
     <div>
+      {/* Compact Model Selector */}
       {activeFilter === 'Pro' && (
         <ModelSelector modelPath={modelPath} onModelChange={handleModelChange} />
       )}
 
       <ChatStructure
-        messages={messages} // Pass all messages (system, user, assistant, etc.)
+        messages={messages}
         input={input}
         setInput={setInput}
         handleInputChange={handleInputChange}
@@ -139,7 +117,6 @@ export default function ChatDiagnose({ showPraeparatSearch = false }: { showPrae
         placeHolderInput={placeHolderInput[0]}
         examplesData={examplesData}
         showPraeparatSearch={showPraeparatSearch}
-
       />
     </div>
   );
