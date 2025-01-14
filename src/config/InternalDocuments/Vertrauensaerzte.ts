@@ -139,7 +139,7 @@ const documents: DocumentInfo[] = [
     {
         partnerart: 'HOTELA',
         details: [
-            { label: 'BAG-Nr', value: '1520', type: 'text', copyable: true },
+            { label: 'Empfänger', value: 'Hotela', type: 'text', copyable: true },
             { label: 'Adresse', value: 'Rue de la Gare 18, 1820 Montreux', type: 'text', copyable: true },
             { label: 'Tel', value: '021 962 49 49', type: 'text', copyable: true },
             { label: 'E-Mail', value: 'hotela@hin.ch', type: 'text', copyable: true },
