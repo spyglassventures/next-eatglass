@@ -24,61 +24,62 @@ const documents: DocumentInfo[] = [
     ],
 },
     {
-        partnerart: 'Sympany',
-        details: [
-            { label: 'BAG-Nr', value: '57', type: 'text', copyable: true },
-            { label: 'Adresse', value: 'Peter Merian-Weg 2, 4002 Basel', type: 'text', copyable: true },
-            { label: 'Tel', value: '058 262 40 70', type: 'text', copyable: true },
-            { label: 'Fax', value: '058 262 42 97', type: 'text', copyable: true },
-            { label: 'E-Mail', value: 'vertrauensaerztlicher-dienst@sympany.ch', type: 'text', copyable: true },
-        ],
-    },
-    {
-        partnerart: 'SUPRA',
-        details: [
-            { label: 'BAG-Nr', value: '62', type: 'text', copyable: true },
-            { label: 'Adresse', value: 'Postfach 680, 1919 Martigny', type: 'text', copyable: true },
-            { label: 'Tel', value: '0848 803 333', type: 'text', copyable: true },
-            { label: 'E-Mail', value: 'medizinischer-dienst@groupemutuel.ch', type: 'text', copyable: true },
-        ],
-    },
-    {
-        partnerart: 'Einsiedler Krankenkasse',
-        details: [
-            { label: 'BAG-Nr', value: '134', type: 'text', copyable: true },
-            { label: 'Adresse', value: 'Postfach 57, 8840 Einsiedeln', type: 'text', copyable: true },
-            { label: 'Tel', value: '055 418 07 41', type: 'text', copyable: true },
-            { label: 'E-Mail', value: 'kkeinsiedeln@hin.ch', type: 'text', copyable: true },
-        ],
-    },
-    {
-        partnerart: 'SWICA',
-        details: [
-            { label: 'BAG-Nr', value: '182', type: 'text', copyable: true },
-            { label: 'Adresse', value: 'Postfach 900, 8901 Urdorf', type: 'text', copyable: true },
-            { label: 'Tel', value: '052 244 22 33', type: 'text', copyable: true },
-            { label: 'E-Mail', value: 'vad@swica.ch', type: 'text', copyable: true },
-            { label: 'E-Mail 2', value: 'reha.vad@swica.ch', type: 'text', copyable: true },
-        ],
-    },
-    {
-        partnerart: 'Krankenkasse Steffisburg',
-        details: [
-            { label: 'BAG-Nr', value: '246', type: 'text', copyable: true },
-            { label: 'Adresse', value: 'Postfach 297, 3612 Steffisburg', type: 'text', copyable: true },
-            { label: 'Tel', value: '033 439 40 20', type: 'text', copyable: true },
-            { label: 'E-Mail', value: 'kkst@hin.ch', type: 'text', copyable: true },
-        ],
-    },
-    {
-        partnerart: 'CONCORDIA',
-        details: [
-            { label: 'BAG-Nr', value: '290', type: 'text', copyable: true },
-            { label: 'Adresse', value: 'Bundesplatz 15, 6002 Luzern', type: 'text', copyable: true },
-            { label: 'Tel', value: '041 228 16 14', type: 'text', copyable: true },
-            { label: 'E-Mail', value: 'vertrauensarzt@concordia.ch', type: 'text', copyable: true },
-        ],
-    },
+    partnerart: 'Sympany',
+    details: [
+        { label: 'Krankenkasse', value: 'Sympany', type: 'text', copyable: true },
+        { label: 'Adresse', value: 'Peter Merian-Weg 2, 4002 Basel', type: 'text', copyable: true },
+        { label: 'Tel', value: '058 262 40 70', type: 'text', copyable: true },
+        { label: 'Fax', value: '058 262 42 97', type: 'text', copyable: true },
+        { label: 'E-Mail', value: 'vertrauensaerztlicher-dienst@sympany.ch', type: 'text', copyable: true }
+    ]
+},
+{
+    partnerart: 'SUPRA',
+    details: [
+        { label: 'Krankenkasse', value: 'SUPRA', type: 'text', copyable: true },
+        { label: 'Adresse', value: 'Postfach 680, 1919 Martigny', type: 'text', copyable: true },
+        { label: 'Tel', value: '0848 803 333', type: 'text', copyable: true },
+        { label: 'E-Mail', value: 'medizinischer-dienst@groupemutuel.ch', type: 'text', copyable: true }
+    ]
+},
+{
+    partnerart: 'Einsiedler Krankenkasse',
+    details: [
+        { label: 'Krankenkasse', value: 'Einsiedler Krankenkasse', type: 'text', copyable: true },
+        { label: 'Adresse', value: 'Postfach 57, 8840 Einsiedeln', type: 'text', copyable: true },
+        { label: 'Tel', value: '055 418 07 41', type: 'text', copyable: true },
+        { label: 'E-Mail', value: 'kkeinsiedeln@hin.ch', type: 'text', copyable: true }
+    ]
+},
+{
+    partnerart: 'SWICA',
+    details: [
+        { label: 'Krankenkasse', value: 'SWICA', type: 'text', copyable: true },
+        { label: 'Adresse', value: 'Postfach 900, 8901 Urdorf', type: 'text', copyable: true },
+        { label: 'Tel', value: '052 244 22 33', type: 'text', copyable: true },
+        { label: 'E-Mail', value: 'vad@swica.ch', type: 'text', copyable: true },
+        { label: 'E-Mail 2', value: 'reha.vad@swica.ch', type: 'text', copyable: true }
+    ]
+},
+{
+    partnerart: 'Krankenkasse Steffisburg',
+    details: [
+        { label: 'Krankenkasse', value: 'Krankenkasse Steffisburg', type: 'text', copyable: true },
+        { label: 'Adresse', value: 'Postfach 297, 3612 Steffisburg', type: 'text', copyable: true },
+        { label: 'Tel', value: '033 439 40 20', type: 'text', copyable: true },
+        { label: 'E-Mail', value: 'kkst@hin.ch', type: 'text', copyable: true }
+    ]
+},
+{
+    partnerart: 'CONCORDIA',
+    details: [
+        { label: 'Krankenkasse', value: 'CONCORDIA', type: 'text', copyable: true },
+        { label: 'Adresse', value: 'Bundesplatz 15, 6002 Luzern', type: 'text', copyable: true },
+        { label: 'Tel', value: '041 228 16 14', type: 'text', copyable: true },
+        { label: 'E-Mail', value: 'vertrauensarzt@concordia.ch', type: 'text', copyable: true }
+    ],
+},
+
     {
         partnerart: 'Atupri',
         details: [
