@@ -21,8 +21,8 @@ const documents: DocumentInfo[] = [
         { label: 'Adresse', value: 'Bruggerstrasse 46, 5400 Baden', type: 'text', copyable: true },
         { label: 'Tel', value: '056 203 44 44', type: 'text', copyable: true },
         { label: 'E-Mail', value: 'vad@aquilana.ch', type: 'text', copyable: true }
-    ]
-}
+    ],
+},
     {
         partnerart: 'Sympany',
         details: [
