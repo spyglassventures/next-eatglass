@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-
-
+import Image from 'next/image'; // Import the Image component
 
 interface WelcomeMessageProps {
     onDismiss: () => void;
@@ -11,7 +10,6 @@ interface WelcomeMessageProps {
 
 const WelcomeMessage: React.FC<WelcomeMessageProps> = ({ onDismiss, onComplete, step }) => {
     const [currentChapter, setCurrentChapter] = useState(1);
-    // const [doNotShowAgain, setDoNotShowAgain] = useState(false);
 
     const imageBasePath = '/images/welcomeMessage/';
 
@@ -58,21 +56,22 @@ const WelcomeMessage: React.FC<WelcomeMessageProps> = ({ onDismiss, onComplete, 
         }
     };
 
-    // cookie currently not used
     const handleComplete = () => {
-        // if (doNotShowAgain) {
-        //     document.cookie = "hideWelcomeMessage=true; max-age=" + 365 * 24 * 60 * 60;
-        // }
         onComplete();
     };
 
     // Determine layout based on image position for the current chapter
     const imageComponent = (
-        <img
-            src={chapters[currentChapter - 1].image}
-            alt={`Step ${currentChapter}`}
-            className={`${chapters[currentChapter - 1].className} mb-4 w-full h-auto`}
-        />
+        <div className="relative w-full h-64 mb-4">
+            <Image
+                src={chapters[currentChapter - 1].image}
+                alt={`Step ${currentChapter}`}
+                className={chapters[currentChapter - 1].className}
+                layout="fill"
+                objectFit="contain"
+                priority
+            />
+        </div>
     );
 
     const contentComponent = (
@@ -141,19 +140,7 @@ const WelcomeMessage: React.FC<WelcomeMessageProps> = ({ onDismiss, onComplete, 
             <div className="text-sm text-gray-500 mb-2">{`Schritt ${currentChapter} von ${chapters.length}`}</div>
             {renderContent()}
             <div className="flex justify-between items-center mt-6">
-                <div className="flex items-center">
-                    {/* Dont show again, currently not used */}
-                    {/* <input
-                        type="checkbox"
-                        id="doNotShowAgain"
-                        checked={doNotShowAgain}
-                        onChange={(e) => setDoNotShowAgain(e.target.checked)}
-                        className="mr-2 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                    />
-                    <label htmlFor="doNotShowAgain" className="text-gray-600">
-                        Diese Meldung nicht mehr anzeigen
-                    </label> */}
-                </div>
+                <div className="flex items-center"></div>
                 <div className="flex items-center space-x-4">
                     {currentChapter > 1 && (
                         <button
@@ -172,7 +159,7 @@ const WelcomeMessage: React.FC<WelcomeMessageProps> = ({ onDismiss, onComplete, 
                         </button>
                     ) : (
                         <button className="px-4 py-2 text-sm font-medium text-blue-600 bg-blue-100 rounded-lg hover:bg-blue-200">
-                            <a href="/intern">Fertig</a>
+                            <Link href="/intern">Fertig</Link>
                         </button>
                     )}
                 </div>

@@ -52,7 +52,10 @@ export default function CopyToClipboard({
 
       availableVoices.forEach(voice => {
         const langCode = voice.lang.split('-')[0]
-        if (allowedLanguages.some(lang => lang.code === langCode) && !filteredVoices.has(langCode)) {
+        if (
+          allowedLanguages.some(lang => lang.code === langCode) &&
+          !filteredVoices.has(langCode)
+        ) {
           filteredVoices.set(langCode, voice)
         }
       })
@@ -77,10 +80,12 @@ export default function CopyToClipboard({
     }
 
     updateVoices()
+
     if (typeof window !== 'undefined' && window.speechSynthesis) {
       window.speechSynthesis.onvoiceschanged = updateVoices
     }
-  }, [allowedLanguages]) // Explicitly include allowedLanguages in the dependency array
+  }, []) // Removed `allowedLanguages` from the dependency array
+
 
   const onCopy = () => {
     if (isCopied) return

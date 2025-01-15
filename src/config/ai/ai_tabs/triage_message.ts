@@ -7,6 +7,17 @@ export const followupBtn = ['mehr Argumente', 'eloquenter formulieren', 'überse
 
 // if in existence, then the cloud buttons will be displayed. Otherwise the request to enter the prompt will be displayed.
 export const inputCloudBtn = {
+    Demografie: [
+        "0-1 Jahre, Säugling",
+        "1-3 Jahre, Kleinkind",
+        "4-10 Jahre alt",
+        "11-18 Jahre alt",
+        "19-50 Jahre alt",
+        "51-70 Jahre alt",
+        "über 70 Jahre",
+        "männlich",
+        "weiblich"
+    ],
     Allgemeine: [
         "Husten",
         "Schnupfen",
