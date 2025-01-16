@@ -1,8 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useFilter } from '@/components/AI/FilterContext'; // If needed
 import ChatStructure from './gen_chat_structure_expandable';
+import CancelButton from '././ai_utils/CancelButton'; // Import the CancelButton component
 import {
   warning_msg,
   followupBtn,
@@ -33,6 +34,7 @@ export default function ChatDiagnose({ showPraeparatSearch = false }: { showPrae
   );
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const abortControllerRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
     console.log('Active Filter in Chat Component:', activeFilter);
@@ -46,12 +48,10 @@ export default function ChatDiagnose({ showPraeparatSearch = false }: { showPrae
     setInput(event.target.value);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     const trimmedInput = input.trim();
     if (!trimmedInput) return;
 
-    // Add the user's message
     const userMessage: Message = {
       id: Date.now().toString(),
       role: 'user',
@@ -62,11 +62,16 @@ export default function ChatDiagnose({ showPraeparatSearch = false }: { showPrae
     setInput('');
 
     setIsLoading(true);
+
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
+
     try {
       const response = await fetch(modelPath, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: [...messages, userMessage] }),
+        signal: controller.signal, // Attach the AbortController signal
       });
 
       if (!response.ok) {
@@ -89,34 +94,41 @@ export default function ChatDiagnose({ showPraeparatSearch = false }: { showPrae
             const chunk = decoder.decode(value, { stream: true });
             accumulatedResponse += chunk;
 
-            // Update or append the assistant message as it streams in
             setMessages((prev) => {
-              // Remove any partial assistant message being constructed for streaming
               const filtered = prev.filter((m) => !(m.role === 'assistant' && m.id === 'streaming'));
               return [
                 ...filtered,
                 {
                   id: 'streaming',
                   role: 'assistant',
-                  content: accumulatedResponse
+                  content: accumulatedResponse,
                 },
               ];
             });
           }
         }
 
-        // Once done, replace the streaming message id with a proper unique id
         setMessages((prev) =>
           prev.map((m) =>
-            m.id === 'streaming'
-              ? { ...m, id: Date.now().toString() }
-              : m
+            m.id === 'streaming' ? { ...m, id: Date.now().toString() } : m
           )
         );
       }
     } catch (err) {
-      console.error('Error submitting message:', err);
+      if (err.name === 'AbortError') {
+        console.log('Request cancelled');
+      } else {
+        console.error('Error submitting message:', err);
+      }
     } finally {
+      setIsLoading(false);
+      abortControllerRef.current = null;
+    }
+  };
+
+  const handleCancel = () => {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort(); // Abort the ongoing fetch request
       setIsLoading(false);
     }
   };
@@ -128,7 +140,7 @@ export default function ChatDiagnose({ showPraeparatSearch = false }: { showPrae
       )}
 
       <ChatStructure
-        messages={messages} // Pass all messages (system, user, assistant, etc.)
+        messages={messages}
         input={input}
         setInput={setInput}
         handleInputChange={handleInputChange}
@@ -139,8 +151,16 @@ export default function ChatDiagnose({ showPraeparatSearch = false }: { showPrae
         placeHolderInput={placeHolderInput[0]}
         examplesData={examplesData}
         showPraeparatSearch={showPraeparatSearch}
-
       />
+
+      <div>
+        {isLoading && <CancelButton isLoading={isLoading} onCancel={handleCancel} />}
+      </div>
+
+      {/* enable for cancel btn debuggung */}
+      {/* <div>
+        <CancelButton isLoading={true} onCancel={handleCancel} />
+      </div>*/}
     </div>
   );
 }
