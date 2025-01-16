@@ -223,6 +223,9 @@ const getTokenStatus = (tokens) => {
     }
 };
 
+
+
+
 // Main Chat Structure Component
 export default function ChatStructure({
     messages,
@@ -241,6 +244,14 @@ export default function ChatStructure({
     const { activeFilter } = useFilter(); // Get the active filter from context, local storage to see if pro is selected or not. if not, dont show theme selector
     const [theme, setTheme] = useState('default');
     const [isStreaming, setIsStreaming] = useState(false);
+    const [dynamicPlaceholder, setDynamicPlaceholder] = useState(placeHolderInput);
+
+    useEffect(() => {
+        // Update the placeholder state if the external prop changes
+        setDynamicPlaceholder(placeHolderInput);
+    }, [placeHolderInput]);
+
+
 
     const currentTheme = chatThemes[theme];
     // Retrieve theme from localStorage on initial load
@@ -397,34 +408,67 @@ export default function ChatStructure({
 
 
                 <div className='flex flex-wrap items-center mt-2 pb-0'>
-                    <div className='w-full md:w-2/3'>
-                        {/* Add InputCloud above the textarea */}
+                    <div className="w-full md:w-2/3">
+                        <form
+                            onSubmit={(e) => {
+                                e.preventDefault();
+                                handleSubmit(e);
 
+                                // Update the placeholder when the form is submitted
+                                setDynamicPlaceholder("Sie können nun Folgefragen stellen, den Inhalt diskutieren oder eine neue Anfrage eingeben");
 
-                        <form onSubmit={onSubmit} className='relative'>
+                                // Reset the textarea
+                                const textarea = e.currentTarget.querySelector("textarea") as HTMLTextAreaElement;
+                                if (textarea) {
+                                    textarea.style.height = "auto";
+                                    textarea.value = ""; // Clear the input
+                                }
+                            }}
+                            className="relative"
+                        >
                             <textarea
-                                name='message'
+                                name="message"
                                 value={input}
                                 onChange={handleInputChange}
-                                placeholder={placeHolderInput}
-                                className='w-full p-2 placeholder:italic border placeholder:text-zinc-600/75 focus-visible:ring-zinc-500 text-left dark:bg-zinc-800 dark:text-zinc-300 dark:placeholder:text-zinc-500 dark:focus-visible:ring-zinc-400 rounded-md resize-none'
+                                placeholder={dynamicPlaceholder} // Use the dynamic placeholder state
+                                className="w-full pl-1 pt-2 pb-3 pr-24 placeholder:italic border placeholder:text-zinc-600/75 focus-visible:ring-zinc-500 text-left dark:bg-zinc-800 dark:text-zinc-300 dark:placeholder:text-zinc-500 dark:focus-visible:ring-zinc-400 rounded-md resize-none overflow-y-auto"
                                 rows={1}
+                                style={{
+                                    minHeight: "36px", // Initial height for one row
+                                    maxHeight: "300px", // Maximum height
+                                }}
                                 onKeyDown={(e) => {
-                                    if (e.key === 'Enter') {
+                                    if (e.key === "Enter" && !e.shiftKey) {
                                         e.preventDefault();
-                                        onSubmit(new CustomEvent('submit') as unknown as React.FormEvent<HTMLFormElement>);
+                                        handleSubmit(new CustomEvent("submit") as unknown as React.FormEvent<HTMLFormElement>);
+                                        const textarea = e.target as HTMLTextAreaElement;
+                                        textarea.style.height = "40px"; // Reset height to initial state
+                                        textarea.value = ""; // Clear input value
+
+                                        // Update the placeholder
+                                        setDynamicPlaceholder("Weitere Folgefragen möglich oder den Text exportieren, siehe rechte Seite (z.B. in Word)");
                                     }
                                 }}
+                                onInput={(e) => {
+                                    const target = e.target as HTMLTextAreaElement;
+                                    target.style.height = "auto"; // Reset height to calculate the correct height
+                                    target.style.height = `${Math.min(target.scrollHeight, 300)}px`; // Adjust height to content, up to max-height
+                                }}
                             />
+
                             <button
                                 type="submit"
-                                className={`absolute right-1 top-1 h-8 w-20 bg-emerald-500 text-white rounded flex items-center justify-center button-pop ${isPopped ? 'popped' : ''}`}
+                                className={`absolute bottom-3 right-6 h-8 w-20 bg-emerald-500 text-white rounded flex items-center justify-center button-pop ${isPopped ? "popped" : ""}`}
                             >
                                 Enter
                             </button>
                         </form>
-
                     </div>
+
+
+
+
+
 
                     <div className='w-full md:w-1/3 flex items-start pl-3 pb-5 justify-center md:justify-start md:flex'>
 

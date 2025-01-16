@@ -41,7 +41,7 @@ export default function DownloadButton({ message }) {
     };
 
     return (
-        <div className="flex items-center border p-2 rounded-md bg-gray-100">
+        <div className="flex items-center border p-2 pt-3 pb-3 rounded-md bg-gray-100">
             {/* Use the Next.js <Image> component */}
             <button
                 onClick={generateWordDocument}
