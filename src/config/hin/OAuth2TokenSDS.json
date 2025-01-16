@@ -4,6 +4,6 @@
     "hin_id": "sysspyg1",
     "refresh_token": "KjiPjdkA4f8wx6EFiqN$5WA=NLfdaHb4w6VDUxi7",
     "token_type": "Bearer",
-    "commen_dm": "using the access token has worked with Postman - NOT CURRENTLY USED FOR REQUESTS. refresh_token used for requests, hence must be updated every 30 days",
+    "commen_dm": "DEPRECATED: this is the token we need to refresh once a month using postman. check next-eatglass/src/pages/api/token.json",
     "request_url": "https://apps.hin.ch/#app=ClientCredentials"
 }

@@ -1,7 +1,7 @@
 // src/config/hin/config.js
 
 const hinConfig = {
-    showDownloadButtons: false,
+    showDownloadButtons: true,
     downloadButtons: {
         csv: {
             label: 'Download CSV',
