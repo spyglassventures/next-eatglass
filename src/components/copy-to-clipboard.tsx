@@ -1,10 +1,15 @@
 'use client'
 
+// more than just clipboard
+// contains 1.) speech synthesis 2.) clipboard 3.) 
+
+
 import { useEffect, useState } from 'react'
 import { type Message } from 'ai'
 import { useClipboard } from '@/hooks/use-clipboard'
 import { ClipboardDocumentCheckIcon, ClipboardDocumentIcon, SpeakerWaveIcon, SpeakerXMarkIcon } from '@heroicons/react/24/solid'
 import { LuMoveDownLeft } from 'react-icons/lu'
+import Weather from './weather'
 
 interface ChatMessageActionsProps extends React.ComponentProps<'div'> {
   message: Message
@@ -156,6 +161,7 @@ export default function CopyToClipboard({
           )}
         </button>
       </div>
+      <Weather />
     </div>
   )
 }
