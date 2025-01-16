@@ -399,7 +399,7 @@ export default function ChatStructure({
                                         currentTheme={currentTheme}
                                         isStreaming={isStreaming}
                                         stopRequest={stopRequest} // Pass stopRequest
-                                        stopRequestRef={stopRequestRef}
+                                        // stopRequestRef={stopRequestRef}
                                         setStopRequest={setStopRequest} // Pass setter to reset
                                     />
                                 ))
