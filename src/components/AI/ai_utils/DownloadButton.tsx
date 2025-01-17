@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PizZip from 'pizzip';
 import Docxtemplater from 'docxtemplater';
 import { saveAs } from 'file-saver';
 import axios from 'axios';
 import { EnvelopeIcon } from '@heroicons/react/24/solid';
-// 1) Import the Image component from next/image
 import Image from 'next/image';
+import mailerConfig from 'src/config/mailerPageConfig.json';
+import EmailModal from '../../Mailer/EmailModal';
 
-export default function DownloadButton({ message }) {
+export default function DownloadButton({ message }: { message: string }) {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [defaultRecipients] = useState(mailerConfig.recipients?.emails || []);
+
     const generateWordDocument = async () => {
         try {
             const response = await axios.get('/forms/Blank/Briefkopf_blank.docx', {
@@ -41,45 +45,52 @@ export default function DownloadButton({ message }) {
     };
 
     return (
-        <div className="flex items-center border p-2 pt-3 pb-3 rounded-md bg-gray-100">
-            {/* Use the Next.js <Image> component */}
-            <button
-                onClick={generateWordDocument}
-                className="h-5 w-5 mr-2"
-                aria-label="Download Word"
-            >
-                <div className="relative h-5 w-5">
-                    <Image
-                        src="/images/brands/Microsoft-Word-Icon-PNG.png"
-                        alt="Word Icon"
-                        fill
-                        style={{ objectFit: 'contain' }}
-                        sizes="(max-width: 768px) 100vw, 24px"
-                    />
-                </div>
-            </button>
+        <>
+            <div className="flex items-center border p-2 pt-3 pb-3 rounded-md bg-gray-100">
+                <button
+                    onClick={generateWordDocument}
+                    className="h-5 w-5 mr-2"
+                    aria-label="Download Word"
+                >
+                    <div className="relative h-5 w-5">
+                        <Image
+                            src="/images/brands/Microsoft-Word-Icon-PNG.png"
+                            alt="Word Icon"
+                            fill
+                            style={{ objectFit: 'contain' }}
+                            sizes="(max-width: 768px) 100vw, 24px"
+                        />
+                    </div>
+                </button>
 
-            <button
-                onClick={downloadTxtFile}
-                className="text-xs font-medium text-gray-500 hover:text-gray-700 mr-2"
-                aria-label="Download TXT"
-            >
-                .txt
-            </button>
+                <button
+                    onClick={downloadTxtFile}
+                    className="text-xs font-medium text-gray-500 hover:text-gray-700 mr-2"
+                    aria-label="Download TXT"
+                >
+                    .txt
+                </button>
 
-            <button
-                onClick={() =>
-                    alert('Email functionality is not implemented yet.')
-                }
-                className="h-5 w-5 text-gray-500 hover:text-gray-700 mr-2"
-                aria-label="Send Email"
-            >
-                <EnvelopeIcon />
-            </button>
+                <button
+                    onClick={() => setIsModalOpen(true)}
+                    className="h-5 w-5 text-gray-500 hover:text-gray-700 mr-2"
+                    aria-label="Send Email"
+                >
+                    <EnvelopeIcon />
+                </button>
 
-            <span className="text-xs text-gray-600 font-medium">
-                &larr; Co-Pilot Antwort verwenden (in Word/Txt oder mailen)
-            </span>
-        </div>
+                <span className="text-xs text-gray-600 font-medium">
+                    &larr; Co-Pilot Antwort verwenden (in Word/Txt oder mailen)
+                </span>
+            </div>
+
+            {isModalOpen && (
+                <EmailModal
+                    defaultMessage={message}
+                    defaultRecipients={defaultRecipients}
+                    onClose={() => setIsModalOpen(false)}
+                />
+            )}
+        </>
     );
 }
