@@ -14,6 +14,18 @@
         ]
     },
     "emailDefaults": {
-        "subjectTemplate": "KI Antwort von Doc Dialog genutzt durch Praxis Muster - Anfrage vom {{date}}"
+        "subjectTemplate": "KI Antwort von Doc Dialog genutzt durch Praxis Muster - Anfrage vom {{date}}",
+        "defaultMessage": "Hallo,\n\nIch wollte mich mit Ihnen in Verbindung setzen.\n\nVielen Dank und mit freundlichen Grüßen,\nDr. med. Max Mustermann",
+        "defaultSubject": "Anfrage an Ihre Praxis"
+    },
+    "emailDefaultsVertrauensarzt": {
+        "subjectTemplate": "Anfrage durch Praxis Muster vom {{date}}",
+        "defaultMessage": "Guten Tag,\n\nIch wollte mich mit Ihnen in Verbindung setzen.\n\nVielen Dank und mit freundlichen Grüßen,\nDr. med. Max Mustermann",
+        "defaultSubject": "Anfrage an Ihre Praxis"
+    },
+    "emailDefaultsHIN": {
+        "subjectTemplate": "Kontaktaufnahme durch Praxis Muster vom {{date}}",
+        "defaultMessage": "Guten Tag,\n\nIch wollte mich mit Ihnen in Verbindung setzen.\n\nVielen Dank und mit freundlichen Grüßen,\nDr. med. Max Mustermann",
+        "defaultSubject": "Anfrage an Ihre Praxis"
     }
 }

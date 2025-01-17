@@ -1,12 +1,21 @@
 import React, { useState } from 'react';
-import documents, { DocumentInfo } from '../../config/InternalDocuments/Vertrauensaerzte'; // Import the document configuration
-import { ClipboardIcon, EyeIcon, EyeSlashIcon, LinkIcon, DocumentDuplicateIcon, ExclamationTriangleIcon } from '@heroicons/react/24/solid';
+import documents from '../../config/InternalDocuments/Vertrauensaerzte'; // Import the document configuration
+import { ClipboardIcon, EyeIcon, EyeSlashIcon, LinkIcon, DocumentDuplicateIcon, ExclamationTriangleIcon, EnvelopeIcon } from '@heroicons/react/24/solid';
+import EmailModal from '../Mailer/EmailModal'; // Import the EmailModal component
+import mailerConfig from 'src/config/mailerPageConfig.json'; // Configuration file containing email defaults
+import { format } from 'date-fns';
+
+const defaultCC = mailerConfig.recipients?.emails || [];
 
 export default function InternalDocuments() {
     const [searchTerm, setSearchTerm] = useState('');
     const [copiedCard, setCopiedCard] = useState<string | null>(null);
     const [copiedField, setCopiedField] = useState<string | null>(null);
     const [revealedPassword, setRevealedPassword] = useState<{ [key: string]: boolean }>({});
+    const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
+    const [email, setEmail] = useState('');
+    const [ccEmails, setCcEmails] = useState(defaultCC);
+    const [subject, setSubject] = useState(''); // State for dynamically generated subject
 
     const filteredDocuments = documents.filter((doc) =>
         doc.partnerart.toLowerCase().includes(searchTerm.toLowerCase())
@@ -38,6 +47,18 @@ export default function InternalDocuments() {
             ...prev,
             [index]: !prev[index],
         }));
+    };
+
+    const handleEmailClick = (email: string) => {
+        setEmail(email);
+
+        // Generate subject using emailDefaultsVertrauensarzt.subjectTemplate
+        const subjectTemplate = mailerConfig.emailDefaultsVertrauensarzt?.subjectTemplate || '';
+        const currentDate = format(new Date(), 'dd.MM.yyyy');
+        const generatedSubject = subjectTemplate.replace('{{date}}', currentDate);
+
+        setSubject(generatedSubject);
+        setIsEmailModalOpen(true);
     };
 
     return (
@@ -87,33 +108,38 @@ export default function InternalDocuments() {
                                                     : detail.value}
                                             </span>
                                         </div>
-                                        {detail.copyable && detail.type !== 'url' && (
-                                            <DocumentDuplicateIcon
-                                                className={`h-5 w-5 cursor-pointer transition-colors ${copiedField === `${doc.partnerart}-${idx}` ? 'text-blue-500' : 'text-gray-300 hover:text-amber-500'}`}
-                                                onClick={() => handleFieldCopy(`${doc.partnerart}-${idx}`, detail.value)}
-                                            />
-                                        )}
-                                        {detail.type === 'password' && (
-                                            <button
-                                                onClick={() => togglePasswordVisibility(`${doc.partnerart}-${idx}`)}
-                                            >
-                                                {revealedPassword[`${doc.partnerart}-${idx}`] ? (
-                                                    <EyeSlashIcon className="h-5 w-5 text-gray-300" />
-                                                ) : (
-                                                    <EyeIcon className="h-5 w-5 text-gray-300" />
-                                                )}
-                                            </button>
-                                        )}
-                                        {detail.type === 'url' && detail.value && (
-                                            <a
-                                                href={detail.value}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="inline-flex items-center"
-                                            >
-                                                <LinkIcon className="h-5 w-5 text-gray-300 cursor-pointer" />
-                                            </a>
-                                        )}
+                                        <div className="flex items-center space-x-2">
+                                            {detail.copyable && detail.type !== 'url' && (
+                                                <DocumentDuplicateIcon
+                                                    className={`h-5 w-5 cursor-pointer transition-colors ${copiedField === `${doc.partnerart}-${idx}` ? 'text-blue-500' : 'text-gray-300 hover:text-amber-500'}`}
+                                                    onClick={() => handleFieldCopy(`${doc.partnerart}-${idx}`, detail.value)}
+                                                />
+                                            )}
+                                            {detail.type === 'password' && (
+                                                <button onClick={() => togglePasswordVisibility(`${doc.partnerart}-${idx}`)}>
+                                                    {revealedPassword[`${doc.partnerart}-${idx}`] ? (
+                                                        <EyeSlashIcon className="h-5 w-5 text-gray-300" />
+                                                    ) : (
+                                                        <EyeIcon className="h-5 w-5 text-gray-300" />
+                                                    )}
+                                                </button>
+                                            )}
+                                            {detail.type === 'url' && detail.value && (
+                                                <a
+                                                    href={detail.value}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="inline-flex items-center"
+                                                >
+                                                    <LinkIcon className="h-5 w-5 text-gray-300 cursor-pointer" />
+                                                </a>
+                                            )}
+                                            {detail.label.toLowerCase() === 'e-mail' && detail.value && (
+                                                <button onClick={() => handleEmailClick(detail.value)}>
+                                                    <EnvelopeIcon className="h-5 w-5 text-gray-300 hover:text-amber-500" />
+                                                </button>
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
                             ))}
@@ -123,6 +149,16 @@ export default function InternalDocuments() {
                     <p className="text-gray-600">Keine Einträge gefunden.</p>
                 )}
             </div>
+
+            {/* Email Modal */}
+            {isEmailModalOpen && (
+                <EmailModal
+                    defaultMessage={mailerConfig.emailDefaultsVertrauensarzt?.defaultMessage || ''}
+                    defaultRecipients={[email, ...ccEmails]}
+                    defaultSubject={subject} // Pass the generated subject
+                    onClose={() => setIsEmailModalOpen(false)}
+                />
+            )}
         </div>
     );
 }
