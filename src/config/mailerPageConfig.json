@@ -1,0 +1,19 @@
+{
+    "metadata": {
+        "title": "Kontaktseite | Schreiben Sie Doc Dialog in Altendorf, SZ",
+        "description": "Nutzen Sie das Kontaktformular, um uns eine Nachricht zu senden. Wir melden uns zeitnah bei Ihnen."
+    },
+    "breadcrumb": {
+        "pageName": "Kontaktseite",
+        "description": "Hier finden Sie alle Kontaktinformationen von Doc Dialog"
+    },
+    "recipients": {
+        "emails": [
+            "dm@spyglassventures.ch",
+            "office@spyglassventures.ch"
+        ]
+    },
+    "emailDefaults": {
+        "subjectTemplate": "KI Antwort von Doc Dialog genutzt durch Praxis Muster - Anfrage vom {{date}}"
+    }
+}
