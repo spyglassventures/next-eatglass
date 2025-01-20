@@ -155,10 +155,12 @@ export default function InternalDocuments() {
                 <EmailModal
                     defaultMessage={mailerConfig.emailDefaultsVertrauensarzt?.defaultMessage || ''}
                     defaultRecipients={[email, ...ccEmails]}
-                    defaultSubject={subject} // Pass the generated subject
+                    defaultSubject={mailerConfig.emailDefaultsVertrauensarzt?.subjectTemplate || ''}
                     onClose={() => setIsEmailModalOpen(false)}
                 />
             )}
+
+
         </div>
     );
 }

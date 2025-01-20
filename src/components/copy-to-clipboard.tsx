@@ -1,7 +1,7 @@
 'use client'
 
 // more than just clipboard
-// contains 1.) speech synthesis 2.) clipboard 3.) 
+// contains 1.) speech synthesis 2.) clipboard 3.) Weather
 
 
 import { useEffect, useState } from 'react'

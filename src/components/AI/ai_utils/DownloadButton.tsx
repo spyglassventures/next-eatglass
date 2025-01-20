@@ -7,10 +7,15 @@ import { EnvelopeIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
 import mailerConfig from 'src/config/mailerPageConfig.json';
 import EmailModal from '../../Mailer/EmailModal';
+import { format } from 'date-fns';
+
+const defaultCC = mailerConfig.recipients?.emails || [];
 
 export default function DownloadButton({ message }: { message: string }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [defaultRecipients] = useState(mailerConfig.recipients?.emails || []);
+    const [email, setEmail] = useState('');
+    const [subject, setSubject] = useState(''); // State for dynamically generated subject
 
     const generateWordDocument = async () => {
         try {
@@ -44,6 +49,16 @@ export default function DownloadButton({ message }: { message: string }) {
         saveAs(blob, 'Generated_Message.txt');
     };
 
+    const handleEmailClick = () => {
+        // Generate subject using emailDefaults?.subjectTemplate
+        const subjectTemplate = mailerConfig.emailDefaults?.subjectTemplate || '';
+        const currentDate = format(new Date(), 'dd.MM.yyyy');
+        const generatedSubject = subjectTemplate.replace('{{date}}', currentDate);
+
+        setSubject(generatedSubject); // Set the subject
+        setIsModalOpen(true); // Open the modal
+    };
+
     return (
         <>
             <div className="flex items-center border p-2 pt-3 pb-3 rounded-md bg-gray-100">
@@ -72,7 +87,7 @@ export default function DownloadButton({ message }: { message: string }) {
                 </button>
 
                 <button
-                    onClick={() => setIsModalOpen(true)}
+                    onClick={handleEmailClick} // Use handleEmailClick instead of directly setting isModalOpen
                     className="h-5 w-5 text-gray-500 hover:text-gray-700 mr-2"
                     aria-label="Send Email"
                 >
@@ -88,6 +103,7 @@ export default function DownloadButton({ message }: { message: string }) {
                 <EmailModal
                     defaultMessage={message}
                     defaultRecipients={defaultRecipients}
+                    defaultSubject={subject} // Pass the generated subject
                     onClose={() => setIsModalOpen(false)}
                 />
             )}

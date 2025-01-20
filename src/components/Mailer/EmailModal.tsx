@@ -46,14 +46,26 @@ export default function EmailModal({
     const [newRecipient, setNewRecipient] = useState('');
     const [newCcRecipient, setNewCcRecipient] = useState('');
     const [message, setMessage] = useState(defaultMessage);
-    const [subject, setSubject] = useState(defaultSubject);
+    // const [subject, setSubject] = useState(defaultSubject);
+
+    const [subject, setSubject] = useState('');
+    useEffect(() => {
+        const currentDate = format(new Date(), 'dd.MM.yyyy');
+        setSubject(defaultSubject.replace('{{date}}', currentDate));
+    }, [defaultSubject]);
+
     const [feedback, setFeedback] = useState('');
 
-    useEffect(() => {
-        const subjectTemplate = mailerConfig.emailDefaults?.subjectTemplate || '';
-        const currentDate = format(new Date(), 'dd.MM.yyyy');
-        setSubject(subjectTemplate.replace('{{date}}', currentDate));
-    }, [defaultMessage]);
+    // Error checking for invalid email addresses
+    const [recipientError, setRecipientError] = useState('');
+    const [ccRecipientError, setCcRecipientError] = useState('');
+
+
+    // useEffect(() => {
+    //     const subjectTemplate = mailerConfig.emailDefaults?.subjectTemplate || '';
+    //     const currentDate = format(new Date(), 'dd.MM.yyyy');
+    //     setSubject(subjectTemplate.replace('{{date}}', currentDate));
+    // }, []);
 
     const validateEmail = (email: string): boolean => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -63,13 +75,24 @@ export default function EmailModal({
     const handleAddEmail = (type: 'to' | 'cc') => {
         const newEmail = type === 'to' ? newRecipient : newCcRecipient;
         const setEmails = type === 'to' ? setRecipients : setCcRecipients;
+        const setError = type === 'to' ? setRecipientError : setCcRecipientError;
         const emails = type === 'to' ? recipients : ccRecipients;
 
-        if (validateEmail(newEmail) && !emails.includes(newEmail.trim())) {
-            setEmails([...emails, newEmail.trim()]);
-            type === 'to' ? setNewRecipient('') : setNewCcRecipient('');
+        if (!validateEmail(newEmail)) {
+            setError('Bitte geben Sie eine gültige E-Mail-Adresse ein.');
+            return;
         }
+
+        if (emails.includes(newEmail.trim())) {
+            setError('Diese E-Mail-Adresse wurde bereits hinzugefügt.');
+            return;
+        }
+
+        setEmails([...emails, newEmail.trim()]);
+        type === 'to' ? setNewRecipient('') : setNewCcRecipient('');
+        setError(''); // Clear error after successful addition
     };
+
 
     const handleKeyPress = (
         e: React.KeyboardEvent<HTMLInputElement>,
@@ -194,6 +217,9 @@ export default function EmailModal({
                                 Hinzufügen
                             </button>
                         </div>
+                        {recipientError && (
+                            <p className="text-red-600 text-sm mt-1">{recipientError}</p>
+                        )}
                     </div>
 
                     {/* CC Recipients */}
@@ -233,7 +259,11 @@ export default function EmailModal({
                                 Hinzufügen
                             </button>
                         </div>
+                        {ccRecipientError && (
+                            <p className="text-red-600 text-sm mt-1">{ccRecipientError}</p>
+                        )}
                     </div>
+
 
                     {/* Message */}
                     <div>
