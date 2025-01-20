@@ -49,7 +49,7 @@ import Chat_KI_FORMS_Zwischenbericht_uvg_unfall from '@/components/AI/KI_FORMS/c
 
 
 
-export default {
+const AIComponents = {
     Chat_diagnose,
     Chat_triage,
     Chat_kostengutsprache,
@@ -95,3 +95,5 @@ export default {
 
 
 };
+
+export default AIComponents;

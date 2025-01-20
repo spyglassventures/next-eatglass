@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import weatherConfig from '@/config/weatherConfig'; // Import configuration
+import Image from 'next/image';
 
 const Weather: React.FC = () => {
     const { apiKey, coordinates, apiUrl, units } = weatherConfig;
@@ -81,7 +82,7 @@ const Weather: React.FC = () => {
 
     useEffect(() => {
         fetchWeatherData();
-    }, []);
+    }, []); // no dependencies, only fetch once on mount. Otherwiese we have infinite requestrs
 
     const handleWidgetClick = () => {
         setShowModal(true);
@@ -149,11 +150,11 @@ const Weather: React.FC = () => {
                                         className="text-center bg-gray-300 rounded-lg shadow p-4 min-w-[120px]"
                                     >
                                         <p className="font-bold">{day.date}</p>
-                                        <img
+                                        <Image
                                             src={`https://openweathermap.org/img/wn/${day.icon}@2x.png`}
                                             alt="Weather icon"
-                                            className="mx-auto"
-                                            style={{ width: '60px', height: '60px' }}
+                                            width={60}
+                                            height={60}
                                         />
                                         <p>Min: {day.min}°C</p>
                                         <p>Max: {day.max}°C</p>

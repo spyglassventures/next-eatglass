@@ -5,6 +5,7 @@ import ModalContent from '../../components/Modalcontent';
 import { useState, useEffect } from 'react';
 import modalConfig from '@/config/modalConfig.json';
 import heroConfig from '@/config/heroConfig.json';
+import Image from "next/image";
 
 const Hero = () => {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -51,10 +52,12 @@ const Hero = () => {
 
     if (heroConfig.hero.backgroundMedia?.type === "image") {
       return (
-        <img
+        <Image
           src={heroConfig.hero.backgroundMedia.src}
           alt="Background"
-          className="absolute inset-0 object-cover w-full h-full"
+          layout="fill"
+          objectFit="cover"
+          className="absolute inset-0"
         />
       );
     }

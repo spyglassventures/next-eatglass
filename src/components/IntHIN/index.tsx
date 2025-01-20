@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import DoctorList from './DoctorList'; // Import DoctorList component
 import { Doctor, DetailedDoctor } from './types'; // Import types
 import zipToCanton from './swiss_zip_to_canton.json'; // Import cantons
@@ -139,56 +139,47 @@ const HIN = () => {
 
 
     // Filter doctors based on selected city, canton, and specialty
-    const applyFilters = () => {
+    // Memoize applyFilters
+    const applyFilters = useCallback(() => {
         let filtered = doctors;
 
-        // Filter by city
         if (filters.city) {
             filtered = filtered.filter((doctor) =>
                 doctor.city?.toLowerCase().includes(filters.city!.toLowerCase())
             );
         }
 
-        // Filter by specialty using the detailed doctor information
         if (filters.specialty) {
             filtered = filtered.filter((doctor) => {
-                const detailedInfo = detailedDoctors[doctor.integrationId]; // Get detailed info
-
+                const detailedInfo = detailedDoctors[doctor.integrationId];
                 if (detailedInfo && detailedInfo.specialistTitles) {
-                    return detailedInfo.specialistTitles?.some((specialty) =>
+                    return detailedInfo.specialistTitles.some((specialty) =>
                         specialty.specialityText.toLowerCase().includes(filters.specialty!.toLowerCase())
                     );
                 }
-
-                return false; // If no detailed info is available, exclude the doctor
+                return false;
             });
         }
 
-        // Filter by canton using the postalCode from detailed doctor information
         if (filters.canton) {
             filtered = filtered.filter((doctor) => {
-                const detailedInfo = detailedDoctors[doctor.integrationId]; // Get detailed info
+                const detailedInfo = detailedDoctors[doctor.integrationId];
                 if (detailedInfo && detailedInfo.postalCode) {
-                    const doctorCanton = zipToCanton[detailedInfo.postalCode]; // Get canton using postalCode
-                    console.log(`Doctor: ${doctor.integrationId} - Postal Code: ${detailedInfo.postalCode}, Canton: ${doctorCanton}`);
-
-                    // Check if the doctor's canton matches the entered canton
+                    const doctorCanton = zipToCanton[detailedInfo.postalCode];
                     return doctorCanton?.toLowerCase().includes(filters.canton!.toLowerCase());
                 }
-                return false; // If no postalCode, exclude the doctor
+                return false;
             });
         }
 
         setFilteredDoctors(filtered);
 
-        // Fetch detailed information for each filtered doctor
         filtered.forEach(fetchDetailedDoctors);
-    };
+    }, [filters, doctors, detailedDoctors, fetchDetailedDoctors]);
 
-    // Reapply filters whenever the filters change
     useEffect(() => {
         applyFilters();
-    }, [filters, doctors, detailedDoctors]);
+    }, [applyFilters]);
 
 
     const detailedFilteredDoctors = filteredDoctors
