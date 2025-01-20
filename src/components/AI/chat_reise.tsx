@@ -13,6 +13,8 @@ import {
 } from '@/config/ai/ai_tabs/reise_message';
 
 import ModelSelector from './ModelSelector';
+import CountryDropdown from './ai_utils/ReiseCountryDropdown';
+
 
 // Define the type for a message
 interface Message {
@@ -122,25 +124,29 @@ export default function ChatReise({ showPraeparatSearch = false }: { showPraepar
   };
 
   return (
-    <div>
-      {activeFilter === 'Pro' && (
-        <ModelSelector modelPath={modelPath} onModelChange={handleModelChange} />
-      )}
+    <>
+      <div>
+        {/* Compact Model Selector */}
+        {activeFilter === 'Pro' && (
+          <ModelSelector modelPath={modelPath} onModelChange={handleModelChange} />
+        )}
 
-      <ChatStructure
-        messages={messages} // Pass all messages (system, user, assistant, etc.)
-        input={input}
-        setInput={setInput}
-        handleInputChange={handleInputChange}
-        handleSubmit={handleSubmit}
-        warningMessage={warning_msg}
-        followupBtn={followupBtn}
-        inputCloudBtn={inputCloudBtn}
-        placeHolderInput={placeHolderInput[0]}
-        examplesData={examplesData}
-        showPraeparatSearch={showPraeparatSearch}
-
-      />
-    </div>
+        <ChatStructure
+          messages={messages}
+          input={input}
+          setInput={setInput}
+          handleInputChange={handleInputChange}
+          handleSubmit={handleSubmit}
+          warningMessage={warning_msg}
+          inputCloudBtn={inputCloudBtn}
+          followupBtn={followupBtn}
+          placeHolderInput={placeHolderInput[0]}
+          examplesData={examplesData}
+          showPraeparatSearch={showPraeparatSearch}
+        />
+      </div>
+      {/* Render CountryDropdown below ChatStructure */}
+      <CountryDropdown />
+    </>
   );
 }

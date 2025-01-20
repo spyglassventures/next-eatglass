@@ -17,7 +17,10 @@ interface FilterContextType {
 const FilterContext = createContext<FilterContextType | undefined>(undefined);
 
 export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [activeFilter, setActiveFilter] = useState<Filter>("MPA");
+    const [activeFilter, setActiveFilter] = useState<Filter>(() => {
+        // Initialize from localStorage or fallback to default
+        return (localStorage.getItem("filter") as Filter) || "MPA";
+    });
 
     // Helper function to sync state with localStorage
     const syncWithLocalStorage = () => {
