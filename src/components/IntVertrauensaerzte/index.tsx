@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import documents from '../../config/InternalDocuments/Vertrauensaerzte'; // Import the document configuration
 import { ClipboardIcon, EyeIcon, EyeSlashIcon, LinkIcon, DocumentDuplicateIcon, ExclamationTriangleIcon, EnvelopeIcon } from '@heroicons/react/24/solid';
 import EmailModal from '../Mailer/EmailModal'; // Import the EmailModal component
@@ -14,8 +14,15 @@ export default function InternalDocuments() {
     const [revealedPassword, setRevealedPassword] = useState<{ [key: string]: boolean }>({});
     const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
     const [email, setEmail] = useState('');
-    const [ccEmails, setCcEmails] = useState(defaultCC);
-    const [subject, setSubject] = useState(''); // State for dynamically generated subject
+    // const [ccEmails, setCcEmails] = useState(defaultCC);
+    const [ccEmails, setCcEmails] = useState<string[]>([]);
+    const [subject, setSubject] = useState('');
+
+    useEffect(() => {
+        // Load CC emails from configuration
+        const defaultCC = mailerConfig.recipients?.emails || [];
+        setCcEmails(defaultCC);
+    }, []);
 
     const filteredDocuments = documents.filter((doc) =>
         doc.partnerart.toLowerCase().includes(searchTerm.toLowerCase())
@@ -33,13 +40,13 @@ export default function InternalDocuments() {
 
         handleCopy(textToCopy);
         setCopiedCard(docIdx);
-        setTimeout(() => setCopiedCard(null), 2000); // Reset the copied state after 2 seconds
+        setTimeout(() => setCopiedCard(null), 2000);
     };
 
     const handleFieldCopy = (fieldIdx: string, text: string) => {
         handleCopy(text);
         setCopiedField(fieldIdx);
-        setTimeout(() => setCopiedField(null), 2000); // Reset the copied state after 2 seconds
+        setTimeout(() => setCopiedField(null), 2000);
     };
 
     const togglePasswordVisibility = (index: string) => {
@@ -74,7 +81,9 @@ export default function InternalDocuments() {
                     />
                     <div className="flex items-center ml-4 text-red-600">
                         <ExclamationTriangleIcon className="h-5 w-5 mr-2" />
-                        <span className="text-sm font-semibold">Testphase - bitte noch keine Patientendaten ohne Verifizierung übermitteln.</span>
+                        <span className="text-sm font-semibold">
+                            Testphase - bitte noch keine Patientendaten ohne Verifizierung übermitteln.
+                        </span>
                     </div>
                 </div>
             </div>
@@ -154,13 +163,12 @@ export default function InternalDocuments() {
             {isEmailModalOpen && (
                 <EmailModal
                     defaultMessage={mailerConfig.emailDefaultsVertrauensarzt?.defaultMessage || ''}
-                    defaultRecipients={[email, ...ccEmails]}
-                    defaultSubject={mailerConfig.emailDefaultsVertrauensarzt?.subjectTemplate || ''}
+                    defaultRecipients={[email]} // Primary recipient in the "To" field
+                    cc={ccEmails} // Default CC recipients from the configuration
+                    defaultSubject={subject} // Dynamically generated subject
                     onClose={() => setIsEmailModalOpen(false)}
                 />
             )}
-
-
         </div>
     );
 }

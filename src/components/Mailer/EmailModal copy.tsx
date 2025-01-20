@@ -36,12 +36,10 @@ export default function EmailModal({
     defaultMessage,
     defaultRecipients,
     defaultSubject,
-    cc = [], // Initialize with an empty array if not provided
     onClose,
 }: {
     defaultMessage: string;
     defaultRecipients: string[];
-    cc?: string[]; // Optional prop for CC recipients
     defaultSubject: string;
     onClose: () => void;
 }) {
@@ -226,9 +224,9 @@ export default function EmailModal({
                             CC:
                         </label>
                         <div className="flex flex-wrap gap-2">
-                            {ccRecipients.map((email) => (
+                            {ccRecipients.map((email, index) => (
                                 <div
-                                    key={email}
+                                    key={index}
                                     className="bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded-md text-sm flex items-center"
                                 >
                                     {email}
