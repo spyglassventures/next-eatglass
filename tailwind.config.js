@@ -56,6 +56,15 @@ module.exports = {
           dark: "#1E232E",
           light: "#F0F2F9",
         },
+        animation: {
+          wave: "wave 1s infinite ease-in-out",
+        },
+        keyframes: {
+          wave: {
+            "0%, 100%": { transform: "scaleY(1)" },
+            "50%": { transform: "scaleY(1.5)" },
+          },
+        },
       },
 
       boxShadow: {

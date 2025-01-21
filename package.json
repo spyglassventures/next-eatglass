@@ -39,6 +39,7 @@
     "react-modal": "^3.16.1",
     "react-modal-video": "^2.0.1",
     "react-quill": "^2.0.0",
+    "react-sound-visualizer": "^1.4.0",
     "xlsx": "^0.18.5",
     "xml2js": "^0.6.2"
   },
