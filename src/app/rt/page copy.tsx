@@ -4,16 +4,12 @@ import React, { useEffect, useRef, useState } from "react";
 import InteractionStatus from "../../components/Realtime/InteractionStatus";
 import VoiceVisualizer from "../../components/Realtime/VoiceVisualizer";
 import VoicePicker from "@/components/Realtime/VoicePicker";
-import InstructionsSelector from "@/components/Realtime/InstructionsSelector";
 
 const RTPage = () => {
     const [isConnected, setIsConnected] = useState(false);
     const [status, setStatus] = useState("Click to connect to AI...");
     const [interaction, setInteraction] = useState<"user" | "ai" | null>(null);
     const [isAudioPlaying, setIsAudioPlaying] = useState(false);
-    const [instructions, setInstructions] = useState("Du bist ein freundlicher Assistent."); // Instructions state
-    const [fullInstruction, setFullInstruction] = useState("Du bist ein freundlicher Assistent."); // Full instruction state
-
     const audioContext = useRef<AudioContext | null>(null);
     const analyser = useRef<AnalyserNode | null>(null);
     const microphone = useRef<MediaStreamAudioSourceNode | null>(null);
@@ -27,14 +23,7 @@ const RTPage = () => {
             setStatus("Connecting...");
             setInteraction(null);
 
-            const tokenResponse = await fetch("/api/session", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ instructions: fullInstruction }), // Use fullInstruction when sending to API
-            });
-
+            const tokenResponse = await fetch("/api/session");
             const data = await tokenResponse.json();
             const EPHEMERAL_KEY = data.client_secret.value;
 
@@ -64,7 +53,7 @@ const RTPage = () => {
                     console.log("AI audio is playing.");
                     setIsAudioPlaying(true);
                     setInteraction("ai");
-                    setStatus("Doc Dialog hört Ihnen zu und gibt Ihnen eine Antwort. Sie können jederzeit unterbrechen. Begrüssen Sie die KI mit einem Hallo.");
+                    setStatus("Doc Dialog hört Ihnen zu und gibt Ihnen eine Antwort. Sie können jederzeit unterbrechen.");
                     clearIdleTimeout();
                 };
 
@@ -150,6 +139,13 @@ const RTPage = () => {
         }
     };
 
+    const handleVoiceSelect = (voice: string) => {
+        console.log(`Voice selected: ${voice}`);
+        setSelectedVoice(voice);
+    };
+
+
+
     const clearIdleTimeout = () => {
         if (idleTimeout.current) clearTimeout(idleTimeout.current);
     };
@@ -166,19 +162,12 @@ const RTPage = () => {
             <h1 className="text-2xl font-bold mb-4">Echtzeit KI Interaktion</h1>
             <div className="w-full max-w-lg text-center ">
                 {!isConnected ? (
-                    <div>
-                        <InstructionsSelector
-                            instructions={instructions}
-                            setInstructions={setInstructions}
-                            setFullInstruction={setFullInstruction} // Pass function to set full instruction
-                        />
-                        <button
-                            onClick={init}
-                            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 mt-4"
-                        >
-                            Verbindung mit Doc Dialog Voice herstellen
-                        </button>
-                    </div>
+                    <button
+                        onClick={init}
+                        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                    >
+                        Verbindung mit Doc Dialog Voice herstellen
+                    </button>
                 ) : (
                     <>
                         <InteractionStatus
@@ -189,6 +178,11 @@ const RTPage = () => {
                         <div className="w-full mt-4">
                             <VoiceVisualizer />
                         </div>
+                        {/* not yet implemented with API */}
+                        {/* <div className="w-full mt-4">
+                            <VoicePicker onVoiceSelect={handleVoiceSelect} />
+                        </div> */}
+
                     </>
                 )}
             </div>

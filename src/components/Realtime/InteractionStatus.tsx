@@ -15,7 +15,7 @@ const InteractionStatus: React.FC<InteractionStatusProps> = ({
         interaction === "user"
             ? "Ich höre zu..."
             : interaction === "ai" && isAudioPlaying
-                ? "Doc Dialog hört Ihnen zu und gibt Ihnen eine Antwort. Sie können jederzeit unterbrechen."
+                ? "Doc Dialog hört Ihnen zu und gibt Ihnen eine Antwort. Sie können jederzeit unterbrechen. Starten Sie das Gespräch mit 'Hallo' "
                 : status;
 
     return (

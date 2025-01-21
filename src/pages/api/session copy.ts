@@ -1,13 +1,11 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    if (req.method !== "POST") {
+    if (req.method !== "GET") {
         return res.status(405).json({ error: "Method not allowed" });
     }
 
     try {
-        const { instructions = "Du bist ein freundlicher Assistent." } = req.body; // Get instructions from request body
-
         const response = await fetch("https://api.openai.com/v1/realtime/sessions", {
             method: "POST",
             headers: {
@@ -18,7 +16,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 model: "gpt-4o-realtime-preview-2024-12-17",
                 voice: "coral",
                 modalities: ["text", "audio"], // Include both text and audio if needed
-                instructions, // Use dynamic instructions
+                instructions: "Du bist ein freundlicher Assistent.",
                 input_audio_transcription: {
                     model: "whisper-1",
                 },
