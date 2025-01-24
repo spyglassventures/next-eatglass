@@ -45,10 +45,12 @@ const ExpandableSection = ({ title, children, defaultExpanded }) => {
     );
 };
 
-// Enhanced function to format the message content
 const FormatMessageContent = ({ content }) => {
     // Remove all '$' from the content first
     const cleanContent = content.replace(/\$/g, '');
+
+    // Regex to identify links in the text
+    const linkRegex = /<a href="([^"]+)" target="_blank" rel="noopener noreferrer">\[(\d+)\]<\/a>/g;
 
     // Match sections for headers like `**N. Chaptername:**` or `N. **Chaptername:**`
     const sections = cleanContent.split(/(\*\*[1-9]\.\s.*?\*\*|[1-9]\.\s\*\*.*?\*\*)/g);
@@ -58,7 +60,6 @@ const FormatMessageContent = ({ content }) => {
 
         // Header sections (odd indices matching the regex)
         if (index % 2 === 1) {
-            // Extract the title by removing unnecessary `**` and leading numbers
             const title = trimmedSection
                 .replace(/^\*\*|\*\*$/g, '') // Remove surrounding `**`
                 .replace(/^[1-9]\.\s/, ''); // Remove leading number and period
@@ -74,20 +75,26 @@ const FormatMessageContent = ({ content }) => {
             );
         }
 
-        // Plain text sections (at even indices)
-        if (trimmedSection) {
-            // If this even section directly follows a header (odd index), skip it
-            if ((index - 1) % 2 === 1) {
-                return null;
+        // Replace HTML links with plain text clickable links
+        const formattedText = trimmedSection.split(linkRegex).map((part, i) => {
+            if (i % 3 === 1) {
+                // This is the URL
+                const url = part;
+                const label = trimmedSection.match(linkRegex)?.[i + 1] || ''; // Extract label if available
+                return (
+                    <a key={i} href={url} target="_blank" rel="noopener noreferrer">
+                        [{label}]
+                    </a>
+                );
             }
+            return part; // Plain text
+        });
 
-            // Otherwise, render as plain text
-            return <p key={index}>{trimmedSection}</p>;
-        }
-
-        return null; // Skip empty sections
+        // Render the formatted text
+        return <p key={index}>{formattedText}</p>;
     });
 };
+
 
 
 
