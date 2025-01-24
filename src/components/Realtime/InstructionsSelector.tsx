@@ -70,7 +70,7 @@ const InstructionsSelector: React.FC<InstructionsSelectorProps> = ({ instruction
         { title: "Trauer", value: "Starte mit einer Entschuldigung, dass du mit weinerliche Stimme sprichst, dann weine laut. Du bist ein Patient, der gerade in einer Arztpraxis ist und weint. ", icon: <ClockIcon className="h-5 w-5" /> }, // 
 
         // works
-        { title: "BAG", value: "Sag Grüezi. Du bist vom Bundesamt für Gesundheit und rufst bei einer Arztpraxis an. Die Praxis soll geprüft werden.", icon: <ClockIcon className="h-5 w-5" /> }, // 
+        { title: "BAG", value: "Sag Grüezi. Du bist vom Bundesamt für Gesundheit und rufst bei einer Arztpraxis an. Die Praxis soll geprüft werden.  Werde penetrant.", icon: <ClockIcon className="h-5 w-5" /> }, // 
 
         // works
         { title: "Kantonsapothekerin", value: "Sag Hoi, du rufst in einer Arztpraxis an und willst wissen, ob die Apotheke in der Praxis gekühlt ist und ein Min-Max Thermometer vorhanden ist. Stell dich zunächst als offizieller Vertreter des Kantons vor. Du bist die Kantonsapothekerin.", icon: <ClockIcon className="h-5 w-5" /> }, // 
