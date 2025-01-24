@@ -20,10 +20,39 @@ import InputCloud from './ai_utils/InputCloud'
 
 // Helper function to format the message content
 const FormatMessageContent = ({ content }) => {
-    return content.split('**').map((part, index) =>
-        index % 2 === 1 ? <strong key={index}>{part}</strong> : part
-    );
+    // Regex to detect links like <a href="URL" target="_blank" rel="noopener noreferrer">[N]</a>
+    const linkRegex = /<a href="([^"]+)" target="_blank" rel="noopener noreferrer">\[(\d+)\]<\/a>/g;
+
+    // Split content into text and links
+    const parts = content.split(linkRegex);
+
+    return parts.map((part, index) => {
+        if (index % 3 === 1) {
+            // URL
+            const url = part;
+            const label = parts[index + 1]; // Label (e.g., [2])
+            return (
+                <a
+                    key={index}
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-stone-300 font-extralight text-sm align-baseline ml-1"
+                    style={{ fontSize: '0.8rem', verticalAlign: 'baseline' }}
+                >
+                    [{label}]
+                </a>
+            );
+        } else if (index % 3 === 2) {
+            // Skip the label part because it's handled with the URL above
+            return null;
+        }
+        // Regular text
+        return <span key={index}>{part}</span>;
+    });
 };
+
+
 
 // Styling of chat between user and copilot
 const Message = ({ message, currentTheme }) => {

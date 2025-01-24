@@ -16,7 +16,8 @@ const models = [
     { value: '/api/chat-4o', label: 'GPT-4o' },
     { value: '/api/chat-o1-preview', label: 'GPT-o1-preview (1-3 Min. warten)' },
     { value: '/api/anthropic-claude-3-5', label: 'Claude 3.5' },
-    { value: '/api/chat-o3-preview', label: 'GPT-o3-preview coming soon' },
+    { value: '/api/chat-o3-preview', label: 'GPT-o3-preview (coming soon)' },
+    { value: '/api/perplexity-sonar', label: 'Perplexity Sonar (mit Quellenangabe)' },
     // { value: '/api/whisper', label: 'Whisper' },
     // { value: '/api/realtime', label: 'Realtime' }, // could be with Twilio
 ];
