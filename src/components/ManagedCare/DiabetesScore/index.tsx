@@ -7,7 +7,7 @@ interface Entry {
     selectedAnswers: Record<string, string>;
 }
 
-export default function mcDiabetesScore() {
+export default function McDiabetesScore() {
     const [scores, setScores] = useState<Record<string, number>>(() =>
         categories.reduce((acc, category) => ({ ...acc, [category.key]: 0 }), {})
     );
@@ -107,8 +107,8 @@ export default function mcDiabetesScore() {
                                     <button
                                         key={option.label}
                                         className={`py-2 px-4 rounded-lg ${selectedButtons[category.key] === option.label
-                                                ? "bg-gray-700 text-white"
-                                                : "bg-gray-300 text-black"
+                                            ? "bg-gray-700 text-white"
+                                            : "bg-gray-300 text-black"
                                             }`}
                                         onClick={() =>
                                             handleScoreChange(category.key, option.points, option.label)
