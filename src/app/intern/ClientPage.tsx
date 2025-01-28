@@ -131,7 +131,8 @@ export default function ClientPage() {
 
 
         <div className="container mx-auto px-4">
-          <div className="mt-4 flex flex-wrap justify-between gap-2">
+          {/* <div className="mt-4 flex flex-wrap justify-between gap-2"> */}
+          <div className="mt-4 grid grid-cols-5 gap-2">
             {filteredItems.map(({ key, name }) => (
               <button
                 key={key}
@@ -234,6 +235,45 @@ export default function ClientPage() {
                 <MenuItems className="absolute z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                   <div className="py-1">
                     {NAV_ITEMS.summariesDropdown
+                      .filter((item) => {
+                        if (activeFilter === 'MPA') return item.visible_mpa;
+                        if (activeFilter === 'Arzt') return item.visible_arzt;
+                        if (activeFilter === 'Pro') return item.visible_pro;
+                        return false;
+                      })
+                      .map(({ key, name }) => (
+                        <MenuItem key={key}>
+                          {({ active }) => (
+                            <a
+                              href="#"
+                              onClick={() => setActiveComponent(key)}
+                              className={classNames(
+                                active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                'block px-4 py-2 text-sm'
+                              )}
+                            >
+                              {name}
+                            </a>
+                          )}
+                        </MenuItem>
+                      ))}
+                  </div>
+                </MenuItems>
+              </Transition>
+            </Menu>
+
+            {/* Managed Care */}
+            <Menu as="div" className="relative inline-block text-left" style={{ flex: '1 1 20%' }}>
+              <div>
+                <MenuButton className="inline-flex items-center px-4 py-2 text-white bg-gray-400 rounded hover:bg-amber-500 w-full">
+                  Managed Care
+                  <ChevronDownIcon className="ml-2 h-5 w-5 text-gray-200" aria-hidden="true" />
+                </MenuButton>
+              </div>
+              <Transition {...TRANSITION_PROPS}>
+                <MenuItems className="absolute z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  <div className="py-1">
+                    {NAV_ITEMS.mangedCareDropdown
                       .filter((item) => {
                         if (activeFilter === 'MPA') return item.visible_mpa;
                         if (activeFilter === 'Arzt') return item.visible_arzt;
