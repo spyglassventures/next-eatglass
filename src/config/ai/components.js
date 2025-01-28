@@ -26,7 +26,10 @@ import QR from '@/components/IntQR'; //
 import Diktat from '@/components/MedienDiktat'; //
 import Cal from '@/components/IntCal'; //
 import StammdatenIGM from '@/components/IntStammdatenIGM'; //
+import mcsged from '@/components/ManagedCare/SGED'; //
+import mcdiabetesscore from '@/components/ManagedCare/DiabetesScore'; //
 // 
+
 
 
 // NAME in NAVIGATION // NEVER HAVE SAME ITEM IN MULTIPLE DROPDOWNS
@@ -38,6 +41,8 @@ export const NAV_ITEMS = {
         { key: 'reise', name: 'Reiseberatung', visible_mpa: true, visible_arzt: false, visible_pro: false },
         { key: 'freitext', name: 'Freitext', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'image', name: 'Bild (Upload)', visible_mpa: true, visible_arzt: false, visible_pro: false },
+        { key: 'ernaehrung', name: 'Ernährungsempfehlung', visible_mpa: true, visible_arzt: false, visible_pro: true },
+        { key: 'HIN', name: 'HIN Teilnehmer Suche', visible_mpa: false, visible_arzt: true, visible_pro: false },
     ],
 
     toolsDropdown: [
@@ -64,6 +69,12 @@ export const NAV_ITEMS = {
         { key: 'verlaufsoptimierer', name: 'Verlaufsoptimierer', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'chdt', name: 'Mundart -> Schriftdeutsch', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'antwortemail', name: 'Antwortemail', visible_mpa: false, visible_arzt: false, visible_pro: true },
+    ],
+
+    // Managed Care KI
+    mangedCareDropdown: [
+        { key: 'mcsged', name: 'SGED', visible_mpa: true, visible_arzt: true, visible_pro: true },
+        { key: 'mcdiabetesscore', name: 'Diabetes Risiko', visible_mpa: true, visible_arzt: true, visible_pro: true },
     ],
 
     // KI Formulare
@@ -144,7 +155,7 @@ import {
     Cog6ToothIcon,          // GlobeAsiaAustraliaIcon // Import for Translate
     PlayIcon,               // Import for LernvideosPage
     HeartIcon,              // For QM
-    AcademicCapIcon,        // For HIN
+    AcademicCapIcon,        // For HIN+
     CheckBadgeIcon,      // For Abrechnung
     ArrowRightEndOnRectangleIcon, // Vertrauensarzt
 
@@ -364,9 +375,13 @@ export const ICONS = {
     // CHDT: CheckBadgeIcon,
     Diktat: CheckBadgeIcon,
     Cal: CalendarIcon,
-    StammdatenIGM: PencilIcon
+    StammdatenIGM: PencilIcon,
     // antwortmail: CheckBadgeIcon,
     // verlaufsoptimierer: CheckBadgeIcon
+    mcsged: AcademicCapIcon,
+    mcdiabetesscore: AcademicCapIcon,
+
+
 
 };
 
@@ -423,6 +438,13 @@ export const getActiveComponent = (activeComponent) => {
             return Antwortemail;
         case 'Abrechnung':
             return Abrechnung;
+        case 'mcsged':
+            return mcsged;
+        case 'mcdiabetesscore':
+            return mcdiabetesscore;
+
+
+
         default:
             return components[COMPONENTS[activeComponent]?.component];
     }
