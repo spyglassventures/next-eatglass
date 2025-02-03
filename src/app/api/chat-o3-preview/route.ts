@@ -20,7 +20,7 @@ export async function POST(req: Request) {
 
     // Use OpenAI API to generate the response
     const response = await openai.chat.completions.create({
-      model: 'o1-preview',
+      model: 'o3-mini-2025-01-31',
       messages: formattedMessages,
     });
 

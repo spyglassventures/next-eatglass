@@ -18,7 +18,7 @@ export default async function handler(req, res) {
 
     const msg = {
         to: recipients, // Accepts an array of email addresses
-        from: 'dm+sender@spyglassventures.ch', // Replace with your verified sender email
+        from: 'dm+DocDialog@spyglassventures.ch', // Replace with your verified sender email
         subject: subject, // Dynamically set the subject
         text: `Nachricht: ${message}`,
         html: `

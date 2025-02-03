@@ -11,6 +11,6 @@ export const getTokenStatus = (tokens: number) => {
     } else if (tokens > 3500) {
         return { color: 'text-orange-300', message: 'Eventuell zu viele Wörter', icon: 'FaExclamationTriangle' };
     } else {
-        return { color: 'text-green-600', message: 'Eingabe gu 2t' };
+        return { color: 'text-green-600', message: 'Eingabe gut' };
     }
 };
