@@ -1,3 +1,7 @@
+
+//      model: 'o1-preview',
+
+
 import OpenAI from 'openai';
 import { NextResponse } from 'next/server';
 
@@ -6,43 +10,89 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY || '' });
 
 export async function POST(req: Request) {
   try {
+    console.log('POST request received in streaming API route.');
+
     if (!process.env.OPENAI_API_KEY) {
-      return new NextResponse(JSON.stringify({ error: 'Missing OpenAI API Key.' }), { status: 400 });
+      console.error('Missing OpenAI API Key.');
+      return new NextResponse(
+        JSON.stringify({ error: 'Missing OpenAI API Key.' }),
+        { status: 400 }
+      );
     }
 
-    const { messages } = await req.json();
+    // Parse the incoming JSON
+    const body = await req.json();
+    const { messages, customerName: customerNameFromRequest } = body;
+    const customerName = process.env.LOG_USER || customerNameFromRequest || 'Unknown';
+    console.log('Parsed request body:', { messages, customerName });
 
-    // Force the messages format, ensuring role as 'user'
-    const formattedMessages = messages.map((message: { content: string }) => ({
-      role: 'user',
-      content: message.content,
-    }));
+    // Define the model dynamically
+    const model = 'o1-preview';
+    console.log(`Calling OpenAI API with model "${model}"...`);
 
-    // Use OpenAI API to generate the response
-    const response = await openai.chat.completions.create({
-      model: 'o1-preview',
-      messages: formattedMessages,
+    // Start the OpenAI streaming chat completion
+    const openaiResponse = await openai.chat.completions.create({
+      model,
+      stream: true,
+      messages,
+    });
+    console.log('Received streaming response from OpenAI.');
+
+    const encoder = new TextEncoder();
+    let fullResponseText = '';
+
+    // Create a ReadableStream that both sends chunks to the client and accumulates them
+    const stream = new ReadableStream({
+      async start(controller) {
+        try {
+          console.log('Starting to process streaming response...');
+          for await (const chunk of openaiResponse) {
+            const content = chunk.choices[0]?.delta?.content || '';
+            fullResponseText += content; // accumulate the content for later logging
+            console.log('Streaming chunk content:', content);
+            controller.enqueue(encoder.encode(content));
+          }
+          console.log('Streaming complete. Closing controller.');
+          controller.close();
+
+          // After streaming is complete, log the request, response, and model to the database
+          try {
+            // Concatenate the model and full response text in the logged response field
+            const logPayload = {
+              customer_name: customerName,
+              request: { messages },
+              response: `${model}, ${fullResponseText}`,
+            };
+
+            console.log('Attempting to log request and response:', logPayload);
+
+            // Use an absolute URL for internal fetch. Adjust BASE_URL if needed.
+            const baseUrl = process.env.BASE_URL || 'http://localhost:3000';
+            await fetch(`${baseUrl}/api/log`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(logPayload),
+            });
+            console.log('Successfully logged request and response.');
+          } catch (logError) {
+            console.error('Error logging request and response:', logError);
+          }
+        } catch (error) {
+          console.error('Error in streaming response:', error);
+          controller.error(error);
+        }
+      },
     });
 
-    // Extract and format the final content as readable text
-    const rawContent = response.choices[0]?.message?.content || '';
-    const readableContent = formatReadableContent(rawContent);
-
-    return new Response(readableContent, {
-      headers: { 'Content-Type': 'text/plain' },
+    console.log('Returning streaming response to client.');
+    return new Response(stream, {
+      headers: { 'Content-Type': 'text/event-stream' },
     });
   } catch (error: any) {
-    console.error('Server error:', error);
-    return new NextResponse(JSON.stringify({ error: error.message || 'Internal Server Error' }), { status: 500 });
+    console.error('Server error in streaming API route:', error);
+    return new NextResponse(
+      JSON.stringify({ error: error.message || 'Internal Server Error' }),
+      { status: 500 }
+    );
   }
-}
-
-// Helper function to format the response to clean text with preserved sections and line breaks
-function formatReadableContent(rawContent: string): string {
-  return rawContent
-    .replace(/(?<!\n)\n(?!\n)/g, ' ') // Merge single newlines into a single line
-    // .replace(/(?:\*\*|\*|-{3})/g, '') // Remove asterisks and horizontal line markers
-    .replace(/\s*- /g, '\n- ') // Ensure list items start on new lines
-    .replace(/(\n\n)+/g, '\n\n') // Replace multiple blank lines with a single blank line
-    .trim(); // Trim any leading/trailing whitespace
 }
