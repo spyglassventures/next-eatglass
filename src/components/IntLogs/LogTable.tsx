@@ -1,4 +1,3 @@
-// src/components/IntLogs/LogTable.tsx
 import React, { useState } from 'react';
 import { Log } from './index';
 
@@ -41,6 +40,7 @@ interface LogTableProps {
 /**
  * ExpandableJsonCell and ExpandableCell components remain unchanged.
  */
+
 const ExpandableJsonCell: React.FC<{ jsonText: string; defaultExpanded?: boolean }> = ({
     jsonText,
     defaultExpanded = false,
@@ -92,15 +92,26 @@ const ExpandableCell: React.FC<{ text: string; limit?: number; alwaysExpanded?: 
     limit = 50,
     alwaysExpanded = false,
 }) => {
-    try {
-        const parsed = JSON.parse(text);
-        if (parsed.messages && Array.isArray(parsed.messages)) {
-            return <ExpandableJsonCell jsonText={text} defaultExpanded={alwaysExpanded} />;
+    // Attempt to parse the text as JSON.
+    // This is done unconditionally.
+    const parsed = (() => {
+        try {
+            return JSON.parse(text);
+        } catch (e) {
+            return null;
         }
-    } catch (e) {
-        // Continue with normal behavior if JSON parsing fails.
+    })();
+    const hasMessages = parsed && parsed.messages && Array.isArray(parsed.messages);
+
+    // Always call the hook
+    const [expanded, setExpanded] = useState(false);
+
+    // If the text contains a valid messages array, delegate to ExpandableJsonCell.
+    if (hasMessages) {
+        return <ExpandableJsonCell jsonText={text} defaultExpanded={alwaysExpanded} />;
     }
 
+    // If alwaysExpanded, render the full text.
     if (alwaysExpanded) {
         return (
             <div className="text-xs">
@@ -109,7 +120,7 @@ const ExpandableCell: React.FC<{ text: string; limit?: number; alwaysExpanded?: 
         );
     }
 
-    const [expanded, setExpanded] = useState(false);
+    // Otherwise, use the expandable/collapsible logic.
     const toggle = () => setExpanded(!expanded);
     const safeText = text || '';
     const displayText = !expanded && safeText.length > limit ? safeText.substring(0, limit) : safeText;
@@ -127,6 +138,7 @@ const ExpandableCell: React.FC<{ text: string; limit?: number; alwaysExpanded?: 
     );
 };
 
+
 const LogTable: React.FC<LogTableProps> = ({ logs, loadMore, refreshLogs, loading, error }) => {
     // Always call hooks unconditionally.
     const [selectedLog, setSelectedLog] = useState<Log | null>(null);
@@ -134,15 +146,15 @@ const LogTable: React.FC<LogTableProps> = ({ logs, loadMore, refreshLogs, loadin
     // Compute the authorization flag.
     const isAuthorized = currentUserHash === ALLOWED_HASH;
 
-    // Now, conditionally render the content.
-    if (!isAuthorized) {
-        console.log('[LogTable] Hiding log table: unauthorized user');
-        return null;
-    }
-
     const closeModal = () => {
         setSelectedLog(null);
     };
+
+    // Conditionally render the component based on authorization status.
+    if (!isAuthorized) {
+        console.log('[LogTable] Hiding log table: unauthorized user');
+        return null; // Hide the component if the user is not authorized
+    }
 
     return (
         <>
