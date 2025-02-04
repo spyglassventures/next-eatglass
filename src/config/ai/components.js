@@ -22,6 +22,8 @@ import HIN from '@/components/IntHIN'; //
 import QM from '@/components/IntQM'; //
 import Abrechnung from '@/components/IntAbrechnung'; //
 import QR from '@/components/IntQR'; //
+import Logs from '@/components/IntLogs'; //
+
 // import CHDT from '@/components/MedienCHDT'; // nein da kein AI chat, nicht hier drin
 import Diktat from '@/components/MedienDiktat'; //
 import Cal from '@/components/IntCal'; //
@@ -113,6 +115,7 @@ export const NAV_ITEMS = {
         { key: 'QR', name: 'QR Codes', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'Cal', name: 'Kalendereinträge', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'StammdatenIGM', name: 'Medi und MiGel Datei', visible_mpa: true, visible_arzt: false, visible_pro: true },
+        { key: 'Logs', name: 'Letzte KI Anfragen', visible_mpa: true, visible_arzt: true, visible_pro: true },
 
         // { key: 'antwortemail', name: 'antwortemail', visible_mpa: false, visible_arzt: true, visible_pro: true }
 
@@ -369,6 +372,7 @@ export const ICONS = {
     Konfigurationsanleitung: Cog6ToothIcon,
     LernvideosPage: PlayIcon,
     HIN: AcademicCapIcon,
+    Logs: AcademicCapIcon,
     QM: HeartIcon,
     Abrechnung: CheckBadgeIcon,
     QR: CheckBadgeIcon,
@@ -422,6 +426,8 @@ export const getActiveComponent = (activeComponent) => {
             return LernvideosPage;
         case 'HIN':
             return HIN;
+        case 'Logs':
+            return Logs;
         case 'QM':
             return QM;
         case 'QR':

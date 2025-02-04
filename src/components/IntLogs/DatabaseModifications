@@ -1,0 +1,71 @@
+ALTER TABLE logs
+ADD COLUMN customer_id INTEGER NULL,
+ADD COLUMN model_name VARCHAR(255) NULL,
+ADD COLUMN tab_name VARCHAR(255) NULL,
+ADD COLUMN latency_ms INTEGER NULL,  
+ADD COLUMN status_code INT NULL,      
+ADD COLUMN error_message TEXT NULL;   
+
+
+
+
+postgres=> CREATE TABLE CIRS (
+    id SERIAL PRIMARY KEY,
+    incident_date DATE NOT NULL,
+    reporter_name VARCHAR(100),
+    department VARCHAR(100),
+    incident_description TEXT NOT NULL,
+    corrective_action TEXT,
+    severity_level INT CHECK (severity_level BETWEEN 1 AND 5), -- 1 (Low) to 5 (High)
+    reported_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE
+postgres=> CREATE TABLE NotePins (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    author VARCHAR(100),
+    time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    x INT DEFAULT 0, -- X position for draggable notes
+    y INT DEFAULT 0, -- Y position for draggable notes
+    heartCount INT DEFAULT 0,
+    thumbUpCount INT DEFAULT 0,
+    thumbDownCount INT DEFAULT 0
+);
+CREATE TABLE
+postgres=> CREATE TABLE NoteComments (
+    id SERIAL PRIMARY KEY,
+    note_id INT REFERENCES NotePins(id) ON DELETE CASCADE,
+    text TEXT NOT NULL,
+    time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE
+postgres=> select * from logs
+postgres-> \dt
+           List of relations
+ Schema |     Name     | Type  | Owner  
+--------+--------------+-------+--------
+ public | cirs         | table | daniel
+ public | logs         | table | daniel
+ public | notecomments | table | daniel
+ public | notepins     | table | daniel
+(4 rows)
+
+postgres-> \dt logs
+       List of relations
+ Schema | Name | Type  | Owner  
+--------+------+-------+--------
+ public | logs | table | daniel
+(1 row)
+
+postgres-> \d logs
+                                        Table "public.logs"
+    Column     |           Type           | Collation | Nullable |             Default              
+---------------+--------------------------+-----------+----------+----------------------------------
+ id            | integer                  |           | not null | nextval('logs_id_seq'::regclass)
+ customer_name | character varying(255)   |           |          | 
+ request       | jsonb                    |           |          | 
+ response      | jsonb                    |           |          | 
+ timestamp     | timestamp with time zone |           |          | now()
+Indexes:
+    "logs_pkey" PRIMARY KEY, btree (id)
