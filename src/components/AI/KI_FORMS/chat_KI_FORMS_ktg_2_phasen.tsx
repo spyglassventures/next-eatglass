@@ -12,6 +12,7 @@ import {
   inputCloudBtn,
 } from '@/config/ai/ai_tabs/KI_FORMS/2_phasen_message';
 import ModelSelector from '../ModelSelector';
+import OpenAI from 'openai';
 
 // Define the type for a message
 interface Message {
@@ -19,6 +20,29 @@ interface Message {
   role: 'function' | 'user' | 'system' | 'assistant' | 'data' | 'tool';
   content: string;
 }
+
+const response_format = {
+  type: 'json_schema',
+  json_schema: {
+    name: 'people_names',
+    schema: {
+      type: 'object',
+      required: ['names'],
+      properties: {
+        names: {
+          type: 'array',
+          items: {
+            type: 'string',
+            description: 'The name of a person.',
+          },
+          description: 'An array containing the names of people.',
+        },
+      },
+      additionalProperties: false,
+    },
+    strict: true,
+  },
+};
 
 export default function ChatKTG_2_phasen({ showPraeparatSearch = false }) {
   const { activeFilter } = useFilter(); // to hide theme and model if not pro mode
@@ -36,8 +60,6 @@ export default function ChatKTG_2_phasen({ showPraeparatSearch = false }) {
   );
   const [input, setInput] = useState('');
   const [modelPath, setModelPath] = useState('/api/chat-o3-structured'); // Default model
-
-
 
   const handleModelChange = (value: string) => {
     setModelPath(value);
@@ -63,7 +85,7 @@ export default function ChatKTG_2_phasen({ showPraeparatSearch = false }) {
       const response = await fetch(modelPath, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: [...messages, userMessage] }),
+        body: JSON.stringify({ messages: [...messages, userMessage], response_format }),
       });
 
       if (!response.ok) {

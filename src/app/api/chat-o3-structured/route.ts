@@ -1,6 +1,5 @@
 import OpenAI from "openai";
 import { NextResponse } from "next/server";
-import { z } from "zod";
 
 export const runtime = "edge";
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY || "" });
@@ -19,9 +18,17 @@ export async function POST(req: Request) {
 
     // Parse the incoming JSON
     const body = await req.json();
-    const { messages, customerName: customerNameFromRequest } = body;
+    const { messages, customerName: customerNameFromRequest, response_format } = body;
     const customerName = process.env.LOG_USER || customerNameFromRequest || "Unknown";
     console.log("Parsed request body:", { messages, customerName });
+
+    if (!response_format) {
+      console.error("Missing response_format in request body.");
+      return new NextResponse(
+        JSON.stringify({ error: "Missing response_format in request body." }),
+        { status: 400 }
+      );
+    }
 
     // Define the model dynamically
     const model = "o3-mini-2025-01-31";
@@ -31,28 +38,7 @@ export async function POST(req: Request) {
     const completion = await openai.beta.chat.completions.parse({
       model,
       messages,
-      response_format: {
-        type: "json_schema",
-        json_schema: {
-          name: "people_names",
-          schema: {
-            type: "object",
-            required: ["names"],
-            properties: {
-              names: {
-                type: "array",
-                items: {
-                  type: "string",
-                  description: "The name of a person."
-                },
-                description: "An array containing the names of people."
-              }
-            },
-            additionalProperties: false
-          },
-          strict: true
-        }
-      },
+      response_format,
       reasoning_effort: "medium"
     });
 
