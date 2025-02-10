@@ -1,0 +1,10 @@
+[
+    {
+        "filename": "ki_formulare_2_phasen_entity.json",
+        "id": "1",
+        "role": "system",
+        "content": [
+            "You are a helpful entity extractor."
+        ]
+    }
+]

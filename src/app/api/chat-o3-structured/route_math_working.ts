@@ -1,9 +1,20 @@
 import OpenAI from "openai";
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { zodResponseFormat } from "openai/helpers/zod";
 
 export const runtime = "edge";
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY || "" });
+
+const Step = z.object({
+  explanation: z.string(),
+  output: z.string(),
+});
+
+const MathReasoning = z.object({
+  steps: z.array(Step),
+  final_answer: z.string(),
+});
 
 export async function POST(req: Request) {
   try {
@@ -24,59 +35,27 @@ export async function POST(req: Request) {
     console.log("Parsed request body:", { messages, customerName });
 
     // Define the model dynamically
-    const model = "o3-mini-2025-01-31";
+    // const model = "gpt-4o-2024-08-06";
+    const model = 'o3-mini-2025-01-31';
     console.log(`Calling OpenAI API with model "${model}"...`);
 
     // Start the OpenAI structured response chat completion
     const completion = await openai.beta.chat.completions.parse({
       model,
       messages,
-      response_format: {
-        type: "json_schema",
-        json_schema: {
-          name: "people_names",
-          schema: {
-            type: "object",
-            required: ["names"],
-            properties: {
-              names: {
-                type: "array",
-                items: {
-                  type: "string",
-                  description: "The name of a person."
-                },
-                description: "An array containing the names of people."
-              }
-            },
-            additionalProperties: false
-          },
-          strict: true
-        }
-      },
-      reasoning_effort: "medium"
+      response_format: zodResponseFormat(MathReasoning, "math_reasoning"),
     });
 
-    console.log("Received structured response from OpenAI:", completion);
-
-    // Extract response content
-    const responseData = completion.choices?.[0]?.message?.content;
-
-    if (!responseData) {
-      console.error("OpenAI returned an empty response.");
-      return new NextResponse(
-        JSON.stringify({ error: "Empty response from OpenAI" }),
-        { status: 500 }
-      );
-    }
-
-    console.log("Parsed response:", responseData);
+    console.log("Received structured response from OpenAI.");
+    const math_reasoning = completion.choices[0]?.message?.parsed;
+    console.log("Parsed math reasoning:", math_reasoning);
 
     // Log request and response to the database
     try {
       const logPayload = {
         customer_name: customerName,
         request: { messages },
-        response: responseData
+        response: { model, math_reasoning },
       };
 
       console.log("Attempting to log request and response:", logPayload);
@@ -87,14 +66,13 @@ export async function POST(req: Request) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(logPayload),
       });
-
       console.log("Successfully logged request and response.");
     } catch (logError) {
       console.error("Error logging request and response:", logError);
     }
 
     return new NextResponse(
-      JSON.stringify({ names: responseData }),
+      JSON.stringify({ math_reasoning }),
       { headers: { "Content-Type": "application/json" } }
     );
   } catch (error) {
