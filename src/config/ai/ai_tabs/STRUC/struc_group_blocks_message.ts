@@ -2,7 +2,7 @@
 // struc_diagnosen_extract_message.ts
 import { z } from "zod";
 import examplesData from '../../sidebar_examples/STRUC/extract_diagnose_sidebar_config.json';
-import rawInitialMessages from '../../ai_forms/struc/ki_formulare_diagnosen.json';
+import rawInitialMessages from '../../ai_forms/STRUC/ki_formulare_diagnosen.json';
 
 export const warning_msg = 'Closed-Beta Test: WhatsApp Style / Mundart / Freiform eingeben ➜ Schriftdeutsch erhalten';
 

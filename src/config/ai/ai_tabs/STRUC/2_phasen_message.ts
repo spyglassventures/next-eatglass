@@ -2,7 +2,8 @@
 // 2_phasen_message.ts
 import { z } from "zod";
 import examplesData from '../../sidebar_examples/STRUC/extract_entity_sidebar_config.json';
-import rawInitialMessages from '../../ai_forms/struc/ki_formulare_2_phasen.json';
+// import rawInitialMessages from '../../ai_forms/struc/ki_formulare_2_phasen.json';
+import rawInitialMessages from '../../ai_forms/STRUC/ki_formulare_2_phasen.json';
 
 export const warning_msg = 'Closed-Beta Test: WhatsApp Style / Mundart / Freiform eingeben ➜ Schriftdeutsch erhalten';
 
