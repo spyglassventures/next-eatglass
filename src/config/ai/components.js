@@ -88,6 +88,7 @@ export const NAV_ITEMS = {
         { key: 'sva_verlaufsbericht', name: 'SVA Verlaufsbericht', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'zwischenbericht_kvg_ktg', name: 'Zwischenbericht KVG ', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'zwischenbericht_uvg_unfall', name: 'Zwischenbericht UVG', visible_mpa: true, visible_arzt: true, visible_pro: true },
+        { key: 'ktg_2_phasen', name: 'KTG 2 Phasen', visible_mpa: false, visible_arzt: false, visible_pro: true },
     ],
 
 
@@ -342,6 +343,11 @@ export const COMPONENTS = {
         name: 'Zwischenbericht UVG',
         component: 'Chat_KI_FORMS_Zwischenbericht_uvg_unfall',
         buttonText: 'zwischenbericht_uvg_unfall'
+    },
+    ktg_2_phasen: {
+        name: 'KTG 2 Phasen',
+        component: 'Chat_KI_FORMS_ktg_2_phasen',
+        buttonText: 'ktg_2_phasen'
     }
 };
 
