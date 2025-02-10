@@ -10,6 +10,7 @@ import {
   examplesData,
   rawInitialMessages,
   inputCloudBtn,
+  OpenAIResponseFormat as response_format,
 } from '@/config/ai/ai_tabs/KI_FORMS/2_phasen_message';
 import ModelSelector from '../ModelSelector';
 import OpenAI from 'openai';
@@ -20,29 +21,6 @@ interface Message {
   role: 'function' | 'user' | 'system' | 'assistant' | 'data' | 'tool';
   content: string;
 }
-
-const response_format = {
-  type: 'json_schema',
-  json_schema: {
-    name: 'people_names',
-    schema: {
-      type: 'object',
-      required: ['names'],
-      properties: {
-        names: {
-          type: 'array',
-          items: {
-            type: 'string',
-            description: 'The name of a person.',
-          },
-          description: 'An array containing the names of people.',
-        },
-      },
-      additionalProperties: false,
-    },
-    strict: true,
-  },
-};
 
 export default function ChatKTG_2_phasen({ showPraeparatSearch = false }) {
   const { activeFilter } = useFilter(); // to hide theme and model if not pro mode
