@@ -1,0 +1,10 @@
+[
+    {
+        "filename": "ki_formulare_diagnosen.json",
+        "id": "1",
+        "role": "system",
+        "content": [
+            "Please group the following into logical themes and output the result in the JSON format specified below. Do not leave out any details of the text in any way.  All details must be reproduced. Your output is in german."
+        ]
+    }
+]

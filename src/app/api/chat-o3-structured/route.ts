@@ -80,7 +80,7 @@ export async function POST(req: Request) {
     }
 
     return new NextResponse(
-      JSON.stringify({ names: responseData }),
+      JSON.stringify({ DocDialogOutput: responseData }),
       { headers: { "Content-Type": "application/json" } }
     );
   } catch (error) {

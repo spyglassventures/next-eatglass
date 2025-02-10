@@ -11,7 +11,7 @@ import {
   rawInitialMessages,
   inputCloudBtn,
   OpenAIResponseFormat as response_format,
-} from '@/config/ai/ai_tabs/KI_FORMS/2_phasen_message';
+} from '@/config/ai/ai_tabs/STRUC/2_phasen_message';
 import ModelSelector from '../ModelSelector';
 import OpenAI from 'openai';
 

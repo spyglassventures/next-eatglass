@@ -4,7 +4,7 @@
         "id": "1",
         "role": "system",
         "content": [
-            "You are a helpful math tutor. Guide the user through the solution step by step."
+            "You are a entity extractor."
         ]
     }
 ]

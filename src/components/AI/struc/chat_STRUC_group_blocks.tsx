@@ -10,8 +10,10 @@ import {
   examplesData,
   rawInitialMessages,
   inputCloudBtn,
-} from '@/config/ai/ai_tabs/KI_FORMS/2_phasen_message';
+  OpenAIResponseFormat as response_format,
+} from '@/config/ai/ai_tabs/STRUC/struc_group_blocks_message';
 import ModelSelector from '../ModelSelector';
+import OpenAI from 'openai';
 
 // Define the type for a message
 interface Message {
@@ -20,7 +22,7 @@ interface Message {
   content: string;
 }
 
-export default function ChatKTG_2_phasen({ showPraeparatSearch = false }) {
+export default function Chat_STRUC_group_blocks({ showPraeparatSearch = false }) {
   const { activeFilter } = useFilter(); // to hide theme and model if not pro mode
 
   useEffect(() => {
@@ -36,8 +38,6 @@ export default function ChatKTG_2_phasen({ showPraeparatSearch = false }) {
   );
   const [input, setInput] = useState('');
   const [modelPath, setModelPath] = useState('/api/chat-o3-structured'); // Default model
-
-
 
   const handleModelChange = (value: string) => {
     setModelPath(value);
@@ -63,7 +63,7 @@ export default function ChatKTG_2_phasen({ showPraeparatSearch = false }) {
       const response = await fetch(modelPath, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: [...messages, userMessage] }),
+        body: JSON.stringify({ messages: [...messages, userMessage], response_format }),
       });
 
       if (!response.ok) {

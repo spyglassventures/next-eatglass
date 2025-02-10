@@ -7,7 +7,7 @@ import GenDocxStructure from './gen_docx_structure';
 // this is relevant
 // 
 
-import { warning_msg, followupBtn, placeHolderInput, examplesData } from '@/config/ai/ai_tabs/KI_FORMS_SVA_Verlaufsbericht_message';
+import { warning_msg, followupBtn, placeHolderInput, examplesData } from '@/config/ai/ai_tabs//KI_FORMS/KI_FORMS_SVA_Verlaufsbericht_message';
 import messageData from '@/config/ai/ai_context/KI_FORMS_SVA_Verlaufsbericht_message.json';
 import formStructureData from '@/config/ai/ai_forms/sva_verlaufsbericht_form_structure.json';
 

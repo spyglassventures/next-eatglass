@@ -1,0 +1,10 @@
+[
+    {
+        "filename": "ki_formulare_diagnosen.json",
+        "id": "1",
+        "role": "system",
+        "content": [
+            "Du extrahierst medizinische Diagnosen."
+        ]
+    }
+]

@@ -44,8 +44,13 @@ import Chat_KI_FORMS_sva_berufliche_integration from '@/components/AI/KI_FORMS/c
 import Chat_KI_FORMS_sva_verlaufsbericht from '@/components/AI/KI_FORMS/chat_KI_FORMS_SVA_Verlaufsbericht';
 import Chat_KI_FORMS_Zwischenbericht_kvg_ktg from '@/components/AI/KI_FORMS/chat_KI_FORMS_Zwischenbericht_kvg_ktg';
 import Chat_KI_FORMS_Zwischenbericht_uvg_unfall from '@/components/AI/KI_FORMS/chat_KI_FORMS_Zwischenbericht_uvg_unfall';
-import Chat_KI_FORMS_ktg_2_phasen from '@/components/AI/KI_FORMS/chat_KI_FORMS_ktg_2_phasen';
 
+
+
+// STRUC
+import Chat_KI_FORMS_ktg_2_phasen from '@/components/AI/struc/chat_KI_FORMS_ktg_2_phasen'; // working
+import Chat_STRUC_diagnosen_extract from '@/components/AI/struc/chat_STRUC_diagnosen_extract';
+import Chat_STRUC_group_blocks from '@/components/AI/struc/chat_STRUC_group_blocks';
 
 
 
@@ -84,8 +89,9 @@ const AIComponents = {
     Chat_KI_FORMS_ktg_2_phasen,
     // END KI FORMS
 
-    // Freitext
-
+    // STRUC
+    Chat_STRUC_diagnosen_extract,
+    Chat_STRUC_group_blocks,
 
 
     // Medien KI

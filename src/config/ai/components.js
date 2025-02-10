@@ -88,7 +88,9 @@ export const NAV_ITEMS = {
         { key: 'sva_verlaufsbericht', name: 'SVA Verlaufsbericht', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'zwischenbericht_kvg_ktg', name: 'Zwischenbericht KVG ', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'zwischenbericht_uvg_unfall', name: 'Zwischenbericht UVG', visible_mpa: true, visible_arzt: true, visible_pro: true },
-        { key: 'ktg_2_phasen', name: 'KTG 2 Phasen', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'ktg_2_phasen', name: 'Entitäten extrahieren', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'diagnosen_extract', name: 'Diagnosen extrahieren', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'group_blocks', name: 'Verlauf gruppieren', visible_mpa: false, visible_arzt: false, visible_pro: true },
     ],
 
 
@@ -169,7 +171,7 @@ import {
 
 // NAME in Header Page, just below the menu
 export const COMPONENTS = {
-    diagnose: {
+    diagnose: {                         // key from NAV_ITEMS
         name: 'Differentialdiagnosen', // Name in Header Page, below grey navigation, free form
         component: 'Chat_diagnose',
         buttonText: 'Diagnose'
@@ -339,15 +341,27 @@ export const COMPONENTS = {
         component: 'Chat_KI_FORMS_Zwischenbericht_kvg_ktg',
         buttonText: 'zwischenbericht_kvg_ktg'
     },
-    zwischenbericht_uvg_unfall: {
+    zwischenbericht_uvg_unfall: { // key
         name: 'Zwischenbericht UVG',
         component: 'Chat_KI_FORMS_Zwischenbericht_uvg_unfall',
-        buttonText: 'zwischenbericht_uvg_unfall'
+        buttonText: 'zwischenbericht_uvg_unfall' // key
     },
+
+    // Structured Response
     ktg_2_phasen: {
-        name: 'KTG 2 Phasen',
+        name: 'Entitäten extrahieren (Namen, Personen, Firmen, ...)',
         component: 'Chat_KI_FORMS_ktg_2_phasen',
         buttonText: 'ktg_2_phasen'
+    },
+    diagnosen_extract: {
+        name: 'Diagnosen extrahieren',
+        component: 'Chat_STRUC_diagnosen_extract',
+        buttonText: 'diagnosen_extract'
+    },
+    group_blocks: {
+        name: 'Verlauf gruppieren',
+        component: 'Chat_STRUC_group_blocks',
+        buttonText: 'group_blocks'
     }
 };
 

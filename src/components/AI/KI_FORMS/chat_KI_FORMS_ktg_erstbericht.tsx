@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import ChatStructure from '../KI_FORMS/kiForms_chat_structure';
 import GenDocxStructure from './gen_docx_structure';
 
-import { warning_msg, followupBtn, placeHolderInput, examplesData } from '@/config/ai/ai_tabs/KI_FORMS_ktg_erstbericht_message';
+import { warning_msg, followupBtn, placeHolderInput, examplesData } from '@/config/ai/ai_tabs/KI_FORMS/KI_FORMS_ktg_erstbericht_message';
 import messageData from '@/config/ai/ai_context/KI_FORMS_ktg_erstbericht_message.json';
 import formStructureData from '@/config/ai/ai_forms/ktg_erstbericht_form_structure.json'; // FORMS UNIQUE FOR AI FORMS
 

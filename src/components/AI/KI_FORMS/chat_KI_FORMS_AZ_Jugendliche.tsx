@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import ChatStructure from '../KI_FORMS/kiForms_chat_structure';
 import GenDocxStructure from './gen_docx_structure';
 
-import { warning_msg, followupBtn, placeHolderInput, examplesData } from '@/config/ai/ai_tabs/KI_FORMS_AZ_Jugendliche_message';
+import { warning_msg, followupBtn, placeHolderInput, examplesData } from '@/config/ai/ai_tabs/KI_FORMS/KI_FORMS_AZ_Jugendliche_message';
 import messageData from '@/config/ai/ai_context/KI_FORMS_AZ_Jugendliche_message.json';
 import formStructureData from '@/config/ai/ai_forms/AZ_Jugendliche_form_structure.json';
 

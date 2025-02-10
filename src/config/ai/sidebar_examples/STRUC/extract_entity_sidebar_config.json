@@ -1,0 +1,9 @@
+{
+    "filename": "extract_entity_sidebar_config.json",
+    "examples": [
+        "Frankreich will bei KI glänzen: Konzerne investieren Milliarden Frankreich hat sich vorgenommen, bei der Künstlichen Intelligenz oben mitzuspielen. Konzerne wollen hohe Summen in diesen Technologie-Bereich investieren. Präsident Macron spricht bei einem KI-Gipfel von insgesamt über 109 Milliarden Euro, die in den nächsten rund fünf Jahren für den Bau von Datenzentren und für technische Infrastruktur rund um KI-Technologie aufgewendet werden sollen. Dem Élysée-Palast zufolge plant ein französisch-emiratisches Konsortium Investitionen von bis zu 50 Milliarden Euro in einen Campus für KI in Frankreich. Eine riesige Summe fließt zudem aus Kanada in den KI-Sektor: Das kanadische Investitionsunternehmen Brookfield will bis zu 25 Milliarden Euro in die Technik in Frankreich investieren."
+    ],
+    "abkuerzungen": [
+        "keine"
+    ]
+}
