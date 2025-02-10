@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useFilter } from '@/components/AI/FilterContext'; // for mpa, arzt, pro mode filter for models and theme Context hook
-import ChatStructure from '../gen_chat_structure';
+import ChatStructure from '../gen_chat_structure_json';
 import {
   warning_msg,
   followupBtn,
