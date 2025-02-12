@@ -62,6 +62,7 @@ export const NAV_ITEMS = {
         { key: 'verordnung', name: 'Verordnung', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'verhaltensempfehlung', name: 'Verhaltensempfehlung', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'ekg', name: 'EKG', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'bd_24', name: '24h BD Befunden', visible_mpa: false, visible_arzt: false, visible_pro: true },
 
     ], // Medien KI 
     summariesDropdown: [
@@ -186,6 +187,11 @@ export const COMPONENTS = {
         name: 'EKG',
         component: 'Chat_ekg',
         buttonText: 'EKG'
+    },
+    bd_24: {
+        name: '24 BD',
+        component: 'Chat_24_BD',
+        buttonText: '24 BD'
     },
     kostengutsprache: {
         name: 'Kostengutsprache',

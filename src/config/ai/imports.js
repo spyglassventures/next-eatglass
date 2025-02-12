@@ -27,6 +27,7 @@ import Chat_image from '@/components/AI/chat_image';
 import Chat_versicherungsanfrage from '@/components/AI/chat_versicherungsanfrage';
 import Chat_triage from '@/components/AI/chat_triage';
 import Chat_ekg from '@/components/AI/chat_ekg';
+import Chat_24_BD from '@/components/AI/chat_24_BD';
 
 // Freitext
 // import Chat_antwortemail from '@/components/AI/chat_antwortemail';
@@ -79,6 +80,7 @@ const AIComponents = {
     Chat_verhaltensempfehlung,
     Chat_versicherungsanfrage,
     Chat_ekg,
+    Chat_24_BD,
     // KI FORMS
     Chat_KI_FORMS_AZ_Jugendliche,
     Chat_KI_FORMS_ktg_erstbericht,

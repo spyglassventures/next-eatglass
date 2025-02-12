@@ -1,0 +1,17 @@
+{
+    "filename": "bd_24_sidebar_config.json",
+    "examples": [
+        "w, 65J, Hypertonie, Kopfschmerzen morgens, keine Medis, Tagesmittelwert 145/90 mmHg, Nachtmittelwert 130/85 mmHg, fehlender nächtlicher Abfall („Non-Dipper“), Puls 78 bpm",
+        "m, 55J, Diabetes, Müdigkeit, Schwindel, Beta-Blocker, ACE-Hemmer, Tagesmittelwert 160/95 mmHg, Nachtmittelwert 150/90 mmHg, erhöhter Puls 85 bpm, hypertensive Krise nachts",
+        "w, 72J, KHK, Herzstolpern, keine Medis, Tagesmittelwert 130/85 mmHg, Nachtmittelwert 120/80 mmHg, unauffällige Dipping-Charakteristik, Puls 72 bpm"
+    ],
+    "abkuerzungen": [
+        "T: Tage",
+        "J: Jahre"
+    ],
+    "hinweise": [
+        "Hinweis 1: Bitte keine Patientennamen eingeben.",
+        "Hinweis 2: Die KI kann Fehler machen. Bitte überprüfen Sie die Antworten.",
+        "Hinweis 3: Kein Medizinalprodukt, nicht verwenden wenn dadurch die med. Behandlung des Patienten beeinflusst werden könnte"
+    ]
+}
