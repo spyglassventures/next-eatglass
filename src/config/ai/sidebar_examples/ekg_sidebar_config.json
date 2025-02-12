@@ -1,0 +1,24 @@
+{
+    "filename": "ekg_sidebar_config.json",
+    "examples": [
+        "w, 65J, Hypertonie, Brustschmerzen, Schwindel, keine Medis, kein Blocker, Antiarrhythmika, EKG 25 mm/s, Verstärkung 10 mm, Sinusrhythmus, ST-Hebung V2-V4",
+        "m, 55J, Diabetes, Dyspnoe, Palpitationen, Beta-Blocker, kein Antiarrhythmikum, EKG 50 mm/s, Verstärkung 5 mm, Vorhofflimmern, QRS 110 ms, ST-Senkung II, III, aVF",
+        "w, 72J, KHK, Synkope, keine Medis, EKG 25 mm/s, Verstärkung 10 mm, AV-Block II°, QRS 90 ms, verlängerte QT-Zeit, T-Inversion V5-V6",
+        "keine Vorerkrankungen, Tachykardie, Unruhe, kein Blocker, kein Antiarrhythmikum, EKG 25 mm/s, Verstärkung 10 mm, Sinustachykardie 140 bpm, QRS 95 ms, unauffällige ST-Strecke",
+        "COPD, Belastungsdyspnoe, keine Medis, EKG 25 mm/s, Verstärkung 10 mm, Rechtsherzbelastung, P pulmonale, S1Q3T3-Muster, ST-Senkung V1-V3",
+        "KHK, Hypertonie, Thoraxschmerz, Beta-Blocker, kein Antiarrhythmikum, EKG 50 mm/s, Verstärkung 10 mm, ST-Hebung II, III, aVF, pathologische Q-Zacken",
+        "Vorhofflimmern bekannt, Fatigue, kein Blocker, Antikoagulation, EKG 25 mm/s, Verstärkung 10 mm, absolute Arrhythmie, keine ST-Veränderungen, normale QT-Zeit",
+        "Sportler, keine Vorerkrankungen, Palpitationen, kein Blocker, kein Antiarrhythmikum, EKG 25 mm/s, Verstärkung 10 mm, Sinusbradykardie 45 bpm, unauffällige ST-Strecke",
+        "Diabetes, Schwindel, Sturz, keine Medis, EKG 25 mm/s, Verstärkung 10 mm, AV-Block III°, Bradykardie 38 bpm, QRS 120 ms",
+        " Panikattacken bekannt, Tachykardie, Schweißausbruch, kein Blocker, kein Antiarrhythmikum, EKG 25 mm/s, Verstärkung 10 mm, Sinustachykardie 130 bpm, keine ST-Veränderungen"
+    ],
+    "abkuerzungen": [
+        "T: Tage",
+        "J: Jahre"
+    ],
+    "hinweise": [
+        "Hinweis 1: Bitte keine Patientennamen eingeben.",
+        "Hinweis 2: Die KI kann Fehler machen. Bitte überprüfen Sie die Antworten.",
+        "Hinweis 3: Kein Medizinalprodukt, nicht verwenden wenn dadurch die med. Bahandlung des Patienten beeeinfluss werden könnte"
+    ]
+}

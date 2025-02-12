@@ -20,6 +20,7 @@ export const Step = z.object({
     output: z.string(),
 });
 
+
 export const ResponseFormat = z.object({
     names: z.array(z.string()).describe("An array containing the names of people."),
 });

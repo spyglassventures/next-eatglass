@@ -61,8 +61,9 @@ export const NAV_ITEMS = {
         { key: 'ueberweisungV2', name: 'Überweisung Facharzt V2 - coming soon', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'verordnung', name: 'Verordnung', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'verhaltensempfehlung', name: 'Verhaltensempfehlung', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'ekg', name: 'EKG', visible_mpa: false, visible_arzt: false, visible_pro: true },
 
-    ], // Medien KI
+    ], // Medien KI 
     summariesDropdown: [
         { key: 'documents', name: 'Dokumente', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'pdf', name: 'PDF', visible_mpa: false, visible_arzt: true, visible_pro: true },
@@ -73,7 +74,7 @@ export const NAV_ITEMS = {
         { key: 'antwortemail', name: 'Antwortemail', visible_mpa: false, visible_arzt: false, visible_pro: true },
     ],
 
-    // Managed Care KI
+    // Managed Care KI or Module in Bearbeitung
     mangedCareDropdown: [
         { key: 'mcsged', name: 'SGED', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'mcdiabetesscore', name: 'Diabetes Risiko', visible_mpa: true, visible_arzt: true, visible_pro: true },
@@ -180,6 +181,11 @@ export const COMPONENTS = {
         name: 'Triage',
         component: 'Chat_triage',
         buttonText: 'Triage'
+    },
+    ekg: {
+        name: 'EKG',
+        component: 'Chat_ekg',
+        buttonText: 'EKG'
     },
     kostengutsprache: {
         name: 'Kostengutsprache',
