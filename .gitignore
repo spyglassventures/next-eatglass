@@ -30,3 +30,12 @@ yarn-error.log*
 
 # vercel
 .vercel
+/.idea/codeStyles/codeStyleConfig.xml
+/.idea/codeStyles/Project.xml
+/.idea/inspectionProfiles/Project_Default.xml
+/.idea/.gitignore
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/next-eatglass.iml
+/.idea/prettier.xml
+/.idea/vcs.xml
