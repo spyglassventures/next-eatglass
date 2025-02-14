@@ -84,42 +84,38 @@
     },
     "holidays": {
         "title": "Feiertage",
-        "content": [
+      "content": [
             [
-                "Neujahr:",
-                "1. Januar"
+                "Neujahrstag:",
+                "1. Januar 2025"
             ],
             [
                 "Karfreitag:",
-                "29. März"
+                "18. April 2025"
             ],
             [
                 "Ostermontag:",
-                "1. April"
+                "21. April 2025"
             ],
             [
-                "Auffahrt:",
-                "9. Mai"
+                "Auffahrt (Christi Himmelfahrt):",
+                "29. Mai 2025"
             ],
             [
                 "Pfingstmontag:",
-                "20. Mai"
+                "9. Juni 2025"
             ],
             [
-                "Nationalfeiertag:",
-                "1. August"
+                "Bundesfeier (Nationalfeiertag):",
+                "1. August 2025"
             ],
             [
-                "Allerheiligen:",
-                "1. November"
-            ],
-            [
-                "Weihnachten:",
-                "25. Dezember"
+                "Weihnachtstag:",
+                "25. Dezember 2025"
             ],
             [
                 "Stephanstag:",
-                "26. Dezember"
+                "26. Dezember 2025"
             ]
         ],
         "note": "An folgenden Feiertagen bleibt die Praxis geschlossen:"
@@ -128,20 +124,24 @@
         "title": "Ferien/Fortbildung",
         "content": [
             [
-                "Fortbildung:",
-                "15. März - 16. März, 24"
+                "Frühlingsferien:",
+                "14. April - 18. April, 2025"
             ],
             [
-                "Sommerurlaub:",
-                "20. Juli - 04. August, 24"
+                "Auffahrtsbrücke:",
+                "29. Mai - 30. Mai, 2025"
             ],
             [
-                "Herbsturlaub:",
-                "28. September - 06. Oktober, 24"
+                "Sommerferien:",
+                "01. August - 15. August, 2025"
+            ],
+            [
+                "Herbstferien:",
+                "29. September - 03. Oktober, 2025"
             ],
             [
                 "Weihnachtsferien:",
-                "23. Dez. - 5. Januar, 25"
+                "wird noch bekannt gegeben"
             ]
         ],
         "note": "Die Praxis bleibt aufgrund von Urlaub und Fortbildungen an folgenden Tagen geschlossen:"

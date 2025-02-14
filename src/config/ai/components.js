@@ -87,11 +87,13 @@ export const NAV_ITEMS = {
         { key: 'ueberweisungV2', name: 'Überweisung Facharzt V2 - coming soon', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'calculator', name: 'Rechner', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'labor', name: 'Laborwerte', visible_mpa: false, visible_arzt: false, visible_pro: true },
+
         { key: 'ekg', name: 'EKG', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'bd_24', name: '24h BD Befunden', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'ktg_2_phasen', name: 'Entitäten extrahieren', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'diagnosen_extract', name: 'Diagnosen extrahieren', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'group_blocks', name: 'Verlauf gruppieren', visible_mpa: false, visible_arzt: false, visible_pro: true },
+
 
 
     ],
@@ -123,13 +125,18 @@ export const NAV_ITEMS = {
 
         { key: 'DocNumbers', name: 'Dokumenten-Nummern', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'Vertrauensaerzte', name: 'Vertrauensärzte', visible_mpa: true, visible_arzt: true, visible_pro: true },
+
         { key: 'Translate', name: 'Übersetzung (DeepL)', visible_mpa: true, visible_arzt: true, visible_pro: true },
+
+        { key: 'Translate', name: 'Übersetzung (DeepL)', visible_mpa: false, visible_arzt: false, visible_pro: true },
+
         { key: 'HIN', name: 'HIN Teilnehmer Suche', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'Konfigurationsanleitung', name: 'Konfigurationsanleitung', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'LernvideosPage', name: 'Lernvideos', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'Welcome', name: 'Willkommen - Hier starten', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'QR', name: 'QR Codes', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'Logs', name: 'Letzte KI Anfragen', visible_mpa: false, visible_arzt: false, visible_pro: false },
+
 
         // { key: 'antwortemail', name: 'antwortemail', visible_mpa: false, visible_arzt: true, visible_pro: true }
 
