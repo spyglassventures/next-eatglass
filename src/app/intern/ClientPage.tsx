@@ -359,6 +359,9 @@ export default function ClientPage() {
               {COMPONENTS[activeComponent]?.name}
             </h2>
             {ActiveComponent && <ActiveComponent />}
+            <p className="text-center text-gray-500 text-sm pt-2">
+              Testversion – kein Medizinalprodukt. Nicht verwenden für Patientenentscheidungen oder wenn ärztliche Entscheidungen beeinflusst werden könnten. Der Copilot kann Fehler machen. Alle Angaben im Detail kontrollieren, nicht blind kopieren.
+            </p>
           </div>
         </div>
       </section >

@@ -1,7 +1,7 @@
 {
     "logo": {
-        "light": "/images/logo/Logo_funk_home_x2.png",
-        "dark": "/images/logo/Logo_funk_home_x2.png",
+        "light": "/images/logo/LogoLight.png",
+        "dark": "/images/logo/LogoDark.png",
         "light_default": "/images/logo/LogoLight.png",
         "dark_default": "/images/logo/LogoDark.png",
         "alt": "logo",
