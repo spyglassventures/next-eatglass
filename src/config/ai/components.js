@@ -49,37 +49,53 @@ export const NAV_ITEMS = {
 
     toolsDropdown: [
         { key: 'stellungsnahme', name: 'Stellungsnahme', visible_mpa: false, visible_arzt: true, visible_pro: true },
-        { key: 'labor', name: 'Laborwerte', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'triage', name: 'Triage', visible_mpa: true, visible_arzt: false, visible_pro: true },
         { key: 'literatur', name: 'Literatur', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'medis', name: 'Medikamente', visible_mpa: false, visible_arzt: false, visible_pro: true },
-        { key: 'calculator', name: 'Rechner', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'reise', name: 'Reiseberatung', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'ernaehrung', name: 'Ernährungsempfehlung', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'mediausland', name: 'Auslandsmedikation', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'ueberweisung', name: 'Überweisung Facharzt', visible_mpa: false, visible_arzt: false, visible_pro: true },
-        { key: 'ueberweisungV2', name: 'Überweisung Facharzt V2 - coming soon', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'verordnung', name: 'Verordnung', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'verhaltensempfehlung', name: 'Verhaltensempfehlung', visible_mpa: false, visible_arzt: false, visible_pro: true },
-        { key: 'ekg', name: 'EKG', visible_mpa: false, visible_arzt: false, visible_pro: true },
-        { key: 'bd_24', name: '24h BD Befunden', visible_mpa: false, visible_arzt: false, visible_pro: true },
+
 
     ], // Medien KI 
     summariesDropdown: [
-        { key: 'documents', name: 'Dokumente', visible_mpa: false, visible_arzt: false, visible_pro: true },
-        { key: 'pdf', name: 'PDF', visible_mpa: false, visible_arzt: true, visible_pro: true },
         { key: 'image', name: 'Bild (Upload)', visible_mpa: true, visible_arzt: true, visible_pro: true },
-        { key: 'Diktat', name: 'Diktat', visible_mpa: false, visible_arzt: false, visible_pro: true },
-        { key: 'verlaufsoptimierer', name: 'Verlaufsoptimierer', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'chdt', name: 'Mundart -> Schriftdeutsch', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'antwortemail', name: 'Antwortemail', visible_mpa: false, visible_arzt: false, visible_pro: true },
     ],
 
-    // Managed Care KI or Module in Bearbeitung
+    // Managed Care KI
     mangedCareDropdown: [
         { key: 'mcsged', name: 'SGED', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'mcdiabetesscore', name: 'Diabetes Risiko', visible_mpa: true, visible_arzt: true, visible_pro: true },
+        { key: 'Diktat', name: 'Diktat', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'verlaufsoptimierer', name: 'Verlaufsoptimierer', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'documents', name: 'Dokumente', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'pdf', name: 'PDF', visible_mpa: false, visible_arzt: true, visible_pro: true },
+        { key: 'Wissensdatenbank', name: 'Wissensdatenbank', visible_mpa: false, visible_arzt: true, visible_pro: true },
+        { key: 'Aemtiplan', name: 'Ämtiplan', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'Zahlungen', name: 'Zahlungseingänge', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'Lieferengpass', name: 'Lieferengpass', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'QM', name: 'QM - in Arbeit', visible_mpa: true, visible_arzt: true, visible_pro: true },
+        { key: 'Abrechnung', name: 'Abrechnung - in Arbeit', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'Cal', name: 'Kalendereinträge', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'StammdatenIGM', name: 'Medi und MiGel Datei', visible_mpa: true, visible_arzt: false, visible_pro: true },
+        { key: 'Logs', name: 'Letzte KI Anfragen', visible_mpa: false, visible_arzt: false, visible_pro: false },
+        { key: 'ueberweisungV2', name: 'Überweisung Facharzt V2 - coming soon', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'calculator', name: 'Rechner', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'labor', name: 'Laborwerte', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'ekg', name: 'EKG', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'bd_24', name: '24h BD Befunden', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'ktg_2_phasen', name: 'Entitäten extrahieren', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'diagnosen_extract', name: 'Diagnosen extrahieren', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'group_blocks', name: 'Verlauf gruppieren', visible_mpa: false, visible_arzt: false, visible_pro: true },
+
+
     ],
+
 
     // KI Formulare
     formsDropdown: [
@@ -90,9 +106,9 @@ export const NAV_ITEMS = {
         { key: 'sva_verlaufsbericht', name: 'SVA Verlaufsbericht', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'zwischenbericht_kvg_ktg', name: 'Zwischenbericht KVG ', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'zwischenbericht_uvg_unfall', name: 'Zwischenbericht UVG', visible_mpa: true, visible_arzt: true, visible_pro: true },
-        { key: 'ktg_2_phasen', name: 'Entitäten extrahieren', visible_mpa: false, visible_arzt: false, visible_pro: true },
-        { key: 'diagnosen_extract', name: 'Diagnosen extrahieren', visible_mpa: false, visible_arzt: false, visible_pro: true },
-        { key: 'group_blocks', name: 'Verlauf gruppieren', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        // { key: 'ktg_2_phasen', name: 'Entitäten extrahieren', visible_mpa: false, visible_arzt: false, visible_pro: false },
+        // { key: 'diagnosen_extract', name: 'Diagnosen extrahieren', visible_mpa: false, visible_arzt: false, visible_pro: false },
+        // { key: 'group_blocks', name: 'Verlauf gruppieren', visible_mpa: false, visible_arzt: false, visible_pro: false },
     ],
 
 
@@ -104,23 +120,16 @@ export const NAV_ITEMS = {
 
     interneDropdown: [ // adjust to change name in Naviation
         { key: 'InternalDocument', name: 'Interne Dokumente', visible_mpa: false, visible_arzt: false, visible_pro: true },
-        { key: 'Wissensdatenbank', name: 'Wissensdatenbank', visible_mpa: false, visible_arzt: true, visible_pro: true },
+
         { key: 'DocNumbers', name: 'Dokumenten-Nummern', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'Vertrauensaerzte', name: 'Vertrauensärzte', visible_mpa: true, visible_arzt: true, visible_pro: true },
-        { key: 'Aemtiplan', name: 'Ämtiplan', visible_mpa: false, visible_arzt: false, visible_pro: true },
-        { key: 'Zahlungen', name: 'Zahlungseingänge', visible_mpa: false, visible_arzt: false, visible_pro: true },
-        { key: 'Lieferengpass', name: 'Lieferengpass', visible_mpa: false, visible_arzt: false, visible_pro: true },
-        { key: 'Translate', name: 'Übersetzung (DeepL)', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'Translate', name: 'Übersetzung (DeepL)', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'HIN', name: 'HIN Teilnehmer Suche', visible_mpa: true, visible_arzt: true, visible_pro: true },
-        { key: 'QM', name: 'QM - in Arbeit', visible_mpa: true, visible_arzt: true, visible_pro: true },
-        { key: 'Abrechnung', name: 'Abrechnung - in Arbeit', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'Konfigurationsanleitung', name: 'Konfigurationsanleitung', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'LernvideosPage', name: 'Lernvideos', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'Welcome', name: 'Willkommen - Hier starten', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'QR', name: 'QR Codes', visible_mpa: false, visible_arzt: false, visible_pro: true },
-        { key: 'Cal', name: 'Kalendereinträge', visible_mpa: false, visible_arzt: false, visible_pro: true },
-        { key: 'StammdatenIGM', name: 'Medi und MiGel Datei', visible_mpa: true, visible_arzt: false, visible_pro: true },
-        { key: 'Logs', name: 'Letzte KI Anfragen', visible_mpa: true, visible_arzt: true, visible_pro: true },
+        { key: 'Logs', name: 'Letzte KI Anfragen', visible_mpa: false, visible_arzt: false, visible_pro: false },
 
         // { key: 'antwortemail', name: 'antwortemail', visible_mpa: false, visible_arzt: true, visible_pro: true }
 

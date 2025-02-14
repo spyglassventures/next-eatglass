@@ -63,7 +63,7 @@ export default function RootLayout({
             {children}
 
             <Analytics mode={"production"} />
-            <Footer />
+            {/* <Footer /> */}
             <ScrollToTop />
           </Providers>
         </FilterProvider>

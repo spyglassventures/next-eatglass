@@ -26,7 +26,7 @@ export default function Home() {
 
   return (
     <>
-      {modules.ScrollUp && <ScrollUp />}
+      {/* {modules.ScrollUp && <ScrollUp />}
       {modules.Hero && <Hero />}
       {modules.NewsTicker && <NewsTicker />}
       {modules.AboutSectionTwo && <AboutSectionTwo />}
@@ -38,7 +38,12 @@ export default function Home() {
       {modules.Testimonials && <Testimonials />}
       {modules.Pricing && <Pricing />}
 
-      {modules.Contact && <Contact />}
+      {modules.Contact && <Contact />} */}
     </>
   );
 }
+
+
+// client page?
+// also go to layout.tsx
+// and comment out the header and footer

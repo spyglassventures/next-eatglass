@@ -1,32 +1,13 @@
 {
     "logo": {
-        "light": "/images/logo/adler.png",
-        "dark": "/images/logo/adler.png",
+        "light": "/images/logo/Logo_funk_home_x2.png",
+        "dark": "/images/logo/Logo_funk_home_x2.png",
+        "light_default": "/images/logo/LogoLight.png",
+        "dark_default": "/images/logo/LogoDark.png",
         "alt": "logo",
-        "width": 140,
-        "height": 30
+        "width": 80,
+        "height": 25
     },
-    "menu": [
-        {
-            "title": "Home",
-            "path": "/"
-        },
-        {
-            "title": "Team",
-            "path": "/about"
-        },
-        {
-            "title": "Unser Angebot",
-            "path": "/services"
-        },
-        {
-            "title": "Lageplan und Kontakt",
-            "path": "/contactForm"
-        },
-        {
-            "title": "Medibestellung & Formulare",
-            "path": "/downloadsBestellungen"
-        }
-    ],
-    "contactNumber": "Tel. 081 756 1234"
+    "menu": [],
+    "contactNumber": "Support 079 832 92 98"
 }

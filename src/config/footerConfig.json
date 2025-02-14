@@ -1,7 +1,7 @@
 {
     "logo": {
-        "light": "/images/logo/adler.png",
-        "dark": "/images/logo/adler.png",
+        "light": "/images/logo/LogoLight.png",
+        "dark": "/images/logo/LogoDark.png",
         "alt": "logo",
         "width": 140,
         "height": 30
