@@ -65,6 +65,7 @@ export const NAV_ITEMS = {
         { key: 'image', name: 'Bild (Upload)', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'chdt', name: 'Mundart -> Schriftdeutsch', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'antwortemail', name: 'Antwortemail', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'antwortemail_split', name: 'Antwortemail (geteilt)', visible_mpa: false, visible_arzt: false, visible_pro: true },
     ],
 
     // Managed Care KI
@@ -89,9 +90,7 @@ export const NAV_ITEMS = {
         { key: 'labor', name: 'Laborwerte', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'ekg', name: 'EKG', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'bd_24', name: '24h BD Befunden', visible_mpa: false, visible_arzt: false, visible_pro: true },
-        { key: 'ktg_2_phasen', name: 'Entitäten extrahieren', visible_mpa: false, visible_arzt: false, visible_pro: true },
-        { key: 'diagnosen_extract', name: 'Diagnosen extrahieren', visible_mpa: false, visible_arzt: false, visible_pro: true },
-        { key: 'group_blocks', name: 'Verlauf gruppieren', visible_mpa: false, visible_arzt: false, visible_pro: true },
+
 
 
     ],
@@ -109,6 +108,9 @@ export const NAV_ITEMS = {
         // { key: 'ktg_2_phasen', name: 'Entitäten extrahieren', visible_mpa: false, visible_arzt: false, visible_pro: false },
         // { key: 'diagnosen_extract', name: 'Diagnosen extrahieren', visible_mpa: false, visible_arzt: false, visible_pro: false },
         // { key: 'group_blocks', name: 'Verlauf gruppieren', visible_mpa: false, visible_arzt: false, visible_pro: false },
+        { key: 'ktg_2_phasen', name: 'Entitäten extrahieren', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'diagnosen_extract', name: 'Diagnosen extrahieren', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'group_blocks', name: 'Verlauf gruppieren', visible_mpa: false, visible_arzt: false, visible_pro: true },
     ],
 
 
@@ -129,7 +131,7 @@ export const NAV_ITEMS = {
         { key: 'LernvideosPage', name: 'Lernvideos', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'Welcome', name: 'Willkommen - Hier starten', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'QR', name: 'QR Codes', visible_mpa: false, visible_arzt: false, visible_pro: true },
-        { key: 'Logs', name: 'Letzte KI Anfragen', visible_mpa: false, visible_arzt: false, visible_pro: false },
+        { key: 'Logs', name: 'Letzte KI Anfragen', visible_mpa: false, visible_arzt: false, visible_pro: true },
 
         // { key: 'antwortemail', name: 'antwortemail', visible_mpa: false, visible_arzt: true, visible_pro: true }
 
@@ -193,12 +195,12 @@ export const COMPONENTS = {
         buttonText: 'Triage'
     },
     ekg: {
-        name: 'EKG',
+        name: 'Langzeit-EKG (Holter-EKG, R-Test)',
         component: 'Chat_ekg',
         buttonText: 'EKG'
     },
     bd_24: {
-        name: '24 BD',
+        name: '24-Stunden Blutdruckmessung',
         component: 'Chat_24_BD',
         buttonText: '24 BD'
     },
@@ -291,6 +293,11 @@ export const COMPONENTS = {
         name: 'Antwortemail',
         component: 'Chat_antwortemail',
         buttonText: 'Antwortemail'
+    },
+    antwortemail_split: {
+        name: 'Antwortemail (geteilt)',
+        component: 'Chat_antwortemail_split',
+        buttonText: 'Antwortemail (geteilt)'
     },
     verlaufsoptimierer: {
         name: 'Verlaufsoptimierer',
@@ -483,6 +490,8 @@ export const getActiveComponent = (activeComponent) => {
         //     return CHDT; // no its an AI component
         case 'Antwortemail':
             return Antwortemail;
+        case 'Antwortemail_split':
+            return Antwortemail_split;
         case 'Abrechnung':
             return Abrechnung;
         case 'mcsged':
