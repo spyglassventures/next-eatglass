@@ -1,22 +1,27 @@
 // pages/api/hinDetails.ts
 
 import type { NextApiRequest, NextApiResponse } from 'next';
-import tokenData from './token.json'; // Importing token from JSON file, NOT OAuth2TokenSDS.json
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const { integrationId } = req.query; // Extract the integrationId from the query
 
-    // Hardcode the base URL and append the integrationId
+    // Construct the URL using the provided integrationId
     const url = `https://oauth2.sds.hin.ch/api/directory/v1/entries/${integrationId}/`;
 
     try {
-        // Use the token from the imported JSON file
-        const token = tokenData.token;
+        // Retrieve the token from the environment variables
+        const token = process.env.HIN_ACCESS_TOKEN;
 
+        // If the token isn't available, return an error
+        if (!token) {
+            return res.status(500).json({ error: 'Access token is not configured in the environment variables.' });
+        }
+
+        // Fetch the detailed data from the external API using the token
         const response = await fetch(url, {
             method: 'GET',
             headers: {
-                Authorization: `Bearer ${token}`, // Use the token from JSON
+                Authorization: `Bearer ${token}`,
             },
         });
 
@@ -25,8 +30,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
 
         const data = await response.json();
-        res.status(200).json(data); // Send detailed data back to the frontend
-    } catch (error) {
+        res.status(200).json(data); // Send the detailed data back to the frontend
+    } catch (error: any) {
         console.error('Failed to fetch data from external API:', error);
         res.status(500).json({ error: 'Something went wrong', details: error.message });
     }
