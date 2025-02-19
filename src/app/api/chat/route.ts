@@ -45,7 +45,8 @@ export async function POST(req: Request) {
       messages
     })
 
-    const stream = OpenAIStream(response)
+
+    const stream = OpenAIStream(response as any)
 
     // Create a TransformStream to accumulate the response
     const { readable, writable } = new TransformStream()
