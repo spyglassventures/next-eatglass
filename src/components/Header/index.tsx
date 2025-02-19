@@ -40,6 +40,7 @@ const Header = () => {
   };
 
   const usePathName = usePathname();
+  const formattedPhoneNumber = `+41${headerConfig.contactNumber.replace(/[^0-9]/g, "").replace(/^0/, "")}`;
 
   return (
     <>
@@ -105,7 +106,7 @@ const Header = () => {
                   <ul className="block lg:flex lg:space-x-12">
                     {headerConfig.menu.map((menuItem, index) => (
                       <li key={index} className="group relative">
-                        {/* <Link
+                        <Link
                           href={menuItem.path}
                           className={`flex py-2 text-base lg:mr-0 lg:inline-flex lg:px-0 lg:py-6 ${usePathName === menuItem.path
                             ? "text-primary dark:text-white"
@@ -113,7 +114,7 @@ const Header = () => {
                             }`}
                         >
                           {menuItem.title}
-                        </Link> */}
+                        </Link>
                       </li>
                     ))}
                   </ul>
@@ -121,11 +122,18 @@ const Header = () => {
               </div>
               <div className="flex items-center justify-end pr-16 lg:pr-0">
                 <Link
-                  href="tel:+41817562121" // International format for dialing
+                  href={`tel:${formattedPhoneNumber}`}
                   className="hidden px-7 py-3 text-base font-medium text-dark hover:opacity-70 dark:text-white md:block"
                 >
                   {headerConfig.contactNumber}
                 </Link>
+
+                {/* <Link
+                  href={`tel:${headerConfig.contactNumber.replace(/\D/g, "")}`} // Removes non-numeric characters
+                  className="hidden px-7 py-3 text-base font-medium text-dark hover:opacity-70 dark:text-white md:block"
+                >
+                  {headerConfig.contactNumber}
+                </Link> */}
                 <div>
                   <ThemeToggler />
                 </div>

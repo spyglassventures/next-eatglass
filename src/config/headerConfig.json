@@ -8,6 +8,12 @@
         "width": 80,
         "height": 25
     },
-    "menu": [],
+    "menu": [
+        {
+            "title": "",
+            "path": "/contactForm"
+        }
+    ],
+    "menu_comment": "menu requires one entry, but can be empty",
     "contactNumber": "Support 079 832 92 98"
 }
