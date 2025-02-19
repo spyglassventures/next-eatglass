@@ -26,6 +26,7 @@ import Logs from '@/components/IntLogs'; //
 
 // import CHDT from '@/components/MedienCHDT'; // nein da kein AI chat, nicht hier drin
 import Diktat from '@/components/MedienDiktat'; //
+import Board from '@/components/IntBoard'; //
 import Cal from '@/components/IntCal'; //
 import StammdatenIGM from '@/components/IntStammdatenIGM'; //
 import mcsged from '@/components/ManagedCare/SGED'; //
@@ -132,6 +133,8 @@ export const NAV_ITEMS = {
         { key: 'Welcome', name: 'Willkommen - Hier starten', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'QR', name: 'QR Codes', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'Logs', name: 'Letzte KI Anfragen', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'Board', name: 'Schwarzes Brett', visible_mpa: false, visible_arzt: false, visible_pro: true },
+
 
         // { key: 'antwortemail', name: 'antwortemail', visible_mpa: false, visible_arzt: true, visible_pro: true }
 
@@ -186,7 +189,7 @@ import {
 export const COMPONENTS = {
     diagnose: {                         // key from NAV_ITEMS
         name: 'Differentialdiagnosen', // Name in Header Page, below grey navigation, free form
-        component: 'Chat_diagnose',
+        component: 'Chat_diagnose',     // only needed for AI components? not sure
         buttonText: 'Diagnose'
     },
     triage: {
@@ -321,6 +324,12 @@ export const COMPONENTS = {
         buttonText: 'Diktat'
     },
 
+    Board: {
+        name: 'Schwarzes Brett',
+        component: 'Chat_Board',
+        buttonText: 'Schwarzes Brett'
+    },
+
 
     freitext: {
         name: 'Freitext',
@@ -432,6 +441,7 @@ export const ICONS = {
     // verlaufsoptimierer: CheckBadgeIcon
     mcsged: AcademicCapIcon,
     mcdiabetesscore: AcademicCapIcon,
+    Board: BriefcaseIcon,
 
 
 
@@ -482,6 +492,8 @@ export const getActiveComponent = (activeComponent) => {
             return QR;
         case 'Diktat':
             return Diktat;
+        case 'Board':
+            return Board;
         case 'Cal':
             return Cal;
         case 'StammdatenIGM':

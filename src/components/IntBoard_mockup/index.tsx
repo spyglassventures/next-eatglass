@@ -9,14 +9,17 @@ import React from 'react';
 // case 'Translate':
 //             return Translate;
 
+import BulletinBoard from "@/components/IntBoard/BulletinBoard";
 
-
-export default function IntCal() {
+export default function IntBoard() {
     return (
         <div className="bg-white p-4 shadow-md rounded-lg">
-            <div className="bg-slate-50">
-                <h1>Termine erstellen - noch in Arbeit. Wünsche gerne mailen.</h1>
+            <div className="bg-slate-50 p-4 rounded-lg">
+                <h1 className="text-lg font-bold mb-4">Hier wird in Kürze ein schwarzes Brett zu finden sein.</h1>
+                <BulletinBoard />
             </div>
         </div>
     );
 }
+
+
