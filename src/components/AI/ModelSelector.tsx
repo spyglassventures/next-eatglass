@@ -19,6 +19,8 @@ const models = [
     { value: '/api/gemini-1.5-flash', label: 'Google Gemini 1.5' },
     { value: '/api/anthropic-claude-3-5', label: 'Anthropic Claude 3.5' },
     { value: '/api/perplexity-sonar', label: 'Perplexity Sonar (mit Quellenangabe)' },
+    { value: '/api/chat-grok-2', label: 'Grok 2' },
+    { value: '/api/chat-grok-2', label: 'Grok 3 - coming soon' },
     // { value: '/api/whisper', label: 'Whisper' },
     // { value: '/api/realtime', label: 'Realtime' }, // could be with Twilio
 ];
