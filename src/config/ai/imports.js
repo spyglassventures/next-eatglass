@@ -36,6 +36,7 @@ import Chat_24_BD from '@/components/AI/chat_24_BD';
 // Medien KI
 import Chat_antwortemail from '@/components/AI/chat_antwortemail';
 import Chat_antwortemail_split from '@/components/AI/chat_antwortemail_split';
+import Chat_antwortemail_split_btn from '@/components/AI/chat_antwortemail_split_btn';
 import Chat_verlaufsoptimierer from '@/components/AI/chat_verlaufsoptimierer';
 import Chat_chdt from '@/components/AI/chat_chdt';
 
@@ -102,7 +103,8 @@ const AIComponents = {
     Chat_chdt,
     Chat_verlaufsoptimierer,
     Chat_antwortemail,
-    Chat_antwortemail_split
+    Chat_antwortemail_split,
+    Chat_antwortemail_split_btn
 
 
 

@@ -147,6 +147,10 @@ export default function ChatStructure({
     const [showFollowUpButtons, setShowFollowUpButtons] = useState(false)
     const [showInputCloud, setShowInputCloud] = useState(false)
     const [isPopped, setIsPopped] = useState(false)
+    const [orthographyChecked, setOrthographyChecked] = useState(false);
+    const [structureChecked, setStructureChecked] = useState(false);
+    const [formulateChecked, setFormulateChecked] = useState(false);
+    const [shortenChecked, setShortenChecked] = useState(false);
 
     // Local state for the two quadratic inputs (used only before an answer is received)
     const [inputPart1, setInputPart1] = useState('')
@@ -180,12 +184,13 @@ export default function ChatStructure({
     }
 
     // Submit function for quadratic inputs (before API response)
-    // Submit function for quadratic inputs (before API response)
-    // Submit function for quadratic inputs (before API response)
     const onSubmitQuadratic = (e) => {
         e.preventDefault();
-        // const combined = `${inputPart1.trim()} ${inputPart2.trim()}`.trim();
-        const combined = `${inputPart1.trim()} ----- Es folgt nun der Text, der die Antworten zu den obigen Fragen enthält: ----- ${inputPart2.trim()}`.trim();
+        const checkOrthography = orthographyChecked ? "Prüfe die Ortographie" : "";
+        const checkStructure = structureChecked ? "Prüfe die Strukturelle Korrektur" : "";
+        const checkFormulate = formulateChecked ? "Ausformulieren" : "";
+        const checkShorten = shortenChecked ? "Kürzen" : "";
+        const combined = `${checkOrthography} ${checkStructure} ${checkFormulate} ${checkShorten} ----- Es folgt nun der Text, der die Antworten zu den obigen Fragen enthält: ----- ${inputPart2.trim()}`.trim();
         if (!combined) return;
         // Optionally update the UI (parent's state) if needed:
         setInput(combined);
@@ -240,6 +245,22 @@ export default function ChatStructure({
             setTimeout(() => setIsPopped(false), 300)
         }, 400)
     }, [])
+
+    function handleOrthographyCheckChange() {
+        setOrthographyChecked(!orthographyChecked);
+    }
+
+    function handleStructureCheckChange() {
+        setStructureChecked(!structureChecked);
+    }
+
+    function handleFormulateCheckChange() {
+        setFormulateChecked(!formulateChecked);
+    }
+
+    function handleShortenCheckChange() {
+        setShortenChecked(!shortenChecked);
+    }
 
     return (
         <section className={currentTheme?.section || chatThemes.default.section}>
@@ -319,16 +340,42 @@ export default function ChatStructure({
                             // Two quadratic input forms (initial state)
                             <form onSubmit={onSubmitQuadratic} className="relative">
                                 <div className="flex gap-2">
-                                    <textarea
-                                        name="messagePart1"
-                                        value={inputPart1}
-                                        onChange={(e) => setInputPart1(e.target.value)}
-                                        onInput={handleTextareaInput}
-                                        onKeyDown={handleQuadraticKeyDown}
-                                        placeholder="Anfrage/E-Mail/Referenz inkl. allen Fragen hier reinkopieren"
-                                        className="w-1/2 p-2 font-light text-sm placeholder:italic border placeholder:text-zinc-600/75 focus-visible:ring-zinc-500 text-left dark:bg-zinc-800 dark:text-zinc-300 dark:placeholder:text-zinc-500 dark:focus-visible:ring-zinc-400 rounded-md resize-none aspect-square"
-                                        rows={3}
-                                    />
+                                    <label>
+                                        <input
+                                          type="checkbox"
+                                          checked={orthographyChecked}
+                                          onChange={handleOrthographyCheckChange}
+                                          name="textOptions"
+                                        />
+                                        Orthografische Korrektur
+                                    </label>
+                                    <label>
+                                        <input
+                                          type="checkbox"
+                                          checked={structureChecked}
+                                          onChange={handleStructureCheckChange}
+                                          name="textOptions"
+                                        />
+                                        Strukturelle Korrektur
+                                    </label>
+                                    <label>
+                                        <input
+                                          type="checkbox"
+                                          checked={formulateChecked}
+                                          onChange={handleFormulateCheckChange}
+                                          name="textOptions"
+                                        />
+                                        Ausformulieren
+                                    </label>
+                                    <label>
+                                        <input
+                                          type="checkbox"
+                                          checked={shortenChecked}
+                                          onChange={handleShortenCheckChange}
+                                          name="textOptions"
+                                        />
+                                        Kürzen
+                                    </label>
                                     <textarea
                                         name="messagePart2"
                                         value={inputPart2}

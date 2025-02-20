@@ -66,6 +66,7 @@ export const NAV_ITEMS = {
         { key: 'chdt', name: 'Mundart -> Schriftdeutsch', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'antwortemail', name: 'Antwortemail', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'antwortemail_split', name: 'Antwortemail (geteilt)', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'antwortemail_split_btn', name: 'Antwortemail mit Buttons (geteilt)', visible_mpa: false, visible_arzt: false, visible_pro: true },
     ],
 
     // Managed Care KI
@@ -299,6 +300,11 @@ export const COMPONENTS = {
         component: 'Chat_antwortemail_split',
         buttonText: 'Antwortemail (geteilt)'
     },
+    antwortemail_split_btn: {
+        name: 'Antwortemail mit Buttons (geteilt)',
+        component: 'Chat_antwortemail_split_btn',
+        buttonText: 'Antwortemail mit Buttons (geteilt)'
+    },
     verlaufsoptimierer: {
         name: 'Verlaufsoptimierer',
         component: 'Chat_verlaufsoptimierer',
@@ -492,6 +498,8 @@ export const getActiveComponent = (activeComponent) => {
             return Antwortemail;
         case 'Antwortemail_split':
             return Antwortemail_split;
+        case 'Antwortemail_split_btn':
+            return Antwortemail_split_btn;
         case 'Abrechnung':
             return Abrechnung;
         case 'mcsged':
