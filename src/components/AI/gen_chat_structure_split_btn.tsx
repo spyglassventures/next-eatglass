@@ -1,3 +1,14 @@
+
+// [] Orthografische Korretktur
+// [] Strukturelle Korretktur
+// [] Ausformulieren
+// [] Kuerzen
+
+// Instruction
+// hard code bttuons
+// hard code text that is triggered when btn is checkend
+// allow multiple button sto be check. concatinated text needs to make sense.
+
 'use client'
 
 import { useEffect, useRef, useState, useCallback } from 'react'
@@ -169,22 +180,23 @@ export default function ChatStructure({
     }
 
     // Submit function for quadratic inputs (before API response)
+    // Submit function for quadratic inputs (before API response)
+    // Submit function for quadratic inputs (before API response)
     const onSubmitQuadratic = (e) => {
-        e.preventDefault()
-        // Combine the two parts
-        const combined = `${inputPart1.trim()} ${inputPart2.trim()}`.trim()
-        if (!combined) return
-        // Update parent's input state
-        setInput(combined)
-        // Trigger handleSubmit twice:
-        handleSubmit(e)
-        setTimeout(() => {
-            handleSubmit(e)
-        }, 50)
-        // Clear the two text areas
-        setInputPart1('')
-        setInputPart2('')
-    }
+        e.preventDefault();
+        // const combined = `${inputPart1.trim()} ${inputPart2.trim()}`.trim();
+        const combined = `${inputPart1.trim()} ----- Es folgt nun der Text, der die Antworten zu den obigen Fragen enthält: ----- ${inputPart2.trim()}`.trim();
+        if (!combined) return;
+        // Optionally update the UI (parent's state) if needed:
+        setInput(combined);
+        // Call handleSubmit with the combined message directly.
+        handleSubmit(e, combined);
+        setInputPart1('');
+        setInputPart2('');
+    };
+
+
+
 
     // Helper to handle Enter key in quadratic textareas.
     const handleQuadraticKeyDown = (e) => {
