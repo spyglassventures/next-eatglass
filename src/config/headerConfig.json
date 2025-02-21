@@ -10,10 +10,26 @@
     },
     "menu": [
         {
-            "title": "",
+            "title": "Home",
+            "path": "/"
+        },
+        {
+            "title": "Team",
+            "path": "/about"
+        },
+        {
+            "title": "Angebot",
+            "path": "/services"
+        },
+        {
+            "title": "Kontakt",
             "path": "/contactForm"
+        },
+        {
+            "title": "Formulare",
+            "path": "/downloadsBestellungen"
         }
     ],
     "menu_comment": "menu requires one entry, but can be empty",
-    "contactNumber": "Support 079 832 92 98"
+    "contactNumber": "Hilfe? 079 832 92 98"
 }

@@ -122,7 +122,6 @@ export const NAV_ITEMS = {
 
     interneDropdown: [ // adjust to change name in Naviation
         { key: 'InternalDocument', name: 'Interne Dokumente', visible_mpa: false, visible_arzt: false, visible_pro: true },
-
         { key: 'DocNumbers', name: 'Dokumenten-Nummern', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'Vertrauensaerzte', name: 'Vertrauensärzte', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'Translate', name: 'Übersetzung (DeepL)', visible_mpa: true, visible_arzt: true, visible_pro: true },
@@ -131,7 +130,7 @@ export const NAV_ITEMS = {
         { key: 'LernvideosPage', name: 'Lernvideos', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'Welcome', name: 'Willkommen - Hier starten', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'QR', name: 'QR Codes', visible_mpa: false, visible_arzt: false, visible_pro: true },
-        { key: 'Logs', name: 'Letzte KI Anfragen', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'Logs', name: 'Letzte KI Anfragen', visible_mpa: false, visible_arzt: false, visible_pro: false },
 
         // { key: 'antwortemail', name: 'antwortemail', visible_mpa: false, visible_arzt: true, visible_pro: true }
 

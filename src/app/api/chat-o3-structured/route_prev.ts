@@ -30,8 +30,8 @@ export async function POST(req: Request) {
       );
     }
 
-    // Define the model dynamically and explicitly type it as string
-    const model: string = "o3-mini-2025-01-31";
+    // Define the model dynamically
+    const model = "o3-mini-2025-01-31";
     console.log(`Calling OpenAI API with model "${model}"...`);
 
     // Start the OpenAI structured response chat completion
@@ -44,9 +44,8 @@ export async function POST(req: Request) {
 
     console.log("Received structured response from OpenAI:", completion);
 
-    // Extract response content using a type assertion to inform TypeScript
-    const message = completion.choices?.[0]?.message as unknown as { content: string };
-    const responseData = message.content;
+    // Extract response content
+    const responseData = completion.choices?.[0]?.message?.content;
 
     if (!responseData) {
       console.error("OpenAI returned an empty response.");
@@ -72,7 +71,7 @@ export async function POST(req: Request) {
       await fetch(`${baseUrl}/api/log`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(logPayload)
+        body: JSON.stringify(logPayload),
       });
 
       console.log("Successfully logged request and response.");
@@ -84,7 +83,7 @@ export async function POST(req: Request) {
       JSON.stringify({ DocDialogOutput: responseData }),
       { headers: { "Content-Type": "application/json" } }
     );
-  } catch (error: any) {
+  } catch (error) {
     console.error("Server error in structured response API route:", error);
     return new NextResponse(
       JSON.stringify({ error: error.message || "Internal Server Error" }),
