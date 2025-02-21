@@ -11,7 +11,7 @@ export const followupBtn = ['kuerzer schreiben', 'als Memo für den Chef schreib
 // Cloud buttons (if applicable)
 export const inputCloudBtn = {};
 
-export const placeHolderInput = ['Text mit Diagnosen...'];
+export const placeHolderInput = ['Text mit unterschiedlichen Verlaufseinträgen (ohne Patientendaten)'];
 
 // Define response format
 export const Step = z.object({

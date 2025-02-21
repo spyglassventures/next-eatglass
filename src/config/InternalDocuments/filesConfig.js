@@ -2,23 +2,23 @@
 
 const documents = [
     {
-        name: 'CIRS Vorlage Praxis Muster',
-        filename: 'CIRS_Vorlage_Praxis_Kappelihof.pdf',
-        path: '/api/documents/list_documents?filename=CIRS_Vorlage_Praxis_Kappelihof.pdf',
+        name: 'CIRS Vorlage Praxis',
+        filename: 'CIRS_Vorlage_Praxis.pdf',
+        path: '/api/documents/list_documents?filename=CIRS_Vorlage_Praxis.pdf',
         previewable: true,
         contentType: 'application/pdf',
     },
     {
         name: 'Praxis Muster Vorlage Arztpraxis CIRS Reporting',
-        filename: 'Praxis_Kappelihof_Vorlage_Arztpraxis_CIRS_Reporting.docx',
-        path: '/api/documents/list_documents?filename=Praxis_Kappelihof_Vorlage_Arztpraxis_CIRS_Reporting.docx',
+        filename: 'Vorlage_Arztpraxis_CIRS_Reporting.docx',
+        path: '/api/documents/list_documents?filename=Vorlage_Arztpraxis_CIRS_Reporting.docx',
         previewable: false,
         contentType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     },
     {
-        name: 'Praxis Muster Vorlage Arztpraxis CIRS Reporting',
-        filename: 'Praxis_Kappelihof_Vorlage_Arztpraxis_CIRS_Reporting.pdf',
-        path: '/api/documents/list_documents?filename=Praxis_Kappelihof_Vorlage_Arztpraxis_CIRS_Reporting.pdf',
+        name: 'Muster Vorlage Arztpraxis CIRS Reporting',
+        filename: 'Vorlage_Arztpraxis_CIRS_Reporting.pdf',
+        path: '/api/documents/list_documents?filename=Vorlage_Arztpraxis_CIRS_Reporting.pdf',
         previewable: true,
         contentType: 'application/pdf',
     },
@@ -37,7 +37,7 @@ const documents = [
         contentType: 'application/pdf',
     },
     {
-        name: 'Bargeldquittung',
+        name: 'Bargeldquittung (Word)',
         filename: 'Quittung_Bargeld_Abholung_Template.docx',
         path: '/api/documents/list_documents?filename=Quittung_Bargeld_Abholung_Template.docx',
         previewable: false,
@@ -61,6 +61,23 @@ const documents = [
         name: 'Inkontinenz Bestellformular',
         filename: 'Inkontinenz_Bestellformular.pdf',
         path: '/api/documents/list_documents?filename=Inkontinenz_Bestellformular.pdf',
+        previewable: true,
+        contentType: 'application/pdf',
+    },
+
+
+    // Gesponsort
+    {
+        name: 'Drossa Bestellformular',
+        filename: 'DROSSAPHARM-Bestellfax-d-4c-1224.pdf',
+        path: '/api/documents/list_documents?filename=DROSSAPHARM-Bestellfax-d-4c-1224.pdf',
+        previewable: true,
+        contentType: 'application/pdf',
+    },
+    {
+        name: 'Lixim Drossa Bestellformular',
+        filename: 'Lixim Bestellfax_Landolt_06.23.pdf',
+        path: '/api/documents/list_documents?filename=Lixim Bestellfax_Landolt_06.23.pdf',
         previewable: true,
         contentType: 'application/pdf',
     },
