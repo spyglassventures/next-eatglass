@@ -35,7 +35,8 @@ export async function POST(req: Request) {
     console.log(`Calling OpenAI API with model "${model}"...`);
 
     // Start the OpenAI structured response chat completion
-    const completion = await openai.beta.chat.completions.parse({
+    // const completion = await openai.beta.chat.completions.parse({
+    const completion = await (openai.beta.chat.completions as any).parse({
       model,
       messages,
       response_format,
