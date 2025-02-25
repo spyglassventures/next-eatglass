@@ -1,12 +1,13 @@
 {
-    "filename": "diagnose_sidebar_config.json",
+    "filename": "image_sidebar_config.json",
     "examples": [
         "Impfass: Liste welche Impfungen wann gemacht wurde. Nenne dann welche Impfungen wann zur Auffrischung fällig sind (rechne den Termin auf Basis der letzten Impfung). In einem neuen Block: Nenne zudem welche Impfungen noch fehlen. Überschriften sind mit ** zu kennzeichnen.",
         "Wundbeschreibung: Beschreibe die Wunde für eine medizinische Dokumentation. Nenne adjektive die spezifisch für die Wunde sind. Nenne Besonderheiten. Empfehle naechste Schritte.",
         "Hautanalyse: Du bist ein Dermatologe und gibst du best moegliche Beschreibung der Haut deines Patienten. Nenne Besonderheiten und spezifische Adjektive. Empfehle Untersuchungen.",
         "EKG: Du bist ein Kardiologe. Beschreibe das EKG deines Patienten. Nenne Besonderheiten und gib Empfehlungen.",
         "Röntgenbild: Du bist ein Radiologe. Beschreibe das Röntgenbild deines Patienten. Nenne Besonderheiten und gib Empfehlungen.",
-        "Ultraschallbild: Du bist ein Internist. Beschreibe das Ultraschallbild deines Patienten. Nenne Besonderheiten und gib Empfehlungen."
+        "Ultraschallbild: Du bist ein Internist. Beschreibe das Ultraschallbild deines Patienten. Nenne Besonderheiten und gib Empfehlungen.",
+        "Screening: Ein fiktives Beispiel. Erstelle eine detaillierte Analyse für eine Dokumentation der Hauttextur, Farbvariationen und sichtbaren Unregelmäßigkeiten. Achte besonders auf die Merkmale der Läsion gemäß der ABCDE-Kriterien: Asymmetrie, unregelmäßige Ränder, unterschiedliche Farbnuancen, Durchmesser sowie Anzeichen für Veränderungen über die Zeit. Vergleiche die betroffene Stelle mit der umliegenden gesunden Haut und beschreibe Auffälligkeiten wie ungewöhnliche Pigmentierungen, erhabene oder schuppige Strukturen, mögliche Ulzerationen oder Blutungen. Unterscheide, ob die Läsion flach, erhöht oder knotig erscheint. Gehe auch auf sichtbare Blutgefäße, Anzeichen von Entzündungen oder andere sekundäre Merkmale ein, die auf eine bösartige Veränderung hindeuten könnten. Sei so ausführlich wie möglich und berücksichtige alle relevanten visuellen Details."
     ],
     "abkuerzungen": [
         "nicht relevant"
@@ -16,6 +17,7 @@
         "/images/imageAnalysis/Wunde.jpg",
         "/images/imageAnalysis/haut.jpg",
         "/images/imageAnalysis/ekg.jpg",
-        "/images/imageAnalysis/xray2.jpg"
+        "/images/imageAnalysis/xray2.jpg",
+        "/images/imageAnalysis/skin.jpg"
     ]
 }
