@@ -12,7 +12,7 @@ export const inputCloudBtn = {
     // ],
 }
 
-export const placeHolderInput = ['Ernährungskontext eingeben...'];
+export const placeHolderInput = ['Ernährungsproblem, Ätiologie (Ursache), Symptome, Indikatoren, Beweis (Assessment-Daten), PES‑Format, Interventionsbedarf, Zieldefinition eingeben...'];
 
 
 

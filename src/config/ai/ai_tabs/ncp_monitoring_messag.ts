@@ -13,7 +13,7 @@ export const inputCloudBtn = {
     // ],
 }
 
-export const placeHolderInput = ['Ernährungskontext eingeben...'];
+export const placeHolderInput = ['Monitoring Evaluation Follow-up Reassessment Ergebnismessung Zielerreichung Gewichtsverlauf Labordaten Vitalparameter Verhaltensänderungen Compliance Dokumentation Zeitintervall Outcome-Parameter eingeben...'];
 
 
 

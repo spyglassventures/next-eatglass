@@ -13,7 +13,7 @@ export const inputCloudBtn = {
     // ],
 }
 
-export const placeHolderInput = ['Ernährungskontext eingeben...'];
+export const placeHolderInput = ['Ernährungsintervention, Zieldefinition, Maßnahmen, Diätberatung, Ernährungsaufklärung, Mahlzeitenplanung, Nährstoffzufuhr, Verhaltensänderung, Therapieplan, Patientenpräferenzen, Compliance, Follow-up, Evaluation, Dokumentation eingeben...'];
 
 
 

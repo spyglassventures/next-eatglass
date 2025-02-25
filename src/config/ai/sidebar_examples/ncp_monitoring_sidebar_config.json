@@ -12,6 +12,7 @@
     "videoPath": "https://www.youtube.com/embed/mtQy6i-U_Ec",
     "hinweise": [
         "Hinweis 1: Bitte keine Patientennamen eingeben.",
-        "Hinweis 2: Die KI kann Fehler machen. Bitte überprüfen Sie die Antworten."
+        "Hinweis 2: Die KI kann Fehler machen. Bitte überprüfen Sie die Antworten.",
+        "Hinweis 3: Bitte möglichst in diesem Format eingeben: Monitoring Evaluation Follow-up Reassessment Ergebnismessung Zielerreichung Gewichtsverlauf Labordaten Vitalparameter Verhaltensänderungen Compliance Dokumentation Zeitintervall Outcome-Parameter"
     ]
 }

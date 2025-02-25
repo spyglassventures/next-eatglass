@@ -14,6 +14,7 @@
     "videoPath": "https://www.youtube.com/embed/mtQy6i-U_Ec",
     "hinweise": [
         "Hinweis 1: Bitte keine Patientennamen eingeben.",
-        "Hinweis 2: Die KI kann Fehler machen. Bitte überprüfen Sie die Antworten."
+        "Hinweis 2: Die KI kann Fehler machen. Bitte überprüfen Sie die Antworten.",
+        "Hinweis 3: Bitte möglichst in diesem Format eingeben: Geschlecht, Größe, Gewicht, BMI, Krankengeschichte, Ernährungsanamnese, Essgewohnheiten, Allergien, Medikamenteneinnahme, Labordaten, Anthropometrie, Vitalparameter, Symptome, Nahrungsaufnahme, Lebensstil, Aktivitätsniveau, Sozialanamnese, Familienanamnese"
     ]
 }

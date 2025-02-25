@@ -13,7 +13,7 @@ export const inputCloudBtn = {
     // ],
 }
 
-export const placeHolderInput = ['Ernährungskontext eingeben...'];
+export const placeHolderInput = ['Geschlecht, Größe, Gewicht, BMI, Krankengeschichte, Ernährungsanamnese, Essgewohnheiten, Allergien, Medikamenteneinnahme, Labordaten, Anthropometrie, Vitalparameter, Symptome, Nahrungsaufnahme, Lebensstil, Aktivitätsniveau, Sozialanamnese, Familienanamnese eingeben...'];
 
 
 
