@@ -58,6 +58,10 @@ export const NAV_ITEMS = {
         { key: 'ueberweisung', name: 'Überweisung Facharzt', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'verordnung', name: 'Verordnung', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'verhaltensempfehlung', name: 'Verhaltensempfehlung', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'ncp_assessment', name: 'NCP Assessment', visible_mpa: true, visible_arzt: true, visible_pro: true },
+        { key: 'ncp_diagnose', name: 'NCP Ernährungsdiagnose (PES)', visible_mpa: true, visible_arzt: true, visible_pro: true },
+        { key: 'ncp_intervention', name: 'NCP Interventionsplan', visible_mpa: true, visible_arzt: true, visible_pro: true },
+        { key: 'ncp_monitoring', name: 'NCP Monitoring- und Evaluation', visible_mpa: true, visible_arzt: true, visible_pro: true },
 
 
     ], // Medien KI 
@@ -213,6 +217,34 @@ export const COMPONENTS = {
         component: 'Chat_ernaehrung',
         buttonText: 'Ernährung'
     },
+
+    ncp_assessment: {
+        name: 'NCP Assessment',
+        component: 'Chat_ncp_assessment',
+        buttonText: 'NCP Assessment'
+    },
+
+    ncp_diagnose: {
+        name: 'NCP Diagnose (PES)',
+        component: 'Chat_ncp_diagnose',
+        buttonText: 'NCP Ernährungsdiagnose (PES)'
+    },
+
+    ncp_intervention: {
+        name: 'NCP Interventionsplan',
+        component: 'Chat_ncp_intervention',
+        buttonText: 'NCP Interventionsplan'
+    },
+
+    ncp_monitoring: {
+        name: 'NCP Monitoring- und Evaluation',
+        component: 'Chat_ncp_monitoring',
+        buttonText: 'NCP Monitoring- und Evaluation'
+    },
+
+
+
+
     medis: {
         name: 'Medikamente',
         component: 'Chat_medis',

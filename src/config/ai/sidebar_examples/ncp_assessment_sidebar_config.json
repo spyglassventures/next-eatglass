@@ -1,0 +1,19 @@
+{
+    "filename": "ncp_assessment_sidebar_config.json",
+    "examples": [
+        "45 J, m, 1,78 m, 85 kg, BMI 26,8, Hypertonie, Prädiab., Hyperchol., Reflux, Vater T2DM, unregelmäßige Mahlz., hoher Fleischkonsum, wenig Gemüse, keine Allerg., Med: Metformin, Statine, ACE-Hemmer, erhöhter BZ, erhöhter LDL, Taillenumfang 102 cm, RR 145/90, Sodbrennen, Müdigkeit nach Mahlz., hoher Kaffee- und Softdrinkkonsum, wenig Bewegung, sitzende Tätigkeit, Stress, selten soziale Mahlz., Mutter adipös, Großvater Herzinfarkt",
+        "38 J, w, 1,65 m, 72 kg, BMI 26,4, Hashimoto, Insulinresistenz, Migräne, Mutter T2DM, unregelmäßige Mahlz., hoher Süßigkeitenkonsum, wenig Ballaststoffe, keine Allerg., Med: L-Thyroxin, gelegentl. Ibuprofen, erhöhter BZ, erhöhter TSH, Taillenumfang 88 cm, RR 130/85, häufige Kopfschmerzen, schnelle Ermüdung, hoher Kaffeekonsum, wenig Sport, Bürotätigkeit, Stress, selten warme Mahlz., Vater adipös, Oma KHK",
+        "52 J, m, 1,80 m, 95 kg, BMI 29,3, T2DM, Hypertonie, Gicht, Vater KHK, unregelmäßige Mahlz., hoher Fett- und Alkoholkonsum, wenig Fisch, keine Allerg., Med: Metformin, Betablocker, Allopurinol, erhöhter BZ, erhöhter Harnsäurewert, Taillenumfang 108 cm, RR 150/95, Gelenkschmerzen, Müdigkeit, hoher Bierkonsum, wenig Bewegung, lange Arbeitszeiten, Stress, unregelmäßige Schlafzeiten, Mutter Schlaganfall, Opa T2DM",
+        "29 J, w, 1,68 m, 60 kg, BMI 21,3, Laktoseintoleranz, Zöliakie, Vater T1DM, regelmäßige Mahlz., hoher Gemüse- und Obstkonsum, keine Med., normale Laborwerte, Taillenumfang 72 cm, RR 120/75, gelegentlich Blähungen, Müdigkeit nach Glutenaufnahme, moderater Kaffeekonsum, aktive Lebensweise, Joggen 3x/Woche, ausgeglichener Alltag, soziale Mahlzeiten, Mutter gesund, Großmutter Osteoporose",
+        "65 J, m, 1,75 m, 82 kg, BMI 26,8, Hypertonie, KHK, T2DM, Vater Schlaganfall, unregelmäßige Mahlz., hoher Fleisch- und Fast-Food-Konsum, wenig Fisch, Med: Insulin, Statine, ACE-Hemmer, erhöhter BZ, erhöhter LDL, Taillenumfang 98 cm, RR 160/100, Kurzatmigkeit, gelegentliche Brustschmerzen, hoher Nikotin- und Alkoholkonsum, keine Bewegung, beruflicher Ruhestand, soziale Isolation, Mutter Alzheimer, Opa KHK"
+    ],
+    "abkuerzungen": [
+        "L: Links",
+        "R: Rechts"
+    ],
+    "videoPath": "https://www.youtube.com/embed/mtQy6i-U_Ec",
+    "hinweise": [
+        "Hinweis 1: Bitte keine Patientennamen eingeben.",
+        "Hinweis 2: Die KI kann Fehler machen. Bitte überprüfen Sie die Antworten."
+    ]
+}

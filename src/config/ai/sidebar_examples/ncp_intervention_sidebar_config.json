@@ -1,0 +1,17 @@
+{
+    "filename": "ncp_intervention_sidebar_config.json",
+    "examples": [
+        "Ballaststoffzufuhr erhöhen, Zieldefinition: 30 g Ballaststoffe/Tag, Maßnahmen: Integration ballaststoffreicher Lebensmittel, Diätberatung: Vollkornprodukte, Hülsenfrüchte, Ernährungsaufklärung: Ballaststoffquellen, Mahlzeitenplanung: 3 Hauptmahlzeiten + 2 Snacks, Nährstoffzufuhr: Optimierung KH-/Fettverhältnis, Verhaltensänderung: Ersatz raffinierter KH, Therapieplan: wöchentliche Anpassung, Patientenpräferenzen: individuelle Lebensmittelwahl, Compliance: Ernährungsprotokoll, Follow-up: 4 Wochen, Evaluation: BZ- und LDL-Werte, Dokumentation: Fortschrittsbericht",
+        "Reduktion gesättigter Fettsäuren, Zieldefinition: LDL um 10 % senken, Maßnahmen: Fettarme Alternativen, Diätberatung: Omega-3-reiche Lebensmittel, Ernährungsaufklärung: gesunde Fettquellen, Mahlzeitenplanung: fettarme Kochmethoden, Nährstoffzufuhr: Protein- und Faseroptimierung, Verhaltensänderung: fettreduzierte Ernährung, Therapieplan: schrittweise Umstellung, Patientenpräferenzen: Alternativen für Lieblingsgerichte, Compliance: Ernährungstagebuch, Follow-up: 6 Wochen, Evaluation: Lipidprofil, Dokumentation: Fortschrittskontrolle",
+        "Energiezufuhr steigern, Zieldefinition: Gewichtszunahme 2 kg in 3 Monaten, Maßnahmen: hochkalorische Lebensmittel, Diätberatung: proteinreiche Snacks, Ernährungsaufklärung: Kaloriendichte erhöhen, Mahlzeitenplanung: 6 kleine Mahlzeiten/Tag, Nährstoffzufuhr: mehr gesunde Fette, Verhaltensänderung: Portionsgrößen anpassen, Therapieplan: Kalorienzufuhr täglich steigern, Patientenpräferenzen: Wunschlebensmittel einbinden, Compliance: Essensprotokoll, Follow-up: 8 Wochen, Evaluation: Gewichtskontrolle, Dokumentation: Verlaufsmessung"
+    ],
+    "abkuerzungen": [
+        "L: Links",
+        "R: Rechts"
+    ],
+    "videoPath": "https://www.youtube.com/embed/mtQy6i-U_Ec",
+    "hinweise": [
+        "Hinweis 1: Bitte keine Patientennamen eingeben.",
+        "Hinweis 2: Die KI kann Fehler machen. Bitte überprüfen Sie die Antworten."
+    ]
+}

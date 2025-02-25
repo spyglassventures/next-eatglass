@@ -1,0 +1,17 @@
+{
+    "filename": "ncp_monitoring_sidebar_config.json",
+    "examples": [
+        "Ernährungsprotokoll, Evaluation: Ballaststoffaufnahme, Follow-up: 4 Wochen, Reassessment: Ernährungsstatus, Ergebnismessung: LDL-Wert, Zielerreichung: 30 g Ballaststoffe/Tag, Gewichtsverlauf: ±1 kg, Labordaten: LDL, HbA1c, Vitalparameter: RR 135/85, Verhaltensänderungen: mehr Vollkornprodukte, Compliance: Ernährungstagebuch geführt, Dokumentation: Fortschrittsbericht, Zeitintervall: monatlich, Outcome-Parameter: verbesserte Blutzuckerwerte",
+        "Fettzufuhr, Evaluation: LDL-Senkung, Follow-up: 6 Wochen, Reassessment: Lipidprofil, Ergebnismessung: LDL-Veränderung, Zielerreichung: LDL um 10 % senken, Gewichtsverlauf: -2 kg, Labordaten: LDL, HDL, Triglyceride, Vitalparameter: RR 130/80, Verhaltensänderungen: fettarme Ernährung, Compliance: Reduktion gesättigter Fette, Dokumentation: Ernährungsbericht, Zeitintervall: 8 Wochen, Outcome-Parameter: optimiertes Lipidprofil",
+        "Energieaufnahme, Evaluation: Gewichtszunahme, Follow-up: 8 Wochen, Reassessment: Ernährungsstatus, Ergebnismessung: BMI-Anpassung, Zielerreichung: +2 kg in 3 Monaten, Gewichtsverlauf: +0,5 kg/Monat, Labordaten: BZ, Eisen, Vitalparameter: RR 120/75, Verhaltensänderungen: größere Portionen, Compliance: hochkalorische Mahlzeiten eingehalten, Dokumentation: Fortschrittskurve, Zeitintervall: 6 Wochen, Outcome-Parameter: verbesserte Energiezufuhr"
+    ],
+    "abkuerzungen": [
+        "L: Links",
+        "R: Rechts"
+    ],
+    "videoPath": "https://www.youtube.com/embed/mtQy6i-U_Ec",
+    "hinweise": [
+        "Hinweis 1: Bitte keine Patientennamen eingeben.",
+        "Hinweis 2: Die KI kann Fehler machen. Bitte überprüfen Sie die Antworten."
+    ]
+}

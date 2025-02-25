@@ -29,6 +29,13 @@ import Chat_triage from '@/components/AI/chat_triage';
 import Chat_ekg from '@/components/AI/chat_ekg';
 import Chat_24_BD from '@/components/AI/chat_24_BD';
 
+// NCP
+import Chat_ncp_assessment from '@/components/AI/chat_ncp_assessment';
+import Chat_ncp_diagnose from '@/components/AI/chat_ncp_diagnose';
+import Chat_ncp_intervention from '@/components/AI/chat_ncp_intervention';
+import Chat_ncp_monitoring from '@/components/AI/chat_ncp_monitoring';
+
+
 // Freitext
 // import Chat_antwortemail from '@/components/AI/chat_antwortemail';
 // import Chat_verlaufsoptimierer from '@/components/AI/chat_verlaufsoptimierer';
@@ -92,6 +99,12 @@ const AIComponents = {
     Chat_KI_FORMS_Zwischenbericht_uvg_unfall,
     Chat_KI_FORMS_ktg_2_phasen,
     // END KI FORMS
+
+    // NPC
+    Chat_ncp_assessment,
+    Chat_ncp_diagnose,
+    Chat_ncp_intervention,
+    Chat_ncp_monitoring,
 
     // STRUC
     Chat_STRUC_diagnosen_extract,

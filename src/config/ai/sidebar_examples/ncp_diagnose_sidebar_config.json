@@ -1,0 +1,17 @@
+{
+    "filename": "ncp_diagnose_sidebar_config.json",
+    "examples": [
+        "Unzureichende Ballaststoffaufnahme, ballaststoffarme Ernährung, unregelmäßige Mahlz., Verstopfung, erhöhter BZ, erhöhter LDL, BMI 26,8, Taillenumfang 102 cm, Hypertonie, Prädiab., hoher Fleischkonsum, wenig Gemüse, Ernährungsberatung, Ballaststoffzufuhr steigern, BZ-Verbesserung in 3 Monaten",
+        "Übermäßige gesättigte Fettsäureaufnahme, hoher Fettkonsum, Fast Food, fettreiche tierische Produkte, erhöhter LDL, Taillenumfang 108 cm, Hypertonie, BMI 29,3, T2DM, Alkoholkonsum, Ernährungsumstellung, Reduktion gesättigter Fette, LDL-Senkung 10 % in 6 Monaten",
+        "Unzureichende Energieaufnahme, geringe Kalorienzufuhr, strenge Diät, Müdigkeit, Gewichtsverlust, BMI 18,5, niedriger BZ, Muskelabbau, Eisenmangel, vegetarische Ernährung, Ernährungsberatung, Energiezufuhr erhöhen, Gewichtszunahme 2 kg in 3 Monaten"
+    ],
+    "abkuerzungen": [
+        "L: Links",
+        "R: Rechts"
+    ],
+    "videoPath": "https://www.youtube.com/embed/mtQy6i-U_Ec",
+    "hinweise": [
+        "Hinweis 1: Bitte keine Patientennamen eingeben.",
+        "Hinweis 2: Die KI kann Fehler machen. Bitte überprüfen Sie die Antworten."
+    ]
+}
