@@ -10,7 +10,7 @@
 import { useState, useEffect } from 'react';
 import { FilterProvider, useFilter } from '@/components/AI/FilterContext'; // for mpa, arzt, pro mode filter for models and theme
 import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react';
-import { ChevronDownIcon } from '@heroicons/react/24/solid';
+import { MicrophoneIcon, ChevronDownIcon } from '@heroicons/react/24/solid';
 import { NAV_ITEMS, COMPONENTS, ICONS, getActiveComponent } from '@/config/ai/components';
 import { TRANSITION_PROPS } from '@/config/ai/transition';
 // import { tickerAd } from '@/config/ai/components';
@@ -78,7 +78,13 @@ export default function ClientPage() {
           <div className="relative flex justify-center items-center w-max mx-auto mt-0 mb-2 bg-gray-200 rounded-full p-0.5 shadow-sm">
             {/* Animated Background */}
             <div
-              className={`absolute inset-y-0 left-0 w-1/3 bg-primary rounded-full transition-transform duration-300 ${activeFilter === 'MPA' ? 'translate-x-0' : activeFilter === 'Arzt' ? 'translate-x-full' : 'translate-x-[200%]'
+              className={`absolute inset-y-0 left-0 w-1/4 bg-primary rounded-full transition-transform duration-300 ${activeFilter === 'MPA'
+                ? 'translate-x-0'
+                : activeFilter === 'Arzt'
+                  ? 'translate-x-full'
+                  : activeFilter === 'Pro'
+                    ? 'translate-x-[200%]'
+                    : 'translate-x-[300%]'
                 }`}
             ></div>
 
@@ -104,10 +110,15 @@ export default function ClientPage() {
             >
               Pro
             </button>
+            <button
+              onClick={() => window.open('https://next-convo.vercel.app/', '_blank', 'noopener,noreferrer')}
+              className="relative z-10 flex items-center gap-1 px-3 py-1 text-xs font-medium transition-colors duration-300 text-gray-800 hover:text-primary-600"
+            >
+              <MicrophoneIcon className="w-4 h-4" />
+            </button>
           </div>
-
-
         </div>
+
 
 
 
