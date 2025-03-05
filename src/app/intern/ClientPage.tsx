@@ -81,9 +81,9 @@ export default function ClientPage() {
               className={`absolute inset-y-0 left-0 w-1/4 bg-primary rounded-full transition-transform duration-300 ${activeFilter === 'MPA'
                 ? 'translate-x-0'
                 : activeFilter === 'Arzt'
-                  ? 'translate-x-full'
+                  ? 'translate-x-[110%]'
                   : activeFilter === 'Pro'
-                    ? 'translate-x-[200%]'
+                    ? 'translate-x-[210%]'
                     : 'translate-x-[300%]'
                 }`}
             ></div>
