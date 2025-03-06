@@ -16,7 +16,7 @@ const SuggestionsSidebar = ({
     useEffect(() => {
         const fetchWordFiles = async () => {
             try {
-                const response = await fetch('/forms/wordFiles.json');
+                const response = await fetch('/forms/Blank/wordFiles.json');
                 const files = await response.json();
                 setWordFiles(files);
             } catch (error) {
@@ -99,7 +99,7 @@ const SuggestionsSidebar = ({
                     return (
                         <a
                             key={index}
-                            href={`/forms/${file}`}
+                            href={`/forms/Blank/${file}`}
                             target='_blank'
                             rel='noopener noreferrer'
                             className='flex items-center mr-4 mb-1 text-blue-500'
