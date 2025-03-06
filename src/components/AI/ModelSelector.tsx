@@ -12,6 +12,7 @@ interface ModelSelectorProps {
 
 const models = [
     // { value: '/api/chat-35', label: 'GPT-3.5' },
+    { value: '/api/az-chat-4o-mini', label: '🇨🇭 GPT-4-Mini' },
     { value: '/api/chat-4o-mini', label: 'GPT-4-Mini' },
     { value: '/api/chat-4o', label: 'GPT-4o' },
     { value: '/api/chat-o1-preview', label: 'GPT-o1-preview (1-3 Min. warten)' },
@@ -22,7 +23,7 @@ const models = [
     { value: '/api/chat-grok-2', label: 'Grok 2' },
     { value: '/api/chat-grok-2', label: 'Grok 3 - coming soon' },
     { value: '/api/chat-45', label: 'GPT-4.5' },
-    { value: '/api/az-chat-4o-mini', label: '🇨🇭 GPT-4-Mini' },
+
 
     // { value: '/api/whisper', label: 'Whisper' },
     // { value: '/api/realtime', label: 'Realtime' }, // could be with Twilio

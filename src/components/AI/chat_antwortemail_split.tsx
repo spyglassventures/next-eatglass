@@ -37,7 +37,7 @@ export default function ChatAntwortmail({ showPraeparatSearch = false }) {
     }))
   );
   const [input, setInput] = useState('');
-  const [modelPath, setModelPath] = useState('/api/chat-4o-mini'); // Default model
+  const [modelPath, setModelPath] = useState('/api/az-schweiz-chat-4o-mini'); // Default model path for Swiss hosted model
 
 
 

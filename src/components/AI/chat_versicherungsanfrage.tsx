@@ -27,7 +27,7 @@ interface Message {
 
 export default function ChatVersicherungsanfrage({ showPraeparatSearch = false }: { showPraeparatSearch?: boolean }) {
   const { activeFilter } = useFilter(); // If you have this context
-  const [modelPath, setModelPath] = useState('/api/chat-4o-mini'); // Default model path
+  const [modelPath, setModelPath] = useState('/api/az-schweiz-chat-4o-mini'); // Default model path for Swiss hosted model
   const [messages, setMessages] = useState<Message[]>(() =>
     rawInitialMessages.map((message) => ({
       ...message,
