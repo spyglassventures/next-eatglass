@@ -22,6 +22,8 @@ const models = [
     { value: '/api/chat-grok-2', label: 'Grok 2' },
     { value: '/api/chat-grok-2', label: 'Grok 3 - coming soon' },
     { value: '/api/chat-45', label: 'GPT-4.5' },
+    { value: '/api/az-chat-4o-mini', label: '🇨🇭 GPT-4-Mini' },
+
     // { value: '/api/whisper', label: 'Whisper' },
     // { value: '/api/realtime', label: 'Realtime' }, // could be with Twilio
 ];
