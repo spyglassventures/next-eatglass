@@ -22,6 +22,7 @@ import HIN from '@/components/IntHIN'; //
 import QM from '@/components/IntQM'; //
 import Abrechnung from '@/components/IntAbrechnung'; //
 import QR from '@/components/IntQR'; //
+import ChatWithPdf from '@/components/ChatWithPdf'; //
 import Logs from '@/components/IntLogs'; //
 
 // import CHDT from '@/components/MedienCHDT'; // nein da kein AI chat, nicht hier drin
@@ -135,6 +136,7 @@ export const NAV_ITEMS = {
         { key: 'Welcome', name: 'Willkommen - Hier starten', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'QR', name: 'QR Codes', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'Logs', name: 'Letzte KI Anfragen', visible_mpa: false, visible_arzt: false, visible_pro: false },
+        { key: 'ChatWithPdf', name: 'ChatWithPdf', visible_mpa: false, visible_arzt: false, visible_pro: true },
 
         // { key: 'antwortemail', name: 'antwortemail', visible_mpa: false, visible_arzt: true, visible_pro: true }
 
@@ -453,6 +455,7 @@ export const ICONS = {
     HIN: AcademicCapIcon,
     Logs: AcademicCapIcon,
     QM: HeartIcon,
+    ChatWithPdf: DocumentTextIcon,
     Abrechnung: CheckBadgeIcon,
     QR: CheckBadgeIcon,
     // CHDT: CheckBadgeIcon,
@@ -477,8 +480,9 @@ export const ICONS = {
 
 // };
 
+// F O R  I N T E R N A L   C O M P O N E N T S
 
-// also adjust Components in // /Users/danielmueller/dev/next-kappelihof/src/app/intern/ClientPage.tsx approx line 168
+// also adjust Components in /src/app/intern/ClientPage.tsx approx line 168
 export const getActiveComponent = (activeComponent) => {
     switch (activeComponent) {
         case 'InternalDocument':
@@ -511,6 +515,8 @@ export const getActiveComponent = (activeComponent) => {
             return QM;
         case 'QR':
             return QR;
+        case 'ChatWithPdf':
+            return ChatWithPdf;
         case 'Diktat':
             return Diktat;
         case 'Cal':
