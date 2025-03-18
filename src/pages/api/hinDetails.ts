@@ -1,23 +1,28 @@
-// pages/api/hinDetails.ts
-
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    const { integrationId } = req.query; // Extract the integrationId from the query
+    const { integrationId } = req.query;
 
-    // Construct the URL using the provided integrationId
+    console.log(`[hinDetails] Received request with integrationId: ${integrationId}`);
+
+    if (!integrationId) {
+        console.error('[hinDetails] Missing integrationId in query parameters');
+        return res.status(400).json({ error: 'Missing integrationId' });
+    }
+
     const url = `https://oauth2.sds.hin.ch/api/directory/v1/entries/${integrationId}/`;
 
     try {
-        // Retrieve the token from the environment variables
-        const token = process.env.HIN_ACCESS_TOKEN;
+        //const token = process.env.HIN_ACCESS_TOKEN;
+        const token = process.env['HIN_ACCESS_TOKEN'];
 
-        // If the token isn't available, return an error
         if (!token) {
+            console.error('[hinDetails] Missing HIN_ACCESS_TOKEN in environment variables');
             return res.status(500).json({ error: 'Access token is not configured in the environment variables.' });
         }
 
-        // Fetch the detailed data from the external API using the token
+        console.log(`[hinDetails] Fetching from URL: ${url}`);
+
         const response = await fetch(url, {
             method: 'GET',
             headers: {
@@ -25,14 +30,31 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             },
         });
 
+        console.log(`[hinDetails] Response status: ${response.status}`);
+
         if (!response.ok) {
-            return res.status(response.status).json({ error: 'Failed to fetch detailed data' });
+            const errorText = await response.text();
+            console.error(`[hinDetails] Fetch failed: ${response.status} ${response.statusText} - ${errorText}`);
+
+            return res.status(response.status).json({
+                error: 'Failed to fetch detailed data',
+                status: response.status,
+                statusText: response.statusText,
+                details: errorText
+            });
         }
 
         const data = await response.json();
-        res.status(200).json(data); // Send the detailed data back to the frontend
+        console.log('[hinDetails] Successfully fetched data:', data);
+
+        return res.status(200).json(data);
     } catch (error: any) {
-        console.error('Failed to fetch data from external API:', error);
-        res.status(500).json({ error: 'Something went wrong', details: error.message });
+        console.error('[hinDetails] Unexpected error:', error);
+
+        return res.status(500).json({
+            error: 'Something went wrong',
+            details: error.message,
+            stack: error.stack
+        });
     }
 }

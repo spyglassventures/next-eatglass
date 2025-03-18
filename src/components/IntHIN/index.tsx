@@ -51,7 +51,11 @@ const HIN = () => {
 
         try {
             const response = await fetch(`/api/hinSearch?search=${zipCode}`);
-            if (!response.ok) throw new Error(`Error: ${response.status} ${response.statusText}`);
+            if (!response.ok) {
+                const errorResponse = await response.json();
+                throw new Error(errorResponse.userMessage || `Error: ${response.status} ${response.statusText}`);
+            }
+
 
             const data = await response.json();
             setDoctors(data.results);
@@ -80,7 +84,8 @@ const HIN = () => {
             const response = await fetch(`/api/hinSearch?search=${searchQuery}`); // Dynamic search query
 
             if (!response.ok) {
-                throw new Error(`Error: ${response.status} ${response.statusText}`);
+                const errorResponse = await response.json();
+                throw new Error(errorResponse.userMessage || `Error: ${response.status} ${response.statusText}`);
             }
 
             const data = await response.json();
