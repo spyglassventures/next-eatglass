@@ -31,7 +31,8 @@ export default function MedienDiktat() {
     const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const [showRecorder, setShowRecorder] = useState(false);
+    const [showRecorder, setShowRecorder] = useState(true); // set default tab
+
     const [previousTranscriptions, setPreviousTranscriptions] = useState<Transcription[]>([]);
 
     // Real-time transcription states
@@ -278,6 +279,20 @@ export default function MedienDiktat() {
                     {/* Transcription Modes Selector */}
                     <div className="flex justify-center mb-6">
                         <div className="bg-gray-100 p-1 rounded-lg inline-flex">
+
+                            <button
+                                onClick={() => {
+                                    if (isRealtimeActive) stopRealtimeTranscription();
+                                    setShowRecorder(true);
+                                }}
+                                className={`px-4 py-2 rounded-md transition-colors ${showRecorder ? "text-white" : "text-gray-700 hover:bg-gray-200"
+                                    }`}
+                                style={{
+                                    backgroundColor: showRecorder ? primaryColor : "transparent",
+                                }}
+                            >
+                                Aufnahme
+                            </button>
                             <button
                                 onClick={() => {
                                     if (isRealtimeActive) stopRealtimeTranscription();
@@ -292,19 +307,6 @@ export default function MedienDiktat() {
                                 }}
                             >
                                 Datei hochladen
-                            </button>
-                            <button
-                                onClick={() => {
-                                    if (isRealtimeActive) stopRealtimeTranscription();
-                                    setShowRecorder(true);
-                                }}
-                                className={`px-4 py-2 rounded-md transition-colors ${showRecorder ? "text-white" : "text-gray-700 hover:bg-gray-200"
-                                    }`}
-                                style={{
-                                    backgroundColor: showRecorder ? primaryColor : "transparent",
-                                }}
-                            >
-                                Aufnahme
                             </button>
                             <button
                                 onClick={toggleRealtimeMode}
