@@ -7,12 +7,14 @@
 // state is passed from button change in mpa, arzt, pro to local storage, then read by FilterContext.tsx, then imported by chat_ component.
 
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { FilterProvider, useFilter } from '@/components/AI/FilterContext'; // for mpa, arzt, pro mode filter for models and theme
 import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react';
-import { MicrophoneIcon, ChevronDownIcon } from '@heroicons/react/24/solid';
+import { MicrophoneIcon, ChevronDownIcon, MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/solid';
 import { NAV_ITEMS, COMPONENTS, ICONS, getActiveComponent } from '@/config/ai/components';
 import { TRANSITION_PROPS } from '@/config/ai/transition';
+import { motion } from "framer-motion";
+
 // import { tickerAd } from '@/config/ai/components';
 
 import './styles.css'; // Styles for sponsored news
@@ -29,17 +31,83 @@ declare global {
 }
 
 export default function ClientPage() {
-  const [activeComponent, setActiveComponent] = useState('diagnose');
 
-  const { activeFilter, setActiveFilter } = useFilter(); // Consumes the filter context
+  // Default for different personas
+  const [activeComponent, setActiveComponent] = useState<string | null>(null); // noch nichts gesetzt
+
+
+
+  const { activeFilter, setActiveFilter } = useFilter();
+
+  useEffect(() => {
+    const storedFilter = localStorage.getItem('user_filter');
+    if (storedFilter === 'MPA') setActiveComponent('freitext');
+    else if (storedFilter === 'Arzt') setActiveComponent('diagnose');
+    else if (storedFilter === 'Pro') setActiveComponent('freitext');
+    else setActiveComponent('freitext'); // fallback
+  }, []);
+
   const ActiveComponent = getActiveComponent(activeComponent);
   const [filterState, setFilterState] = useState(activeFilter); // see /src/components/AI/ModelSelector.tsx and src/components/AI/FilterContext.tsx
+  const [showModal, setShowModal] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const inputRef = useRef<HTMLInputElement>(null); // empty search in modal magic search
+  const resultRefs = useRef<(HTMLButtonElement | null)[]>([]); // für Tastatur-Navigation
+  const [highlightedIndex, setHighlightedIndex] = useState<number | null>(null);
 
+  useEffect(() => {
+    setFilterState(activeFilter);
+  }, [activeFilter]);
 
   useEffect(() => {
     console.log('Active Filter in ChatFreitext:', activeFilter);
     setFilterState(activeFilter); // Update local state
   }, [activeFilter]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setShowModal(true);
+      }
+    };
+
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  // clear from magic menu
+  useEffect(() => {
+    if (showModal) {
+      setSearchQuery(''); // 🔄 Leere das Feld beim Öffnen
+      setTimeout(() => {
+        inputRef.current?.focus(); // 🎯 Fokus setzen mit kleinem Delay (für sicheres Mounting)
+      }, 40);
+    }
+  }, [showModal]);
+
+  useEffect(() => {
+    if (showModal) {
+      setSearchQuery('');
+      setHighlightedIndex(null);
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 50);
+    }
+  }, [showModal]);
+
+
+  // for magic menu
+  const allComponents = Object.keys(COMPONENTS).map(key => ({ key, name: COMPONENTS[key].name }));
+  const filteredComponents = allComponents.filter(c => c.name.toLowerCase().includes(searchQuery.toLowerCase()));
+
+
+
+
+
+
+
 
   const filteredItems = NAV_ITEMS.mainComponents.filter((item) => {
     if (activeFilter === 'MPA') return item.visible_mpa;
@@ -78,46 +146,179 @@ export default function ClientPage() {
           <div className="relative flex justify-center items-center w-max mx-auto mt-0 mb-2 bg-gray-200 rounded-full p-0.5 shadow-sm">
             {/* Animated Background */}
             <div
-              className={`absolute inset-y-0 left-0 w-1/4 bg-primary rounded-full transition-transform duration-300 ${activeFilter === 'MPA'
-                ? 'translate-x-0'
+              className={`absolute inset-y-0 left-0 w-1/5 bg-primary rounded-full transition-transform duration-300 ${activeFilter === 'MPA'
+                ? 'translate-x-[10%]'
                 : activeFilter === 'Arzt'
-                  ? 'translate-x-[110%]'
+                  ? 'translate-x-[120%]'
                   : activeFilter === 'Pro'
-                    ? 'translate-x-[210%]'
-                    : 'translate-x-[300%]'
+                    ? 'translate-x-[220%]'
+                    : activeComponent === 'Diktat'
+                      ? 'translate-x-[100%]'
+                      : 'translate-x-[100%]' // fallback (z. B. Suchbutton)
                 }`}
-            ></div>
+            />
+
+
+
 
             {/* Buttons */}
             <button
-              onClick={() => setActiveFilter('MPA')}
+              onClick={() => {
+                setActiveFilter('MPA');
+                setActiveComponent('freitext'); // ⬅️ gewünschte Default MPA-Komponente
+              }}
               className={`relative z-10 px-3 py-1 text-xs font-medium transition-colors duration-300 ${activeFilter === 'MPA' ? 'text-white' : 'text-gray-800 hover:text-primary-600'
                 }`}
             >
               MPA
             </button>
             <button
-              onClick={() => setActiveFilter('Arzt')}
+              onClick={() => {
+                setActiveFilter('Arzt');
+                setActiveComponent('diagnose'); // ⬅️ gewünschte Default MPA-Komponente
+              }}
               className={`relative z-10 px-3 py-1 text-xs font-medium transition-colors duration-300 ${activeFilter === 'Arzt' ? 'text-white' : 'text-gray-800 hover:text-primary-600'
                 }`}
             >
               Arzt
             </button>
             <button
-              onClick={() => setActiveFilter('Pro')}
+              onClick={() => {
+                setActiveFilter('Pro');
+                setActiveComponent('freitext'); // ⬅️ gewünschte Default MPA-Komponente
+              }}
               className={`relative z-10 px-3 py-1 text-xs font-medium transition-colors duration-300 ${activeFilter === 'Pro' ? 'text-white' : 'text-gray-800 hover:text-primary-600'
                 }`}
             >
               Pro
             </button>
             <button
-              onClick={() => window.open('https://next-convo.vercel.app/', '_blank', 'noopener,noreferrer')}
-              className="relative z-10 flex items-center gap-1 px-3 py-1 text-xs font-medium transition-colors duration-300 text-gray-800 hover:text-primary-600"
+              onClick={() => setActiveComponent('Diktat')}
+              className={`relative z-10 flex items-center gap-1 px-3 py-1 text-xs font-medium transition-colors duration-300 ${activeComponent === 'Diktat' ? 'text-white rounded-full px-3 py-1 shadow-md animate-blink-bg' : 'text-gray-800 hover:text-primary-600'
+                }`}
             >
               <MicrophoneIcon className="w-4 h-4" />
             </button>
+
+
+
+            <button onClick={() => setShowModal(true)} className="relative z-10 flex items-center gap-1 px-3 py-1 text-xs font-medium transition-colors duration-300 text-gray-800 hover:text-primary-600">
+              <MagnifyingGlassIcon className="w-4 h-4" />
+            </button>
           </div>
         </div>
+
+
+
+
+        {showModal && (
+          <div
+            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black bg-opacity-50"
+            onClick={() => setShowModal(false)} // Hintergrund klick → schließt Modal
+          >
+            <motion.div
+              onClick={(e) => e.stopPropagation()} // verhindert Schließen beim Klick ins Modal
+              initial={{ height: "2px", opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
+              className="bg-white rounded-lg shadow-xl font-light w-[30rem] max-w-full overflow-hidden"
+            >
+              <div className="p-6">
+                <div className="flex justify-between items-center">
+                  <h2 className="text-lg font-light">Komponentensuche</h2>
+                  <button onClick={() => setShowModal(false)}>
+                    <XMarkIcon className="w-5 h-5 text-gray-600" />
+                  </button>
+                </div>
+
+                {/* Erklärung */}
+                <p className="text-sm text-gray-500 mt-2">
+                  Gib einen Begriff ein, um nach einer Komponente zu suchen. Klicke dann auf das gewünschte Ergebnis, um es zu öffnen.
+                </p>
+                <p className="text-sm text-gray-400 italic mt-1">
+                  Du kannst dieses Fenster auch mit <span className="font-medium">Strg + K</span> (Windows) oder <span className="font-medium">⌘ + K</span> (Mac) öffnen. Mit der Pfeiltaste nach unten kannst du durch die Ergebnisse navigieren und mit Enter auswählen.
+                </p>
+
+
+                {/* Suchfeld */}
+                <input
+                  ref={inputRef}
+                  type="text"
+                  className="w-full mt-4 p-2 border rounded font-light"
+                  placeholder="Komponente suchen..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'ArrowDown') {
+                      e.preventDefault();
+                      if (filteredComponents.length > 0) {
+                        setHighlightedIndex(0);
+                        resultRefs.current[0]?.focus();
+                      }
+                    }
+                  }}
+                />
+
+                {/* Scrollbarer Bereich mit Animation */}
+                <motion.div
+                  initial={{ opacity: 0, maxHeight: 0 }}
+                  animate={{ opacity: 1, maxHeight: 200 }}
+                  transition={{ duration: 0.3, delay: 0.4 }}
+                  className="mt-3 overflow-auto border rounded"
+                >
+                  {filteredComponents.map(({ key, name }, index) => (
+                    <button
+                      key={key}
+                      ref={(el) => {
+                        resultRefs.current[index] = el;
+                      }}
+                      tabIndex={0}
+                      onClick={() => {
+                        setActiveComponent(key);
+                        setShowModal(false);
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === 'ArrowDown') {
+                          e.preventDefault();
+                          const next = index + 1;
+                          if (next < filteredComponents.length) {
+                            resultRefs.current[next]?.focus();
+                            setHighlightedIndex(next);
+                          }
+                        } else if (e.key === 'ArrowUp') {
+                          e.preventDefault();
+                          const prev = index - 1;
+                          if (prev >= 0) {
+                            resultRefs.current[prev]?.focus();
+                            setHighlightedIndex(prev);
+                          } else {
+                            inputRef.current?.focus();
+                            setHighlightedIndex(null);
+                          }
+                        } else if (e.key === 'Enter') {
+                          e.preventDefault();
+                          setActiveComponent(key);
+                          setShowModal(false);
+                        }
+                      }}
+                      className={`block w-full text-left p-2 font-light hover:bg-gray-100 ${highlightedIndex === index ? 'bg-gray-100' : ''
+                        }`}
+                    >
+                      {name}
+                    </button>
+                  ))}
+                  {filteredComponents.length === 0 && (
+                    <p className="text-gray-500 p-2">Keine Treffer</p>
+                  )}
+                </motion.div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+
+
+
+
 
 
 

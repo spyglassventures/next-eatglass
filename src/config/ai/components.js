@@ -423,7 +423,129 @@ export const COMPONENTS = {
         name: 'Verlauf gruppieren',
         component: 'Chat_STRUC_group_blocks',
         buttonText: 'group_blocks'
+    },
+
+    // add non KI components, i.e. interne Dokumente here to make available in magic menu
+    InternalDocument: {
+        name: 'Internal Document',
+        component: 'InternalDocuments',
+        buttonText: 'Internal Document'
+    },
+
+    Wissensdatenbank: {
+        name: 'Wissensdatenbank',
+        component: 'Wissensdatenbank',
+        buttonText: 'wissensdatenbank'
+    },
+    DocNumbers: {
+        name: 'Doc Numbers',
+        component: 'DocNumbers',
+        buttonText: 'doc_numbers'
+    },
+    Vertrauensaerzte: {
+        name: 'Vertrauensärzte',
+        component: 'Vertrauensaerzte',
+        buttonText: 'vertrauensaerzte'
+    },
+    Aemtiplan: {
+        name: 'Ämtiplan',
+        component: 'Aemtiplan',
+        buttonText: 'aemtiplan'
+    },
+    Zahlungen: {
+        name: 'Zahlungen',
+        component: 'Zahlungen',
+        buttonText: 'zahlungen'
+    },
+    Welcome: {
+        name: 'Welcome',
+        component: 'Welcome',
+        buttonText: 'welcome'
+    },
+    Lieferengpass: {
+        name: 'Lieferengpass',
+        component: 'Lieferengpass',
+        buttonText: 'lieferengpass'
+    },
+    Translate: {
+        name: 'Translate',
+        component: 'Translate',
+        buttonText: 'translate'
+    },
+    Konfigurationsanleitung: {
+        name: 'Konfigurationsanleitung',
+        component: 'Konfigurationsanleitung',
+        buttonText: 'konfigurationsanleitung'
+    },
+    LernvideosPage: {
+        name: 'Lernvideos',
+        component: 'LernvideosPage',
+        buttonText: 'lernvideos'
+    },
+    HIN: {
+        name: 'HIN',
+        component: 'HIN',
+        buttonText: 'hin'
+    },
+    QM: {
+        name: 'QM',
+        component: 'QM',
+        buttonText: 'qm'
+    },
+    QR: {
+        name: 'QR',
+        component: 'QR',
+        buttonText: 'qr'
+    },
+    ChatWithPdf: {
+        name: 'Chat mit PDF',
+        component: 'ChatWithPdf',
+        buttonText: 'chat_with_pdf'
+    },
+    Diktat: {
+        name: 'Diktat',
+        component: 'Diktat',
+        buttonText: 'diktat'
+    },
+    Cal: {
+        name: 'Kalender',
+        component: 'Cal',
+        buttonText: 'cal'
+    },
+    StammdatenIGM: {
+        name: 'Stammdaten IGM',
+        component: 'StammdatenIGM',
+        buttonText: 'stammdaten_igm'
+    },
+    Antwortemail: {
+        name: 'Antwort-E-Mail',
+        component: 'Antwortemail',
+        buttonText: 'antwortemail'
+    },
+    Antwortemail_split: {
+        name: 'Antwort-E-Mail (Split)',
+        component: 'Antwortemail_split',
+        buttonText: 'antwortemail_split'
+    },
+    Abrechnung: {
+        name: 'Abrechnung',
+        component: 'Abrechnung',
+        buttonText: 'abrechnung'
+    },
+    mcsged: {
+        name: 'MCS-GED',
+        component: 'mcsged',
+        buttonText: 'mcsged'
+    },
+    mcdiabetesscore: {
+        name: 'MC Diabetes Score',
+        component: 'mcdiabetesscore',
+        buttonText: 'mcdiabetesscore'
     }
+
+
+
+
 };
 
 export const ICONS = {

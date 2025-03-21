@@ -65,3 +65,22 @@
     background-color: #e0e0e0;
     color: #000;
 }
+
+/* for Diktat Menu */
+@keyframes blink-bg {
+
+    0%,
+    100% {
+        background-color: #f87171;
+        /* Tailwind red-400 */
+    }
+
+    50% {
+        background-color: #ef4444;
+        /* Tailwind red-500 */
+    }
+}
+
+.animate-blink-bg {
+    animation: blink-bg 1s infinite;
+}
