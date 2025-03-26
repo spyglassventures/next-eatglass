@@ -1,24 +1,54 @@
 // File: app/medien/page.tsx
 "use client";
 
-// not workign well content: "Korrigiere folgenden Text mit Bezug auf das Schweizer Gesundheitssystem. Erkenne Aufzählungen. Formatiere sinnhaft. Kein Einleitungs- oder Schlusssatz.",
-// File: app/medien/page.tsx
-"use client";
-
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import PizZip from "pizzip";
-import Docxtemplater from "docxtemplater";
-import { saveAs } from "file-saver";
 import AudioRecorder from "../../components/Transcribe/AudioRecorder";
 import TranscriptSidebar from "@/components/MedienDiktat/TranscriptSidebar";
-import { diffWords } from "diff";
+
+// download
+import PizZip from 'pizzip';
+import Docxtemplater from 'docxtemplater';
+import { saveAs } from 'file-saver';
+
+
 
 interface Transcription {
     id: string;
     text: string;
     date: string;
 }
+
+// Hilfsfunktion definieren
+const downloadWordDoc = async (text: string) => {
+    try {
+        // .docx per GET laden
+        const response = await axios.get('/forms/Blank/Briefkopf_blank.docx', {
+            responseType: 'arraybuffer',
+        });
+
+        const zip = new PizZip(response.data);
+        const doc = new Docxtemplater(zip, {
+            paragraphLoop: true,
+            linebreaks: true,
+        });
+
+        // Hier 'message' an den in der Vorlage verwendeten Platzhalter anpassen
+        doc.setData({ message: text });
+        doc.render();
+
+        // Word-Datei als Blob generieren
+        const out = doc.getZip().generate({
+            type: 'blob',
+            mimeType:
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        });
+
+        saveAs(out, 'Transkription.docx');
+    } catch (error) {
+        console.error('Error generating docx:', error);
+    }
+};
 
 export default function MedienDiktat() {
     const [transcription, setTranscription] = useState<string | null>(null);
@@ -45,7 +75,7 @@ export default function MedienDiktat() {
 
     const primaryColor = "#24a0ed";
 
-    // 1) Load from localStorage ONCE (on mount)
+    // Load from localStorage ONCE (on mount)
     useEffect(() => {
         const saved = localStorage.getItem("previousTranscriptions");
         if (saved) {
@@ -91,6 +121,7 @@ export default function MedienDiktat() {
     };
 
     // ========== AUDIO FILE TRANSCRIPTION LOGIC ============
+
     const [loadingFileTranscription, setLoadingFileTranscription] = useState(false);
 
     // handle file upload
@@ -128,6 +159,8 @@ export default function MedienDiktat() {
     };
 
     // ========== REAL-TIME TRANSCRIPTION LOGIC ============
+
+    // Start real-time recognition
     const startRealtimeTranscription = () => {
         if (!("webkitSpeechRecognition" in window)) {
             setError("Echtzeit-Transkription wird in diesem Browser nicht unterstützt.");
@@ -230,135 +263,8 @@ export default function MedienDiktat() {
         setSaveLocal((prev) => !prev);
     };
 
-    // =========== NEW: Sparkle function states ===============
-    const [sparkleLoading, setSparkleLoading] = useState(false);
-    const [sparkleResponse, setSparkleResponse] = useState("");
-
-    // KI-Klick
-    const handleSparkleClick = async () => {
-        if (!transcription) return;
-        try {
-            setSparkleLoading(true);
-            setSparkleResponse("");
-
-            const messages = [
-                {
-                    role: "system",
-                    content: "Korrigiere folgenden Arztbericht. Formatiere entsprechend. Kein Einleitungs- oder Schlusssatz.",
-                },
-                {
-                    role: "user",
-                    content: transcription,
-                },
-            ];
-
-            const res = await fetch("/api/az-schweiz-chat-4o-mini", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ messages, customerName: "EatGlassVoice" }),
-            });
-
-            if (!res.ok || !res.body) {
-                throw new Error("Fehler bei der KI-Anfrage");
-            }
-
-            const reader = res.body.getReader();
-            const decoder = new TextDecoder("utf-8");
-            let done = false;
-            let accumulated = "";
-
-            while (!done) {
-                const { value, done: doneReading } = await reader.read();
-                done = doneReading;
-                if (value) {
-                    const chunk = decoder.decode(value);
-                    accumulated += chunk;
-                    setSparkleResponse(accumulated);
-                }
-            }
-        } catch (err) {
-            console.error("Sparkle error", err);
-            setSparkleResponse("Fehler beim Verarbeiten der KI-Antwort.");
-        } finally {
-            setSparkleLoading(false);
-        }
-    };
-
-    // DIFF-Hilfsfunktion
-    const renderDiff = (original: string, changed: string) => {
-        const diff = diffWords(original, changed);
-        return diff.map((part, idx) => {
-            let style = "";
-            if (part.added) style = "bg-green-200";
-            if (part.removed) style = "bg-red-200 line-through";
-            return (
-                <span key={idx} className={style}>
-                    {part.value}
-                </span>
-            );
-        });
-    };
-
-    // Word-Download für KI-Version
-    const downloadSparkleAsWord = async () => {
-        if (!sparkleResponse) return;
-        try {
-            // Hole template:
-            const response = await fetch("/forms/Blank/Briefkopf_blank.docx"); // Pfad anpassen
-            const arrayBuffer = await response.arrayBuffer();
-
-            const zip = new PizZip(arrayBuffer);
-            const doc = new Docxtemplater(zip, {
-                paragraphLoop: true,
-                linebreaks: true,
-            });
-
-            // In der docx-Vorlage muss {{message}} existieren
-            doc.setData({ message: sparkleResponse });
-            doc.render();
-
-            const out = doc.getZip().generate({
-                type: "blob",
-                mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            });
-
-            saveAs(out, "Transkription_KI.docx");
-        } catch (error) {
-            console.error("Error generating docx for sparkle: ", error);
-            alert("Fehler beim Generieren des Word-Dokuments (KI-Version).");
-        }
-    };
-
-    // Word-Download für Original
-    const downloadOriginalAsWord = async () => {
-        if (!transcription) return;
-        try {
-            const response = await fetch("/forms/Blank/Briefkopf_blank.docx");
-            const arrayBuffer = await response.arrayBuffer();
-
-            const zip = new PizZip(arrayBuffer);
-            const doc = new Docxtemplater(zip, {
-                paragraphLoop: true,
-                linebreaks: true,
-            });
-
-            doc.setData({ message: transcription });
-            doc.render();
-
-            const out = doc.getZip().generate({
-                type: "blob",
-                mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            });
-
-            saveAs(out, "Transkription_Original.docx");
-        } catch (error) {
-            console.error("Error generating docx for original: ", error);
-            alert("Fehler beim Generieren des Word-Dokuments (Original-Version).");
-        }
-    };
-
     return (
-        <div className="flex flex-col md:flex-row bg-gray-100" style={{ minHeight: "90vh" }}> {/* Outer container bigger */}
+        <div className="flex flex-col md:flex-row min-h-screen bg-gray-100">
             {/* Sidebar */}
             <TranscriptSidebar
                 previousTranscriptions={previousTranscriptions}
@@ -371,7 +277,7 @@ export default function MedienDiktat() {
 
             {/* Main content */}
             <div className="flex-1 p-4 md:p-8">
-                <div className="bg-white rounded-lg shadow-lg p-6 w-full" style={{ minHeight: "80vh" }}> {/* make it bigger */}
+                <div className="bg-white rounded-lg shadow-lg p-6 max-w-2xl mx-auto">
                     <h1 className="text-3xl font-bold mb-6 text-center" style={{ color: primaryColor }}>
                         Doc Dialog
                     </h1>
@@ -424,8 +330,14 @@ export default function MedienDiktat() {
                             {audioBlob && (
                                 <div className="text-center">
                                     <div className="p-4 bg-gray-50 rounded-lg mb-4">
-                                        <p className="text-sm text-gray-600 mb-2">Audiodatei bereit für Transkription</p>
-                                        <audio controls src={URL.createObjectURL(audioBlob)} className="w-full" />
+                                        <p className="text-sm text-gray-600 mb-2">
+                                            Audiodatei bereit für Transkription
+                                        </p>
+                                        <audio
+                                            controls
+                                            src={URL.createObjectURL(audioBlob)}
+                                            className="w-full"
+                                        />
                                     </div>
 
                                     <button
@@ -469,6 +381,7 @@ export default function MedienDiktat() {
                     {/* Aufnahme mode */}
                     {showRecorder && !isRealtimeActive && (
                         <div>
+                            {/* This is where we have Pause & Resume in the local AudioRecorder. */}
                             <AudioRecorder onRecordingComplete={handleRecordingComplete} />
 
                             {audioBlob && (
@@ -515,11 +428,16 @@ export default function MedienDiktat() {
                     {isRealtimeActive && (
                         <div className="space-y-4">
                             <div className="text-center">
-                                <div className="p-4 rounded-lg mb-4 bg-gray-50">
-                                    <p className="text-sm mb-2 text-gray-700">Sprachaufnahme in Echtzeit</p>
+                                <div
+                                    className="p-4 rounded-lg mb-4 bg-gray-50"
+                                >
+                                    <p className="text-sm mb-2 text-gray-700">
+                                        Sprachaufnahme in Echtzeit
+                                    </p>
                                 </div>
                             </div>
 
+                            {/* Show partial/final transcribed text */}
                             {realtimeText && (
                                 <div
                                     className="p-5 border rounded-lg"
@@ -557,72 +475,29 @@ export default function MedienDiktat() {
                         </div>
                     )}
 
-                    {/* Non-realtime final transcription in main UI + sparkle box*/}
+                    {/* Non-realtime final transcription in main UI only*/}
                     {transcription && !isRealtimeActive && (
-                        <div className="mt-6">
-                            <div className="flex gap-4" style={{ minHeight: "400px" }}> {/* bigger boxes side by side */}
-                                {/* BOX 1: Original, scrollable */}
-                                <div
-                                    className="w-1/2 p-3 border rounded bg-gray-50 overflow-auto flex flex-col"
-                                >
-                                    <h2 className="font-bold text-md mb-2" style={{ color: primaryColor }}>
-                                        Transkription (Aufnahme)
-                                    </h2>
-                                    <div className="text-sm whitespace-pre-wrap flex-1 leading-relaxed">
-                                        {transcription}
-                                    </div>
-                                    {/* Download Original as Word */}
-                                    <button
-                                        onClick={downloadOriginalAsWord}
-                                        className="mt-3 inline-flex items-center bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded shadow self-start"
-                                    >
-                                        <span className="mr-2 text-lg">📝</span>
-                                        Original als Word
-                                    </button>
-                                </div>
-
-                                {/* BOX 2: KI-Version, scrollable */}
-                                <div
-                                    className="w-1/2 p-3 border rounded bg-gray-50 overflow-auto flex flex-col"
-                                >
-                                    <div className="flex items-center justify-between mb-2">
-                                        <h2 className="font-bold text-md" style={{ color: primaryColor }}>
-                                            Verfeinerte Version
-                                        </h2>
-                                        {/* Sparkle-Button */}
-                                        <button
-                                            onClick={handleSparkleClick}
-                                            className="inline-flex items-center px-3 py-1 rounded bg-purple-500 hover:bg-purple-600 text-white text-sm font-medium"
-                                        >
-                                            <span className="mr-1">✨</span>KI
-                                        </button>
-                                    </div>
-
-                                    {sparkleLoading && (
-                                        <div className="text-sm text-gray-500">Lade KI-Antwort...</div>
-                                    )}
-
-                                    {!sparkleLoading && sparkleResponse && (
-                                        <div className="text-sm leading-relaxed whitespace-pre-wrap flex-1">
-                                            {/* DIFF-Ansicht */}
-                                            {renderDiff(transcription, sparkleResponse)}
-                                        </div>
-                                    )}
-
-                                    {/* Download KI as Word */}
-                                    {!sparkleLoading && sparkleResponse && (
-                                        <button
-                                            onClick={downloadSparkleAsWord}
-                                            className="mt-3 inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow self-start"
-                                        >
-                                            <span className="mr-2 text-lg">📝</span>
-                                            KI als Word
-                                        </button>
-                                    )}
-                                </div>
-                            </div>
+                        <div
+                            className="mt-6 p-5 border rounded-lg"
+                            style={{
+                                backgroundColor: "rgba(36, 160, 237, 0.1)",
+                                borderColor: "rgba(36, 160, 237, 0.3)",
+                            }}
+                        >
+                            <h2 className="font-bold text-lg mb-2" style={{ color: primaryColor }}>
+                                Transkription der Aufnahme:
+                            </h2>
+                            <p className="text-gray-700 whitespace-pre-line">{transcription}</p>
+                            <button
+                                onClick={() => downloadWordDoc(transcription)}
+                                className="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded shadow"
+                            >
+                                Als Word herunterladen
+                            </button>
                         </div>
+
                     )}
+
                 </div>
             </div>
         </div>
