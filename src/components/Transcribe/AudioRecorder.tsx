@@ -1,3 +1,4 @@
+// File: components/Transcribe/AudioRecorder.tsx
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
@@ -8,116 +9,122 @@ interface AudioRecorderProps {
     onRecordingComplete: (blob: Blob) => void;
 }
 
-const AudioRecorder: React.FC<AudioRecorderProps> = ({ onRecordingComplete }) => {
+export default function AudioRecorder({ onRecordingComplete }: AudioRecorderProps) {
     const [isRecording, setIsRecording] = useState(false);
-    const [recordingTime, setRecordingTime] = useState(0);
+    const [isPaused, setIsPaused] = useState(false);
     const [audioStream, setAudioStream] = useState<MediaStream | null>(null);
-    const [error, setError] = useState<string | null>(null);
-    const recorderRef = useRef<MediaRecorder | null>(null);
-    const timerRef = useRef<NodeJS.Timeout | null>(null);
 
+    // RecordRTC-Instanz
+    const recorderRef = useRef<any>(null);
+
+    // Cleanup beim Demontieren
     useEffect(() => {
         return () => {
-            if (timerRef.current) {
-                clearInterval(timerRef.current);
-            }
             if (audioStream) {
-                audioStream.getTracks().forEach(track => track.stop());
+                audioStream.getTracks().forEach((track) => track.stop());
             }
         };
     }, [audioStream]);
 
-    useEffect(() => {
-        if (isRecording) {
-            timerRef.current = setInterval(() => {
-                setRecordingTime(prev => prev + 1);
-            }, 1000);
-        } else {
-            if (timerRef.current) {
-                clearInterval(timerRef.current);
-                timerRef.current = null;
-            }
-        }
-
-        return () => {
-            if (timerRef.current) {
-                clearInterval(timerRef.current);
-            }
-        };
-    }, [isRecording]);
-
+    // Aufnahme starten
     const beginRecording = async () => {
         try {
-            setError(null);
-            setRecordingTime(0);
-
             const { stream, recorder } = await startRecording();
-            setAudioStream(stream);
             recorderRef.current = recorder;
+            setAudioStream(stream);
             setIsRecording(true);
+            setIsPaused(false);
         } catch (err) {
-            console.error("Failed to start recording:", err);
-            setError("Zugriff auf das Mikrofon nicht möglich. Bitte stellen Sie sicher, dass Sie die Berechtigung erteilt haben.");
+            console.error("Could not start recording", err);
         }
     };
 
+    // Aufnahme stoppen => finalisiert Blob
     const finishRecording = () => {
         if (!isRecording) return;
 
         if (recorderRef.current) {
-            stopRecording(recorderRef.current, (blob: Blob) => {
+            stopRecording(recorderRef.current, (blob) => {
                 onRecordingComplete(blob);
             });
         }
-
+        // Mikrofon freigeben
         if (audioStream) {
-            audioStream.getTracks().forEach(track => track.stop());
+            audioStream.getTracks().forEach((track) => track.stop());
         }
-
         setIsRecording(false);
+        setIsPaused(false);
+        setAudioStream(null);
     };
 
-    const formatTime = (seconds: number): string => {
-        const mins = Math.floor(seconds / 60);
-        const secs = seconds % 60;
-        return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+    // Aufnahme pausieren
+    const pauseRecording = () => {
+        if (recorderRef.current && !isPaused) {
+            recorderRef.current.pauseRecording();
+            setIsPaused(true);
+        }
+    };
+
+    // Aufnahme fortsetzen
+    const resumeRecording = () => {
+        if (recorderRef.current && isPaused) {
+            recorderRef.current.resumeRecording();
+            setIsPaused(false);
+        }
     };
 
     return (
         <div className="w-full max-w-md mx-auto bg-white rounded-lg shadow-md p-4">
-            <div className="flex flex-col items-center gap-4">
-                {audioStream && isRecording && <AudioVisualizer stream={audioStream} />}
+            <div className="flex flex-col items-center space-y-4 min-h-[220px] justify-center">
+                {/* Noch nichts am Laufen => Start-Button */}
+                {!isRecording && (
+                    <button
+                        onClick={beginRecording}
+                        className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full shadow-lg flex items-center space-x-2"
+                    >
+                        <span className="text-xl">🎤</span>
+                        <span className="font-semibold">Aufnahme starten</span>
+                    </button>
+                )}
 
-                <div className="text-2xl font-mono">{formatTime(recordingTime)}</div>
+                {/* Aufnahme läuft => Visualizer + Buttons */}
+                {isRecording && (
+                    <>
+                        {/* Visualizer nur anzeigen, wenn nicht pausiert */}
+                        {audioStream && !isPaused && (
+                            <AudioVisualizer stream={audioStream} />
+                        )}
 
-                <div className="flex gap-4">
-                    {!isRecording ? (
-                        <button
-                            onClick={beginRecording}
-                            className="flex items-center justify-center bg-red-500 hover:bg-red-600 text-white w-16 h-16 rounded-full shadow-lg transition-all"
-                        >
-                            <span className="text-2xl">🎤</span>
-                        </button>
-                    ) : (
-                        <button
-                            onClick={finishRecording}
-                            className="flex items-center justify-center bg-gray-700 hover:bg-gray-800 text-white w-16 h-16 rounded-full shadow-lg transition-all"
-                        >
-                            <span className="text-2xl">⏹️</span>
-                        </button>
-                    )}
-                </div>
+                        <div className="flex space-x-4">
+                            {!isPaused ? (
+                                <button
+                                    onClick={pauseRecording}
+                                    className="bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-2 rounded-full shadow-lg flex items-center space-x-2"
+                                >
+                                    <span className="text-xl">⏸</span>
+                                    <span className="font-semibold">Pause</span>
+                                </button>
+                            ) : (
+                                <button
+                                    onClick={resumeRecording}
+                                    className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full shadow-lg flex items-center space-x-2"
+                                >
+                                    <span className="text-xl">🎤</span>
+                                    <span className="font-semibold">Weiter aufnehmen</span>
+                                </button>
+                            )}
 
-                <p className="text-sm text-gray-500">
-                    {isRecording
-                        ? "Aufnahme läuft. Klicken Sie auf die Stopptaste, wenn Sie fertig sind."
-                        : "Klicken Sie auf die Mikrofontaste, um die Aufnahme zu starten."}
-                </p>
-
-                {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
+                            <button
+                                onClick={finishRecording}
+                                className="bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded-full shadow-lg flex items-center space-x-2"
+                            >
+                                <span className="text-xl">⏹</span>
+                                <span className="font-semibold">Aufnahme beenden</span>
+                            </button>
+                        </div>
+                    </>
+                )}
             </div>
         </div>
     );
-};
-
-export default AudioRecorder;
+}
