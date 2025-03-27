@@ -33,7 +33,7 @@ export const aiParameterDefinitions: AiParameterConfig[] = [
         id: 'fixInterpretation',
         label: 'Kontextbasierte Korrektur (Fehlinterpretationen)',
         defaultChecked: true,
-        promptInstruction: 'Analysiere den Text auf wahrscheinliche Fehlinterpretationen durch die Spracherkennungssoftware. Korrigiere diese basierend auf dem üblichen medizinischen Kontext und Fachjargon (z.B. falsch erkannte Fachbegriffe, Zahlen, Namen). Sei dabei vorsichtig und ändere nur, wenn eine Fehlinterpretation sehr wahrscheinlich ist.',
+        promptInstruction: 'Analysiere den Text auf wahrscheinliche Fehlinterpretationen durch die Spracherkennungssoftware. Korrigiere diese basierend auf dem üblichen medizinischen Kontext und Fachjargon (z.B. falsch erkannte Abkürzungen, Laborwerte, Schweizer Institutionen, Zahlen, Namen). Sei dabei vorsichtig und ändere nur, wenn eine Fehlinterpretation sehr wahrscheinlich ist.',
     },
     // --- Add new parameters here in the future ---
     // {

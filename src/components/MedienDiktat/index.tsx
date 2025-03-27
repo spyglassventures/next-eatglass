@@ -27,7 +27,8 @@ import {
     generateSystemPrompt
 } from '../../app/utils/promptGenerator'; // Adjust path
 
-
+// Adjust path as necessary
+import { downloadBlob } from '../../app/utils/downloadUtils';
 
 
 // The Transcription interface is now imported, so you can remove the local definition if you had one
@@ -433,6 +434,16 @@ export default function MedienDiktat() {
 
 
                                     </button>
+                                    <button
+                                        onClick={() => downloadBlob(audioBlob, 'aufnahme.wav')} // Call utility
+                                        className="inline-flex items-center border border-gray-500 text-gray-600 hover:bg-gray-500 hover:text-white px-3 py-1 rounded-md text-xs font-medium transition-colors duration-150 ease-in-out"
+                                        title="Aufgenommene Audiodatei herunterladen"
+                                    >
+                                        <span className="mr-1.5 text-sm">⬇️</span>
+                                        Audio speichern
+                                    </button>
+
+
                                 </div>
                             )}
                         </div>
@@ -465,6 +476,14 @@ export default function MedienDiktat() {
                                         ) : (
                                             "Audio transkribieren"
                                         )}
+                                    </button>
+                                    <button
+                                        onClick={() => downloadBlob(audioBlob, 'aufnahme.wav')} // Call utility
+                                        className="inline-flex items-center border border-gray-500 text-gray-600 hover:bg-gray-500 hover:text-white px-3 py-1 rounded-md text-xs font-medium transition-colors duration-150 ease-in-out"
+                                        title="Aufgenommene Audiodatei herunterladen"
+                                    >
+                                        <span className="mr-1.5 text-sm">⬇️</span>
+                                        Audio speichern
                                     </button>
                                 </div>
 
@@ -520,9 +539,7 @@ export default function MedienDiktat() {
                                     aiParameterDefinitions={aiParameterDefinitions} // Pass definitions
                                     currentAiParams={aiParamsState} // Pass current state object
                                     onAiParamChange={handleAiParamChange} // Pass the single handler
-                                    // --- Remove old props ---
-                                    // aiParams={{...}}
-                                    // aiParamHandlers={{...}}
+
                                     onGenerateKi={handleSparkleClick}
                                     onDownloadKi={downloadSparkleAsWord}
                                     renderDiff={renderDiff}
