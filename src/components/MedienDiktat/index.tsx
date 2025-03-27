@@ -3,13 +3,12 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import PizZip from "pizzip";
-import Docxtemplater from "docxtemplater";
-import { saveAs } from "file-saver";
+
 import AudioRecorder from "../../components/Transcribe/AudioRecorder";
 import TranscriptSidebar from "@/components/MedienDiktat/TranscriptSidebar";
 import AiParameterBox from "@/components/MedienDiktat/AiParameterBox"; // <-- Import the new component
 import Image from 'next/image';
+import { generateDocx } from '../../app/utils/docxGenerator'; // Adjust path if needed
 
 import { diffWords } from "diff";
 // Import the utility functions and the interface
@@ -19,6 +18,14 @@ import {
     saveTranscriptionsToStorage
 
 } from "../../app/utils/transcriptionStore";
+
+import OriginalTranscriptionDisplay from '@/components/MedienDiktat/OriginalTranscriptionDisplay';
+import KiTranscriptionDisplay from '@/components/MedienDiktat/KiTranscriptionDisplay';
+import {
+    aiParameterDefinitions, // Import the definitions
+    AiPromptParams,          // Import the state type
+    generateSystemPrompt
+} from '../../app/utils/promptGenerator'; // Adjust path
 
 
 
@@ -42,19 +49,29 @@ export default function MedienDiktat() {
 
     const primaryColor = "#24a0ed";
 
-    // --- NEW: State for AI Parameters ---
-    const [paramOrthography, setParamOrthography] = useState(true);
-    const [paramLanguage, setParamLanguage] = useState(true);
-    const [paramIsMedicalReport, setParamIsMedicalReport] = useState(true);
-    const [paramFixInterpretation, setParamFixInterpretation] = useState(true);
-    // --- END NEW STATE ---
+    // --- CENTRALIZED AI Parameter State ---
+    // Initialize state dynamically from the definitions
+    const initialAiParamsState = (): AiPromptParams => {
+        const initialState: Partial<AiPromptParams> = {};
+        aiParameterDefinitions.forEach(param => {
+            initialState[param.id] = param.defaultChecked;
+        });
+        return initialState as AiPromptParams; // Cast to the full type
+    };
 
-    // --- Handlers for Parameter Changes ---
-    const handleParamOrthographyChange = (checked: boolean) => setParamOrthography(checked);
-    const handleParamLanguageChange = (checked: boolean) => setParamLanguage(checked);
-    const handleParamMedicalReportChange = (checked: boolean) => setParamIsMedicalReport(checked);
-    const handleParamFixInterpretationChange = (checked: boolean) => setParamFixInterpretation(checked);
-    // --- END Handlers ---
+    const [aiParamsState, setAiParamsState] = useState<AiPromptParams>(initialAiParamsState());
+
+    // Single handler for all AI parameter checkboxes
+    const handleAiParamChange = (paramId: keyof AiPromptParams, checked: boolean) => {
+        setAiParamsState(prevParams => ({
+            ...prevParams,
+            [paramId]: checked,
+        }));
+    };
+    // --- END CENTRALIZED AI State ---
+
+
+
 
     // 1) Load from localStorage ONCE (on mount) using the utility function
     useEffect(() => {
@@ -242,59 +259,20 @@ export default function MedienDiktat() {
     const [sparkleResponse, setSparkleResponse] = useState("");
 
     // --- Function to generate system prompt dynamically ---
-    const generateSystemPrompt = (): string => {
-        let instructions: string[] = [];
-
-        // Role Definition
-        let prompt = "Du bist ein hilfreicher Assistent zur Korrektur und Verbesserung von Texten, die aus medizinischen Audiodiktaten stammen.\n";
-        prompt += "Deine Aufgabe ist es, den folgenden Benutzereingabe-Text basierend auf den spezifischen Anweisungen zu bearbeiten.\n\n";
-        prompt += "Anweisungen:\n";
-
-        // Specific Instructions based on checkboxes
-        if (paramOrthography) {
-            instructions.push("Korrigiere sämtliche orthographische Fehler (Rechtschreibung) und grammatikalische Fehler.");
-        }
-        if (paramLanguage) {
-            instructions.push("Verbessere den sprachlichen Stil, die Satzstruktur und die allgemeine Lesbarkeit. Formuliere Sätze klarer und prägnanter, wo sinnvoll.");
-        }
-        if (paramFixInterpretation) {
-            // This is a complex task for the AI, prompt needs to be clear
-            instructions.push("Analysiere den Text auf wahrscheinliche Fehlinterpretationen durch die Spracherkennungssoftware. Korrigiere diese basierend auf dem üblichen medizinischen Kontext und Fachjargon (z.B. falsch erkannte Fachbegriffe, Zahlen, Namen). Sei dabei vorsichtig und ändere nur, wenn eine Fehlinterpretation sehr wahrscheinlich ist.");
-        }
-        if (paramIsMedicalReport) {
-            instructions.push("Formatiere den gesamten Text als professionellen medizinischen Bericht. Nutze sinnvolle Absätze für verschiedene Themenbereiche (z.B. Anamnese, Befund, Diagnose, Prozedere). Stelle Aufzählungen (Listen) korrekt dar, falls sie im Text vorkommen oder sinnvoll sind.");
-        } else {
-            // Basic formatting if not a medical report
-            instructions.push("Strukturiere den Text durch sinnvolle Absatzumbrüche.");
-        }
-
-        // Combine instructions into the prompt
-        if (instructions.length > 0) {
-            instructions.forEach(instr => prompt += `- ${instr}\n`);
-        } else {
-            // Fallback if somehow no instructions are selected
-            prompt += "- Gib den Text genau so zurück, wie er eingegeben wurde.\n";
-        }
-
-        // Output Formatting Instruction
-        prompt += "\nWICHTIG: Deine Antwort darf *ausschließlich* den bearbeiteten Text enthalten. Füge keine Einleitungssätze, keine Kommentare, keine Erklärungen und keine Schlussbemerkungen hinzu. Nur der reine, bearbeitete Text ist erwünscht.";
-
-        return prompt;
-    };
-    // --- END Prompt Generation ---
+    // moved, see utils/promptGenerator.ts
 
     const handleSparkleClick = async () => {
         if (!transcription) return;
         try {
             setSparkleLoading(true);
-            setSparkleResponse(""); // Clear previous response
+            setSparkleResponse("");
 
-            // Generate the dynamic system prompt
-            const systemPrompt = generateSystemPrompt();
-            console.log("Generated System Prompt:", systemPrompt); // For debugging
+            // Pass the whole state object to the generator function
+            const systemPrompt = generateSystemPrompt(aiParamsState);
+            console.log("Generated System Prompt:", systemPrompt);
 
             const messages = [
-                { role: "system", content: systemPrompt }, // Use the dynamic prompt
+                { role: "system", content: systemPrompt },
                 { role: "user", content: transcription },
             ];
 
@@ -342,42 +320,24 @@ export default function MedienDiktat() {
         });
     };
 
-    // Word-Download für KI-Version
+    // Word-Download für KI-Version - SIMPLIFIED
     const downloadSparkleAsWord = async () => {
         if (!sparkleResponse) return;
-        try {
-            const response = await fetch("/forms/Blank/Briefkopf_blank.docx");
-            if (!response.ok) throw new Error(`Failed to fetch template: ${response.statusText}`);
-            const arrayBuffer = await response.arrayBuffer();
-            const zip = new PizZip(arrayBuffer);
-            const doc = new Docxtemplater(zip, { paragraphLoop: true, linebreaks: true });
-            doc.setData({ message: sparkleResponse.replace(/\n/g, '\n') }); // Ensure line breaks are handled
-            doc.render();
-            const out = doc.getZip().generate({ type: "blob", mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" });
-            saveAs(out, "Transkription_KI.docx");
-        } catch (error) {
-            console.error("Error generating docx for sparkle: ", error);
-            alert("Fehler beim Generieren des Word-Dokuments (KI-Version).");
-        }
+        await generateDocx(
+            sparkleResponse,
+            "/forms/Blank/Briefkopf_blank.docx", // Template path
+            "Transkription_KI.docx"              // Output filename
+        );
     };
 
-    // Word-Download für Original
+    // Word-Download für Original - SIMPLIFIED
     const downloadOriginalAsWord = async () => {
         if (!transcription) return;
-        try {
-            const response = await fetch("/forms/Blank/Briefkopf_blank.docx");
-            if (!response.ok) throw new Error(`Failed to fetch template: ${response.statusText}`);
-            const arrayBuffer = await response.arrayBuffer();
-            const zip = new PizZip(arrayBuffer);
-            const doc = new Docxtemplater(zip, { paragraphLoop: true, linebreaks: true });
-            doc.setData({ message: transcription.replace(/\n/g, '\n') }); // Ensure line breaks are handled
-            doc.render();
-            const out = doc.getZip().generate({ type: "blob", mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" });
-            saveAs(out, "Transkription_Original.docx");
-        } catch (error) {
-            console.error("Error generating docx for original: ", error);
-            alert("Fehler beim Generieren des Word-Dokuments (Original-Version).");
-        }
+        await generateDocx(
+            transcription,
+            "/forms/Blank/Briefkopf_blank.docx", // Template path
+            "Transkription_Original.docx"        // Output filename
+        );
     };
 
     // --- Render JSX (mostly unchanged, ensure imports/paths are correct) ---
@@ -537,118 +497,37 @@ export default function MedienDiktat() {
                     {/* Error msg */}
                     {error && (<div className="mt-6 p-4 bg-red-50 border border-red-200 text-red-600 rounded-lg"> <p className="flex items-center gap-2"> <span className="text-xl">⚠️</span> {error} </p> </div>)}
 
-                    {/* Final Transcription Display (Original + KI) */}
+                    {/* === Final Transcription Display Area === */}
                     {transcription && !isRealtimeActive && (
                         <div className="mt-6">
-                            <div className="flex gap-4" style={{ minHeight: "400px" }}>
-                                {/* BOX 1: Original */}
-                                <div className="w-full md:w-1/2 p-3 border rounded bg-gray-50 overflow-auto flex flex-col">
-                                    <h2 className="font-bold text-md mb-2" style={{ color: primaryColor }}>
-                                        Transkription (Aufnahme)
-                                    </h2>
-                                    {/* MODIFIED LINE BELOW */}
-                                    <div className="text-xs font-light whitespace-pre-wrap flex-1 leading-relaxed">
-                                        {transcription}
-                                    </div>
-                                    {/* END MODIFIED LINE */}
-                                    <button
-                                        onClick={downloadOriginalAsWord}
-                                        className="mt-3 inline-flex items-center border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white px-3 py-1 rounded-md text-xs font-medium transition-colors duration-150 ease-in-out self-start"
-                                        title="Original-Transkription als Word-Datei herunterladen"
-                                    >
-                                        {/* === ICON START === */}
-                                        <div className="relative mr-1.5 h-4 w-4">
-                                            <Image
-                                                src="/images/brands/Microsoft-Word-Icon-PNG.png"
-                                                alt="Word Icon"
-                                                fill
-                                                style={{ objectFit: 'contain' }}
-                                            />
-                                        </div>
-                                        {/* === ICON END === */}
-                                        Original als Word runterladen
-                                    </button>
-                                </div>
-                                {/* BOX 2: KI Version Container */}
-                                <div className="w-full md:w-1/2 p-3 border rounded bg-gray-50 overflow-auto flex flex-col">
-                                    {/* Header for KI Box */}
-                                    <div className="flex items-center justify-between mb-2">
-                                        <h2 className="font-bold text-md" style={{ color: primaryColor }}>
-                                            Verfeinerte Version (KI)
-                                        </h2>
-                                        {/* Sparkle Button stays here */}
-                                        <button
-                                            onClick={handleSparkleClick}
-                                            className="inline-flex items-center px-3 py-1 rounded bg-blue-500 hover:bg-purple-600 hover:animate-pulse text-white text-sm font-medium disabled:opacity-50"
-                                            disabled={sparkleLoading || !transcription}
-                                            title="KI-Verarbeitung starten" // Tooltip
-                                        >
-                                            {/* Loading indicator or Sparkle icon */}
-                                            {sparkleLoading
-                                                ? <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                                                : <span className="mr-1">✨</span>
-                                            }
-                                            KI
-                                        </button>
-                                    </div>
+                            <div className="flex flex-col md:flex-row gap-4" style={{ minHeight: '400px' }}>
 
-                                    {/* --- INSERT AI PARAMETER BOX --- */}
-                                    <AiParameterBox
-                                        orthography={paramOrthography}
-                                        language={paramLanguage}
-                                        isMedicalReport={paramIsMedicalReport}
-                                        fixInterpretation={paramFixInterpretation}
-                                        onOrthographyChange={handleParamOrthographyChange}
-                                        onLanguageChange={handleParamLanguageChange}
-                                        onMedicalReportChange={handleParamMedicalReportChange}
-                                        onFixInterpretationChange={handleParamFixInterpretationChange}
-                                        primaryColor={primaryColor}
-                                    />
-                                    {/* --- END AI PARAMETER BOX --- */}
+                                {/* Use the Original Display Component */}
+                                <OriginalTranscriptionDisplay
+                                    transcription={transcription}
+                                    onDownload={downloadOriginalAsWord}
+                                    primaryColor={primaryColor}
+                                />
 
+                                {/* Use the KI Display Component */}
+                                <KiTranscriptionDisplay
+                                    originalTranscription={transcription}
+                                    kiResponse={sparkleResponse}
+                                    isLoading={sparkleLoading}
+                                    isGenerating={sparkleLoading}
+                                    primaryColor={primaryColor}
+                                    // Pass the necessary things for the dynamic box
+                                    aiParameterDefinitions={aiParameterDefinitions} // Pass definitions
+                                    currentAiParams={aiParamsState} // Pass current state object
+                                    onAiParamChange={handleAiParamChange} // Pass the single handler
+                                    // --- Remove old props ---
+                                    // aiParams={{...}}
+                                    // aiParamHandlers={{...}}
+                                    onGenerateKi={handleSparkleClick}
+                                    onDownloadKi={downloadSparkleAsWord}
+                                    renderDiff={renderDiff}
+                                />
 
-                                    {/* KI Response Area */}
-                                    <div className="flex-1"> {/* Make this div take remaining space */}
-                                        {sparkleLoading && (
-                                            <div className="text-sm text-gray-500 text-center p-4">KI-Antwort wird generiert...</div>
-                                        )}
-                                        {/* Apply text-xs and font-light here */}
-                                        {!sparkleLoading && sparkleResponse && (
-                                            // <div className="text-sm leading-relaxed whitespace-pre-wrap">
-                                            <div className="text-xs font-light whitespace-pre-wrap flex-1 leading-relaxed">
-                                                {/* DIFF View */}
-                                                {renderDiff(transcription, sparkleResponse)}
-                                            </div>
-                                        )}
-                                        {/* Placeholder when no KI response and not loading */}
-                                        {!sparkleLoading && !sparkleResponse && (
-                                            <div className="text-sm text-gray-400 text-center p-4 italic">
-                                                Klicken Sie auf ✨KI, um basierend auf den obigen Anweisungen eine Version zu generieren. Sie können die Korrektur auch mehrmals mit unterschiedlicher Konfiguration wiederholen.
-                                            </div>
-                                        )}
-                                    </div>
-
-                                    {/* Download KI Version Button (only if response exists) */}
-                                    {!sparkleLoading && sparkleResponse && (
-                                        <button
-                                            onClick={downloadSparkleAsWord}
-                                            className="mt-3 inline-flex items-center border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-3 py-1 rounded-md text-xs font-medium transition-colors duration-150 ease-in-out self-start"
-                                            title="KI-Version als Word-Datei herunterladen"
-                                        >
-                                            {/* === ICON START === */}
-                                            <div className="relative mr-1.5 h-4 w-4">
-                                                <Image
-                                                    src="/images/brands/Microsoft-Word-Icon-PNG.png"
-                                                    alt="Word Icon"
-                                                    fill
-                                                    style={{ objectFit: 'contain' }}
-                                                />
-                                            </div>
-                                            {/* === ICON END === */}
-                                            KI Version als Word runterladen
-                                        </button>
-                                    )}
-                                </div>
                             </div>
                         </div>
                     )}
