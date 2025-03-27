@@ -49,7 +49,7 @@ const TranscriptSidebar: React.FC<TranscriptSidebarProps> = ({
     const downloadAsWord = async (text: string) => {
         try {
             // 1. Leere docx-Vorlage anfordern (oder in "public/" ablegen). Hier minimal statisch
-            const response = await fetch("/forms/Blank/Briefkopf_blank.docx"); // Pfad anpassen
+            const response = await fetch("/forms/Blank/Briefkopf_blank.docm"); // Pfad anpassen
             const arrayBuffer = await response.arrayBuffer();
 
             const zip = new PizZip(arrayBuffer);

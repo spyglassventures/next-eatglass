@@ -326,8 +326,8 @@ export default function MedienDiktat() {
         if (!sparkleResponse) return;
         await generateDocx(
             sparkleResponse,
-            "/forms/Blank/Briefkopf_blank.docx", // Template path
-            "Transkription_KI.docx"              // Output filename
+            "/forms/Blank/Briefkopf_blank.docm", // Template path
+            "Transkription_KI.docm"              // Output filename
         );
     };
 
@@ -336,8 +336,8 @@ export default function MedienDiktat() {
         if (!transcription) return;
         await generateDocx(
             transcription,
-            "/forms/Blank/Briefkopf_blank.docx", // Template path
-            "Transkription_Original.docx"        // Output filename
+            "/forms/Blank/Briefkopf_blank.docm", // Template path
+            "Transkription_Original.docm"        // Output filename
         );
     };
 
