@@ -1,12 +1,12 @@
 "use client";
 
-// Logi: on default use speechConfig.endpointId = "switzerland-secure-docdialog-speech-fine-tuned";
-// find info on models and tuning here https://ai.azure.com/build/models/aoai/ftjob-c06f7cadcb3e4592b3615f75e90cdeef/details?wsid=/subscriptions/64cc99d8-d7ad-4e90-af87-ecb5ef4ac45c/resourcegroups/doc/providers/Microsoft.MachineLearningServices/workspaces/doc-dialog&tid=2c572ca7-2607-490a-bcdb-1f3ef931f8f0#Logs
+// currently realtime us based on azure speech service see https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models?tabs=global-standard%2Cstandard-chat-completions#gpt-4o-audio
+// current use is ms speech recognition
 
+/// DOES NOT NEED ANY API KEY, its default browser speech recognition
 
 import { useEffect, useRef, useState } from "react";
 import { MicrophoneIcon } from "@heroicons/react/24/solid";
-import * as SpeechSDK from "microsoft-cognitiveservices-speech-sdk";
 
 interface RealtimeTranscriptionProps {
     isActive: boolean;
@@ -16,7 +16,7 @@ interface RealtimeTranscriptionProps {
     handleNewTranscription: (text: string) => void;
     setError: (msg: string | null) => void;
     primaryColor: string;
-    modelName: string;
+    modelName: string; // 👈 show model name
 }
 
 export default function RealtimeTranscription({
@@ -27,23 +27,17 @@ export default function RealtimeTranscription({
     handleNewTranscription,
     setError,
     primaryColor,
-    // modelName,
+    modelName,
 }: RealtimeTranscriptionProps) {
-    const recognizerRef = useRef<SpeechSDK.SpeechRecognizer | null>(null);
+    const recognitionRef = useRef<any>(null);
     const finalTranscriptRef = useRef<string>("");
     const [status, setStatus] = useState<"idle" | "warming" | "listening">("idle");
-
-    const [modelName, setModelName] = useState<string>("Azure Speech-to-Text");
-
 
     useEffect(() => {
         if (!isActive) return;
 
-        const speechKey = process.env.NEXT_PUBLIC_AZURE_SPEECH_KEY!;
-        const speechRegion = process.env.NEXT_PUBLIC_AZURE_SPEECH_REGION!;
-
-        if (!speechKey || !speechRegion) {
-            setError("Azure Speech Key oder Region fehlt.");
+        if (typeof window === "undefined" || !("webkitSpeechRecognition" in window)) {
+            setError("Echtzeit-Transkription wird in diesem Browser nicht unterstützt.");
             setIsActive(false);
             return;
         }
@@ -52,65 +46,55 @@ export default function RealtimeTranscription({
         finalTranscriptRef.current = "";
         setStatus("warming");
 
-        const speechConfig = SpeechSDK.SpeechConfig.fromSubscription(speechKey, speechRegion);
-        speechConfig.speechRecognitionLanguage = "de-DE";
+        const recognition = new (window as any).webkitSpeechRecognition();
+        recognitionRef.current = recognition;
+        recognition.continuous = true;
+        recognition.interimResults = true;
+        recognition.lang = "de-DE";
 
-        // Optional: set endpointId if you need a custom model
-        const endpointId = "ftjob-c06f7cadcb3e4592b3615f75e90cdeef" // switzerland-secure-docdialog-speech-fine-tuned";; // ← set your real endpoint ID here if you have one
-
-        if (endpointId) {
-            speechConfig.endpointId = endpointId;
-            setModelName(`Custom Model: ${endpointId}`);
-        } else {
-            setModelName(`Azure Speech-to-Text (Standard)`);
-        }
-
-        const audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
-        const recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
-        recognizerRef.current = recognizer;
-
-        recognizer.recognizing = (_s, e) => {
-            setRealtimeText(finalTranscriptRef.current + e.result.text);
-        };
-
-        recognizer.recognized = (_s, e) => {
-            if (e.result.reason === SpeechSDK.ResultReason.RecognizedSpeech) {
-                finalTranscriptRef.current += e.result.text + " ";
-                setRealtimeText(finalTranscriptRef.current);
-            }
-        };
-
-        recognizer.canceled = (_s, e) => {
-            console.error("Erkennung abgebrochen:", e.errorDetails);
-            setError("Transkription abgebrochen: " + e.errorDetails);
-            stop();
-        };
-
-        recognizer.sessionStarted = () => {
+        recognition.onstart = () => {
             setStatus("listening");
         };
 
-        recognizer.sessionStopped = () => {
+        recognition.onresult = (event: any) => {
+            let interim = "", final = "";
+            for (let i = event.resultIndex; i < event.results.length; i++) {
+                const result = event.results[i][0].transcript + " ";
+                if (event.results[i].isFinal) {
+                    final += result;
+                } else {
+                    interim += result;
+                }
+            }
+
+            if (final) finalTranscriptRef.current += final;
+            setRealtimeText(finalTranscriptRef.current + interim);
+        };
+
+        recognition.onerror = (event: any) => {
+            console.error("Spracherkennungsfehler:", event.error);
+            setError("Fehler bei der Echtzeit-Transkription.");
             stop();
         };
 
-        recognizer.startContinuousRecognitionAsync();
+        const delayStart = setTimeout(() => {
+            recognition.start();
+        }, 500); // <-- this delay helps catch the real first words
 
         return () => {
-            recognizer.stopContinuousRecognitionAsync(() => { }, () => { });
+            clearTimeout(delayStart);
+            recognition.stop();
         };
     }, [isActive]);
 
-
     const stop = () => {
-        recognizerRef.current?.stopContinuousRecognitionAsync(() => { }, () => { });
+        recognitionRef.current?.stop();
         setIsActive(false);
 
         const finalText = finalTranscriptRef.current.trim();
         if (finalText) {
             handleNewTranscription(finalText);
         }
-
         finalTranscriptRef.current = "";
         setStatus("idle");
     };
@@ -130,6 +114,7 @@ export default function RealtimeTranscription({
                             Sprachtranskription aktiv – sprechen Sie jetzt.
                         </>
                     )}
+
                 </p>
                 <p className="text-sm text-gray-500 mb-2 italic">
                     Modell: <span className="font-medium">{modelName}</span>

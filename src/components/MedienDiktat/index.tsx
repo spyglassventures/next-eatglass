@@ -1,4 +1,7 @@
 // File: app/medien/page.tsx
+
+// add check if 25mb or lower
+
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
@@ -9,7 +12,10 @@ import TranscriptSidebar from "@/components/MedienDiktat/TranscriptSidebar";
 import AiParameterBox from "@/components/MedienDiktat/AiParameterBox"; // <-- Import the new component
 import Image from 'next/image';
 import { generateDocx } from '../../app/utils/docxGenerator'; // Adjust path if needed
-import { CommandLineIcon } from '@heroicons/react/24/solid';
+import { CommandLineIcon, ArrowPathIcon } from '@heroicons/react/24/solid';
+
+import RealtimeTranscription from "@/components/Transcribe/RealtimeTranscription"; // Pfad ggf. anpassen
+
 
 import { diffWords } from "diff";
 // Import the utility functions and the interface
@@ -53,6 +59,10 @@ export default function MedienDiktat() {
     const finalTranscriptRef = useRef<string>("");
 
     const primaryColor = "#24a0ed";
+    const WHISPER_API_ROUTE = "/api/transcribe_az_whisper";
+    const AZURE_SPEECH_API_ROUTE = "/api/transcribe_az_speech";
+
+    const [currentApiRoute, setCurrentApiRoute] = useState<string>(WHISPER_API_ROUTE); // Default to Whisper
 
     // lift state of edited transaction up 
     // Add this near your other useState hooks
@@ -130,6 +140,18 @@ export default function MedienDiktat() {
     };
 
     // ========== AUDIO FILE TRANSCRIPTION LOGIC ============
+    const toggleApiRoute = () => {
+        setCurrentApiRoute(prevRoute =>
+            prevRoute === WHISPER_API_ROUTE
+                ? AZURE_SPEECH_API_ROUTE
+                : WHISPER_API_ROUTE
+        );
+    };
+
+    const getCurrentApiName = () => {
+        return currentApiRoute === WHISPER_API_ROUTE ? "Whisper" : "Azure Speech";
+    };
+
     const [loadingFileTranscription, setLoadingFileTranscription] = useState(false);
 
     const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -151,7 +173,8 @@ export default function MedienDiktat() {
         try {
             const formData = new FormData();
             formData.append("file", audioBlob, "audio.wav");
-            const res = await axios.post("/api/transcribe", formData);
+            // const res = await axios.post("/api/transcribe_az_speech", formData); // allow to switch transcribe_az_whisper
+            const res = await axios.post(currentApiRoute, formData, { /* ... headers ... */ });
             const text = res.data.DisplayText || "Keine Transkription gefunden.";
             handleNewTranscription(text); // This now handles saving if saveLocal is true
         } catch (err) {
@@ -163,76 +186,74 @@ export default function MedienDiktat() {
     };
 
     // ========== REAL-TIME TRANSCRIPTION LOGIC ============
-    const startRealtimeTranscription = () => {
-        if (!("webkitSpeechRecognition" in window)) {
-            setError("Echtzeit-Transkription wird in diesem Browser nicht unterstützt.");
-            return;
-        }
-        setRealtimeText("");
-        finalTranscriptRef.current = "";
-        setIsRealtimeActive(true);
+    // const startRealtimeTranscription = () => {
+    //     if (!("webkitSpeechRecognition" in window)) {
+    //         setError("Echtzeit-Transkription wird in diesem Browser nicht unterstützt.");
+    //         return;
+    //     }
+    //     setRealtimeText("");
+    //     finalTranscriptRef.current = "";
+    //     setIsRealtimeActive(true);
 
-        const recognition = new (window as any).webkitSpeechRecognition();
-        recognitionRef.current = recognition;
-        recognition.continuous = true;
-        recognition.interimResults = true;
-        recognition.lang = "de-DE";
+    //     const recognition = new (window as any).webkitSpeechRecognition();
+    //     recognitionRef.current = recognition;
+    //     recognition.continuous = true;
+    //     recognition.interimResults = true;
+    //     recognition.lang = "de-DE";
 
-        recognition.onresult = (event: any) => {
-            let interimTranscript = "";
-            let finalTranscript = "";
+    //     recognition.onresult = (event: any) => {
+    //         let interimTranscript = "";
+    //         let finalTranscript = "";
 
-            for (let i = event.resultIndex; i < event.results.length; i++) {
-                const result = event.results[i][0].transcript + " ";
-                if (event.results[i].isFinal) {
-                    finalTranscript += result;
-                } else {
-                    interimTranscript += result;
-                }
-            }
-            if (finalTranscript) {
-                finalTranscriptRef.current += finalTranscript;
-            }
-            setRealtimeText(finalTranscriptRef.current + interimTranscript);
-        };
+    //         for (let i = event.resultIndex; i < event.results.length; i++) {
+    //             const result = event.results[i][0].transcript + " ";
+    //             if (event.results[i].isFinal) {
+    //                 finalTranscript += result;
+    //             } else {
+    //                 interimTranscript += result;
+    //             }
+    //         }
+    //         if (finalTranscript) {
+    //             finalTranscriptRef.current += finalTranscript;
+    //         }
+    //         setRealtimeText(finalTranscriptRef.current + interimTranscript);
+    //     };
 
-        recognition.onerror = (event: any) => {
-            console.error("Spracherkennungsfehler:", event.error);
-            setError("Fehler bei der Echtzeit-Transkription.");
-            stopRealtimeTranscription();
-        };
+    //     recognition.onerror = (event: any) => {
+    //         console.error("Spracherkennungsfehler:", event.error);
+    //         setError("Fehler bei der Echtzeit-Transkription.");
+    //         stopRealtimeTranscription();
+    //     };
 
-        recognition.start();
-    };
+    //     recognition.start();
+    // };
 
-    const stopRealtimeTranscription = () => {
-        setIsRealtimeActive(false);
-        recognitionRef.current?.stop();
+    // const stopRealtimeTranscription = () => {
+    //     setIsRealtimeActive(false);
+    //     recognitionRef.current?.stop();
 
-        const finalText = finalTranscriptRef.current.trim();
-        if (finalText) {
-            handleNewTranscription(finalText); // This now handles saving if saveLocal is true
-        }
-        finalTranscriptRef.current = "";
-    };
+    //     const finalText = finalTranscriptRef.current.trim();
+    //     if (finalText) {
+    //         handleNewTranscription(finalText); // This now handles saving if saveLocal is true
+    //     }
+    //     finalTranscriptRef.current = "";
+    // };
 
-    const toggleRealtimeMode = () => {
-        if (isRealtimeActive) {
-            stopRealtimeTranscription();
-        } else {
-            startRealtimeTranscription();
-        }
-    };
+    // const toggleRealtimeMode = () => {
+    //     if (isRealtimeActive) {
+    //         stopRealtimeTranscription();
+    //     } else {
+    //         startRealtimeTranscription();
+    //     }
+    // };
 
     // ========== UI Handlers for tabs ============
     const [loadingMode, setLoadingMode] = useState("Aufnahme");
 
     const handleTabClick = (label: string) => {
         if (isRealtimeActive) {
-            stopRealtimeTranscription(); // Stop real-time if switching tabs
+            setIsRealtimeActive(false); // Let <RealtimeTranscription /> handle stopping
         }
-        // Reset audio blob when switching away from upload/record modes? Optional.
-        // setAudioBlob(null);
 
         setLoadingMode(label); // Keep track of the conceptual mode
 
@@ -243,8 +264,8 @@ export default function MedienDiktat() {
             setShowRecorder(false);
             setIsRealtimeActive(false); // Ensure real-time is off
         } else if (label === "Echtzeit") {
-            setShowRecorder(false); // Recorder UI not needed for real-time
-            startRealtimeTranscription(); // Start real-time directly
+            setShowRecorder(false);
+            setIsRealtimeActive(true); // triggers <RealtimeTranscription />
         }
     };
 
@@ -509,6 +530,21 @@ export default function MedienDiktat() {
                                         >
                                             ⬇️ Audio herunterladen
                                         </button>
+
+                                        {/* --- API Engine Toggle Button --- */}
+                                        {/* Only show toggle if not in Realtime mode */}
+                                        {!isRealtimeActive && (
+                                            <button
+                                                onClick={toggleApiRoute}
+                                                className="flex items-center justify-center gap-2 px-5 py-2.5 border border-gray-400 text-gray-600 hover:bg-gray-100 rounded-md text-sm transition-colors shadow"
+
+                                                title={`Transkriptions-Engine wechseln. Aktuell: ${getCurrentApiName()}`}
+                                            >
+                                                <ArrowPathIcon className="h-4 w-4 text-gray-500" />
+                                                Engine: <span className="font-semibold">{getCurrentApiName()}</span>
+                                            </button>
+                                        )}
+
                                     </div>
                                 </div>
                             )}
@@ -559,23 +595,16 @@ export default function MedienDiktat() {
 
                     {/* Echtzeit mode */}
                     {isRealtimeActive && (
-                        <div className="space-y-4">
-                            {/* ... real-time UI elements ... */}
-                            <div className="p-6 rounded-xl mb-6 bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 shadow-lg border border-gray-200">
-                                <p className="text-base mb-4 text-gray-800 font-medium leading-relaxed">
-                                    Sprachtranskribierung in Echtzeit. Sie können nun sprechen und sehen die Transkription weiter unten. Satzgebung und Formatierung erfolgt im Anschluss mit Hilfe der KI.
-                                </p>
-                            </div>
-                            {realtimeText && (
-                                <div className="p-5 border rounded-lg" style={{ backgroundColor: "rgba(36, 160, 237, 0.1)", borderColor: "rgba(36, 160, 237, 0.3)" }}>
-                                    <div className="flex justify-between items-start">
-                                        <h2 className="font-bold text-lg mb-2" style={{ color: primaryColor }}> Echtzeit-Transkription: </h2>
-                                    </div>
-                                    <p className="text-gray-700 whitespace-pre-line">{realtimeText}</p>
-                                </div>
-                            )}
-                            <button onClick={stopRealtimeTranscription} className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded shadow"> Aufnahme stoppen </button>
-                        </div>
+                        <RealtimeTranscription
+                            isActive={isRealtimeActive}
+                            setIsActive={setIsRealtimeActive}
+                            realtimeText={realtimeText}
+                            setRealtimeText={setRealtimeText}
+                            handleNewTranscription={handleNewTranscription}
+                            setError={setError}
+                            primaryColor={primaryColor}
+                            modelName="Azure Speech (webkitSpeechRecognition)" // fix fo dynamic
+                        />
                     )}
 
                     {/* Error msg */}

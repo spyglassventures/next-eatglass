@@ -1,3 +1,7 @@
+// AZ SPEECH API
+// This API route handles audio file uploads and sends them to the Azure Speech API for transcription.
+// It expects a POST request with a file field containing the audio file. max 25 MB, was cut off in past.
+
 import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
 
