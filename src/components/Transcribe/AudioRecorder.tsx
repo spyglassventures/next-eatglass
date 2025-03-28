@@ -74,57 +74,53 @@ export default function AudioRecorder({ onRecordingComplete }: AudioRecorderProp
     };
 
     return (
-        <div className="w-full max-w-md mx-auto bg-white rounded-lg shadow-md p-4">
-            <div className="flex flex-col items-center space-y-4 min-h-[220px] justify-center">
-                {/* Noch nichts am Laufen => Start-Button */}
-                {!isRecording && (
-                    <button
-                        onClick={beginRecording}
-                        className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full shadow-lg flex items-center space-x-2"
-                    >
-                        <span className="text-xl">🎤</span>
-                        <span className="font-semibold">Aufnahme starten</span>
-                    </button>
-                )}
+        <div className="w-full max-w-md mx-auto bg-white rounded-lg shadow-md p-4 min-h-[220px] flex flex-col items-center justify-center space-y-4">
+            {!isRecording && (
+                <button
+                    onClick={beginRecording}
+                    className="bg-red-500 hover:bg-red-600 text-white px-5 py-2.5 rounded-md shadow transition-colors flex items-center gap-2 text-sm font-semibold"
+                >
+                    <span className="text-lg">🎤</span>
+                    Aufnahme starten
+                </button>
+            )}
 
-                {/* Aufnahme läuft => Visualizer + Buttons */}
-                {isRecording && (
-                    <>
-                        {/* Visualizer nur anzeigen, wenn nicht pausiert */}
-                        {audioStream && !isPaused && (
-                            <AudioVisualizer stream={audioStream} />
+            {isRecording && (
+                <>
+                    {audioStream && !isPaused && <AudioVisualizer stream={audioStream} />}
+
+                    <div className="flex space-x-3">
+                        {!isPaused ? (
+                            <button
+                                onClick={pauseRecording}
+                                className="bg-yellow-400 hover:bg-yellow-500 text-black px-5 py-2.5 rounded-md shadow transition-colors flex items-center gap-2 text-sm font-semibold"
+                            >
+                                <span className="text-lg">⏸</span>
+                                Pause
+                            </button>
+                        ) : (
+                            <button
+                                onClick={resumeRecording}
+                                className="bg-blue-500 hover:bg-blue-600 text-white px-5 py-2.5 rounded-md shadow transition-colors flex items-center gap-2 text-sm font-semibold"
+                            >
+                                <span className="text-lg">🎤</span>
+                                weiter aufnehmen
+                            </button>
                         )}
 
-                        <div className="flex space-x-4">
-                            {!isPaused ? (
-                                <button
-                                    onClick={pauseRecording}
-                                    className="bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-2 rounded-full shadow-lg flex items-center space-x-2"
-                                >
-                                    <span className="text-xl">⏸</span>
-                                    <span className="font-semibold">Pause</span>
-                                </button>
-                            ) : (
-                                <button
-                                    onClick={resumeRecording}
-                                    className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full shadow-lg flex items-center space-x-2"
-                                >
-                                    <span className="text-xl">🎤</span>
-                                    <span className="font-semibold">Weiter aufnehmen</span>
-                                </button>
-                            )}
-
-                            <button
-                                onClick={finishRecording}
-                                className="bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded-full shadow-lg flex items-center space-x-2"
-                            >
-                                <span className="text-xl">⏹</span>
-                                <span className="font-semibold">Aufnahme beenden</span>
-                            </button>
-                        </div>
-                    </>
-                )}
-            </div>
+                        <button
+                            onClick={finishRecording}
+                            className="bg-gray-700 hover:bg-gray-800 text-white px-5 py-2.5 rounded-md shadow transition-colors flex items-center gap-2 text-sm font-semibold"
+                        >
+                            <span className="text-lg">⏹</span>
+                            Aufnahme beenden
+                        </button>
+                    </div>
+                </>
+            )}
         </div>
+
+
+
     );
 }

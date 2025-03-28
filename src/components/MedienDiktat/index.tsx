@@ -9,6 +9,7 @@ import TranscriptSidebar from "@/components/MedienDiktat/TranscriptSidebar";
 import AiParameterBox from "@/components/MedienDiktat/AiParameterBox"; // <-- Import the new component
 import Image from 'next/image';
 import { generateDocx } from '../../app/utils/docxGenerator'; // Adjust path if needed
+import { CommandLineIcon } from '@heroicons/react/24/solid';
 
 import { diffWords } from "diff";
 // Import the utility functions and the interface
@@ -389,8 +390,8 @@ export default function MedienDiktat() {
                     {!showRecorder && !isRealtimeActive && (
                         <div className="space-y-6">
                             {/* ... file upload input ... */}
-                            <div className="flex justify-center">
-                                <div className="relative">
+                            <div className="w-full max-w-md mx-auto bg-white rounded-lg shadow-md p-4 min-h-[220px] flex flex-col items-center justify-center space-y-4">
+                                <div className="relative inline-flex">
                                     <input
                                         type="file"
                                         id="file-upload"
@@ -400,50 +401,56 @@ export default function MedienDiktat() {
                                     />
                                     <label
                                         htmlFor="file-upload"
-                                        className="cursor-pointer bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-lg shadow transition-colors flex items-center justify-center gap-2"
+                                        className="cursor-pointer bg-green-500 hover:bg-green-600 text-white px-5 py-2.5 rounded-md shadow transition-colors flex items-center gap-2 text-sm font-semibold"
                                     >
-                                        <span className="text-xl">📂</span>
+                                        <span className="text-lg">📂</span>
                                         Audio hochladen
                                     </label>
                                 </div>
                             </div>
+
+
+
                             {audioBlob && (
                                 <div className="text-center">
-                                    {/* ... audio controls and transcribe button ... */}
+                                    {/* Audio preview box */}
                                     <div className="p-4 bg-gray-50 rounded-lg mb-4">
                                         <p className="text-sm text-gray-600 mb-2">Audiodatei bereit für Transkription</p>
                                         <audio controls src={URL.createObjectURL(audioBlob)} className="w-full" />
                                     </div>
 
-                                    <button
-                                        onClick={transcribeAudio}
-                                        disabled={loadingFileTranscription}
-                                        className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg shadow transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                                    >
-                                        {loadingFileTranscription ? (
-                                            <span className="flex items-center gap-1 text-sm text-gray-500 bg-transparent">
-                                                <svg className="animate-spin h-4 w-4 text-gray-500" viewBox="0 0 24 24" fill="none">
-                                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.4 0 0 5.4 0 12h4z" />
-                                                </svg>
-                                                Transkribiere...
-                                            </span>
-                                        ) : (
-                                            "Audio transkribieren"
-                                        )}
+                                    {/* Centered action buttons */}
+                                    <div className="inline-flex space-x-2 mt-2">
+                                        <button
+                                            onClick={transcribeAudio}
+                                            disabled={loadingFileTranscription}
+                                            className="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-5 py-2.5 rounded-md shadow transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                        >
+                                            {loadingFileTranscription ? (
+                                                <>
+                                                    <svg className="animate-spin h-4 w-4 text-gray-200" viewBox="0 0 24 24" fill="none">
+                                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.4 0 0 5.4 0 12h4z" />
+                                                    </svg>
+                                                    <span className="text-sm text-gray-600 ">Transkribiere...</span>
+                                                </>
 
+                                            ) : (
+                                                <>
+                                                    <CommandLineIcon className="h-5 w-5 text-white" />
+                                                    <span className="text-sm">Audio transkribieren</span>
+                                                </>
+                                            )}
+                                        </button>
 
-                                    </button>
-                                    <button
-                                        onClick={() => downloadBlob(audioBlob, 'aufnahme.wav')} // Call utility
-                                        className="inline-flex items-center border border-gray-500 text-gray-600 hover:bg-gray-500 hover:text-white px-3 py-1 rounded-md text-xs font-medium transition-colors duration-150 ease-in-out"
-                                        title="Aufgenommene Audiodatei herunterladen"
-                                    >
-                                        <span className="mr-1.5 text-sm">⬇️</span>
-                                        Audio speichern
-                                    </button>
-
-
+                                        <button
+                                            onClick={() => downloadBlob(audioBlob, 'aufnahme.wav')}
+                                            className="flex items-center gap-2 border border-gray-400 text-gray-600 hover:bg-gray-100 px-5 py-2.5 rounded-md text-sm transition-colors"
+                                            title="Aufgenommene Audiodatei herunterladen"
+                                        >
+                                            ⬇️ Audio herunterladen
+                                        </button>
+                                    </div>
                                 </div>
                             )}
                         </div>
@@ -456,38 +463,37 @@ export default function MedienDiktat() {
                             <AudioRecorder onRecordingComplete={handleRecordingComplete} />
                             {audioBlob && (
                                 <div className="text-center mt-4">
-                                    <button
-                                        onClick={transcribeAudio}
-                                        disabled={loadingFileTranscription}
-                                        className={`px-6 py-3 rounded-lg shadow transition-colors disabled:cursor-not-allowed
-                                   ${loadingFileTranscription
-                                                ? 'bg-gray-200 text-black font-medium'
-                                                : 'bg-green-500 hover:bg-green-600 text-white'}
-                                 `}
-                                    >
-                                        {loadingFileTranscription ? (
-                                            <span className="flex items-center justify-center gap-2 text-sm text-slate-600">
-                                                <svg className="animate-spin h-4 w-4 text-black" viewBox="0 0 24 24" fill="none">
-                                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.4 0 0 5.4 0 12h4z" />
-                                                </svg>
-                                                Transkribiere...
-                                            </span>
-                                        ) : (
-                                            "Audio transkribieren"
-                                        )}
-                                    </button>
-                                    <button
-                                        onClick={() => downloadBlob(audioBlob, 'aufnahme.wav')} // Call utility
-                                        className="inline-flex items-center border border-gray-500 text-gray-600 hover:bg-gray-500 hover:text-white px-3 py-1 rounded-md text-xs font-medium transition-colors duration-150 ease-in-out"
-                                        title="Aufgenommene Audiodatei herunterladen"
-                                    >
-                                        <span className="mr-1.5 text-sm">⬇️</span>
-                                        Audio speichern
-                                    </button>
+                                    <div className="inline-flex space-x-2">
+                                        <button
+                                            onClick={transcribeAudio}
+                                            disabled={loadingFileTranscription}
+                                            className="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-5 py-2.5 rounded-md shadow transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                        >
+                                            {loadingFileTranscription ? (
+                                                <>
+                                                    <svg className="animate-spin h-4 w-4 text-white" viewBox="0 0 24 24" fill="none">
+                                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.4 0 0 5.4 0 12h4z" />
+                                                    </svg>
+                                                    <span className="text-sm">Transkribiere...</span>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <CommandLineIcon className="h-5 w-5 text-white" />
+                                                    <span className="text-sm">Audio transkribieren</span>
+                                                </>
+                                            )}
+                                        </button>
+
+                                        <button
+                                            onClick={() => downloadBlob(audioBlob, 'aufnahme.wav')}
+                                            className="flex items-center gap-2 border border-gray-400 text-gray-600 hover:bg-gray-100 px-5 py-2.5 rounded-md text-sm transition-colors"
+                                            title="Aufgenommene Audiodatei herunterladen"
+                                        >
+                                            ⬇️ Audio herunterladen
+                                        </button>
+                                    </div>
                                 </div>
-
-
                             )}
                         </div>
                     )}

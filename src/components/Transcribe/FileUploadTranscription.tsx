@@ -52,7 +52,7 @@ export default function FileUploadTranscription({ setTranscription, saveTranscri
     return (
         <div className="text-center">
             <input type="file" accept="audio/*" onChange={handleFileUpload} />
-            <button onClick={transcribeAudio} disabled={loading} className="px-6 py-3 rounded-lg bg-green-500 text-white">
+            <button onClick={transcribeAudio} disabled={loading} className="px-6 py-3 rounded-lg bg-green-500 text-gray-500">
                 {loading ? "Transkribiere..." : "Audio transkribieren"}
             </button>
             {error && <p className="text-red-500">{error}</p>}
