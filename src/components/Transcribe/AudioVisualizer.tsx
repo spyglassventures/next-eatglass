@@ -1,92 +1,208 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useCallback } from "react";
 
 interface AudioVisualizerProps {
-    stream: MediaStream;
+    stream: MediaStream | null;
+    backgroundColor?: string;
+    barColorStart?: string;
+    barColorEnd?: string;
+    barGap?: number;
+    smoothingTimeConstant?: number;
+    fftSize?: 32 | 64 | 128 | 256 | 512 | 1024 | 2048 | 4096 | 8192 | 16384 | 32768;
 }
 
-const AudioVisualizer: React.FC<AudioVisualizerProps> = ({ stream }) => {
+const AudioVisualizer: React.FC<AudioVisualizerProps> = ({
+    stream,
+    backgroundColor = "rgb(249, 250, 251)",
+    barColorStart = "rgb(59, 130, 246)",
+    barColorEnd = "rgb(139, 92, 246)",
+    barGap = 2,
+    smoothingTimeConstant = 0.8,
+    fftSize = 256,
+}) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
+    const audioContextRef = useRef<AudioContext | null>(null);
+    const analyserRef = useRef<AnalyserNode | null>(null);
+    const sourceRef = useRef<MediaStreamAudioSourceNode | null>(null);
+    const dataArrayRef = useRef<Uint8Array | null>(null);
+    const smoothedDataRef = useRef<Float32Array | null>(null);
     const animationFrameRef = useRef<number | null>(null);
+    const resizeObserverRef = useRef<ResizeObserver | null>(null);
 
-    useEffect(() => {
-        if (!canvasRef.current) return;
+    const setupAudio = useCallback((newStream: MediaStream) => {
+        if (audioContextRef.current && audioContextRef.current.state !== "closed") {
+            audioContextRef.current.close().catch(console.error);
+        }
 
-        const canvas = canvasRef.current;
-        const canvasCtx = canvas.getContext("2d");
-        if (!canvasCtx) return;
-
-        // Set up audio context and analyzer
-        const AudioContext = window.AudioContext
-        const audioContext = new AudioContext();
+        const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
         const analyser = audioContext.createAnalyser();
-        analyser.fftSize = 256;
+
+        analyser.smoothingTimeConstant = smoothingTimeConstant;
+        analyser.fftSize = fftSize;
+
         const bufferLength = analyser.frequencyBinCount;
         const dataArray = new Uint8Array(bufferLength);
+        const newSmoothedData = new Float32Array(bufferLength).fill(0);
 
-        // Connect the stream to the analyzer
-        const source = audioContext.createMediaStreamSource(stream);
+        const source = audioContext.createMediaStreamSource(newStream);
         source.connect(analyser);
 
-        // Function to draw the visualization
-        const draw = () => {
-            // Set canvas dimensions
-            const width = canvas.width;
-            const height = canvas.height;
+        audioContextRef.current = audioContext;
+        analyserRef.current = analyser;
+        sourceRef.current = source;
+        dataArrayRef.current = dataArray;
+        smoothedDataRef.current = newSmoothedData;
+    }, [fftSize, smoothingTimeConstant]);
 
-            // Request next animation frame
-            animationFrameRef.current = requestAnimationFrame(draw);
+    const draw = useCallback(() => {
+        const analyser = analyserRef.current;
+        const dataArray = dataArrayRef.current;
+        const canvas = canvasRef.current;
+        const canvasCtx = canvas?.getContext("2d");
+        const currentSmoothedData = smoothedDataRef.current;
 
-            // Get frequency data
-            analyser.getByteFrequencyData(dataArray);
+        if (!analyser || !dataArray || !canvas || !canvasCtx || !currentSmoothedData) {
+            if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current);
+            return;
+        }
 
-            // Clear canvas
-            canvasCtx.fillStyle = "rgb(249, 250, 251)";
-            canvasCtx.fillRect(0, 0, width, height);
+        analyser.getByteFrequencyData(dataArray);
 
-            // Calculate bar width based on canvas size and buffer length
-            const barWidth = (width / bufferLength) * 2.5;
-            let x = 0;
+        const width = canvas.width;
+        const height = canvas.height;
+        const bufferLength = analyser.frequencyBinCount;
 
-            // Draw bars for each frequency
-            for (let i = 0; i < bufferLength; i++) {
-                const barHeight = (dataArray[i] / 255) * height;
+        canvasCtx.fillStyle = backgroundColor;
+        canvasCtx.fillRect(0, 0, width, height);
 
-                // Create gradient from blue to purple
-                const gradient = canvasCtx.createLinearGradient(0, height, 0, height - barHeight);
-                gradient.addColorStop(0, "rgb(59, 130, 246)"); // Blue
-                gradient.addColorStop(1, "rgb(139, 92, 246)"); // Purple
+        const totalBarSpace = width - (bufferLength - 1) * barGap;
+        const barWidth = Math.max(1, totalBarSpace / bufferLength);
 
-                canvasCtx.fillStyle = gradient;
-                canvasCtx.fillRect(x, height - barHeight, barWidth, barHeight);
+        let x = 0;
+        const gradient = canvasCtx.createLinearGradient(0, height, 0, 0);
+        gradient.addColorStop(0, barColorStart);
+        gradient.addColorStop(1, barColorEnd);
 
-                x += barWidth + 1;
-                if (x > width) break;
+        canvasCtx.strokeStyle = gradient;
+        canvasCtx.lineWidth = barWidth;
+        canvasCtx.lineCap = "round";
+
+        const newSmoothedData = new Float32Array(bufferLength);
+
+        for (let i = 0; i < bufferLength; i++) {
+            const rawValue = dataArray[i];
+            const currentSmoothValue = currentSmoothedData[i] || 0;
+            const smoothedValue = currentSmoothValue * smoothingTimeConstant + rawValue * (1 - smoothingTimeConstant);
+            newSmoothedData[i] = smoothedValue;
+
+            const barHeight = Math.max(1, (smoothedValue / 255) * height);
+            const startX = x + barWidth / 2;
+            const startY = height;
+            const endY = height - barHeight;
+
+            canvasCtx.beginPath();
+            canvasCtx.moveTo(startX, startY);
+            canvasCtx.lineTo(startX, endY);
+            canvasCtx.stroke();
+
+            x += barWidth + barGap;
+            if (x > width) break;
+        }
+
+        smoothedDataRef.current = newSmoothedData;
+        animationFrameRef.current = requestAnimationFrame(draw);
+    }, [backgroundColor, barColorStart, barColorEnd, barGap, smoothingTimeConstant]);
+
+    useEffect(() => {
+        if (stream && canvasRef.current) {
+            setupAudio(stream);
+        } else {
+            if (animationFrameRef.current) {
+                cancelAnimationFrame(animationFrameRef.current);
+                animationFrameRef.current = null;
             }
-        };
+            if (audioContextRef.current && audioContextRef.current.state !== "closed") {
+                audioContextRef.current.close().catch(console.error);
+                audioContextRef.current = null;
+            }
+            analyserRef.current = null;
+            sourceRef.current = null;
+            dataArrayRef.current = null;
+            smoothedDataRef.current = null;
 
-        // Start visualization
-        draw();
+            const canvas = canvasRef.current;
+            const ctx = canvas?.getContext("2d");
+            if (canvas && ctx) {
+                ctx.fillStyle = backgroundColor;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            }
+        }
 
-        // Cleanup function
         return () => {
             if (animationFrameRef.current) {
                 cancelAnimationFrame(animationFrameRef.current);
+                animationFrameRef.current = null;
             }
-            if (audioContext.state !== "closed") {
-                audioContext.close();
+            if (audioContextRef.current && audioContextRef.current.state !== "closed") {
+                audioContextRef.current.close().catch(console.error);
+                audioContextRef.current = null;
             }
         };
-    }, [stream]);
+    }, [stream, setupAudio, backgroundColor]);
+
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        if (!canvas || !stream || !analyserRef.current) {
+            if (animationFrameRef.current) {
+                cancelAnimationFrame(animationFrameRef.current);
+                animationFrameRef.current = null;
+            }
+            return;
+        }
+
+        const handleResize = () => {
+            const { width, height } = canvas.getBoundingClientRect();
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = width * dpr;
+            canvas.height = height * dpr;
+
+            const ctx = canvas.getContext('2d');
+            if (ctx) {
+                ctx.scale(dpr, dpr);
+                canvas.style.width = `${width}px`;
+                canvas.style.height = `${height}px`;
+            }
+        };
+
+        resizeObserverRef.current = new ResizeObserver(handleResize);
+        resizeObserverRef.current.observe(canvas);
+        handleResize();
+
+        if (!animationFrameRef.current && analyserRef.current) {
+            if (!smoothedDataRef.current || smoothedDataRef.current.length !== analyserRef.current.frequencyBinCount) {
+                smoothedDataRef.current = new Float32Array(analyserRef.current.frequencyBinCount).fill(0);
+            }
+            draw();
+        }
+
+        return () => {
+            if (resizeObserverRef.current) {
+                resizeObserverRef.current.disconnect();
+                resizeObserverRef.current = null;
+            }
+            if (animationFrameRef.current) {
+                cancelAnimationFrame(animationFrameRef.current);
+                animationFrameRef.current = null;
+            }
+        };
+    }, [draw, stream]);
 
     return (
-        <div className="w-full bg-gray-50 rounded-lg overflow-hidden">
+        <div className="w-full h-full bg-gray-50 rounded-lg overflow-hidden">
             <canvas
                 ref={canvasRef}
-                width={300}
-                height={80}
-                className="w-full"
+                className="w-full h-full block"
             />
         </div>
     );
