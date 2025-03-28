@@ -57,7 +57,7 @@ export default function RealtimeTranscription({
             speechConfig.speechRecognitionLanguage = "de-DE";
     
             if (useCustomModel) {
-                speechConfig.endpointId = "switzerland-secure-docdialog-speech-fine-tuned";
+                speechConfig.endpointId = "0f27abc6-3425-4dd2-8daf-236fd002bef1" // switzerland-secure-docdialog-speech-fine-tuned";
                 setModelName("Custom Model: DocDialog Fine-Tuned");
             } else {
                 setModelName("Azure Speech-to-Text (Standard)");
