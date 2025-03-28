@@ -35,71 +35,79 @@ export default function RealtimeTranscription({
 
     const [modelName, setModelName] = useState<string>("Azure Speech-to-Text");
 
-
+// try custom model, if not available, fallback to standard model
     useEffect(() => {
         if (!isActive) return;
-
+    
         const speechKey = process.env.NEXT_PUBLIC_AZURE_SPEECH_KEY!;
         const speechRegion = process.env.NEXT_PUBLIC_AZURE_SPEECH_REGION!;
-
+    
         if (!speechKey || !speechRegion) {
             setError("Azure Speech Key oder Region fehlt.");
             setIsActive(false);
             return;
         }
-
+    
         setRealtimeText("");
         finalTranscriptRef.current = "";
         setStatus("warming");
-
-        const speechConfig = SpeechSDK.SpeechConfig.fromSubscription(speechKey, speechRegion);
-        speechConfig.speechRecognitionLanguage = "de-DE";
-
-        // Optional: set endpointId if you need a custom model
-        const endpointId = "ftjob-c06f7cadcb3e4592b3615f75e90cdeef" // switzerland-secure-docdialog-speech-fine-tuned";; // ← set your real endpoint ID here if you have one
-
-        if (endpointId) {
-            speechConfig.endpointId = endpointId;
-            setModelName(`Custom Model: ${endpointId}`);
-        } else {
-            setModelName(`Azure Speech-to-Text (Standard)`);
-        }
-
-        const audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
-        const recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
-        recognizerRef.current = recognizer;
-
-        recognizer.recognizing = (_s, e) => {
-            setRealtimeText(finalTranscriptRef.current + e.result.text);
-        };
-
-        recognizer.recognized = (_s, e) => {
-            if (e.result.reason === SpeechSDK.ResultReason.RecognizedSpeech) {
-                finalTranscriptRef.current += e.result.text + " ";
-                setRealtimeText(finalTranscriptRef.current);
+    
+        const tryRecognizer = (useCustomModel: boolean) => {
+            const speechConfig = SpeechSDK.SpeechConfig.fromSubscription(speechKey, speechRegion);
+            speechConfig.speechRecognitionLanguage = "de-DE";
+    
+            if (useCustomModel) {
+                speechConfig.endpointId = "switzerland-secure-docdialog-speech-fine-tuned";
+                setModelName("Custom Model: DocDialog Fine-Tuned");
+            } else {
+                setModelName("Azure Speech-to-Text (Standard)");
             }
+    
+            const audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
+            const recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
+            recognizerRef.current = recognizer;
+    
+            recognizer.recognizing = (_s, e) => {
+                setRealtimeText(finalTranscriptRef.current + e.result.text);
+            };
+    
+            recognizer.recognized = (_s, e) => {
+                if (e.result.reason === SpeechSDK.ResultReason.RecognizedSpeech) {
+                    finalTranscriptRef.current += e.result.text + " ";
+                    setRealtimeText(finalTranscriptRef.current);
+                }
+            };
+    
+            recognizer.canceled = (_s, e) => {
+                console.error("Erkennung abgebrochen:", e.errorDetails);
+    
+                if (useCustomModel) {
+                    console.log("⚠️ Custom Model fehlgeschlagen – wechsle auf Standardmodell.");
+                    tryRecognizer(false); // Fallback auf Standardmodell
+                } else {
+                    setError("Transkription abgebrochen: " + e.errorDetails);
+                    stop();
+                }
+            };
+    
+            recognizer.sessionStarted = () => {
+                setStatus("listening");
+            };
+    
+            recognizer.sessionStopped = () => {
+                stop();
+            };
+    
+            recognizer.startContinuousRecognitionAsync();
         };
-
-        recognizer.canceled = (_s, e) => {
-            console.error("Erkennung abgebrochen:", e.errorDetails);
-            setError("Transkription abgebrochen: " + e.errorDetails);
-            stop();
-        };
-
-        recognizer.sessionStarted = () => {
-            setStatus("listening");
-        };
-
-        recognizer.sessionStopped = () => {
-            stop();
-        };
-
-        recognizer.startContinuousRecognitionAsync();
-
+    
+        tryRecognizer(true); // Versuche zuerst mit Custom Model
+    
         return () => {
-            recognizer.stopContinuousRecognitionAsync(() => { }, () => { });
+            recognizerRef.current?.stopContinuousRecognitionAsync(() => {}, () => {});
         };
     }, [isActive]);
+    
 
 
     const stop = () => {
