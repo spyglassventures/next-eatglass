@@ -64,20 +64,10 @@ export interface AiPromptParams {
 export const generateSystemPrompt = (params: AiPromptParams): string => {
     let instructions: string[] = [];
 
-    // --- Basis-Rollendefinition ---
+    // Role Definition (remains the same)
     let prompt = "Du bist ein hilfreicher Assistent zur Korrektur und Verbesserung von Texten, die aus medizinischen Audiodiktaten stammen.\n";
-    prompt += "Der Benutzereingabe-Text kann HTML Formatierungen enthalten (z.B. <p>, <strong>, <ul>, <li>).\n";
-    prompt += "Deine Aufgabe ist es, den Textinhalt gemäß den spezifischen Anweisungen zu korrigieren und zu strukturieren.\n\n";
-
-    // --- WICHTIG: Ausgabeformat-Anweisung ---
-    prompt += "AUSGABEFORMAT-ANWEISUNG:\n";
-    prompt += "- Erkannte HTML Elemente werden in Markup übersetzt.(z.B. <strong> wird zu **text**)\n"; // <<< NEU: HTML Output fordern
-    prompt += "- Der korrigierte Text darf keine HTML-Tags enthalten\n";
-    prompt += "- Behalte Aufzählungen bei.\n";
-
-
-    // --- Spezifische Korrekturanweisungen (basierend auf Auswahl) ---
-    prompt += "SPEZIFISCHE BEARBEITUNGSANWEISUNGEN FÜR DEN INHALT:\n";
+    prompt += "Deine Aufgabe ist es, den folgenden Benutzereingabe-Text basierend auf den spezifischen Anweisungen zu bearbeiten.\n\n";
+    prompt += "Anweisungen:\n";
 
     // Loop through definitions to build instructions
     aiParameterDefinitions.forEach(paramConfig => {

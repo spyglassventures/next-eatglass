@@ -56,12 +56,12 @@ const KiTranscriptionDisplay: React.FC<Props> = ({
     return (
         <div className="w-full md:w-1/2 p-3 border rounded bg-gray-50 overflow-auto flex flex-col">
             {/* Header and Sparkle Button ... */}
-            {/* Header for KI Box */}
-            <div className="flex items-center justify-between mb-2">
-                <h2 className="font-bold text-md" style={{ color: primaryColor }}>
-                    Verfeinerte Version (KI)
-                </h2>
-                <button
+             {/* Header for KI Box */}
+                <div className="flex items-center justify-between mb-2">
+                    <h2 className="font-bold text-md" style={{ color: primaryColor }}>
+                        Verfeinerte Version (KI)
+                    </h2>
+                    <button
                     onClick={onGenerateKi}
                     className="inline-flex items-center px-3 py-1 rounded bg-blue-500 hover:bg-purple-600 hover:animate-pulse text-white text-sm font-medium disabled:opacity-50"
                     disabled={isGenerating || !originalTranscription}
@@ -86,7 +86,7 @@ const KiTranscriptionDisplay: React.FC<Props> = ({
                 currentParams={currentAiParams}
                 onParamChange={onAiParamChange}
                 primaryColor={primaryColor}
-            // Remove spread of old props: {...aiParams}, {...aiParamHandlers}
+                // Remove spread of old props: {...aiParams}, {...aiParamHandlers}
             />
 
             {/* KI Response Area */}

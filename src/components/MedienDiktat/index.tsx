@@ -1,7 +1,7 @@
 // File: app/medien/page.tsx
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import axios from "axios";
 
 import AudioRecorder from "../../components/Transcribe/AudioRecorder";
@@ -31,6 +31,9 @@ import {
 // Adjust path as necessary
 import { downloadBlob } from '../../app/utils/downloadUtils';
 
+import { stripHtml } from '../../app/utils/textUtils'; // used to clean up the text from html tags
+
+
 
 // The Transcription interface is now imported, so you can remove the local definition if you had one
 
@@ -51,6 +54,12 @@ export default function MedienDiktat() {
 
     const primaryColor = "#24a0ed";
 
+    // lift state of edited transaction up 
+    // Add this near your other useState hooks
+    const [currentEditedTranscription, setCurrentEditedTranscription] = useState<string>('');
+
+
+
     // --- CENTRALIZED AI Parameter State ---
     // Initialize state dynamically from the definitions
     const initialAiParamsState = (): AiPromptParams => {
@@ -70,6 +79,10 @@ export default function MedienDiktat() {
             [paramId]: checked,
         }));
     };
+
+    const handleTranscriptionEditorChange = useCallback((newValue: string) => {
+        setCurrentEditedTranscription(newValue);
+    }, []); // Empty dependency array is fine here
     // --- END CENTRALIZED AI State ---
 
 
@@ -91,6 +104,7 @@ export default function MedienDiktat() {
     // ONLY add to the sidebar + localStorage if "saveLocal" is true.
     const handleNewTranscription = (text: string) => {
         setTranscription(text); // Always show in main UI
+        setCurrentEditedTranscription(text);
 
         if (!saveLocal) {
             return; // Skip saving if checkbox is unchecked
@@ -264,19 +278,27 @@ export default function MedienDiktat() {
     // moved, see utils/promptGenerator.ts
 
     const handleSparkleClick = async () => {
-        if (!transcription) return;
+        // V V V Use the edited state here V V V
+        const cleanedContent = cleanupQuillHtmlSimple(currentEditedTranscription); // <<< Use the simple helper
+        // --->>> STEP 2: Add a console log right after cleanup <<<---
+        console.log("Content BEFORE sending to AI:", currentEditedTranscription);
+        console.log("Content AFTER cleanup, BEFORE sending to AI:", cleanedContent); // <<< CHECK THIS LOG
+
+        // Check the cleaned content
+        if (!cleanedContent) return;
+
         try {
             setSparkleLoading(true);
             setSparkleResponse("");
 
-            // Pass the whole state object to the generator function
             const systemPrompt = generateSystemPrompt(aiParamsState);
-            console.log("Generated System Prompt:", systemPrompt);
 
             const messages = [
                 { role: "system", content: systemPrompt },
-                { role: "user", content: transcription },
+                // --->>> STEP 3: Ensure cleanedContent is used here <<<---
+                { role: "user", content: cleanedContent },
             ];
+
 
             const res = await fetch("/api/az-schweiz-chat-4o-mini", {
                 method: "POST",
@@ -312,15 +334,29 @@ export default function MedienDiktat() {
     };
 
     // DIFF-Hilfsfunktion
-    const renderDiff = (original: string, changed: string) => {
-        const diff = diffWords(original, changed);
-        return diff.map((part, idx) => {
-            let style = "";
-            if (part.added) style = "bg-green-200";
-            if (part.removed) style = "bg-red-200 line-through";
-            return <span key={idx} className={style}>{part.value}</span>;
-        });
-    };
+    const renderDiff = (original: string | null, changed: string | null): React.ReactNode => {
+        // 1. Strip HTML from both input strings FIRST
+        const strippedOriginal = stripHtml(original);
+        const strippedChanged = stripHtml(changed);
+
+        // 2. Perform the diff on the PLAIN TEXT versions
+        const diff = diffWords(strippedOriginal, strippedChanged);
+
+        // 3. Map over the plain text diff results and apply styles
+        return (
+            // Wrap in a div to contain the spans, apply text style if needed
+            <div className="text-xs font-light leading-relaxed whitespace-pre-wrap">
+                {diff.map((part, idx) => {
+                    let style = "";
+                    if (part.added) style = "bg-green-200";
+                    if (part.removed) style = "bg-red-200 line-through";
+
+                    // Render the plain text part value within the span
+                    return <span key={idx} className={style}>{part.value}</span>;
+                })}
+            </div>
+        );
+    }; // End of renderDiff function
 
     // Word-Download für KI-Version - SIMPLIFIED
     const downloadSparkleAsWord = async () => {
@@ -334,12 +370,31 @@ export default function MedienDiktat() {
 
     // Word-Download für Original - SIMPLIFIED
     const downloadOriginalAsWord = async () => {
-        if (!transcription) return;
+        const cleanedContent = cleanupQuillHtmlSimple(currentEditedTranscription); // <<< Use the simple help
+        // V V V Use the edited state here V V V
+        if (!cleanedContent) return;
         await generateDocx(
-            transcription,
+            // V V V Use the edited state here V V V
+            cleanedContent,
             "/forms/Blank/Briefkopf_blank.docm", // Template path
             "Transkription_Original.docm"        // Output filename
         );
+    };
+
+
+    // Simpler function - USE WITH CAUTION (Assumes NO other HTML formatting)
+    const cleanupQuillHtmlSimple = (html: string | null): string => {
+        if (!html) return ''; // Handle null or empty input
+
+        const trimmedHtml = html.trim();
+
+        // Use regex: ^ matches start, $ matches end
+        // Replace leading <p> if present
+        let cleaned = trimmedHtml.replace(/^<p>/, '');
+        // Replace trailing </p> if present
+        cleaned = cleaned.replace(/<\/p>$/, '');
+
+        return cleaned;
     };
 
     // --- Render JSX (mostly unchanged, ensure imports/paths are correct) ---
@@ -348,7 +403,11 @@ export default function MedienDiktat() {
             {/* Sidebar */}
             <TranscriptSidebar
                 previousTranscriptions={previousTranscriptions}
-                loadTranscription={(text) => setTranscription(text)} // Keep loading into main view state
+                //loadTranscription={(text) => setTranscription(text)} // Keep loading into main view state
+                loadTranscription={(text) => {
+                    setTranscription(text); // Keep this
+                    setCurrentEditedTranscription(text); // <<< Add this line
+                }}
                 deleteTranscription={deleteTranscription} // Use the component's delete handler which calls the utility
                 primaryColor={primaryColor}
                 saveLocal={saveLocal}
@@ -529,23 +588,27 @@ export default function MedienDiktat() {
 
                                 {/* Use the Original Display Component */}
                                 <OriginalTranscriptionDisplay
-                                    transcription={transcription}
+                                    value={currentEditedTranscription} // <<< Add this
+                                    // Add onChange prop:
+                                    onChange={handleTranscriptionEditorChange} // <<< Add this
+
                                     onDownload={downloadOriginalAsWord}
                                     primaryColor={primaryColor}
                                 />
 
                                 {/* Use the KI Display Component */}
                                 <KiTranscriptionDisplay
-                                    originalTranscription={transcription}
+                                    // V V V Pass the EDITED state here V V V
+                                    originalTranscription={currentEditedTranscription}
+                                    // ^^^^ This is important for the renderDiff function
+
                                     kiResponse={sparkleResponse}
-                                    isLoading={sparkleLoading}
+                                    isLoading={sparkleLoading} // Consider if loadingFileTranscription should also be factored in?
                                     isGenerating={sparkleLoading}
                                     primaryColor={primaryColor}
-                                    // Pass the necessary things for the dynamic box
-                                    aiParameterDefinitions={aiParameterDefinitions} // Pass definitions
-                                    currentAiParams={aiParamsState} // Pass current state object
-                                    onAiParamChange={handleAiParamChange} // Pass the single handler
-
+                                    aiParameterDefinitions={aiParameterDefinitions}
+                                    currentAiParams={aiParamsState}
+                                    onAiParamChange={handleAiParamChange}
                                     onGenerateKi={handleSparkleClick}
                                     onDownloadKi={downloadSparkleAsWord}
                                     renderDiff={renderDiff}
