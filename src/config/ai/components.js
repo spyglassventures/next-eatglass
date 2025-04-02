@@ -20,6 +20,7 @@ import Konfigurationsanleitung from '@/components/IntKonfigurationsanleitung'; /
 import LernvideosPage from '@/components/IntLernvideos'; //
 import HIN from '@/components/IntHIN'; //
 import QM from '@/components/IntQM'; //
+import Tardoc from '@/components/IntTardoc'; //
 import Abrechnung from '@/components/IntAbrechnung'; //
 import QR from '@/components/IntQR'; //
 import ChatWithPdf from '@/components/ChatWithPdf'; //
@@ -137,6 +138,7 @@ export const NAV_ITEMS = {
         { key: 'QR', name: 'QR Codes', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'Logs', name: 'Letzte KI Anfragen', visible_mpa: false, visible_arzt: false, visible_pro: false },
         { key: 'ChatWithPdf', name: 'ChatWithPdf', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'Tardoc', name: 'TARDOC', visible_mpa: true, visible_arzt: true, visible_pro: true },
 
         // { key: 'antwortemail', name: 'antwortemail', visible_mpa: false, visible_arzt: true, visible_pro: true }
 
@@ -492,6 +494,11 @@ export const COMPONENTS = {
         component: 'QM',
         buttonText: 'qm'
     },
+    Tardoc: {
+        name: 'Tardoc',
+        component: 'Tardoc',
+        buttonText: 'Tardoc'
+    },
     QR: {
         name: 'QR',
         component: 'QR',
@@ -576,7 +583,8 @@ export const ICONS = {
     LernvideosPage: PlayIcon,
     HIN: AcademicCapIcon,
     Logs: AcademicCapIcon,
-    QM: HeartIcon,
+    QM: BookOpenIcon,
+    Tardoc: HeartIcon,
     ChatWithPdf: DocumentTextIcon,
     Abrechnung: CheckBadgeIcon,
     QR: CheckBadgeIcon,
@@ -635,6 +643,8 @@ export const getActiveComponent = (activeComponent) => {
             return Logs;
         case 'QM':
             return QM;
+        case 'Tardoc':
+            return Tardoc;
         case 'QR':
             return QR;
         case 'ChatWithPdf':
