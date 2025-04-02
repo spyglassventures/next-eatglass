@@ -9,16 +9,13 @@ export const favoriteZiffern = {
         '00.0120', // Telefonische Konsultation durch Arzt, weitere 5 Min.
         '00.0130', // Telefonische Konsultation durch Arzt, letzte 5 Min.
         '00.0510', // Spezifische Beratung durch Grundversorger, 5 Min.
-        '00.0415', // Kleine Untersuchung durch Grundversorger bei Personen über 6 und unter 75 Jahren, pro 5 Min.
-        '00.0425', // Umfassende Untersuchung durch Grundversorger, pro 5 Min.
+        
         '00.0130', // +Tel. Konsult. durch Az, letzte 5'
         '00.0510', // Spezif. Beratung Grundversorger
     ],
     untersuchungen: [
-
-        '00.0415', // Umfassende Untersuchung durch Grundversorger, 5 Min.
+        '00.0415', // Kleine Untersuchung durch Grundversorger bei Personen über 6 und unter 75 Jahren, pro 5 Min.
         '00.0425', // Umfassende Untersuchung durch Grundversorger, pro 5 Min.
-        '00.0430', // Umfassende Untersuchung durch Grundversorger, letzte 5 Min.
         '00.0450', // Umfassende Untersuchung durch Grundversorger, 5 Min.
         '00.0460', // Umfassende Untersuchung durch Grundversorger, 5 Min.
         '00.1370', // Überwachung in Praxis, 15'
