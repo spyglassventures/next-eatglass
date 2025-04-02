@@ -22,28 +22,21 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  const { modules } = homePageConfig;
+  const modules = homePageConfig.modules ?? {};
 
   return (
     <>
-      {modules.ScrollUp && <ScrollUp />}
-      {modules.Hero && <Hero />}
-      {modules.NewsTicker && <NewsTicker />}
-      {modules.AboutSectionTwo && <AboutSectionTwo />}
-      {modules.Openinghours && <Openinghours />}
-      {modules.Features && <Features />}
-
-      {modules.Brands && <Brands />}
-      {modules.AboutSectionOne && <AboutSectionOne />}
-      {modules.Testimonials && <Testimonials />}
-      {modules.Pricing && <Pricing />}
-
-      {modules.Contact && <Contact />}
+      {(modules.ScrollUp ?? true) && <ScrollUp />}
+      {(modules.Hero ?? true) && <Hero />}
+      {(modules.NewsTicker ?? true) && <NewsTicker />}
+      {(modules.AboutSectionTwo ?? true) && <AboutSectionTwo />}
+      {(modules.Openinghours ?? true) && <Openinghours />}
+      {(modules.Features ?? true) && <Features />}
+      {(modules.Brands ?? true) && <Brands />}
+      {(modules.AboutSectionOne ?? true) && <AboutSectionOne />}
+      {(modules.Testimonials ?? true) && <Testimonials />}
+      {(modules.Pricing ?? true) && <Pricing />}
+      {(modules.Contact ?? true) && <Contact />}
     </>
   );
 }
-
-
-// client page?
-// also go to layout.tsx
-// and comment out the header and footer

@@ -16,6 +16,8 @@
         "Testimonials": false,
         "Pricing": false,
         "Blog": false,
-        "Contact": false
+        "Contact": false,
+        "Footer": true,
+        "FooterComment": "see layout.tsx"
     }
 }

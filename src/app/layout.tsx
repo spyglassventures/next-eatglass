@@ -9,6 +9,7 @@ import Script from "next/script";
 import "node_modules/react-modal-video/css/modal-video.css";
 import "../styles/index.css";
 import { FilterProvider } from "@/components/AI/FilterContext"; // for mpa, arzt, pro mode filter for models and theme
+import homePageConfig from "@/config/homePageConfig.json";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,6 +18,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const modules = homePageConfig.modules ?? {};
   return (
     <html suppressHydrationWarning lang="de">
       <head />
@@ -58,12 +60,13 @@ export default function RootLayout({
 
         <FilterProvider>
           <Providers>
+            {/* // see next-eatglass/src/config/headerConfig.json for move nav items or comment out */}
             <Header />
 
             {children}
 
             <Analytics mode={"production"} />
-            <Footer />
+            {(modules.Footer ?? true) && <Footer />}
             <ScrollToTop />
           </Providers>
         </FilterProvider>
