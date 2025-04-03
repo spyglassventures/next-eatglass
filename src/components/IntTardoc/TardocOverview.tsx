@@ -122,7 +122,7 @@ const TardocOverview: React.FC<TardocOverviewProps> = ({ onContinue, setActiveVi
           {/* Button 1 */}
           <button
             onClick={onContinue}
-            className="min-w-[220px] text-center bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition"
+            className="min-w-[240px] h-[44px] text-center bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition"
           >
             → 2. TARMED erfassen
           </button>
@@ -130,21 +130,21 @@ const TardocOverview: React.FC<TardocOverviewProps> = ({ onContinue, setActiveVi
           {/* "oder" */}
           <span className="self-center text-gray-500">oder</span>
 
-          {/* Button 2 mit kleinerem Hinweis rechts */}
+          {/* Button 2 + Hinweistext */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 max-w-md">
             <button
               onClick={() => setActiveView('transcription')}
-              className="min-w-[220px] text-center bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition"
+              className="min-w-[240px] h-[44px] text-center bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition"
             >
-              → 4. Auswertung & Beispiele
+              4. Auswertung & Beispiele
             </button>
-            <span className="text-gray-500 text-xs leading-snug sm:max-w-[220px]">
-              (wenn Sie keine Positionen eingeben möchten und nur Beispiele sehen möchten)
+            <span className="text-gray-500 text-xs leading-snug sm:max-w-[240px]">
+              (wenn Sie keine Positionen eingeben möchten und nur Bsp. sehen möchten gehen Sie zu 4.)
             </span>
           </div>
         </div>
 
-        {/* Footer mit Abstand */}
+        {/* Footer */}
         <div className="mt-10 text-sm text-gray-600">
           <p className="mb-2 italic">Alle Angaben ohne Gewähr.</p>
           <p className="mb-4">
@@ -154,6 +154,7 @@ const TardocOverview: React.FC<TardocOverviewProps> = ({ onContinue, setActiveVi
             </a>
           </p>
         </div>
+
 
 
 
