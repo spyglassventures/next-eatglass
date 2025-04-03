@@ -77,7 +77,7 @@ const TardocOverview: React.FC<TardocOverviewProps> = ({ onContinue, setActiveVi
         <div className="px-4 pt-2 pb-4 text-gray-600 italic text-sm">
           Abb. {currentStep + 1} – Screenshot {step.title.replace(/Schritt \d+:?/, '').trim()}
         </div>
-        <div className="px-4 pb-4 text-gray-700">{step.text}</div>
+        <div className="px-4 pb-4 text-red-700">{step.text}</div>
       </div>
 
 
@@ -111,39 +111,51 @@ const TardocOverview: React.FC<TardocOverviewProps> = ({ onContinue, setActiveVi
       </div>
 
       <div className="text-sm text-gray-600">
-        <p className="mb-2 italic">Alle Angaben ohne Gewähr.</p>
-        <p className="mb-4">
-          Bei Fragen, schreiben Sie mir doch gerne an{" "}
-          <a href="mailto:dm@spyglassventures.ch" className="text-blue-600 underline">
-            dm@spyglassventures.ch
-          </a>
-        </p>
+
 
         <p className="font-medium mb-2">Bereit?</p>
-        <p className="mb-4">Erfassen Sie nun die gewünschten Positionen im nächsten Schritt oder schauen Sie sich ein Beispiel an:</p>
+        <p className="mb-4">
+          Erfassen Sie nun die gewünschten Positionen im nächsten Schritt oder schauen Sie sich ein Beispiel an:
+        </p>
 
-        <div className="flex flex-wrap items-center gap-3 text-sm">
+        <div className="flex flex-wrap items-start gap-4 text-sm mb-10">
+          {/* Button 1 */}
           <button
             onClick={onContinue}
-            className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition"
+            className="min-w-[220px] text-center bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition"
           >
             → 2. TARMED erfassen
           </button>
 
-          <span className="text-gray-500">oder</span>
+          {/* "oder" */}
+          <span className="self-center text-gray-500">oder</span>
 
-          <div className="flex items-center gap-2">
+          {/* Button 2 mit kleinerem Hinweis rechts */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 max-w-md">
             <button
               onClick={() => setActiveView('transcription')}
-              className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition"
+              className="min-w-[220px] text-center bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition"
             >
-              4. Auswertung und Beispiele
+              → 4. Auswertung & Beispiele
             </button>
-            <span className="text-gray-600 max-w-xs">
-              (wenn Sie keine eigenen Positionen eingeben wollen und nur Beispiele anschauen möchten)
+            <span className="text-gray-500 text-xs leading-snug sm:max-w-[220px]">
+              (wenn Sie keine Positionen eingeben möchten und nur Beispiele sehen möchten)
             </span>
           </div>
         </div>
+
+        {/* Footer mit Abstand */}
+        <div className="mt-10 text-sm text-gray-600">
+          <p className="mb-2 italic">Alle Angaben ohne Gewähr.</p>
+          <p className="mb-4">
+            Bei Fragen, schreiben Sie mir doch gerne an{" "}
+            <a href="mailto:dm@spyglassventures.ch" className="text-blue-600 underline">
+              dm@spyglassventures.ch
+            </a>
+          </p>
+        </div>
+
+
 
 
 

@@ -146,10 +146,10 @@ const TardocTranscription = () => {
     const exampleFiles = [
         { label: '3x Kons, kl. Unt.', file: 'tarmed_volumes_bsp1.csv' },
         { label: 'Kons, Zuschlag, Spez. Beratung, Blutent.', file: 'tarmed_volumes_bsp2.csv' },
-        { label: '3x Kons, Zuschlag, Rezept, Röntgen', file: 'tarmed_volumes_bsp3.csv' },
+        { label: '3x Kons, Zuschlag, Rezept, Rtg', file: 'tarmed_volumes_bsp3.csv' },
         { label: '2x Kons, Kind, Zuschlag, Notfall B, Inkonv. P.', file: 'tarmed_volumes_bsp4.csv' },
         { label: '2x Kons, Zuschlag, U. Konsilarzt, Kl. Spiro, EKG', file: 'tarmed_volumes_bsp5.csv' },
-        { label: '2x Kons, Zuschlag, Kl. Unt. Rtg Tho, Rg. weitere, Sono Wich, Techn. Grundleist.,', file: 'tarmed_volumes_bsp6.csv' },
+        { label: '2x Kons, Zuschlag, kl. Unt. Rtg Tho, Rg. weitere, Sono Weich, Techn. Grundleist.,', file: 'tarmed_volumes_bsp6.csv' },
     ];
 
 
