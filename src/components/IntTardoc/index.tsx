@@ -267,7 +267,8 @@ const Tardoc = () => {
                                                 >
                                                     otma Webseite (3. Tarifmatcher, extern)
                                                 </a>
-                                                . Laden Sie dort die gerade exportierte CSV hoch und klicken Sie auf „Transkodieren und Download“. Kommen Sie danach zu „4. Auswertung“ zurück.{' '}
+                                                . Laden Sie dort die gerade exportierte CSV hoch und klicken Sie auf &quot;Transkodieren und Download&quot;. Kommen Sie danach zu &quot;4. Auswertung&quot; zurück.{' '}
+
                                                 <button
                                                     onClick={() => setIsModalOpen(true)}
                                                     className="ml-2 text-blue-700 underline hover:text-blue-900"
@@ -278,9 +279,9 @@ const Tardoc = () => {
                                         )}
 
                                         <SimpleModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Wo finde ich die Datei?">
-                                            <p>Heruntergeladene Dateien befinden sich meist im Ordner <strong>"Downloads"</strong> oder auf dem <strong>"Desktop"</strong>.</p>
-                                            <p>Die Datei heisst z.B. <strong>"tarmed_volumes.csv"</strong></p>
-                                            <p>Auf der otma Webseite, klicken Sie oben auf <strong>„Datei auswählen / Choose file“</strong> und wählen Sie die heruntergeladene Datei aus.</p>
+                                            <p>Heruntergeladene Dateien befinden sich meist im Ordner <strong>&quot;Downloads&quot;</strong> oder auf dem <strong>&quot;Desktop&quot;</strong>.</p>
+                                            <p>Die Datei heisst z.B. <strong>&quot;tarmed_volumes.csv&quot;</strong></p>
+                                            <p>Auf der otma Webseite, klicken Sie oben auf <strong>&quot;Datei auswählen / Choose file&quot;</strong> und wählen Sie die heruntergeladene Datei aus.</p>
                                             <p>Alternativ finden Sie die Datei auch direkt über das <strong>Download-Symbol</strong> in Ihrem Browser oben rechts.</p>
                                         </SimpleModal>
 
