@@ -181,7 +181,7 @@ const TardocTranscription = () => {
 
 
             <div className="mt-8">
-                <p className="text-sm font-semibold mb-2">Oder laden Sie ein Beispiel zur Demonstration:</p>
+                <p className="text-sm font-semibold mb-2">Klicken Sie die Beispiele um diese anzuzeigen.</p>
                 <div className="flex flex-wrap gap-2 mb-4">
                     {exampleFiles.map((example, idx) => (
                         <button

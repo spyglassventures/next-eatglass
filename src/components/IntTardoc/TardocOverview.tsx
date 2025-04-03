@@ -5,9 +5,13 @@ import Image from 'next/image';
 
 interface TardocOverviewProps {
   onContinue: () => void;
+  setActiveView: (view: 'overview' | 'transcription' | 'suche') => void;
 }
 
-const TardocOverview: React.FC<TardocOverviewProps> = ({ onContinue }) => {
+
+const TardocOverview: React.FC<TardocOverviewProps> = ({ onContinue, setActiveView }) => {
+
+
   const [currentStep, setCurrentStep] = useState(0);
 
   const steps = [
@@ -54,27 +58,27 @@ const TardocOverview: React.FC<TardocOverviewProps> = ({ onContinue }) => {
         Die Auswertung zeigt Ihnen, ob sich bei dieser Rechnungssituation ein Plus oder Minus ergibt. Labor und Röntgen nicht berücksichtigt (keine Änderung).
       </p>
 
-     {/* Slider Titel */}
-<h2 className="text-xl font-semibold text-gray-800 mb-4">Anleitung mit Bilderbeispielen</h2>
+      {/* Slider Titel */}
+      <h2 className="text-xl font-semibold text-gray-800 mb-4">Anleitung mit Bilderbeispielen</h2>
 
-{/* Slider-Inhalt mit Abbildungstitel */}
-<div className="shadow-md rounded-xl overflow-hidden border border-gray-200 mb-6">
-  <div className="bg-gray-100 px-4 py-3 font-semibold text-gray-800 text-lg">
-    {step.title}
-  </div>
-  <Image
-    src={step.image}
-    alt={step.title}
-    width={1000}
-    height={600}
-    className="w-full h-auto"
-    unoptimized
-  />
-  <div className="px-4 pt-2 pb-4 text-gray-600 italic text-sm">
-    Abb. {currentStep + 1} – Screenshot {step.title.replace(/Schritt \d+:?/, '').trim()}
-  </div>
-  <div className="px-4 pb-4 text-gray-700">{step.text}</div>
-</div>
+      {/* Slider-Inhalt mit Abbildungstitel */}
+      <div className="shadow-md rounded-xl overflow-hidden border border-gray-200 mb-6">
+        <div className="bg-gray-100 px-4 py-3 font-semibold text-gray-800 text-lg">
+          {step.title}
+        </div>
+        <Image
+          src={step.image}
+          alt={step.title}
+          width={1000}
+          height={600}
+          className="w-full h-auto"
+          unoptimized
+        />
+        <div className="px-4 pt-2 pb-4 text-gray-600 italic text-sm">
+          Abb. {currentStep + 1} – Screenshot {step.title.replace(/Schritt \d+:?/, '').trim()}
+        </div>
+        <div className="px-4 pb-4 text-gray-700">{step.text}</div>
+      </div>
 
 
       {/* Navigation Buttons */}
@@ -82,11 +86,10 @@ const TardocOverview: React.FC<TardocOverviewProps> = ({ onContinue }) => {
         <button
           onClick={() => setCurrentStep(prev => Math.max(prev - 1, 0))}
           disabled={currentStep === 0}
-          className={`px-4 py-2 rounded text-sm ${
-            currentStep === 0
-              ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-              : 'bg-indigo-600 text-white hover:bg-indigo-700'
-          }`}
+          className={`px-4 py-2 rounded text-sm ${currentStep === 0
+            ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+            : 'bg-indigo-600 text-white hover:bg-indigo-700'
+            }`}
         >
           ← Zurück
         </button>
@@ -98,11 +101,10 @@ const TardocOverview: React.FC<TardocOverviewProps> = ({ onContinue }) => {
         <button
           onClick={() => setCurrentStep(prev => Math.min(prev + 1, steps.length - 1))}
           disabled={currentStep === steps.length - 1}
-          className={`px-4 py-2 rounded text-sm ${
-            currentStep === steps.length - 1
-              ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-              : 'bg-indigo-600 text-white hover:bg-indigo-700'
-          }`}
+          className={`px-4 py-2 rounded text-sm ${currentStep === steps.length - 1
+            ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+            : 'bg-indigo-600 text-white hover:bg-indigo-700'
+            }`}
         >
           Weiter →
         </button>
@@ -118,13 +120,34 @@ const TardocOverview: React.FC<TardocOverviewProps> = ({ onContinue }) => {
         </p>
 
         <p className="font-medium mb-2">Bereit?</p>
-        <p className="mb-2">Erfassen Sie nun die gewünschten Positionen im nächsten Schritt:</p>
-        <button
-          onClick={onContinue}
-          className="inline-block bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition"
-        >
-          → 2. TARMED erfassen
-        </button>
+        <p className="mb-4">Erfassen Sie nun die gewünschten Positionen im nächsten Schritt oder schauen Sie sich ein Beispiel an:</p>
+
+        <div className="flex flex-wrap items-center gap-3 text-sm">
+          <button
+            onClick={onContinue}
+            className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition"
+          >
+            → 2. TARMED erfassen
+          </button>
+
+          <span className="text-gray-500">oder</span>
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setActiveView('transcription')}
+              className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition"
+            >
+              4. Auswertung und Beispiele
+            </button>
+            <span className="text-gray-600 max-w-xs">
+              (wenn Sie keine eigenen Positionen eingeben wollen und nur Beispiele anschauen möchten)
+            </span>
+          </div>
+        </div>
+
+
+
+
       </div>
     </div>
   );

@@ -146,7 +146,13 @@ const Tardoc = () => {
 
             {/* DYNAMISCHER INHALT */}
             <div className="container mx-auto px-4 lg:px-24 pb-16">
-                {activeView === 'overview' && <TardocOverview onContinue={() => setActiveView('suche')} />}
+                {activeView === 'overview' && (
+                    <TardocOverview
+                        onContinue={() => setActiveView('suche')}
+                        setActiveView={setActiveView}
+                    />
+                )}
+
 
 
 
