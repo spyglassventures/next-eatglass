@@ -41,8 +41,32 @@ export interface GroupedItem {
     tardoc: TardocEntry[];
 }
 
+
+
+
+
 const TardocTranscription = () => {
     const [groups, setGroups] = useState<GroupedItem[]>([]);
+
+
+    const loadExampleCSV = async (url: string) => {
+        const response = await fetch(url);
+        const text = await response.text();
+
+        Papa.parse<RawRow>(text, {
+            header: true,
+            delimiter: ';',
+            skipEmptyLines: true,
+            complete: (result) => {
+                const data = result.data as RawRow[];
+                const grouped = groupData(data);
+                setGroups(grouped);
+            },
+        });
+    };
+
+    const [selectedExample, setSelectedExample] = useState<number | null>(null);
+
 
     const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -118,31 +142,78 @@ const TardocTranscription = () => {
     const totalTARDOC = groups.reduce((sum, g) => sum + parseFloat(g.TARDOC_SUM), 0);
     const totalDELTA = totalTARDOC - totalTARMED;
 
+
+    const exampleFiles = [
+        { label: '3x Kons, kl. Unt.', file: 'tarmed_volumes_bsp1.csv' },
+        { label: 'Kons, Zuschlag, Spez. Beratung, Blutent.', file: 'tarmed_volumes_bsp2.csv' },
+        { label: '3x Kons, Zuschlag, Rezept, Röntgen', file: 'tarmed_volumes_bsp3.csv' },
+        { label: '2x Kons, Kind, Zuschlag, Notfall B, Inkonv. P.', file: 'tarmed_volumes_bsp4.csv' },
+        { label: '2x Kons, Zuschlag, U. Konsilarzt, Kl. Spiro, EKG', file: 'tarmed_volumes_bsp5.csv' },
+        { label: '2x Kons, Zuschlag, Kl. Unt. Rtg Tho, Rg. weitere, Sono Wich, Techn. Grundleist.,', file: 'tarmed_volumes_bsp6.csv' },
+    ];
+
+
     return (
         <div className="max-w-5xl mx-auto p-4">
             <h1 className="text-2xl font-bold mb-4">TARMED-TARDOC Transcodierung</h1>
 
             <input
-    type="file"
-    accept=".csv"
-    onChange={handleUpload}
-    className="mb-2"
-/>
+                type="file"
+                accept=".csv"
+                onChange={handleUpload}
+                className="mb-2"
+            />
 
-{/* Hilfetext für nicht erfahrene Nutzer */}
-{/* Hilfetext für nicht erfahrene Nutzer */}
-<div className="text-sm text-gray-700 mb-4 pl-1">
-  <strong>So finden Sie Ihre Datei:</strong><br />
-  Nach dem Klick auf <span className="font-semibold">&quot;Transcodieren und Download&quot;</span> auf der omat Seite wurde die Datei auf Ihren Computer heruntergeladen.
-  Diese befindet sich meist im Ordner <span className="italic">&quot;Downloads&quot;</span> oder auf dem <span className="italic">&quot;Desktop&quot;</span>.<br />
-  Klicken Sie oben auf <span className="font-semibold">&quot;Datei auswählen/Choose file&quot;</span> und wählen Sie die heruntergeladene Datei aus.<br />
-  Alternativ finden Sie die Datei auch direkt über das <span className="font-semibold">Download-Symbol</span> in Ihrem Browser oben rechts
-  <span className="inline-block ml-1 align-middle text-indigo-500">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4 inline">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
-    </svg>
-  </span>.
-</div>
+            {/* Hilfetext für nicht erfahrene Nutzer */}
+            {/* Hilfetext für nicht erfahrene Nutzer */}
+            <div className="text-sm text-gray-700 mb-4 pl-1">
+                <strong>So finden Sie Ihre Datei:</strong><br />
+                Nach dem Klick auf <span className="font-semibold">&quot;Transcodieren und Download&quot;</span> auf der omat Seite wurde die Datei auf Ihren Computer heruntergeladen.
+                Diese befindet sich meist im Ordner <span className="italic">&quot;Downloads&quot;</span> oder auf dem <span className="italic">&quot;Desktop&quot;</span>.<br />
+                Klicken Sie oben auf <span className="font-semibold">&quot;Datei auswählen/Choose file&quot;</span> und wählen Sie die heruntergeladene Datei aus.<br />
+                Alternativ finden Sie die Datei auch direkt über das <span className="font-semibold">Download-Symbol</span> in Ihrem Browser oben rechts
+                <span className="inline-block ml-1 align-middle text-indigo-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4 inline">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                    </svg>
+                </span>.
+            </div>
+
+
+            <div className="mt-8">
+                <p className="text-sm font-semibold mb-2">Oder laden Sie ein Beispiel zur Demonstration:</p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                    {exampleFiles.map((example, idx) => (
+                        <button
+                            key={example.file}
+                            onClick={() => {
+                                loadExampleCSV(`/data/tardoc/${example.file}`);
+                                setSelectedExample(idx);
+                            }}
+                            className={`px-3 py-1 text-sm rounded border transition ${selectedExample === idx
+                                ? 'bg-indigo-600 text-white border-indigo-700'
+                                : 'bg-white text-indigo-700 border-indigo-300 hover:bg-indigo-100'
+                                }`}
+                        >
+                            {example.label}
+                        </button>
+                    ))}
+                    {selectedExample !== null && (
+                        <button
+                            onClick={() => {
+                                setGroups([]);
+                                setSelectedExample(null);
+                            }}
+                            className="px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 border border-gray-300 rounded"
+                        >
+                            Schliessen
+                        </button>
+                    )}
+                </div>
+            </div>
+
+
+
 
 
 

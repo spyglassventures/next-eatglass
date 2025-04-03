@@ -1,0 +1,11 @@
+﻿TARMED;TARMED_TEXT;TP_AL_TARMED;TP_TL_TARMED;TP_TOTAL_TARMED;NUMBER_TARMED;TARDOC;TARDOC_TEXT;TP_AL_TARDOC;TP_TL_TARDOC;TP_TOTAL_TARDOC;NUMBER_TARDOC
+"000010";"Konsultation, erste 5 Min. (Grundkonsultation)";10.42;8.19;18.61;1;;;;;;
+"000010";"Konsultation, erste 5 Min. (Grundkonsultation)";;;;;"AA.00.0010";"Ärztliche Konsultation, erste 5 Min.";10.56;8.64;19.200000000000003;1.0
+"000015";"+ Zuschlag für hausärztliche Leistungen in der Arztpraxis";10.88;0.0;10.88;1;;;;;;
+"000030";"+ Konsultation, letzte 5 Min. (Konsultationszuschlag)";5.21;4.1;9.309999999999999;1;;;;;;
+"000030";"+ Konsultation, letzte 5 Min. (Konsultationszuschlag)";;;;;"AA.00.0020";"+ Ärztliche Konsultation, jede weitere 1 Min.";5.2749999999999995;4.325;9.6;2.5
+"000040";"+ Zuschlag für Kinder unter 6 Jahren";0.0;13.11;13.11;1;;;;;;
+"000040";"+ Zuschlag für Kinder unter 6 Jahren";;;;;"CG.15.0010";"Zuschlag für Leistungen bei Kindern bis 12 Jahren";0.0;13.82;13.82;1.0
+"002520";"Notfall-Inkonvenienzpauschale B, Mo-So 19-22, Sa 12-19, So 7-19";110.0;0.0;110.0;1;;;;;;
+"002520";"Notfall-Inkonvenienzpauschale B, Mo-So 19-22, Sa 12-19, So 7-19";;;;;"AA.30.0040";"Notfall-Inkonvenienzpauschale D, Mo-Fr 19-22 Uhr, Sa 12-19 Uhr, So 7-19 Uhr";91.19;0.0;91.19;1.0
+"002530";"(+) %-Zuschlag für Notfall B, Mo-So 19-22, Sa 12-19, So 7-19";0.0;0.0;0.0;1;;;;;;

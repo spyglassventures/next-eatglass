@@ -1,0 +1,31 @@
+﻿TARMED;TARMED_TEXT;TP_AL_TARMED;TP_TL_TARMED;TP_TOTAL_TARMED;NUMBER_TARMED;TARDOC;TARDOC_TEXT;TP_AL_TARDOC;TP_TL_TARDOC;TP_TOTAL_TARDOC;NUMBER_TARDOC
+"000010";"Konsultation, erste 5 Min. (Grundkonsultation)";10.42;8.19;18.61;1;;;;;;
+"000010";"Konsultation, erste 5 Min. (Grundkonsultation)";;;;;"AA.00.0010";"Ärztliche Konsultation, erste 5 Min.";10.56;8.64;19.200000000000003;1.0
+"000015";"+ Zuschlag für hausärztliche Leistungen in der Arztpraxis";10.88;0.0;10.88;1;;;;;;
+"000020";"+ Konsultation bei Personen über 6 Jahren und unter 75 Jahren, jede weiteren 5 Min. (Konsultationszuschlag)";10.42;8.19;18.61;1;;;;;;
+"000020";"+ Konsultation bei Personen über 6 Jahren und unter 75 Jahren, jede weiteren 5 Min. (Konsultationszuschlag)";;;;;"AA.00.0020";"+ Ärztliche Konsultation, jede weitere 1 Min.";10.549999999999999;8.65;19.2;5.0
+"000415";"Kleine Untersuchung durch den Facharzt für Grundversorgung bei Personen über 6 Jahren und unter 75 Jahren, pro 5 Min.";10.42;9.34;19.759999999999998;1;;;;;;
+"000415";"Kleine Untersuchung durch den Facharzt für Grundversorgung bei Personen über 6 Jahren und unter 75 Jahren, pro 5 Min.";;;;;"AA.05.0010";"Untersuchung: Kreislauf";0.6048359999999999;0.6205769999999999;1.2254129999999996;0.04769999999999999
+"000415";"Kleine Untersuchung durch den Facharzt für Grundversorgung bei Personen über 6 Jahren und unter 75 Jahren, pro 5 Min.";;;;;"AA.05.0020";"Untersuchung: Augen";0.603568;0.6192759999999999;1.2228439999999998;0.047599999999999996
+"000415";"Kleine Untersuchung durch den Facharzt für Grundversorgung bei Personen über 6 Jahren und unter 75 Jahren, pro 5 Min.";;;;;"AA.05.0030";"Untersuchung: Ohren";0.603568;0.6192759999999999;1.2228439999999998;0.047599999999999996
+"000415";"Kleine Untersuchung durch den Facharzt für Grundversorgung bei Personen über 6 Jahren und unter 75 Jahren, pro 5 Min.";;;;;"AA.05.0040";"Untersuchung: Luftwege";0.6048359999999999;0.6205769999999999;1.2254129999999996;0.04769999999999999
+"000415";"Kleine Untersuchung durch den Facharzt für Grundversorgung bei Personen über 6 Jahren und unter 75 Jahren, pro 5 Min.";;;;;"AA.05.0050";"Untersuchung: Wirbelsäule";0.603568;0.6192759999999999;1.2228439999999998;0.047599999999999996
+"000415";"Kleine Untersuchung durch den Facharzt für Grundversorgung bei Personen über 6 Jahren und unter 75 Jahren, pro 5 Min.";;;;;"AA.05.0060";"Untersuchung: Abdomen";0.6048359999999999;0.6205769999999999;1.2254129999999996;0.04769999999999999
+"000415";"Kleine Untersuchung durch den Facharzt für Grundversorgung bei Personen über 6 Jahren und unter 75 Jahren, pro 5 Min.";;;;;"AA.05.0070";"Untersuchung: Uro-Genital";0.603568;0.6192759999999999;1.2228439999999998;0.047599999999999996
+"000415";"Kleine Untersuchung durch den Facharzt für Grundversorgung bei Personen über 6 Jahren und unter 75 Jahren, pro 5 Min.";;;;;"AA.05.0080";"Untersuchung: Haut";0.603568;0.6192759999999999;1.2228439999999998;0.047599999999999996
+"000415";"Kleine Untersuchung durch den Facharzt für Grundversorgung bei Personen über 6 Jahren und unter 75 Jahren, pro 5 Min.";;;;;"AA.05.0090";"Untersuchung: Muskulatur";0.603568;0.6192759999999999;1.2228439999999998;0.047599999999999996
+"000415";"Kleine Untersuchung durch den Facharzt für Grundversorgung bei Personen über 6 Jahren und unter 75 Jahren, pro 5 Min.";;;;;"AA.05.0100";"Untersuchung: Gelenke";0.603568;0.6192759999999999;1.2228439999999998;0.047599999999999996
+"000415";"Kleine Untersuchung durch den Facharzt für Grundversorgung bei Personen über 6 Jahren und unter 75 Jahren, pro 5 Min.";;;;;"AA.05.0110";"Untersuchung: Gefässe";0.603568;0.6192759999999999;1.2228439999999998;0.047599999999999996
+"000415";"Kleine Untersuchung durch den Facharzt für Grundversorgung bei Personen über 6 Jahren und unter 75 Jahren, pro 5 Min.";;;;;"AA.05.0120";"Untersuchung: Lymphatische Organe";0.603568;0.6192759999999999;1.2228439999999998;0.047599999999999996
+"000415";"Kleine Untersuchung durch den Facharzt für Grundversorgung bei Personen über 6 Jahren und unter 75 Jahren, pro 5 Min.";;;;;"AA.05.0130";"Untersuchung: Neurologie";0.603568;0.6192759999999999;1.2228439999999998;0.047599999999999996
+"000415";"Kleine Untersuchung durch den Facharzt für Grundversorgung bei Personen über 6 Jahren und unter 75 Jahren, pro 5 Min.";;;;;"AA.05.0140";"Untersuchung: Pubertätsentwicklung";0.603568;0.6192759999999999;1.2228439999999998;0.047599999999999996
+"390020";"Grundtaxe für das Röntgen und die Ultraschalldiagnostik durch den Arzt in der Arztpraxis und durch Nicht-Radiologen im Spital ({AIP})";0.0;34.49;34.49;1;;;;;;
+"390190";"Röntgen: Thorax und/oder Rippen, inkl. Sternum, erste Aufnahme";15.68;16.41;32.09;1;;;;;;
+"390190";"Röntgen: Thorax und/oder Rippen, inkl. Sternum, erste Aufnahme";;;;;"GG.00.0160";"Röntgen Thorax und/oder Rippen, inkl. Sternum, erste Aufnahme";0.0;28.28;28.28;1.0
+"390190";"Röntgen: Thorax und/oder Rippen, inkl. Sternum, erste Aufnahme";;;;;"GG.30.0020";"Befundung Röntgen der Organe";10.56;4.25;14.81;1.0
+"390195";"+ Röntgen: Thorax und/oder Rippen, inkl. Sternum, jede weitere Aufnahme";8.96;10.93;19.89;1;;;;;;
+"390195";"+ Röntgen: Thorax und/oder Rippen, inkl. Sternum, jede weitere Aufnahme";;;;;"GG.00.0170";"+ Röntgen Thorax und/oder Rippen, inkl. Sternum, jede weitere Aufnahme";0.0;18.85;18.85;1.0
+"393420";"Sonografie von Weichteilregionen, pro Region, pro Seite";30.68;21.37;52.05;1;;;;;;
+"393420";"Sonografie von Weichteilregionen, pro Region, pro Seite";;;;;"GK.20.0110";"Sonografie von Weichteilregionen, pro Region, pro Seite";29.3;28.3;57.6;1.0
+"393800";"Technische Grundleistung 0, Ultraschall gross, ambulanter Patient";0.0;10.68;10.68;1;;;;;;
+"393800";"Technische Grundleistung 0, Ultraschall gross, ambulanter Patient";;;;;"AR.05.0050";"Wechselzeit Sparte Ultraschall gross";0.0;19.81;19.81;1.0

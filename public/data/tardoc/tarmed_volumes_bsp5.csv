@@ -1,0 +1,17 @@
+﻿TARMED;TARMED_TEXT;TP_AL_TARMED;TP_TL_TARMED;TP_TOTAL_TARMED;NUMBER_TARMED;TARDOC;TARDOC_TEXT;TP_AL_TARDOC;TP_TL_TARDOC;TP_TOTAL_TARDOC;NUMBER_TARDOC
+"000010";"Konsultation, erste 5 Min. (Grundkonsultation)";10.42;8.19;18.61;1;;;;;;
+"000010";"Konsultation, erste 5 Min. (Grundkonsultation)";;;;;"AA.00.0010";"Ärztliche Konsultation, erste 5 Min.";10.56;8.64;19.200000000000003;1.0
+"000015";"+ Zuschlag für hausärztliche Leistungen in der Arztpraxis";10.88;0.0;10.88;1;;;;;;
+"000030";"+ Konsultation, letzte 5 Min. (Konsultationszuschlag)";5.21;4.1;9.309999999999999;1;;;;;;
+"000030";"+ Konsultation, letzte 5 Min. (Konsultationszuschlag)";;;;;"AA.00.0020";"+ Ärztliche Konsultation, jede weitere 1 Min.";5.2749999999999995;4.325;9.6;2.5
+"000135";"Überweisungen an Konsiliarärzte in Abwesenheit des Patienten bei Kindern unter 6 Jahren und Personen über 75 Jahren, pro 1 Min.";2.08;1.64;3.7199999999999998;1;;;;;;
+"000135";"Überweisungen an Konsiliarärzte in Abwesenheit des Patienten bei Kindern unter 6 Jahren und Personen über 75 Jahren, pro 1 Min.";;;;;"AA.15.0070";"Überweisungen an Konsiliarärzte in Abwesenheit des Patienten, pro 1 Min.";2.11;1.73;3.84;1.0
+"150130";"Kleine Spirometrie mit Dokumentation der Flussvolumenkurve";10.42;30.75;41.17;1;;;;;;
+"150130";"Kleine Spirometrie mit Dokumentation der Flussvolumenkurve";;;;;"TG.05.0030";"Kleine Spirometrie";8.448;20.736000000000004;29.184000000000005;0.8
+"150130";"Kleine Spirometrie mit Dokumentation der Flussvolumenkurve";;;;;"TG.05.0040";"+ Bronchodilatation bei kleiner Spirometrie";2.536;6.912000000000001;9.448;0.4
+"150130";"Kleine Spirometrie mit Dokumentation der Flussvolumenkurve";;;;;"TG.05.0050";"Spirometrie im Lungenfunktionslabor";2.14;8.645999999999999;10.786;0.2
+"150130";"Kleine Spirometrie mit Dokumentation der Flussvolumenkurve";;;;;"TG.05.0060";"+ Bronchodilatation bei Spirometrie im Lungenfunktionslabor";0.642;2.882;3.5240000000000005;0.1
+"150130";"Kleine Spirometrie mit Dokumentation der Flussvolumenkurve";;;;;"TG.05.0070";"+ Zuschlag bei Kindern bis 12 Jahren bei Spirometrie mit Dokumentation der Flussvolumenkurve";0.214;0.2882;0.5022;0.02
+"170010";"Elektrokardiogramm ({EKG})";6.73;27.2;33.93;1;;;;;;
+"170010";"Elektrokardiogramm ({EKG})";;;;;"AR.00.0130";"Wechselzeit Sparte EKG-Platz";0.0;8.67;8.67;1.0
+"170010";"Elektrokardiogramm ({EKG})";;;;;"TK.00.0010";"Elektrokardiogramm (EKG)";6.42;21.68;28.1;1.0

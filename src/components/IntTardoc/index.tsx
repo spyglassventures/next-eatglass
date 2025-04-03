@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import Papa from 'papaparse';
 import { favoriteZiffern } from './favoriteZiffern';
+import SimpleModal from './SimpleModal';
+
 
 
 import TardocOverview from './TardocOverview';
@@ -106,6 +108,8 @@ const Tardoc = () => {
     const getItemByZiffer = (ziffer: string) =>
         tarmedList.find(item => item.Ziffer === ziffer);
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     return (
         <div className="min-h-screen bg-gradient-to-r from-secondary to-indigo-100 dark:from-gray-800 dark:to-gray-900 text-sm text-black dark:text-white">
             {/* NAVIGATION */}
@@ -125,24 +129,24 @@ const Tardoc = () => {
                         3. Tarifmatcher
                     </a>
                     <button
-  onClick={() => {
-    setActiveView('transcription');
-   
-  }}
-  className="text-indigo-600 hover:underline"
->
-  4. Auswertung
-</button>
+                        onClick={() => {
+                            setActiveView('transcription');
+
+                        }}
+                        className="text-indigo-600 hover:underline"
+                    >
+                        4. Auswertung
+                    </button>
 
                 </div>
             </nav>
-            
+
 
 
 
             {/* DYNAMISCHER INHALT */}
             <div className="container mx-auto px-4 lg:px-24 pb-16">
-            {activeView === 'overview' && <TardocOverview onContinue={() => setActiveView('suche')} />}
+                {activeView === 'overview' && <TardocOverview onContinue={() => setActiveView('suche')} />}
 
 
 
@@ -150,180 +154,194 @@ const Tardoc = () => {
 
 
                 {activeView === 'suche' && (
-  <div className="flex flex-col md:flex-row gap-6">
-    {/* Linke Seite: Favoriten-Buttons */}
-    <div className="md:w-1/2">
-      <h3 className="text-xs text-indigo-800 dark:text-indigo-200 mb-1 font-semibold uppercase">
-        Schnellerfassung Grundversorger
-      </h3>
-      <p className="text-xs text-gray-500 mb-3">
-        Wähle häufig verwendete Positionen per Klick aus.
-      </p>
+                    <div className="flex flex-col md:flex-row gap-6">
+                        {/* Linke Seite: Favoriten-Buttons */}
+                        <div className="md:w-1/2">
+                            <h3 className="text-xs text-indigo-800 dark:text-indigo-200 mb-1 font-semibold uppercase">
+                                Schnellerfassung Grundversorger
+                            </h3>
+                            <p className="text-xs text-gray-500 mb-3">
+                                Wähle häufig verwendete Positionen per Klick aus.
+                            </p>
 
-      <div className="max-h-[calc(100vh-300px)] overflow-y-auto pr-1">
-        {favoriteZiffernLabeled.map(section => (
-          <div key={section.key} className="mb-6">
-            <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
-              {section.label}
-            </h4>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              {favoriteZiffern[section.key].map(z => {
-                const item = getItemByZiffer(z);
-                if (!item) return null;
+                            <div className="max-h-[calc(100vh-300px)] overflow-y-auto pr-1">
+                                {favoriteZiffernLabeled.map(section => (
+                                    <div key={section.key} className="mb-6">
+                                        <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
+                                            {section.label}
+                                        </h4>
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                            {favoriteZiffern[section.key].map(z => {
+                                                const item = getItemByZiffer(z);
+                                                if (!item) return null;
 
-                const shortText =
-                  item.Text.length > 50
-                    ? item.Text.slice(0, 46).trim() + '...'
-                    : item.Text;
+                                                const shortText =
+                                                    item.Text.length > 50
+                                                        ? item.Text.slice(0, 46).trim() + '...'
+                                                        : item.Text;
 
-                return (
-                  <button
-                    key={z}
-                    onClick={() => handleAdd(z)}
-                    className="p-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 text-xs text-left leading-tight h-[50px] flex flex-col justify-center"
-                  >
-                    <strong>{item.Ziffer}</strong>
-                    <span className="block truncate text-xs">{shortText}</span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+                                                return (
+                                                    <button
+                                                        key={z}
+                                                        onClick={() => handleAdd(z)}
+                                                        className="p-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 text-xs text-left leading-tight h-[50px] flex flex-col justify-center"
+                                                    >
+                                                        <strong>{item.Ziffer}</strong>
+                                                        <span className="block truncate text-xs">{shortText}</span>
+                                                    </button>
+                                                );
+                                            })}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
 
-    {/* Rechte Seite: Auswahl, Suchfeld, vollständige Liste */}
-<div className="md:w-1/2 space-y-6">
+                        {/* Rechte Seite: Auswahl, Suchfeld, vollständige Liste */}
+                        <div className="md:w-1/2 space-y-6">
 
-{/* Ausgewählte Ziffern */}
-<div>
-  <h4 className="text-sm font-semibold text-indigo-800 dark:text-indigo-200 mb-2">
-    Ausgewählte Ziffern
-  </h4>
-  {Object.keys(selectedItems).length === 0 ? (
-    <p className="text-gray-400 text-xs">Noch keine Positionen erfasst</p>
-  ) : (
-    <ul className="text-left mb-2 max-h-60 overflow-y-auto pr-2 text-xs border rounded p-2 bg-white dark:bg-gray-800">
-      {Object.entries(selectedItems).map(([ziffer, count]) => {
-        const item = getItemByZiffer(ziffer);
-        return item ? (
-          <li key={ziffer} className="flex justify-between items-start py-1 border-b">
-            <div>
-              <strong>{item.Ziffer}</strong> x{count}
-              <div className="text-gray-600 dark:text-gray-400">{item.Text}</div>
-            </div>
-            <button
-              onClick={() => handleRemove(ziffer)}
-              className="text-red-500 hover:text-red-700"
-            >
-              Entfernen
-            </button>
-          </li>
-        ) : null;
-      })}
-    </ul>
-  )}
-  {Object.keys(selectedItems).length > 0 && (
-  <>
-    {/* Button-Zeile mit gelbem Hinweis */}
-    <div className="flex items-center space-x-2 mt-2">
-      <button
-        onClick={handleClear}
-        className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-xs"
-      >
-        Alle löschen
-      </button>
-      <div className="relative flex items-center">
-        <button
-          onClick={handleExport}
-          className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700 text-xs"
-        >
-          Exportieren
-        </button>
+                            {/* Ausgewählte Ziffern */}
+                            <div>
+                                <h4 className="text-sm font-semibold text-indigo-800 dark:text-indigo-200 mb-2">
+                                    Ausgewählte Ziffern
+                                </h4>
+                                {Object.keys(selectedItems).length === 0 ? (
+                                    <p className="text-gray-400 text-xs">Noch keine Positionen erfasst</p>
+                                ) : (
+                                    <ul className="text-left mb-2 max-h-60 overflow-y-auto pr-2 text-xs border rounded p-2 bg-white dark:bg-gray-800">
+                                        {Object.entries(selectedItems).map(([ziffer, count]) => {
+                                            const item = getItemByZiffer(ziffer);
+                                            return item ? (
+                                                <li key={ziffer} className="flex justify-between items-start py-1 border-b">
+                                                    <div>
+                                                        <strong>{item.Ziffer}</strong> x{count}
+                                                        <div className="text-gray-600 dark:text-gray-400">{item.Text}</div>
+                                                    </div>
+                                                    <button
+                                                        onClick={() => handleRemove(ziffer)}
+                                                        className="text-red-500 hover:text-red-700"
+                                                    >
+                                                        Entfernen
+                                                    </button>
+                                                </li>
+                                            ) : null;
+                                        })}
+                                    </ul>
+                                )}
+                                {Object.keys(selectedItems).length > 0 && (
+                                    <>
+                                        {/* Button-Zeile mit gelbem Hinweis */}
+                                        <div className="flex items-center space-x-2 mt-2">
+                                            <button
+                                                onClick={handleClear}
+                                                className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-xs"
+                                            >
+                                                Alle löschen
+                                            </button>
+                                            <div className="relative flex items-center">
+                                                <button
+                                                    onClick={handleExport}
+                                                    className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700 text-xs"
+                                                >
+                                                    Exportieren
+                                                </button>
 
-        {!showOtmaHint && (
-          <div className="ml-2 flex items-center h-[30px] px-2 bg-yellow-50 text-yellow-800 border border-yellow-200 rounded text-xs whitespace-nowrap">
-            <span className="mr-1 text-yellow-500 text-sm">←</span>
-            Alles erfasst? Ja – dann Exportieren klicken & zu 3. wechseln.
-          </div>
-        )}
-      </div>
-    </div>
+                                                {!showOtmaHint && (
+                                                    <div className="ml-2 flex items-center h-[30px] px-2 bg-yellow-50 text-yellow-800 border border-yellow-200 rounded text-xs whitespace-nowrap">
+                                                        <span className="mr-1 text-yellow-500 text-sm">←</span>
+                                                        Alles erfasst? Ja – dann Exportieren klicken & zu 3. wechseln.
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
 
-    {/* Info-Hinweis nach dem Export */}
-    {showOtmaHint && (
-      <div className="mt-4 p-4 bg-indigo-50 border-l-4 border-indigo-500 text-indigo-800 text-sm rounded w-full">
-        <strong>Sehr gut.</strong> Wechseln Sie nun zur{' '}
-        <a
-          href="https://tarifmatcher.oaat-otma.ch/transcode?locale=de"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline font-semibold"
-        >
-          otma Webseite (3. Tarifmatcher, extern)
-        </a>
-        . Laden Sie dort die gerade exportierte CSV hoch und klicken Sie auf „Transkodieren und Download“. Kommen Sie danach zu „4. Auswertung“ zurück.
-      </div>
-    )}
-  </>
-)}
+                                        {/* Info-Hinweis nach dem Export */}
+                                        {showOtmaHint && (
+                                            <div className="mt-4 p-4 bg-indigo-50 border-l-4 border-indigo-500 text-indigo-800 text-sm rounded w-full">
+                                                <strong>Sehr gut. Sie müssen die heruntergeladen Datei zunächst nicht öffnen. </strong> Stattdessen, wechseln Sie zur{' '}
+                                                <a
+                                                    href="https://tarifmatcher.oaat-otma.ch/transcode?locale=de"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="underline font-semibold"
+                                                >
+                                                    otma Webseite (3. Tarifmatcher, extern)
+                                                </a>
+                                                . Laden Sie dort die gerade exportierte CSV hoch und klicken Sie auf „Transkodieren und Download“. Kommen Sie danach zu „4. Auswertung“ zurück.{' '}
+                                                <button
+                                                    onClick={() => setIsModalOpen(true)}
+                                                    className="ml-2 text-blue-700 underline hover:text-blue-900"
+                                                >
+                                                    Wo finde ich die Datei?
+                                                </button>
+                                            </div>
+                                        )}
+
+                                        <SimpleModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Wo finde ich die Datei?">
+                                            <p>Heruntergeladene Dateien befinden sich meist im Ordner <strong>"Downloads"</strong> oder auf dem <strong>"Desktop"</strong>.</p>
+                                            <p>Die Datei heisst z.B. <strong>"tarmed_volumes.csv"</strong></p>
+                                            <p>Auf der otma Webseite, klicken Sie oben auf <strong>„Datei auswählen / Choose file“</strong> und wählen Sie die heruntergeladene Datei aus.</p>
+                                            <p>Alternativ finden Sie die Datei auch direkt über das <strong>Download-Symbol</strong> in Ihrem Browser oben rechts.</p>
+                                        </SimpleModal>
+
+                                    </>
+                                )}
 
 
-</div>
+                            </div>
 
-{/* Suchfeld darunter */}
-<div className="relative">
-  <input
-    type="text"
-    value={searchTerm}
-    onChange={e => {
-      setSearchTerm(e.target.value);
-      setDropdownVisible(true);
-    }}
-    placeholder="Nach Ziffer oder Text suchen..."
-    className="w-full px-3 py-2 border rounded-lg text-sm text-black"
-  />
-  {dropdownVisible && searchTerm.length > 0 && (
-    <ul className="absolute w-full bg-white dark:bg-gray-700 border mt-1 rounded shadow max-h-40 overflow-y-auto text-left text-sm z-10">
-      {filteredDropdown.map(item => (
-        <li
-          key={item.Ziffer}
-          className="px-3 py-1 hover:bg-indigo-100 dark:hover:bg-indigo-600 cursor-pointer"
-          onClick={() => handleAdd(item.Ziffer)}
-        >
-          <strong>{item.Ziffer}</strong> – {item.Text}
-        </li>
-      ))}
-      {filteredDropdown.length === 0 && (
-        <li className="px-4 py-2 text-gray-500">Keine Treffer</li>
-      )}
-    </ul>
-  )}
-</div>
+                            {/* Suchfeld darunter */}
+                            <div className="relative">
+                                <input
+                                    type="text"
+                                    value={searchTerm}
+                                    onChange={e => {
+                                        setSearchTerm(e.target.value);
+                                        setDropdownVisible(true);
+                                    }}
+                                    placeholder="Nach Ziffer oder Text suchen..."
+                                    className="w-full px-3 py-2 border rounded-lg text-sm text-black"
+                                />
+                                {dropdownVisible && searchTerm.length > 0 && (
+                                    <ul className="absolute w-full bg-white dark:bg-gray-700 border mt-1 rounded shadow max-h-40 overflow-y-auto text-left text-sm z-10">
+                                        {filteredDropdown.map(item => (
+                                            <li
+                                                key={item.Ziffer}
+                                                className="px-3 py-1 hover:bg-indigo-100 dark:hover:bg-indigo-600 cursor-pointer"
+                                                onClick={() => handleAdd(item.Ziffer)}
+                                            >
+                                                <strong>{item.Ziffer}</strong> – {item.Text}
+                                            </li>
+                                        ))}
+                                        {filteredDropdown.length === 0 && (
+                                            <li className="px-4 py-2 text-gray-500">Keine Treffer</li>
+                                        )}
+                                    </ul>
+                                )}
+                            </div>
 
-{/* Vollständige Liste */}
-<div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow max-h-[40vh] overflow-y-auto text-xs">
-  <h3 className="text-xs text-indigo-800 dark:text-indigo-200 mb-1 font-semibold uppercase">Tarmed 1.09</h3>
-  <p className="text-xs text-gray-500 mb-3">
-    Vollständige Liste aller TARMED-Ziffern. Klick fügt Position zur Auswahl hinzu.
-  </p>
-  <ul className="space-y-1">
-    {tarmedList.map(item => (
-      <li
-        key={item.Ziffer}
-        className="cursor-pointer hover:bg-indigo-50 dark:hover:bg-indigo-700 p-2 rounded"
-        onClick={() => handleAdd(item.Ziffer)}
-      >
-        <strong>{item.Ziffer}</strong> – {item.Text}
-      </li>
-    ))}
-  </ul>
-</div>
-</div>
+                            {/* Vollständige Liste */}
+                            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow max-h-[40vh] overflow-y-auto text-xs">
+                                <h3 className="text-xs text-indigo-800 dark:text-indigo-200 mb-1 font-semibold uppercase">Tarmed 1.09</h3>
+                                <p className="text-xs text-gray-500 mb-3">
+                                    Vollständige Liste aller TARMED-Ziffern. Klick fügt Position zur Auswahl hinzu.
+                                </p>
+                                <ul className="space-y-1">
+                                    {tarmedList.map(item => (
+                                        <li
+                                            key={item.Ziffer}
+                                            className="cursor-pointer hover:bg-indigo-50 dark:hover:bg-indigo-700 p-2 rounded"
+                                            onClick={() => handleAdd(item.Ziffer)}
+                                        >
+                                            <strong>{item.Ziffer}</strong> – {item.Text}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
 
-  </div>
-)}
+                    </div>
+                )}
 
             </div>
         </div>

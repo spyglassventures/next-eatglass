@@ -1,0 +1,13 @@
+﻿TARMED;TARMED_TEXT;TP_AL_TARMED;TP_TL_TARMED;TP_TOTAL_TARMED;NUMBER_TARMED;TARDOC;TARDOC_TEXT;TP_AL_TARDOC;TP_TL_TARDOC;TP_TOTAL_TARDOC;NUMBER_TARDOC
+"000010";"Konsultation, erste 5 Min. (Grundkonsultation)";10.42;8.19;18.61;1;;;;;;
+"000010";"Konsultation, erste 5 Min. (Grundkonsultation)";;;;;"AA.00.0010";"Ärztliche Konsultation, erste 5 Min.";10.56;8.64;19.200000000000003;1.0
+"000015";"+ Zuschlag für hausärztliche Leistungen in der Arztpraxis";10.88;0.0;10.88;1;;;;;;
+"000030";"+ Konsultation, letzte 5 Min. (Konsultationszuschlag)";5.21;4.1;9.309999999999999;1;;;;;;
+"000030";"+ Konsultation, letzte 5 Min. (Konsultationszuschlag)";;;;;"AA.00.0020";"+ Ärztliche Konsultation, jede weitere 1 Min.";5.2749999999999995;4.325;9.6;2.5
+"000146";"Ausstellen von Rezepten oder Verordnungen ausserhalb von Konsultation, Besuch und telefonischer Konsultation in Abwesenheit des Patienten bei Personen über 6 Jahren und unter 75 Jahren, pro 1 Min.";2.08;1.64;3.7199999999999998;1;;;;;;
+"000146";"Ausstellen von Rezepten oder Verordnungen ausserhalb von Konsultation, Besuch und telefonischer Konsultation in Abwesenheit des Patienten bei Personen über 6 Jahren und unter 75 Jahren, pro 1 Min.";;;;;"AA.15.0060";"Ausstellen von Rezepten oder Verordnungen ausserhalb von Konsultation, Besuch und  telemedizinischer Konsultation in Abwesenheit des Patienten, pro 1 Min.";2.11;1.73;3.84;1.0
+"390100";"Röntgen: Schädelübersicht, Schädelteilaufnahme, erste Aufnahme";13.44;21.87;35.31;1;;;;;;
+"390100";"Röntgen: Schädelübersicht, Schädelteilaufnahme, erste Aufnahme";;;;;"GG.00.0010";"Röntgen Schädelübersicht/Schädelteilaufnahme, erste Aufnahme";0.0;37.7;37.7;1.0
+"390100";"Röntgen: Schädelübersicht, Schädelteilaufnahme, erste Aufnahme";;;;;"GG.30.0020";"Befundung Röntgen der Organe";10.56;4.25;14.81;1.0
+"392000";"Technische Grundleistung 0, Röntgenraum I, ambulanter Patient";0.0;13.67;13.67;1;;;;;;
+"392000";"Technische Grundleistung 0, Röntgenraum I, ambulanter Patient";;;;;"AR.05.0020";"Wechselzeit Sparte Röntgenraum I";0.0;32.99;32.99;1.0

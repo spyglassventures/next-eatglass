@@ -8,10 +8,13 @@ export const favoriteZiffern = {
         '00.0110', // Telefonische Konsultation durch Arzt, erste 5 Min.
         '00.0120', // Telefonische Konsultation durch Arzt, weitere 5 Min.
         '00.0130', // Telefonische Konsultation durch Arzt, letzte 5 Min.
+        '00.0135', // Überweisung Konsil
         '00.0510', // Spezifische Beratung durch Grundversorger, 5 Min.
-        
+        '00.0040', // Zuschlag Kinder unter 6 Jahren
+
         '00.0130', // +Tel. Konsult. durch Az, letzte 5'
         '00.0510', // Spezif. Beratung Grundversorger
+        '00.0146', // Rezep
     ],
     untersuchungen: [
         '00.0415', // Kleine Untersuchung durch Grundversorger bei Personen über 6 und unter 75 Jahren, pro 5 Min.
@@ -26,6 +29,8 @@ export const favoriteZiffern = {
         '00.0715', // Punktion, venös
         '17.0010', // EKG
         '15.0130', // Kleine Spirometrie
+        '39.3420', // Sono
+        '39.3800', // Sono
     ],
     roentgen: [
         '32.0010', // Röntgenuntersuchung Thorax
@@ -33,7 +38,8 @@ export const favoriteZiffern = {
         '32.0030', // Röntgenuntersuchung Extremitäten
         '32.0410', // Röntgenuntersuchung Wirbelsäule
         '39.0010', // Grundtaxe für bildgebende Verfahren
-        '39.2000', // Technische Grundleistung Röntgen
+        '39.0190', // Rtg. Thorax, 
+        '39.0195', // Rtg. Thorax, 
     ],
     berichte: [
 
@@ -50,5 +56,7 @@ export const favoriteZiffern = {
     ],
     sonstiges: [
         '00.0850', // Gefässzugang periphervenös
+        '00.2530', // x1(+) %-Zuschlag für Notfall B, Mo-So 19-22, Sa 12-19, So 7-19
+        '00.2520'
     ],
 };
