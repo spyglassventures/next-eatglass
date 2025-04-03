@@ -225,32 +225,51 @@ const Tardoc = () => {
     </ul>
   )}
   {Object.keys(selectedItems).length > 0 && (
-    <div className="space-x-2 mt-2">
-      <button onClick={handleClear} className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-xs">
+  <>
+    {/* Button-Zeile mit gelbem Hinweis */}
+    <div className="flex items-center space-x-2 mt-2">
+      <button
+        onClick={handleClear}
+        className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-xs"
+      >
         Alle löschen
       </button>
-      <button onClick={handleExport} className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700 text-xs">
-        Exportieren
-      </button>
-      {showOtmaHint && (
- <div className="mt-4 p-4 bg-indigo-50 border-l-4 border-indigo-500 text-indigo-800 text-sm rounded w-full">
- <strong>Sehr gut.</strong> Wechseln Sie nun zur{' '}
- <a
-   href="https://tarifmatcher.oaat-otma.ch/transcode?locale=de"
-   target="_blank"
-   rel="noopener noreferrer"
-   className="underline font-semibold"
- >
-   otma Webseite (Tarifmatcher)
- </a>
- . Laden Sie dort die gerade exportierte CSV hoch und klicken Sie auf „Transkodieren und Download“. Kommen Sie danach zu „4. Auswertung“ zurück.
-</div>
+      <div className="relative flex items-center">
+        <button
+          onClick={handleExport}
+          className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700 text-xs"
+        >
+          Exportieren
+        </button>
 
+        {!showOtmaHint && (
+          <div className="ml-2 flex items-center h-[30px] px-2 bg-yellow-50 text-yellow-800 border border-yellow-200 rounded text-xs whitespace-nowrap">
+            <span className="mr-1 text-yellow-500 text-sm">←</span>
+            Alles erfasst? Ja – dann Exportieren klicken & zu 3. wechseln.
+          </div>
+        )}
+      </div>
+    </div>
+
+    {/* Info-Hinweis nach dem Export */}
+    {showOtmaHint && (
+      <div className="mt-4 p-4 bg-indigo-50 border-l-4 border-indigo-500 text-indigo-800 text-sm rounded w-full">
+        <strong>Sehr gut.</strong> Wechseln Sie nun zur{' '}
+        <a
+          href="https://tarifmatcher.oaat-otma.ch/transcode?locale=de"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline font-semibold"
+        >
+          otma Webseite (3. Tarifmatcher, extern)
+        </a>
+        . Laden Sie dort die gerade exportierte CSV hoch und klicken Sie auf „Transkodieren und Download“. Kommen Sie danach zu „4. Auswertung“ zurück.
+      </div>
+    )}
+  </>
 )}
 
-    </div>
-    
-  )}
+
 </div>
 
 {/* Suchfeld darunter */}

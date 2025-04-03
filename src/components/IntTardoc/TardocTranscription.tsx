@@ -123,11 +123,29 @@ const TardocTranscription = () => {
             <h1 className="text-2xl font-bold mb-4">TARMED-TARDOC Transcodierung</h1>
 
             <input
-                type="file"
-                accept=".csv"
-                onChange={handleUpload}
-                className="mb-4"
-            />
+    type="file"
+    accept=".csv"
+    onChange={handleUpload}
+    className="mb-2"
+/>
+
+{/* Hilfetext für nicht erfahrene Nutzer */}
+{/* Hilfetext für nicht erfahrene Nutzer */}
+<div className="text-sm text-gray-700 mb-4 pl-1">
+  <strong>So finden Sie Ihre Datei:</strong><br />
+  Nach dem Klick auf <span className="font-semibold">"Transcodieren und Download"</span> auf der omat Seite wurde die Datei auf Ihren Computer heruntergeladen.
+  Diese befindet sich meist im Ordner <span className="italic">"Downloads"</span> oder auf dem <span className="italic">Desktop</span>.<br />
+  Klicken Sie oben auf <span className="font-semibold">"Datei auswählen/Choose file"</span> und wählen Sie die heruntergeladene Datei aus.<br />
+  Alternativ finden Sie die Datei auch direkt über das <span className="font-semibold">Download-Symbol</span> in Ihrem Browser oben rechts
+  <span className="inline-block ml-1 align-middle text-indigo-500">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4 inline">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+    </svg>
+  </span>.
+</div>
+
+
+
 
             {groups.length > 0 && (
                 <>
