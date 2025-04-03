@@ -133,9 +133,9 @@ const TardocTranscription = () => {
 {/* Hilfetext für nicht erfahrene Nutzer */}
 <div className="text-sm text-gray-700 mb-4 pl-1">
   <strong>So finden Sie Ihre Datei:</strong><br />
-  Nach dem Klick auf <span className="font-semibold">"Transcodieren und Download"</span> auf der omat Seite wurde die Datei auf Ihren Computer heruntergeladen.
-  Diese befindet sich meist im Ordner <span className="italic">"Downloads"</span> oder auf dem <span className="italic">Desktop</span>.<br />
-  Klicken Sie oben auf <span className="font-semibold">"Datei auswählen/Choose file"</span> und wählen Sie die heruntergeladene Datei aus.<br />
+  Nach dem Klick auf <span className="font-semibold">&quot;Transcodieren und Download&quot;</span> auf der omat Seite wurde die Datei auf Ihren Computer heruntergeladen.
+  Diese befindet sich meist im Ordner <span className="italic">&quot;Downloads&quot;</span> oder auf dem <span className="italic">&quot;Desktop&quot;</span>.<br />
+  Klicken Sie oben auf <span className="font-semibold">&quot;Datei auswählen/Choose file&quot;</span> und wählen Sie die heruntergeladene Datei aus.<br />
   Alternativ finden Sie die Datei auch direkt über das <span className="font-semibold">Download-Symbol</span> in Ihrem Browser oben rechts
   <span className="inline-block ml-1 align-middle text-indigo-500">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4 inline">
@@ -143,6 +143,7 @@ const TardocTranscription = () => {
     </svg>
   </span>.
 </div>
+
 
 
 
