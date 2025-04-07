@@ -82,6 +82,7 @@ export default function ComponentTimer({
             'Hinweis:',
             'Gemäss den Tarifierungsgrundsätzen der nationalen Tariforganisation',
             'kann diese Zeitkomponente bei der Abrechnung unterstützend verwendet werden.',
+            'Laden Sie für den Neustart des Times diese Seite neu.',
             'Passen Sie die Pauschalen Ihren Umständen an. Plausibilisieren Sie die Zeiterfassung.',
             'Diese Datei kann dann zur Dokumentation im System hinterlegt werden.',
             'Alle Angaben ohne Gefähr. Keine Haftungsübernahme.',
