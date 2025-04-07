@@ -3,6 +3,9 @@
 // see also src/config/ai/components.js
 // last changed: 6.8.24, Daniel Mueller, refactored
 
+
+// A I   O N L Y
+
 import Chat_diagnose from '@/components/AI/chat_diagnose';
 import Chat_kostengutsprache from '@/components/AI/chat_kostengutsprache';
 import Chat_ernaehrung from '@/components/AI/chat_ernaehrung';

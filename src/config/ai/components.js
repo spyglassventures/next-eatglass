@@ -20,6 +20,7 @@ import Konfigurationsanleitung from '@/components/IntKonfigurationsanleitung'; /
 import LernvideosPage from '@/components/IntLernvideos'; //
 import HIN from '@/components/IntHIN'; //
 import QM from '@/components/IntQM'; //
+import Materialauswertung from '@/components/IntMaterialauswertung'; //
 import Tardoc from '@/components/IntTardoc'; //
 import Abrechnung from '@/components/IntAbrechnung'; //
 import QR from '@/components/IntQR'; //
@@ -74,7 +75,7 @@ export const NAV_ITEMS = {
         { key: 'antwortemail_split', name: 'Antwortemail (geteilt)', visible_mpa: false, visible_arzt: false, visible_pro: true },
     ],
 
-    // Managed Care KI
+    // Managed Care KI aka Module in Entwicklung
     mangedCareDropdown: [
         { key: 'mcsged', name: 'SGED', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'mcdiabetesscore', name: 'Diabetes Risiko', visible_mpa: true, visible_arzt: true, visible_pro: true },
@@ -139,6 +140,7 @@ export const NAV_ITEMS = {
         { key: 'Logs', name: 'Letzte KI Anfragen', visible_mpa: false, visible_arzt: false, visible_pro: false },
         { key: 'ChatWithPdf', name: 'ChatWithPdf', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'Tardoc', name: 'TARDOC', visible_mpa: true, visible_arzt: true, visible_pro: true },
+        { key: 'Materialauswertung', name: 'Materialauswertung', visible_mpa: true, visible_arzt: true, visible_pro: true },
 
         // { key: 'antwortemail', name: 'antwortemail', visible_mpa: false, visible_arzt: true, visible_pro: true }
 
@@ -494,6 +496,11 @@ export const COMPONENTS = {
         component: 'QM',
         buttonText: 'qm'
     },
+    Materialauswertung: {
+        name: 'Materialauswertung',
+        component: 'Materialauswertung',
+        buttonText: 'Materialauswertung'
+    },
     Tardoc: {
         name: 'Tardoc',
         component: 'Tardoc',
@@ -584,6 +591,7 @@ export const ICONS = {
     HIN: AcademicCapIcon,
     Logs: AcademicCapIcon,
     QM: BookOpenIcon,
+    Materialauswertung: PencilIcon,
     Tardoc: HeartIcon,
     ChatWithPdf: DocumentTextIcon,
     Abrechnung: CheckBadgeIcon,
@@ -643,6 +651,8 @@ export const getActiveComponent = (activeComponent) => {
             return Logs;
         case 'QM':
             return QM;
+        case 'Materialauswertung':
+            return Materialauswertung;
         case 'Tardoc':
             return Tardoc;
         case 'QR':
