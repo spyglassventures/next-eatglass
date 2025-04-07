@@ -14,6 +14,8 @@ import { MicrophoneIcon, ChevronDownIcon, MagnifyingGlassIcon, XMarkIcon } from 
 import { NAV_ITEMS, COMPONENTS, ICONS, getActiveComponent } from '@/config/ai/components';
 import { TRANSITION_PROPS } from '@/config/ai/transition';
 import { motion } from "framer-motion";
+import ComponentTimer from '@/components/AI/ai_utils/ComponentTimer';
+
 
 // import { tickerAd } from '@/config/ai/components';
 
@@ -564,19 +566,30 @@ export default function ClientPage() {
       </section >
 
       {/* Component Rendering */}
-      < section className="pt-5" >
+      <section className="pt-5">
         <div className="container mx-auto px-4">
           <div className="text-left">
-            <h2 className="pl-1 text-2xl font-bold text-black dark:text-white">
-              {COMPONENTS[activeComponent]?.name}
-            </h2>
+            <div className="flex items-center justify-between">
+              <h2 className="text-xl font-semibold text-black dark:text-white">
+                {COMPONENTS[activeComponent]?.name || 'Willkommen im internen Bereich'}
+              </h2>
+              <div className="flex-1 flex justify-center">
+                <ComponentTimer
+                  componentName={COMPONENTS[activeComponent]?.name}
+                  mode={activeFilter}
+                />
+
+              </div>
+            </div>
+
+
             {ActiveComponent && <ActiveComponent />}
             <p className="text-center text-gray-500 text-sm pt-2">
               Testversion – kein Medizinalprodukt. Nicht verwenden für Patientenentscheidungen oder wenn ärztliche Entscheidungen beeinflusst werden könnten. Der Copilot kann Fehler machen. Alle Angaben im Detail kontrollieren, nicht blind kopieren.
             </p>
           </div>
         </div>
-      </section >
+      </section>
     </FilterProvider>
   );
 }
