@@ -54,6 +54,33 @@ const SystemTabs = ({ onSystemChange }: SystemTabsProps) => {
                     </a>
                 </p>
             )}
+
+            {current.name === 'Vitodata' && (
+                <div className="mt-4 text-sm text-center text-gray-800 space-y-1">
+                    <p>
+                        <a
+                            href="/data/anleitungen/Anleitung_Topseller_Medis_Migel_aus_Praxis_Informationssystem.pdf"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="underline text-[var(--color-primary)]"
+                        >
+                            Vitodata Anleitung: Topseller Medis/Migel exportieren - für den Upload in diesem Modul hier(PDF)
+                        </a>
+                    </p>
+                    <p>
+                        <a
+                            href="/data/anleitungen/Anleitung_Stammdaten_Medis_Migel_bearbeiten_aus_Praxis_Informationssystem.pdf"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="underline text-[var(--color-primary)]"
+                        >
+                            Vitodata Anleitung: Stammdaten Medis/Migel bearbeiten, z.B. Fehlerkorrektur (PDF)
+                        </a>
+                    </p>
+
+                </div>
+            )}
+
         </div>
     );
 };
