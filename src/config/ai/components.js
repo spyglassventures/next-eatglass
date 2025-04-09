@@ -26,6 +26,8 @@ import Abrechnung from '@/components/IntAbrechnung'; //
 import QR from '@/components/IntQR'; //
 import ChatWithPdf from '@/components/ChatWithPdf'; //
 import Logs from '@/components/IntLogs'; //
+import Dermatologie from '@/components/IntDermatologie'; //
+
 
 // import CHDT from '@/components/MedienCHDT'; // nein da kein AI chat, nicht hier drin
 import Diktat from '@/components/MedienDiktat'; //
@@ -97,6 +99,7 @@ export const NAV_ITEMS = {
         { key: 'labor', name: 'Laborwerte', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'ekg', name: 'EKG', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'bd_24', name: '24h BD Befunden', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        
 
 
 
@@ -141,6 +144,7 @@ export const NAV_ITEMS = {
         { key: 'ChatWithPdf', name: 'ChatWithPdf', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'Tardoc', name: 'TARDOC', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'Materialauswertung', name: 'Materialauswertung', visible_mpa: true, visible_arzt: true, visible_pro: true },
+        { key: 'Dermatologie', name: 'Dermatologie', visible_mpa: true, visible_arzt: true, visible_pro: true },
 
         // { key: 'antwortemail', name: 'antwortemail', visible_mpa: false, visible_arzt: true, visible_pro: true }
 
@@ -511,6 +515,11 @@ export const COMPONENTS = {
         component: 'QR',
         buttonText: 'qr'
     },
+    Dermatologie: {
+        name: 'Dermatologie',
+        component: 'Dermatologie',
+        buttonText: 'Dermatologie'
+    },
     ChatWithPdf: {
         name: 'Chat mit PDF',
         component: 'ChatWithPdf',
@@ -604,6 +613,7 @@ export const ICONS = {
     // verlaufsoptimierer: CheckBadgeIcon
     mcsged: AcademicCapIcon,
     mcdiabetesscore: AcademicCapIcon,
+    Dermatologie: AcademicCapIcon,
 
 
 
@@ -677,6 +687,8 @@ export const getActiveComponent = (activeComponent) => {
             return mcsged;
         case 'mcdiabetesscore':
             return mcdiabetesscore;
+        case 'Dermatologie':
+            return Dermatologie;
 
 
 
