@@ -1,43 +1,42 @@
+// pages/api/log.ts
 import { NextApiRequest, NextApiResponse } from 'next'
-import { Pool } from 'pg'
-
-const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-        rejectUnauthorized: false
-    }
-})
+import { pool } from './lib_db'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    const { customer_name, request, response } = req.body
+    console.log('🔵 API hit at /api/log')
+    console.log('📥 Request method:', req.method)
+
+    if (req.method !== 'POST') {
+        console.warn('⚠️ Only POST method is allowed')
+        return res.status(405).json({ error: 'Method Not Allowed' })
+    }
+
+    const { customer_name, request, response: responseData } = req.body
+
+    console.log('📝 Request Body:')
+    console.log('→ customer_name:', customer_name)
+    console.log('→ request:', request)
+    console.log('→ response:', responseData)
+
+    const requestContent = JSON.stringify(request, null, 2)
+    const responseContent = JSON.stringify(responseData, null, 2)
 
     try {
-        const client = await pool.connect()
+        console.log('📡 Attempting DB insert...')
+        const query = `
+      INSERT INTO logs (customer_name, request, response)
+      VALUES ($1, $2, $3)
+    `
+        const values = [customer_name, requestContent, responseContent]
+        console.log('🧩 Query Values:', values)
 
-        const requestContent = JSON.stringify(request)
-        // Ensure the response is a valid JSON string
-        const responseContent = JSON.stringify(response) || 'No response content found'
+        const result = await pool.query(query, values)
 
-        await client.query(
-            'INSERT INTO logs (customer_name, request, response) VALUES ($1, $2, $3)',
-            [customer_name, requestContent, responseContent]
-        )
-        client.release()
+        console.log('✅ Insert success:', result.rowCount, 'row(s) affected')
+
         res.status(200).json({ message: 'Log entry created successfully' })
-    } catch (error) {
-        console.error('Error logging request and response:', error)
-        res.status(500).json({ error: 'Internal Server Error' })
+    } catch (error: any) {
+        console.error('❌ Error inserting into DB:', error.message)
+        res.status(500).json({ error: 'Internal Server Error', details: error.message })
     }
 }
-
-
-// SELECT * FROM logs
-// WHERE id = (SELECT MAX(id) FROM logs);
-
-
-// SELECT * FROM logs
-// WHERE id = (SELECT MAX(id) FROM logs);
-
-// code works, creates logs but with some additional characters, doublication at the end? not sure
-// select id, customer_name, request, timestamp from logs;
-// \d logs
