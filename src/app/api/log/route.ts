@@ -19,6 +19,7 @@ export async function POST(req: Request) {
         console.log('→ customer_name:', customer_name);
         console.log('→ request:', request);
         console.log('→ response:', responseData);
+        console.log('🔥 Pool available:', typeof pool?.query === 'function');
 
 
         const result = await pool.query(

@@ -2,7 +2,7 @@ import { AzureOpenAI } from 'openai';
 import { OpenAIStream, StreamingTextResponse } from 'ai';
 import { NextResponse } from 'next/server';
 
-export const runtime = 'edge';
+export const runtime = 'edge'; // still Edge, the log API runs in Node
 
 // Azure OpenAI configuration
 const endpoint = process.env.AZURE_OPENAI_ENDPOINT || 'https://doc-dialog.openai.azure.com/';
@@ -12,87 +12,90 @@ const deployment = 'gpt-4o-mini'; // Must match your Azure OpenAI deployment nam
 
 const openai = new AzureOpenAI({ endpoint, apiKey, apiVersion, deployment });
 
-async function logRequestAndResponse(request: any, response: any, baseUrl: string) {
+async function logRequestAndResponse(request: any, response: any) {
+  const baseUrl = process.env.BASE_URL || 'https://next-eatglass.vercel.app';
   const customerName = process.env.LOG_USER || 'Unknown';
+  const logUrl = `${baseUrl}/api/log`;
+
+  console.log('📡 Logging to:', logUrl);
 
   try {
-    await fetch(`${baseUrl}/api/log`, {
+    const res = await fetch(logUrl, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         customer_name: customerName,
         request,
-        response
-      })
+        response,
+      }),
     });
-  } catch (error) {
-    console.error('Error logging request and response:', error);
+
+    const text = await res.text();
+    console.log('📦 /api/log response:', res.status, text);
+
+    if (!res.ok) {
+      console.error('❌ Failed to log:', res.statusText);
+    } else {
+      console.log('✅ Log saved successfully');
+    }
+  } catch (err: any) {
+    console.error('❌ Log fetch failed:', err.message || err);
   }
 }
 
 export async function POST(req: Request) {
   try {
-    console.log('POST request received in Azure OpenAI streaming API route.');
+    console.log('🟢 POST received in OpenAI streaming handler');
 
     if (!apiKey) {
-      console.error('Missing Azure OpenAI API Key.');
+      console.error('❌ Missing Azure OpenAI API Key.');
       return new NextResponse('Missing Azure OpenAI API Key.', { status: 400 });
     }
 
-    // Parse request JSON
     const { messages } = await req.json();
 
-    console.log(`Calling Azure OpenAI API with model deployment \"${deployment}\"...`);
+    console.log(`🤖 Calling Azure OpenAI with deployment "${deployment}"...`);
 
-    // Azure OpenAI streaming chat completion
     const response = await openai.chat.completions.create({
-      model: deployment, // Azure requires deployment name instead of model
+      model: deployment,
       stream: true,
       messages
     });
 
-    console.log('Received response from Azure OpenAI.');
+    console.log('✅ Azure OpenAI response stream received');
 
     const stream = OpenAIStream(response as any);
 
-    // Create a TransformStream to accumulate the response
     const { readable, writable } = new TransformStream();
     const writer = writable.getWriter();
     const decoder = new TextDecoder();
     const encoder = new TextEncoder();
     let accumulatedResponse = '';
 
-    // Read from the OpenAI stream and write to the TransformStream
     const reader = stream.getReader();
 
-    reader.read().then(function processText({ done, value }) {
+    await reader.read().then(async function processText({ done, value }) {
       if (done) {
-        // Log request and complete response asynchronously
-        const protocol = req.headers.get('x-forwarded-proto') || 'https';
-        const host = req.headers.get('x-forwarded-host') || req.headers.get('host') || '';
-        const baseUrl = `${protocol}://${host}`;
-
-        // Remove unwanted characters from the accumulated response
         const filteredResponse = accumulatedResponse.replace(/\\n0:"|\\n|0:"/g, ' ');
 
-        logRequestAndResponse(messages, filteredResponse, baseUrl).catch(console.error);
+        await logRequestAndResponse(messages, filteredResponse);
 
-        writer.close();
+        await writer.close();
         return;
       }
 
       const chunk = decoder.decode(value, { stream: true });
       accumulatedResponse += chunk;
-      writer.write(encoder.encode(chunk));
+      await writer.write(encoder.encode(chunk));
 
       return reader.read().then(processText);
     });
 
     return new StreamingTextResponse(readable);
   } catch (error: any) {
-    console.error('Server error in Azure OpenAI streaming API route:', error);
+    console.error('❌ Server error in Azure OpenAI handler:', error);
     return new NextResponse(error.message || 'Something went wrong!', {
       status: 500
     });
