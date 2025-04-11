@@ -12,24 +12,27 @@ const openai = new AzureOpenAI({ endpoint, apiKey, apiVersion, deployment });
 
 export async function POST(req: Request) {
   try {
-    console.log('📨 POST request received in streaming API route.');
+    console.log('POST request received in streaming API route.');
 
     if (!apiKey) {
-      console.error('❌ Missing Azure OpenAI API Key.');
+      console.error('Missing Azure OpenAI API Key.');
       return new NextResponse(
         JSON.stringify({ error: 'Missing Azure OpenAI API Key.' }),
         { status: 400 }
       );
     }
 
+    // Parse the incoming JSON
     const body = await req.json();
     const { messages, customerName: customerNameFromRequest } = body;
     const customerName = process.env.LOG_USER || customerNameFromRequest || 'Unknown';
+    console.log('Parsed request body:', { messages, customerName });
 
-    console.log('🔍 Parsed request body:', { customerName, messages });
+    console.log(`Calling Azure OpenAI API with model deployment \"${deployment}\"...`);
 
+    // Start the Azure OpenAI streaming chat completion
     const openaiResponse = await openai.chat.completions.create({
-      model: deployment,
+      model: deployment,  // Required for Azure OpenAI
       messages,
       max_tokens: 800,
       temperature: 0.7,
@@ -37,68 +40,61 @@ export async function POST(req: Request) {
       frequency_penalty: 0,
       presence_penalty: 0,
       stop: null,
-      stream: true,
+      stream: true, // Enable streaming
     });
 
-    console.log('🧠 Azure OpenAI responded with stream.');
+    console.log('Received response from Azure OpenAI.');
 
     const encoder = new TextEncoder();
     let fullResponseText = '';
 
+    // Create a ReadableStream that both sends chunks to the client and accumulates them
     const stream = new ReadableStream({
       async start(controller) {
         try {
+          console.log('Starting to process streaming response...');
           for await (const chunk of openaiResponse) {
             const content = chunk.choices[0]?.delta?.content || '';
             fullResponseText += content;
+            console.log('Streaming chunk content:', content);
             controller.enqueue(encoder.encode(content));
           }
-
+          console.log('Streaming complete. Closing controller.');
           controller.close();
 
-          const logPayload = {
-            customer_name: customerName,
-            request: { messages },
-            response: `${deployment}, ${fullResponseText}`,
-          };
-
-          const baseUrl = process.env.BASE_URL || 'https://next-eatglass.vercel.app';
-          const logUrl = `${baseUrl}/api/log`;
-
-          console.log('📝 Attempting to log request to:', logUrl);
-          console.log('📦 Payload:', logPayload);
-
+          // After streaming is complete, log the request, response, and model to the database
           try {
-            const res = await fetch(logUrl, {
+            const logPayload = {
+              customer_name: customerName,
+              request: { messages },
+              response: `${deployment}, ${fullResponseText}`,
+            };
+
+            console.log('Attempting to log request and response:', logPayload);
+
+            const baseUrl = process.env.BASE_URL || 'http://localhost:3000';
+            await fetch(`${baseUrl}/api/log`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(logPayload),
             });
-
-            const resText = await res.text();
-            console.log(`📡 /api/log response: ${res.status} – ${resText}`);
-
-            if (!res.ok) {
-              console.error('❌ Log API returned error:', res.statusText);
-            } else {
-              console.log('✅ Request and response successfully logged.');
-            }
-          } catch (logError: any) {
-            console.error('❌ Failed to send log request:', logError.message || logError);
+            console.log('Successfully logged request and response.');
+          } catch (logError) {
+            console.error('Error logging request and response:', logError);
           }
-        } catch (err) {
-          console.error('❌ Error while streaming response:', err);
-          controller.error(err);
+        } catch (error) {
+          console.error('Error in processing response:', error);
+          controller.error(error);
         }
       },
     });
 
-    console.log('📤 Sending streaming response to client.');
+    console.log('Returning streaming response to client.');
     return new Response(stream, {
       headers: { 'Content-Type': 'text/event-stream' },
     });
-  } catch (error: any) {
-    console.error('❌ Top-level server error in streaming route:', error);
+  } catch (error) {
+    console.error('Server error in streaming API route:', error);
     return new NextResponse(
       JSON.stringify({ error: error.message || 'Internal Server Error' }),
       { status: 500 }
