@@ -24,6 +24,7 @@ import Materialauswertung from '@/components/IntMaterialauswertung'; //
 import Tardoc from '@/components/IntTardoc'; //
 import Abrechnung from '@/components/IntAbrechnung'; //
 import QR from '@/components/IntQR'; //
+import Brett from '@/components/IntBrett'; //
 import ChatWithPdf from '@/components/ChatWithPdf'; //
 import Logs from '@/components/IntLogs'; //
 import Dermatologie from '@/components/IntDermatologie'; //
@@ -145,6 +146,7 @@ export const NAV_ITEMS = {
         { key: 'Tardoc', name: 'TARDOC', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'Materialauswertung', name: 'Materialauswertung', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'Dermatologie', name: 'Dermatologie', visible_mpa: true, visible_arzt: true, visible_pro: true },
+        { key: 'Brett', name: 'Brett', visible_mpa: false, visible_arzt: false, visible_pro: true },
 
         // { key: 'antwortemail', name: 'antwortemail', visible_mpa: false, visible_arzt: true, visible_pro: true }
 
@@ -360,6 +362,12 @@ export const COMPONENTS = {
         name: 'Diktat',
         component: 'Chat_Diktat',
         buttonText: 'Diktat'
+    },
+
+    Brett: {
+        name: 'Brett',
+        component: 'Brett',
+        buttonText: 'Brett'
     },
 
 
@@ -614,6 +622,7 @@ export const ICONS = {
     mcsged: AcademicCapIcon,
     mcdiabetesscore: AcademicCapIcon,
     Dermatologie: AcademicCapIcon,
+    Brett: AcademicCapIcon,
 
 
 
@@ -661,6 +670,8 @@ export const getActiveComponent = (activeComponent) => {
             return Logs;
         case 'QM':
             return QM;
+        case 'Brett':
+            return Brett;
         case 'Materialauswertung':
             return Materialauswertung;
         case 'Tardoc':
