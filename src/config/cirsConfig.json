@@ -1,0 +1,99 @@
+{
+    "praxisName": "Praxis Doc Dialog",
+    "praxisId": 100,
+    "dropdownOptions": {
+        "praxisname": [
+            "Praxis Doc Dialog"
+        ],
+        "fachgebiet": [
+            "Allgemeinmedizin",
+            "Innere Medizin",
+            "Praktische Medizin",
+            "Gynäkologie",
+            "Pädiatrie",
+            "Kardiologie",
+            "Neurologie",
+            "Chirurgie",
+            "Orthopädie",
+            "Urologie",
+            "HNO",
+            "Dermatologie",
+            "Anästhesie",
+            "Intensivmedizin",
+            "Notfallmedizin",
+            "Radiologie",
+            "Psychiatrie",
+            "Zahnmedizin",
+            "Augenheilkunde",
+            "Kieferchirurgie",
+            "Mund-Kiefer-Gesichtschirurgie",
+            "Nephrologie",
+            "Endokrinologie"
+        ],
+        "ereignisOrt": [
+            "Sprechzimmer",
+            "Labor",
+            "Röntgen",
+            "Anmeldung",
+            "Infusionszimmer",
+            "Wartezimmer",
+            "Sonstige Räume",
+            "Hausbesuch",
+            "Ambulanz",
+            "----------",
+            "Krankenhaus",
+            "Rettungsdienst",
+            "Praxis",
+            "Einleitung",
+            "OP",
+            "Ausleitung",
+            "AWR",
+            "Transport",
+            "Funktions-/Diagnostikraum",
+            "ITS / IMC",
+            "Normalstation",
+            "Schmerzambulanz",
+            "PM-Ambulanz",
+            "Akutschmerzdienst",
+            "Notfallaufnahme",
+            "Notfall-Team-Einsatz",
+            "anderer Ort"
+        ],
+        "ereignisTag": [
+            "Wochentag",
+            "Wochenende / Feiertag"
+        ],
+        "versorgungsart": [
+            "Routinebetrieb",
+            "Notfall"
+        ],
+        "asaKlassifizierung": [
+            "ASA I",
+            "ASA II",
+            "ASA III",
+            "ASA IV",
+            "ASA V"
+        ],
+        "medizinproduktBeteiligt": [
+            "Ja",
+            "Nein"
+        ],
+        "haeufigkeit": [
+            "fast täglich",
+            "jede Woche",
+            "jeden Monat",
+            "mehrmals pro Jahr",
+            "selten",
+            "nur dieses mal"
+        ],
+        "berichtetVon": [
+            "Ärztin / Arzt",
+            "Pflegekraft",
+            "andere"
+        ],
+        "berufserfahrung": [
+            "bis 5 Jahre",
+            "über 5 Jahre"
+        ]
+    }
+}
