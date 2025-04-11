@@ -6,7 +6,7 @@ export const runtime = 'edge';
 const endpoint = process.env.AZURE_OPENAI_ENDPOINT || 'https://doc-dialog.openai.azure.com/';
 const apiKey = process.env.AZURE_OPENAI_API_KEY || '';
 const apiVersion = '2024-05-01-preview';
-const deployment = 'gpt-4o-mini'; // Must match your Azure OpenAI deployment name
+const deployment = 'gpt-4o-mini';
 
 const openai = new AzureOpenAI({ endpoint, apiKey, apiVersion, deployment });
 
@@ -16,10 +16,9 @@ export async function POST(req: Request) {
 
     if (!apiKey) {
       console.error('❌ Missing Azure OpenAI API Key.');
-      return new NextResponse(
-        JSON.stringify({ error: 'Missing Azure OpenAI API Key.' }),
-        { status: 400 }
-      );
+      return new NextResponse(JSON.stringify({ error: 'Missing Azure OpenAI API Key.' }), {
+        status: 400,
+      });
     }
 
     const body = await req.json();
@@ -40,8 +39,6 @@ export async function POST(req: Request) {
       stream: true,
     });
 
-    console.log('🧠 Azure OpenAI responded with stream.');
-
     const encoder = new TextEncoder();
     let fullResponseText = '';
 
@@ -53,55 +50,49 @@ export async function POST(req: Request) {
             fullResponseText += content;
             controller.enqueue(encoder.encode(content));
           }
-
           controller.close();
-
-          const logPayload = {
-            customer_name: customerName,
-            request: { messages },
-            response: `${deployment}, ${fullResponseText}`,
-          };
-
-          const baseUrl = process.env.BASE_URL || 'https://next-eatglass.vercel.app';
-          const logUrl = `${baseUrl}/api/log`;
-
-          console.log('📝 Attempting to log request to:', logUrl);
-          console.log('📦 Payload:', logPayload);
-
-          try {
-            const res = await fetch(logUrl, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(logPayload),
-            });
-
-            const resText = await res.text();
-            console.log(`📡 /api/log response: ${res.status} – ${resText}`);
-
-            if (!res.ok) {
-              console.error('❌ Log API returned error:', res.statusText);
-            } else {
-              console.log('✅ Request and response successfully logged.');
-            }
-          } catch (logError: any) {
-            console.error('❌ Failed to send log request:', logError.message || logError);
-          }
         } catch (err) {
-          console.error('❌ Error while streaming response:', err);
+          console.error('❌ Stream error:', err);
           controller.error(err);
         }
       },
     });
 
-    console.log('📤 Sending streaming response to client.');
-    return new Response(stream, {
+    // 🚀 Return response early to start the stream
+    const response = new Response(stream, {
       headers: { 'Content-Type': 'text/event-stream' },
     });
+
+    // ✅ After starting the stream, fire and await the log OUTSIDE
+    (async () => {
+      try {
+        const baseUrl = process.env.BASE_URL || 'https://next-eatglass.vercel.app';
+        const logPayload = {
+          customer_name: customerName,
+          request: { messages },
+          response: `${deployment}, ${fullResponseText}`,
+        };
+
+        console.log('📝 Sending log after stream started:', logPayload);
+
+        const res = await fetch(`${baseUrl}/api/log`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(logPayload),
+        });
+
+        const resText = await res.text();
+        console.log(`📦 /api/log response: ${res.status} – ${resText}`);
+      } catch (err: any) {
+        console.error('❌ Failed to send log:', err.message || err);
+      }
+    })();
+
+    return response;
   } catch (error: any) {
-    console.error('❌ Top-level server error in streaming route:', error);
-    return new NextResponse(
-      JSON.stringify({ error: error.message || 'Internal Server Error' }),
-      { status: 500 }
-    );
+    console.error('❌ Top-level error in API route:', error);
+    return new NextResponse(JSON.stringify({ error: error.message || 'Internal Server Error' }), {
+      status: 500,
+    });
   }
 }
