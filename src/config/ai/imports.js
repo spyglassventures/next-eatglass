@@ -31,6 +31,7 @@ import Chat_versicherungsanfrage from '@/components/AI/chat_versicherungsanfrage
 import Chat_triage from '@/components/AI/chat_triage';
 import Chat_ekg from '@/components/AI/chat_ekg';
 import Chat_24_BD from '@/components/AI/chat_24_BD';
+import Chat_schwieriger_patient from '@/components/AI/chat_schwieriger_patient';
 
 // NCP
 import Chat_ncp_assessment from '@/components/AI/chat_ncp_assessment';
@@ -70,6 +71,7 @@ import Chat_STRUC_group_blocks from '@/components/AI/struc/chat_STRUC_group_bloc
 const AIComponents = {
     Chat_diagnose,
     Chat_triage,
+    Chat_schwieriger_patient,
     Chat_kostengutsprache,
     Chat_ernaehrung,
     Chat_stellungsnahme,

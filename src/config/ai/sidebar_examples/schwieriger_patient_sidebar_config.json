@@ -1,0 +1,25 @@
+{
+    "filename": "news_sidebar_config.json",
+    "examples": [
+        "können keine Akten ohne Zustimmung der betroffenen Person rausgeben.",
+        "haben keinen schnelleren Termin für den Patienten.",
+        "können keine Rezepte ohne Untersuchung ausstellen.",
+        "eine Rückmeldung erfolgt, sobald der Arzt Zeit hat.",
+        "können keine Medikamente ohne Untersuchung rausgeben.",
+        "können keine Überweisungen ohne Untersuchung ausstellen.",
+        "MPAs sind gut ausgebildet und können viele Fragen beantworten, aber keine aerztlichen.",
+        "MPAs sind keine Ärzte und können keine Diagnosen stellen.",
+        "Arbeitsunfähigkeit kann nicht rückdatiert werden.",
+        "für weiteres rumtelefonieren haben wir keine Zeit",
+        "bitte zuerst telefonisch Kontakt aufnehmen, bevor Sie vorbeikommen.",
+        "Blutwerte werden nicht telefonisch durchgegeben.",
+        "für Befundauskünfte bitte Termin vereinbaren.",
+        "keine telefonische Diagnose möglich.",
+        "für jedes Problem wird ein separater Termin benötigt.",
+        "bitte haben Sie Verständnis für längere Wartezeiten.",
+        "wir können keine Krankschreibungen per E-Mail ausstellen."
+    ],
+    "abkuerzungen": [
+        "keine"
+    ]
+}

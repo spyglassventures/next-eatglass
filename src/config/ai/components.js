@@ -57,6 +57,7 @@ export const NAV_ITEMS = {
     toolsDropdown: [
         { key: 'stellungsnahme', name: 'Stellungsnahme', visible_mpa: false, visible_arzt: true, visible_pro: true },
         { key: 'triage', name: 'Triage', visible_mpa: true, visible_arzt: false, visible_pro: true },
+        { key: 'schwieriger_patient', name: 'Schwieriger Patient', visible_mpa: true, visible_arzt: false, visible_pro: true },
         { key: 'literatur', name: 'Literatur', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'medis', name: 'Medikamente', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'reise', name: 'Reiseberatung', visible_mpa: true, visible_arzt: true, visible_pro: true },
@@ -210,6 +211,11 @@ export const COMPONENTS = {
         name: 'Triage',
         component: 'Chat_triage',
         buttonText: 'Triage'
+    },
+    schwieriger_patient: {
+        name: 'Schwieriger Patient',
+        component: 'Chat_schwieriger_patient',
+        buttonText: 'Schwieriger Patient'
     },
     ekg: {
         name: 'Langzeit-EKG (Holter-EKG, R-Test)',
@@ -631,6 +637,7 @@ export const ICONS = {
     mcdiabetesscore: AcademicCapIcon,
     Dermatologie: AcademicCapIcon,
     Brett: AcademicCapIcon,
+    schwieriger_patient: FaceSmileIcon,
 
 
 
