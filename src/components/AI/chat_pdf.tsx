@@ -1,6 +1,8 @@
 // src/components/AI/chat_pdf.tsx
 'use client';
 
+
+// OpenAI API with own verctor Store 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import axios from 'axios';
 import { Input } from '@/components/ui/input';

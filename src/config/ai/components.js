@@ -26,6 +26,7 @@ import Abrechnung from '@/components/IntAbrechnung'; //
 import QR from '@/components/IntQR'; //
 import Brett from '@/components/IntBrett'; //
 import ChatWithPdf from '@/components/ChatWithPdf'; //
+import ChatWithPdfKardio from '@/components/ChatWithPdfKardio'; //
 import Logs from '@/components/IntLogs'; //
 import Dermatologie from '@/components/IntDermatologie'; //
 
@@ -143,6 +144,7 @@ export const NAV_ITEMS = {
         { key: 'QR', name: 'QR Codes', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'Logs', name: 'Letzte KI Anfragen', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'ChatWithPdf', name: 'ChatWithPdf', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'ChatWithPdfKardio', name: 'ChatWithPdfKardio', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'Tardoc', name: 'TARDOC', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'Materialauswertung', name: 'Materialauswertung', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'Dermatologie', name: 'Dermatologie', visible_mpa: true, visible_arzt: true, visible_pro: true },
@@ -533,6 +535,11 @@ export const COMPONENTS = {
         component: 'ChatWithPdf',
         buttonText: 'chat_with_pdf'
     },
+    ChatWithPdfKardio: {
+        name: 'Chat mit PDF',
+        component: 'ChatWithPdfKardio',
+        buttonText: 'chat_with_pdf_kardio'
+    },
     Diktat: {
         name: 'Diktat',
         component: 'Diktat',
@@ -611,6 +618,7 @@ export const ICONS = {
     Materialauswertung: PencilIcon,
     Tardoc: HeartIcon,
     ChatWithPdf: DocumentTextIcon,
+    ChatWithPdfKardio: HeartIcon,
     Abrechnung: CheckBadgeIcon,
     QR: CheckBadgeIcon,
     // CHDT: CheckBadgeIcon,
@@ -680,6 +688,8 @@ export const getActiveComponent = (activeComponent) => {
             return QR;
         case 'ChatWithPdf':
             return ChatWithPdf;
+        case 'ChatWithPdfKardio':
+            return ChatWithPdfKardio;
         case 'Diktat':
             return Diktat;
         case 'Cal':

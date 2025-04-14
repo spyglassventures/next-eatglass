@@ -45,14 +45,18 @@ export default function PdfChat() {
         setNumPages(numPages);
     };
 
-    const askQuestion = async () => {
-        if (!file || !prompt) return;
+    const askQuestion = async (customPrompt?: string) => {
+        const promptToSend = customPrompt ?? prompt;
+
+        if (!file || !promptToSend) return;
+
+        console.log("🧠 Prompt sent to API:\n", promptToSend); // LOG HIER!
 
         setLoading(true);
 
         const formData = new FormData();
         formData.append("file", file);
-        formData.append("prompt", prompt);
+        formData.append("prompt", promptToSend);
 
         try {
             const res = await fetch("/api/chatwithpdf", {
@@ -60,21 +64,21 @@ export default function PdfChat() {
                 body: formData,
             });
 
-            if (!res.ok) {
-                throw new Error(`HTTP error! status: ${res.status}`);
-            }
+            if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
             const data = await res.json();
 
-            setMessages((prev) => [...prev, { prompt, answer: data.answer }]);
+            setMessages((prev) => [...prev, { prompt: promptToSend, answer: data.answer }]);
             setPrompt("");
         } catch (error) {
-            console.error("Error during question processing:", error);
+            console.error("❌ Error during question processing:", error);
             alert("An error occurred while processing your question.");
         } finally {
             setLoading(false);
         }
     };
+
+
 
     const handleDrop = useCallback((e: DragEvent) => {
         e.preventDefault();
@@ -125,7 +129,7 @@ export default function PdfChat() {
     return (
         <div className="flex h-screen">
             <div className="flex flex-col w-1/2 p-6">
-                <h1 className="text-2xl font-bold mb-4">💬 Chat mit einem PDF</h1>
+                <h1 className="text-2xl font-bold mb-4">Kommentar Holter EKG erstellen</h1>
 
                 <div
                     ref={dropAreaRef}
@@ -159,17 +163,18 @@ export default function PdfChat() {
                 <ChatInput
                     prompt={prompt}
                     setPrompt={setPrompt}
-                    onSendMessage={() => {
+                    onSendMessage={(customPrompt) => {
                         if (!file) {
                             alert("Please select a PDF first.");
                             return;
                         }
-                        askQuestion();
+                        askQuestion(customPrompt);
                     }}
                     onFileUpload={setFile}
                     isSending={loading}
                     selectedFileName={selectedFileName}
                 />
+
             </div>
 
             {pdfUrl && (
@@ -192,11 +197,10 @@ export default function PdfChat() {
 }
 
 
-function Message({ prompt, answer, onCopy }: { prompt: string; answer: string; onCopy: () => void }) {
+function Message({ answer, onCopy }: { prompt?: string; answer: string; onCopy: () => void }) {
     return (
-        <div className="bg-gray-100 p-4 rounded-lg relative">
-            <p className="font-semibold">Q: {prompt}</p>
-            <p>A: {answer}</p>
+        <div className="bg-gray-100 p-4 rounded-lg relative whitespace-pre-wrap">
+            <p>{answer}</p>
             <button
                 className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
                 onClick={onCopy}
@@ -206,3 +210,4 @@ function Message({ prompt, answer, onCopy }: { prompt: string; answer: string; o
         </div>
     );
 }
+
