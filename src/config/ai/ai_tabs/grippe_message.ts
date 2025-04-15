@@ -41,6 +41,12 @@ export const inputCloudBtn = {
         "Hinweis auf Allergie",
         "Hinweis auf Bronchitis",
         "Hinweis auf Pneumonie",
+        "Sauerstoffsättigung: []%",
+        "Atemfrequenz: []/min",
+        "Blutdruck: [] mmHg",
+        "Pulsoxymetrie: []",
+        "unauffällig",
+
     ],
 
     Beschreibung: [
@@ -62,6 +68,9 @@ export const inputCloudBtn = {
     Labor: [
         "Labor - leichter Leukozytose",
         "Labor - CRP von: []",
+        "CRP von >10",
+        "CRP von >50",
+        "CRP von <50",
         "Labor - HBa1C von: [] ",
         "CRP leicht erhöht",
         "Temperatur: []°C",
