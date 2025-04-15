@@ -58,6 +58,7 @@ export const NAV_ITEMS = {
     toolsDropdown: [
         { key: 'stellungsnahme', name: 'Stellungsnahme', visible_mpa: false, visible_arzt: true, visible_pro: true },
         { key: 'triage', name: 'Triage', visible_mpa: true, visible_arzt: false, visible_pro: true },
+        { key: 'grippe', name: 'Grippe', visible_mpa: true, visible_arzt: false, visible_pro: true },
         { key: 'schwieriger_patient', name: 'Schwieriger Patient', visible_mpa: true, visible_arzt: false, visible_pro: true },
         { key: 'literatur', name: 'Literatur', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'medis', name: 'Medikamente', visible_mpa: false, visible_arzt: false, visible_pro: true },
@@ -213,6 +214,11 @@ export const COMPONENTS = {
         name: 'Triage',
         component: 'Chat_triage',
         buttonText: 'Triage'
+    },
+    grippe: {
+        name: 'Grippe',
+        component: 'Chat_grippe',
+        buttonText: 'Grippe'
     },
     schwieriger_patient: {
         name: 'Schwieriger Patient',
@@ -647,6 +653,7 @@ export const ICONS = {
     Dermatologie: AcademicCapIcon,
     Brett: PencilIcon,
     schwieriger_patient: FaceSmileIcon,
+    grippe: BeakerIcon,
 
 
 

@@ -1,0 +1,40 @@
+{
+    "filename": "triage_sidebar_config.json",
+    "examples": [
+        "Kopfschmerzen 3 T, 45 J, w"
+    ],
+    "abkuerzungen": [
+        "T: Tage",
+        "J: Jahre",
+        "w: weiblich",
+        "m: männlich",
+        "Medis: Medikamente",
+        "KG: Krankengeschichte",
+        "F: Fieber",
+        "Sz: Schmerzen",
+        "BD: Blutdruck",
+        "RR: Blutdruck (Riva-Rocci)",
+        "P: Puls",
+        "HF: Herzfrequenz",
+        "AF: Atemfrequenz",
+        "O2: Sauerstoffsättigung",
+        "BZ: Blutzucker",
+        "EKG: Elektrokardiogramm",
+        "CT: Computertomographie",
+        "MRT: Magnetresonanztomographie",
+        "US: Ultraschall",
+        "OP: Operation",
+        "NW: Nebenwirkungen",
+        "LZ: Langzeit",
+        "Vd: Verdacht auf",
+        "WS: Wirbelsäule",
+        "Frakt: Fraktur"
+    ],
+    "videoPath": "",
+    "hinweise": [
+        "Markieren: Halten Sie die linke Maustaste gedrückt und fahren Sie mit der Maus über den zu kopierenden Text. Dieser ist nun blau hinterlegt.",
+        "Kopieren: Ist der Text markiert, dann drücken Sie gleichzeit Strg + C um den Text in die Zwischenablage zu kopieren.",
+        "Einfügen: Klicken Sie mit der Maus an eine beliebige Stelle, an der Sie den Text einfügen möchten. Dann drücken Sie gleichzeit Strg + V.",
+        "Alternativen: Sie können auch mit der rechten Maustaste auf den markierten Text klicken und dann 'Kopieren' bzw. 'Einfügen' auswählen."
+    ]
+}
