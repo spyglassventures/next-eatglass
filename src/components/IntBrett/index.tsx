@@ -24,28 +24,28 @@ const initialCIRSEntry = {
 };
 
 
-
 const fieldMetadata: Record<string, { label: string; description?: string }> = {
     fachgebiet: { label: 'Zuständiges Fachgebiet' },
-    ereignisOrt: { label: 'Ort des Ereignisses' },
-    ereignisTag: { label: 'Tag des Ereignisses' },
+    ereignis_ort: { label: 'Ort des Ereignisses' },
+    ereignis_tag: { label: 'Tag des Ereignisses' },
     versorgungsart: { label: 'Versorgungsart' },
-    asaKlassifizierung: {
+    asa_klassifizierung: {
         label: 'ASA-Klassifizierung',
         description: 'Vor dem Ereignis gemäss Anästhesie-Risikoklassifikation'
     },
     patientenzustand: { label: 'Patientenzustand', description: 'Nur wenn relevant oder besonders' },
     begleitumstaende: { label: 'Wichtige Begleitumstände' },
-    medizinproduktBeteiligt: { label: 'War ein Medizinprodukt beteiligt?' },
+    medizinprodukt_beteiligt: { label: 'War ein Medizinprodukt beteiligt?' },
     fallbeschreibung: { label: 'Fallbeschreibung', description: 'Was, warum, Verlauf, Maßnahmen etc.' },
     positiv: { label: 'Was war besonders gut?' },
     negativ: { label: 'Was war besonders ungünstig?' },
-    takeHomeMessage: { label: 'Take-home-Message', description: 'Was kann man daraus lernen?' },
+    take_home_message: { label: 'Take-home-Message', description: 'Was kann man daraus lernen?' },
     haeufigkeit: { label: 'Häufigkeit solcher Ereignisse' },
-    berichtetVon: { label: 'Wer berichtet?' },
+    berichtet_von: { label: 'Wer berichtet?' },
     berufserfahrung: { label: 'Berufserfahrung' },
     bemerkungen: { label: 'Bemerkungen zum Berichtssystem' }
 };
+
 
 
 const Brett = () => {

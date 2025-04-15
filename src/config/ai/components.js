@@ -29,6 +29,7 @@ import ChatWithPdf from '@/components/ChatWithPdf'; //
 import ChatWithPdfKardio from '@/components/ChatWithPdfKardio'; //
 import Logs from '@/components/IntLogs'; //
 import Dermatologie from '@/components/IntDermatologie'; //
+import Praxischat from '@/components/IntPraxisChat'; //
 
 
 // import CHDT from '@/components/MedienCHDT'; // nein da kein AI chat, nicht hier drin
@@ -149,7 +150,8 @@ export const NAV_ITEMS = {
         { key: 'Tardoc', name: 'TARDOC', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'Materialauswertung', name: 'Materialauswertung', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'Dermatologie', name: 'Dermatologie', visible_mpa: true, visible_arzt: true, visible_pro: true },
-        { key: 'Brett', name: 'Brett', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'Brett', name: 'CIRS erfassen', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'Praxischat', name: 'Praxischat (Demo)', visible_mpa: false, visible_arzt: false, visible_pro: true },
 
         // { key: 'antwortemail', name: 'antwortemail', visible_mpa: false, visible_arzt: true, visible_pro: true }
 
@@ -370,6 +372,12 @@ export const COMPONENTS = {
         name: 'Diktat',
         component: 'Chat_Diktat',
         buttonText: 'Diktat'
+    },
+
+    Praxischat: {
+        name: 'Praxischat (Demo)',
+        component: 'Chat_Praxischat',
+        buttonText: 'Praxischat (Demo)'
     },
 
     Brett: {
@@ -629,6 +637,7 @@ export const ICONS = {
     QR: CheckBadgeIcon,
     // CHDT: CheckBadgeIcon,
     Diktat: CheckBadgeIcon,
+    Praxischat: SparklesIcon,
     Cal: CalendarIcon,
     StammdatenIGM: PencilIcon,
     // antwortmail: CheckBadgeIcon,
@@ -636,7 +645,7 @@ export const ICONS = {
     mcsged: AcademicCapIcon,
     mcdiabetesscore: AcademicCapIcon,
     Dermatologie: AcademicCapIcon,
-    Brett: AcademicCapIcon,
+    Brett: PencilIcon,
     schwieriger_patient: FaceSmileIcon,
 
 
@@ -699,6 +708,8 @@ export const getActiveComponent = (activeComponent) => {
             return ChatWithPdfKardio;
         case 'Diktat':
             return Diktat;
+        case 'Praxischat':
+            return Praxischat;
         case 'Cal':
             return Cal;
         case 'StammdatenIGM':
