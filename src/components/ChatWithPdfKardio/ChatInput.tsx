@@ -57,14 +57,21 @@ const ChatInput: React.FC<ChatInputProps> = ({
                 const geschlecht = geschlechtRaw.trim().toLowerCase();
                 const alter = alterRaw.trim();
 
+                const isGeschlechtValid = geschlecht === "m" || geschlecht === "w";
+                const isAlterValid = !isNaN(Number(alter)) && Number(alter) > 0;
+
+                if (!isGeschlechtValid || !isAlterValid) {
+                    alert("Bitte geben Sie das Geschlecht als 'm' oder 'w' und das Alter als Zahl an.");
+                    return;
+                }
+
                 const fullPrompt = chatInstructions(untersuchungsgrund, geschlecht, alter);
-
-                console.log("✅ GENERATED FULL PROMPT:\n", fullPrompt); // <- DAS MUSS IN DER KONSOLE KOMMEN!
-
+                console.log("✅ GENERATED FULL PROMPT:\n", fullPrompt);
                 onSendMessage(fullPrompt);
             } else {
                 alert("Bitte in folgendem Format eingeben: Untersuchungsgrund, w/m, Alter");
             }
+
         }
     };
 
@@ -100,12 +107,21 @@ const ChatInput: React.FC<ChatInputProps> = ({
             const geschlecht = geschlechtRaw.trim().toLowerCase();
             const alter = alterRaw.trim();
 
+            const isGeschlechtValid = geschlecht === "m" || geschlecht === "w";
+            const isAlterValid = !isNaN(Number(alter)) && Number(alter) > 0;
+
+            if (!isGeschlechtValid || !isAlterValid) {
+                alert("Bitte geben Sie das Geschlecht als 'm' oder 'w' und das Alter als Zahl an.");
+                return;
+            }
+
             const fullPrompt = chatInstructions(untersuchungsgrund, geschlecht, alter);
-            console.log("✅ GENERATED FULL PROMPT (via button):\n", fullPrompt);
+            console.log("✅ GENERATED FULL PROMPT:\n", fullPrompt);
             onSendMessage(fullPrompt);
         } else {
             alert("Bitte in folgendem Format eingeben: Untersuchungsgrund, w/m, Alter");
         }
+
     };
 
 

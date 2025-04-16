@@ -120,9 +120,16 @@ export default function PdfChat() {
             const answer = await runGeminiPrompt(fileUri, mimeType, promptToSend);
             setMessages((prev) => [...prev, { prompt: promptToSend, answer }]);
             setPrompt("");
-        } catch (err) {
+        } catch (err: any) {
             console.error("❌ Client Gemini error:", err);
-            alert("❌ Analyse fehlgeschlagen. Bitte später erneut versuchen.");
+
+            if (err.message?.includes("fetching") || err.name === "GoogleGenerativeAIFetchError") {
+                alert("⚠️ Fehler beim Abruf von Gemini. Bitte überprüfen Sie Ihre Verbindung oder versuchen Sie es später erneut.");
+            } else if (err.message?.includes("timeout")) {
+                alert("⏱️ Die Anfrage hat zu lange gedauert. Bitte versuchen Sie es mit einer kleineren Datei.");
+            } else {
+                alert("❌ Analyse fehlgeschlagen. Bitte später erneut versuchen.");
+            }
         } finally {
             setStatusMessage(null);
             setLoading(false);
