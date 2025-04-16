@@ -8,6 +8,8 @@ import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 import 'react-pdf/dist/esm/Page/TextLayer.css';
 import ChatInput from './ChatInput';
 import { FaCopy } from 'react-icons/fa';
+import { GoogleGenerativeAI } from "@google/generative-ai"; // move to client side, better error handling for file upload
+
 
 // Set up the worker for react-pdf
 pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.8.69/pdf.worker.min.mjs`;
@@ -45,6 +47,24 @@ export default function PdfChat() {
         }
     }, [loading]);
 
+    const runGeminiPrompt = async (fileUri: string, mimeType: string, prompt: string) => {
+        const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY!);
+        const model = genAI.getGenerativeModel({ model: "models/gemini-2.0-pro" });
+
+        const result = await model.generateContent([
+            {
+                fileData: {
+                    fileUri,
+                    mimeType,
+                },
+            },
+            prompt,
+        ]);
+
+        return result.response.text();
+    };
+
+
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files?.[0]) {
@@ -70,7 +90,6 @@ export default function PdfChat() {
         uploadFormData.append("file", file);
 
         try {
-            // Step 1: Upload
             const uploadRes = await fetch("/api/chatwithpdf", {
                 method: "POST",
                 body: uploadFormData,
@@ -78,39 +97,20 @@ export default function PdfChat() {
 
             if (!uploadRes.ok) {
                 const errorText = await uploadRes.text();
-                console.error("❌ Upload failed:", errorText);
-                throw new Error(`Upload failed: ${uploadRes.status}`);
+                alert("❌ Upload fehlgeschlagen: " + errorText);
+                return;
             }
 
-            const uploadData = await uploadRes.json();
-            const { fileUri, mimeType } = uploadData;
+            const { fileUri, mimeType } = await uploadRes.json();
 
-            setStatusMessage("🧠 Analyse läuft (bis zu 35 Sekunden)...");
+            setStatusMessage("🧠 Analyse läuft auf Client (bis zu 20 Sek.)...");
 
-            // Step 2: Analyze
-            const analyzeFormData = new FormData();
-            analyzeFormData.append("step", "analyze");
-            analyzeFormData.append("prompt", promptToSend);
-            analyzeFormData.append("fileUri", fileUri);
-            analyzeFormData.append("mimeType", mimeType);
-
-            const analyzeRes = await fetch("/api/chatwithpdf", {
-                method: "POST",
-                body: analyzeFormData,
-            });
-
-            if (!analyzeRes.ok) {
-                const errorText = await analyzeRes.text();
-                console.error("❌ Analysis failed:", errorText);
-                throw new Error(`Analyze failed: ${analyzeRes.status}`);
-            }
-
-            const data = await analyzeRes.json();
-            setMessages((prev) => [...prev, { prompt: promptToSend, answer: data.answer }]);
+            const answer = await runGeminiPrompt(fileUri, mimeType, promptToSend);
+            setMessages((prev) => [...prev, { prompt: promptToSend, answer }]);
             setPrompt("");
-        } catch (error) {
-            console.error("❌ Error during question processing:", error);
-            alert("Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.");
+        } catch (err) {
+            console.error("❌ Client Gemini error:", err);
+            alert("❌ Analyse fehlgeschlagen. Bitte später erneut versuchen.");
         } finally {
             setStatusMessage(null);
             setLoading(false);
