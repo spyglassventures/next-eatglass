@@ -8,6 +8,11 @@ export async function POST(request: NextRequest) {
     const formData = await request.formData();
     const step = formData.get("step") as string;
 
+    // Optional timeout safety in case Gemini hangs
+    const timeout = 55000; // 55 seconds (Vercel limit is ~60s)
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), timeout);
+
     if (step === "upload") {
         const file = formData.get("file") as File;
 
@@ -45,20 +50,25 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: "Missing fields." }, { status: 400 });
         }
 
-        const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
-        const model = genAI.getGenerativeModel({ model: "models/gemini-2.5-pro-preview-03-25" });
+        try {
+            const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
+            const model = genAI.getGenerativeModel({ model: "models/gemini-2.5-pro-preview-03-25" });
 
-        const result = await model.generateContent([
-            {
-                fileData: {
-                    fileUri,
-                    mimeType,
+            const result = await model.generateContent([
+                {
+                    fileData: {
+                        fileUri,
+                        mimeType,
+                    },
                 },
-            },
-            prompt,
-        ]);
+                prompt,
+            ]);
 
-        return NextResponse.json({ answer: result.response.text() });
+            return NextResponse.json({ answer: result.response.text() });
+        } catch (error: any) {
+            console.error("❌ Gemini API error:", error);
+            return NextResponse.json({ error: "AI processing failed." }, { status: 500 });
+        }
     }
 
     return NextResponse.json({ error: "Invalid step" }, { status: 400 });

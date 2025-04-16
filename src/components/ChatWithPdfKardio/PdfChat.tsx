@@ -24,6 +24,8 @@ export default function PdfChat() {
     const [isDragging, setIsDragging] = useState(false);
     const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
     const [copyMessage, setCopyMessage] = useState<string | null>(null);
+    const [statusMessage, setStatusMessage] = useState<string | null>(null);
+
 
     useEffect(() => {
         if (file) {
@@ -32,6 +34,17 @@ export default function PdfChat() {
             return () => URL.revokeObjectURL(url);
         }
     }, [file]);
+
+    useEffect(() => {
+        if (loading) {
+            const id = setTimeout(() => {
+                setStatusMessage("⏳ Das dauert etwas länger als erwartet. Bitte haben Sie einen Moment Geduld...");
+            }, 45000);
+
+            return () => clearTimeout(id);
+        }
+    }, [loading]);
+
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files?.[0]) {
@@ -50,14 +63,14 @@ export default function PdfChat() {
         if (!file || !promptToSend) return;
 
         setLoading(true);
-        console.log("📤 Step 1: Uploading PDF...");
+        setStatusMessage("📤 Datei wird hochgeladen...");
 
         const uploadFormData = new FormData();
         uploadFormData.append("step", "upload");
         uploadFormData.append("file", file);
 
         try {
-            // Step 1: Upload the file
+            // Step 1: Upload
             const uploadRes = await fetch("/api/chatwithpdf", {
                 method: "POST",
                 body: uploadFormData,
@@ -72,9 +85,9 @@ export default function PdfChat() {
             const uploadData = await uploadRes.json();
             const { fileUri, mimeType } = uploadData;
 
-            console.log("✅ Upload complete, proceeding to analysis...");
+            setStatusMessage("🧠 Analyse läuft (bis zu 35 Sekunden)...");
 
-            // Step 2: Analyze with the uploaded file
+            // Step 2: Analyze
             const analyzeFormData = new FormData();
             analyzeFormData.append("step", "analyze");
             analyzeFormData.append("prompt", promptToSend);
@@ -99,9 +112,11 @@ export default function PdfChat() {
             console.error("❌ Error during question processing:", error);
             alert("Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.");
         } finally {
+            setStatusMessage(null);
             setLoading(false);
         }
     };
+
 
 
 
@@ -185,6 +200,10 @@ export default function PdfChat() {
                 )}
 
                 {loading && <div className="mt-3 text-gray-500">Laden...</div>}
+                {statusMessage && (
+                    <div className="mt-3 text-blue-600 font-medium">{statusMessage}</div>
+                )}
+
 
                 <ChatInput
                     prompt={prompt}
@@ -200,6 +219,8 @@ export default function PdfChat() {
                     isSending={loading}
                     selectedFileName={selectedFileName}
                 />
+
+
 
             </div>
 
