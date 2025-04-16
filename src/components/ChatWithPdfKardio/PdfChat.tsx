@@ -47,36 +47,62 @@ export default function PdfChat() {
 
     const askQuestion = async (customPrompt?: string) => {
         const promptToSend = customPrompt ?? prompt;
-
         if (!file || !promptToSend) return;
 
-        console.log("🧠 Prompt sent to API:\n", promptToSend); // LOG HIER!
-
         setLoading(true);
+        console.log("📤 Step 1: Uploading PDF...");
 
-        const formData = new FormData();
-        formData.append("file", file);
-        formData.append("prompt", promptToSend);
+        const uploadFormData = new FormData();
+        uploadFormData.append("step", "upload");
+        uploadFormData.append("file", file);
 
         try {
-            const res = await fetch("/api/chatwithpdf", {
+            // Step 1: Upload the file
+            const uploadRes = await fetch("/api/chatwithpdf", {
                 method: "POST",
-                body: formData,
+                body: uploadFormData,
             });
 
-            if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+            if (!uploadRes.ok) {
+                const errorText = await uploadRes.text();
+                console.error("❌ Upload failed:", errorText);
+                throw new Error(`Upload failed: ${uploadRes.status}`);
+            }
 
-            const data = await res.json();
+            const uploadData = await uploadRes.json();
+            const { fileUri, mimeType } = uploadData;
 
+            console.log("✅ Upload complete, proceeding to analysis...");
+
+            // Step 2: Analyze with the uploaded file
+            const analyzeFormData = new FormData();
+            analyzeFormData.append("step", "analyze");
+            analyzeFormData.append("prompt", promptToSend);
+            analyzeFormData.append("fileUri", fileUri);
+            analyzeFormData.append("mimeType", mimeType);
+
+            const analyzeRes = await fetch("/api/chatwithpdf", {
+                method: "POST",
+                body: analyzeFormData,
+            });
+
+            if (!analyzeRes.ok) {
+                const errorText = await analyzeRes.text();
+                console.error("❌ Analysis failed:", errorText);
+                throw new Error(`Analyze failed: ${analyzeRes.status}`);
+            }
+
+            const data = await analyzeRes.json();
             setMessages((prev) => [...prev, { prompt: promptToSend, answer: data.answer }]);
             setPrompt("");
         } catch (error) {
             console.error("❌ Error during question processing:", error);
-            alert("An error occurred while processing your question.");
+            alert("Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.");
         } finally {
             setLoading(false);
         }
     };
+
 
 
 
