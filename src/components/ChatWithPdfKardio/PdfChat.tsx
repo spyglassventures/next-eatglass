@@ -68,12 +68,23 @@ export default function PdfChat() {
 
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const maxSizeMB = 4.5;
+        const maxSizeBytes = maxSizeMB * 1024 * 1024;
+
         if (e.target.files?.[0]) {
-            setFile(e.target.files[0]);
+            const selected = e.target.files[0];
+
+            if (selected.size > maxSizeBytes) {
+                alert(`❌ Die Datei ist zu gross. Bitte laden Sie eine Datei unter ${maxSizeMB} MB hoch.`);
+                return;
+            }
+
+            setFile(selected);
             setNumPages(null);
-            setSelectedFileName(e.target.files[0].name);
+            setSelectedFileName(selected.name);
         }
     };
+
 
     const onDocumentLoadSuccess = ({ numPages }: { numPages: number }) => {
         setNumPages(numPages);
@@ -104,7 +115,7 @@ export default function PdfChat() {
 
             const { fileUri, mimeType } = await uploadRes.json();
 
-            setStatusMessage("🧠 Analyse läuft auf Client (bis zu 20 Sek.)...");
+            setStatusMessage("🧠 Analyse läuft auf Client (bis zu 35 Sek.)...");
 
             const answer = await runGeminiPrompt(fileUri, mimeType, promptToSend);
             setMessages((prev) => [...prev, { prompt: promptToSend, answer }]);
@@ -127,13 +138,28 @@ export default function PdfChat() {
         e.stopPropagation();
         setIsDragging(false);
 
+        const maxSizeMB = 4.5;
+        const maxSizeBytes = maxSizeMB * 1024 * 1024;
+
         const droppedFiles = e.dataTransfer?.files;
-        if (droppedFiles && droppedFiles.length > 0 && droppedFiles[0].type === "application/pdf") {
-            setFile(droppedFiles[0]);
+        if (
+            droppedFiles &&
+            droppedFiles.length > 0 &&
+            droppedFiles[0].type === "application/pdf"
+        ) {
+            const dropped = droppedFiles[0];
+
+            if (dropped.size > maxSizeBytes) {
+                alert(`❌ Die Datei ist zu gross. Bitte laden Sie eine Datei unter ${maxSizeMB} MB hoch.`);
+                return;
+            }
+
+            setFile(dropped);
             setNumPages(null);
-            setSelectedFileName(droppedFiles[0].name);
+            setSelectedFileName(dropped.name);
         }
     }, []);
+
 
     const handleDragOver = useCallback((e: DragEvent) => {
         e.preventDefault();
@@ -172,6 +198,10 @@ export default function PdfChat() {
         <div className="flex h-screen">
             <div className="flex flex-col w-1/2 p-6">
                 <h1 className="text-2xl font-bold mb-4">Kommentar Holter EKG erstellen</h1>
+
+                <p className="text-sm text-gray-600 mb-2">
+                    ⚠️ Bitte nur PDF-Dateien bis maximal 4.5 MB hochladen.
+                </p>
 
                 <div
                     ref={dropAreaRef}
