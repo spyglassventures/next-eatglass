@@ -26,6 +26,32 @@ export default function PdfChat() {
     const [statusMessage, setStatusMessage] = useState<string | null>(null);
 
 
+    const MAX_TOTAL_MB = 4.5; // Vercel Limit on Edge
+    const MAX_TOTAL_BYTES = MAX_TOTAL_MB * 1024 * 1024;
+
+    const handleValidatedFileUpload = (selectedFiles: File[] | null) => {
+        if (!selectedFiles || selectedFiles.length === 0) {
+            setFiles([]);
+            setSelectedFileName(null);
+            setActiveFileIndex(0);
+            return;
+        }
+
+        const pdfs = selectedFiles.filter(f => f.type === "application/pdf");
+        const totalSize = pdfs.reduce((sum, f) => sum + f.size, 0);
+
+        if (totalSize > MAX_TOTAL_BYTES) {
+            alert(`❌ Die Dateien sind zusammen zu groß. Bitte laden Sie maximal ${MAX_TOTAL_MB} MB hoch.`);
+            return;
+        }
+
+        setFiles(pdfs);
+        setSelectedFileName(pdfs.map((f) => f.name).join(", "));
+        setNumPages(null);
+        setActiveFileIndex(0);
+    };
+
+
     const pdfContainerRef = useRef<HTMLDivElement>(null);
     const dropAreaRef = useRef<HTMLDivElement>(null);
 
@@ -38,14 +64,22 @@ export default function PdfChat() {
     }, [files, activeFileIndex]);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files.length > 0) {
-            const selectedFiles = Array.from(e.target.files).filter(f => f.type === "application/pdf");
-            setFiles(selectedFiles);
-            //  setPdfUrl(URL.createObjectURL(selectedFiles[0]));
-            setSelectedFileName(selectedFiles.map(f => f.name).join(", "));
-            setNumPages(null);
+        if (e.target.files) {
+            handleValidatedFileUpload(Array.from(e.target.files));
         }
     };
+
+    const handleDrop = useCallback((e: DragEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsDragging(false);
+
+        if (e.dataTransfer?.files) {
+            handleValidatedFileUpload(Array.from(e.dataTransfer.files));
+        }
+    }, []);
+
+
 
     const onDocumentLoadSuccess = ({ numPages }: { numPages: number }) => {
         setNumPages(numPages);
@@ -53,6 +87,7 @@ export default function PdfChat() {
 
     const askQuestion = async () => {
         if (files.length === 0 || !prompt) return;
+
 
         setLoading(true);
         setStatusMessage("📤 PDF(s) werden hochgeladen...");
@@ -75,7 +110,7 @@ export default function PdfChat() {
                 throw new Error(`HTTP error! status: ${res.status}`);
             }
 
-            setStatusMessage("🤖 Analyse mit KI läuft...");
+            setStatusMessage("🧠 Analyse gestartet (bis zu 35 Sek.)...");
             const data = await res.json();
 
             const durationSec = ((Date.now() - startTime) / 1000).toFixed(1);
@@ -95,22 +130,7 @@ export default function PdfChat() {
     };
 
 
-    const handleDrop = useCallback((e: DragEvent) => {
-        e.preventDefault();
-        e.stopPropagation();
-        setIsDragging(false);
 
-        const droppedFiles = e.dataTransfer?.files;
-        if (droppedFiles) {
-            const pdfs = Array.from(droppedFiles).filter(f => f.type === "application/pdf");
-            if (pdfs.length > 0) {
-                setFiles(pdfs);
-                setSelectedFileName(pdfs.map(f => f.name).join(", "));
-                setActiveFileIndex(0); // reset to first file
-                setNumPages(null);
-            }
-        }
-    }, []);
 
     const handleDragOver = useCallback((e: DragEvent) => {
         e.preventDefault();
@@ -145,10 +165,21 @@ export default function PdfChat() {
         setTimeout(() => setCopyMessage(null), 2000);
     };
 
+    const shortenName = (name: string, maxLength = 25) => {
+        return name.length > maxLength
+            ? name.slice(0, maxLength / 2) + "..." + name.slice(-8)
+            : name;
+    };
+
+
     return (
         <div className="flex h-screen">
             <div className="flex flex-col w-1/2 p-6">
                 <h1 className="text-2xl font-bold mb-4">💬 Chat mit PDF-Dateien</h1>
+
+                <p className="text-sm text-gray-600 mb-2">
+                    ⚠️ Bitte nur PDF-Dateien (in Summe) bis maximal 4.5 MB hochladen.
+                </p>
 
                 <div
                     ref={dropAreaRef}
@@ -189,18 +220,7 @@ export default function PdfChat() {
                     prompt={prompt}
                     setPrompt={setPrompt}
                     onSendMessage={askQuestion}
-                    onFileUpload={(files) => {
-                        if (files) {
-                            setFiles(files);
-                            setSelectedFileName(files.map((f) => f.name).join(", "));
-                            setActiveFileIndex(0); // reset preview to first file
-                            setNumPages(null); // reset preview pagination
-                        } else {
-                            setFiles([]);
-                            setSelectedFileName(null);
-                            setActiveFileIndex(0);
-                        }
-                    }}
+                    onFileUpload={handleValidatedFileUpload}
                     isSending={loading}
                     selectedFileName={selectedFileName}
                 />
@@ -214,17 +234,17 @@ export default function PdfChat() {
                     <h2 className="text-xl font-semibold mb-2">PDF-Vorschau</h2>
 
                     {/* Tabs */}
-                    <div className="flex gap-2 mb-4 overflow-x-auto">
+                    <div className="flex gap-2 mb-4 overflow-x-auto text-xs">
                         {files.map((file, index) => (
                             <button
                                 key={index}
                                 onClick={() => setActiveFileIndex(index)}
-                                className={`px-3 py-1 rounded-md text-sm border ${index === activeFileIndex
+                                className={`px-2 py-1 rounded-md text-xs border ${index === activeFileIndex
                                     ? "bg-blue-600 text-white border-blue-600"
                                     : "bg-gray-100 text-gray-700 border-gray-300"
                                     }`}
                             >
-                                {file.name}
+                                {shortenName(file.name)} ({(file.size / 1024 / 1024).toFixed(2)} MB)
                             </button>
                         ))}
                     </div>

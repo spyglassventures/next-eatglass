@@ -29,6 +29,8 @@ export default function PdfChat() {
     const [statusMessage, setStatusMessage] = useState<string | null>(null);
 
 
+
+
     useEffect(() => {
         if (file) {
             const url = URL.createObjectURL(file);

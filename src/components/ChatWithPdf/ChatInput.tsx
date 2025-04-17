@@ -71,24 +71,82 @@ const ChatInput: React.FC<ChatInputProps> = ({
                     disabled={isSending}
                 />
                 <button
-                    className={`bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 ${isSending ? "opacity-50 cursor-not-allowed" : ""
-                        }`}
                     onClick={onSendMessage}
                     disabled={isSending}
+                    className={`flex items-center justify-center gap-2 px-5 py-3 rounded-lg shadow-md transition
+    focus:outline-none focus:ring-2 focus:ring-blue-400
+    ${isSending
+                            ? "bg-slate-400 text-black cursor-not-allowed"
+                            : "bg-blue-600 hover:bg-blue-700 text-white"
+                        }
+  `}
+                    style={{
+                        backgroundColor: isSending ? "#94a3b8" : undefined, // slate-400
+                        color: isSending ? "#000000" : undefined,
+                        opacity: 1,
+                        border: "none",
+                        appearance: "none",
+                        WebkitAppearance: "none",
+                    }}
                 >
-                    {isSending ? "Senden..." : "Senden"}
+                    {isSending && (
+                        <svg
+                            className="w-4 h-4 animate-spin"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                        >
+                            <circle
+                                className="opacity-25"
+                                cx="12"
+                                cy="12"
+                                r="10"
+                                stroke="currentColor"
+                                strokeWidth="4"
+                            />
+                            <path
+                                className="opacity-75"
+                                fill="currentColor"
+                                d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                            />
+                        </svg>
+                    )}
+                    <span>{isSending ? "Wird gesendet..." : "Senden"}</span>
                 </button>
+
+
+
+
+
+
+
+
             </div>
 
             <div className="mt-2 flex items-center gap-2">
                 {/* Upload button */}
                 <button
-                    className="bg-gray-200 hover:bg-gray-300 px-3 py-2 rounded-md text-sm"
                     onClick={handleButtonClick}
                     disabled={isSending}
+                    className={`flex items-center justify-center gap-2 px-3 py-2 rounded-md text-sm font-medium shadow-sm transition
+    ${isSending
+                            ? "text-black bg-slate-300 cursor-not-allowed"
+                            : "bg-gray-200 hover:bg-gray-300 text-gray-800"}`}
+                    style={{
+                        backgroundColor: isSending ? "#e6e6e6" : undefined, // Tailwind slate-400
+                        color: isSending ? "#e6e6e6" : undefined,
+                        opacity: 1,
+                        border: "none",
+                        appearance: "none",
+                        WebkitAppearance: "none",
+                    }}
                 >
                     {localSelectedFileName ? "Andere Dateien wählen" : "PDFs hochladen"}
                 </button>
+
+
+
+
 
                 {/* Hidden input */}
                 <input
