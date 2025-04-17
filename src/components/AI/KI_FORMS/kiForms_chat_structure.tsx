@@ -1,4 +1,6 @@
-// ChatStructure.tsx
+// kiForms_ChatStructure.tsx i.e. for KTG, AHV, etc. Formulare
+
+
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
@@ -7,6 +9,7 @@ import FeedbackModal from '@/components/AI/FeedbackModal';
 import Message from '@/components/AI/KI_FORMS/Message';
 import SuggestionsSidebar from '@/components/AI/KI_FORMS/SuggestionsSidebar';
 import { countTokens, getTokenStatus } from '@/components/AI/KI_FORMS/textUtils';
+
 import '../styles.css';
 
 export default function ChatStructure({

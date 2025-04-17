@@ -87,6 +87,7 @@ export default function ChatCalculator({ showPraeparatSearch = false }) {
     <div>
       <ChatStructure
         messages={messages}
+
         input={input}
         setInput={setInput}
         handleInputChange={handleInputChange}
