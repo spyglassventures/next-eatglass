@@ -34,7 +34,10 @@ export async function POST(request: NextRequest) {
         displayName: file.name,
     });
 
-    const model = genAI.getGenerativeModel({ model: "models/gemini-2.5-pro-preview-03-25" });
+    // newest
+    // const model = genAI.getGenerativeModel({ model: "models/gemini-2.5-pro-preview-03-25" });
+
+    const model = genAI.getGenerativeModel({ model: "models/gemini-2.0-flash" });
 
     // Generate response to user's prompt
     const result = await model.generateContent([
