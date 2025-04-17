@@ -23,9 +23,6 @@ export default function PdfChat() {
     const [isDragging, setIsDragging] = useState(false);
     const [activeFileIndex, setActiveFileIndex] = useState(0);
 
-    const [statusMessage, setStatusMessage] = useState<string | null>(null);
-
-
     const pdfContainerRef = useRef<HTMLDivElement>(null);
     const dropAreaRef = useRef<HTMLDivElement>(null);
 
@@ -55,17 +52,15 @@ export default function PdfChat() {
         if (files.length === 0 || !prompt) return;
 
         setLoading(true);
-        setStatusMessage("📤 PDF(s) werden hochgeladen...");
-        const startTime = Date.now();
-
         const formData = new FormData();
+
         files.forEach(file => {
             formData.append("files", file);
         });
+
         formData.append("prompt", prompt);
 
         try {
-            console.log("📤 Uploading files:", files.map(f => f.name));
             const res = await fetch("/api/chatwithpdf", {
                 method: "POST",
                 body: formData,
@@ -75,25 +70,16 @@ export default function PdfChat() {
                 throw new Error(`HTTP error! status: ${res.status}`);
             }
 
-            setStatusMessage("🤖 Analyse mit KI läuft...");
             const data = await res.json();
-
-            const durationSec = ((Date.now() - startTime) / 1000).toFixed(1);
-            console.log(`✅ Antwort erhalten nach ${durationSec}s`);
-            setStatusMessage(`✅ Antwort nach ${durationSec} Sekunden erhalten`);
-
             setMessages(prev => [...prev, { prompt, answer: data.answer }]);
             setPrompt("");
         } catch (error) {
-            console.error("❌ Fehler während der Analyse:", error);
-            alert("Ein Fehler ist aufgetreten. Bitte später erneut versuchen.");
-            setStatusMessage("❌ Fehler bei der Verarbeitung");
+            console.error("Error during question processing:", error);
+            alert("Ein Fehler ist aufgetreten.");
         } finally {
             setLoading(false);
-            setTimeout(() => setStatusMessage(null), 8000); // hide status after 8s
         }
     };
-
 
     const handleDrop = useCallback((e: DragEvent) => {
         e.preventDefault();
@@ -180,10 +166,6 @@ export default function PdfChat() {
                 )}
 
                 {loading && <div className="mt-3 text-gray-500">Laden...</div>}
-                {statusMessage && (
-                    <div className="mt-3 text-blue-600 font-medium">{statusMessage}</div>
-                )}
-
 
                 <ChatInput
                     prompt={prompt}

@@ -4,9 +4,9 @@ interface ChatInputProps {
     prompt: string;
     setPrompt: (prompt: string) => void;
     onSendMessage: () => void;
-    onFileUpload?: (files: File[] | null) => void;
+    onFileUpload?: (file: File | null) => void;
     isSending?: boolean;
-    selectedFileName?: string | null;
+    selectedFileName?: string | null | undefined;
 }
 
 const ChatInput: React.FC<ChatInputProps> = ({
@@ -18,9 +18,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
     selectedFileName: propSelectedFileName,
 }) => {
     const fileInputRef = useRef<HTMLInputElement>(null);
-    const [localSelectedFileName, setLocalSelectedFileName] = useState<string | null>(
-        propSelectedFileName ?? null
-    );
+    const [localSelectedFileName, setLocalSelectedFileName] = useState<string | null>(propSelectedFileName ?? null);
 
     useEffect(() => {
         setLocalSelectedFileName(propSelectedFileName ?? null);
@@ -37,18 +35,23 @@ const ChatInput: React.FC<ChatInputProps> = ({
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
-            const files = Array.from(e.target.files);
-            const names = files.map((f) => f.name).join(", ");
-            setLocalSelectedFileName(names);
-            onFileUpload?.(files);
+            const file = e.target.files[0];
+            setLocalSelectedFileName(file.name);
+            if (onFileUpload) {
+                onFileUpload(file);
+            }
         } else {
             setLocalSelectedFileName(null);
-            onFileUpload?.(null);
+            if (onFileUpload) {
+                onFileUpload(null);
+            }
         }
     };
 
     const handleButtonClick = () => {
-        fileInputRef.current?.click();
+        if (fileInputRef.current) {
+            fileInputRef.current.click();
+        }
     };
 
     const clearFileSelection = () => {
@@ -56,7 +59,9 @@ const ChatInput: React.FC<ChatInputProps> = ({
             fileInputRef.current.value = "";
         }
         setLocalSelectedFileName(null);
-        onFileUpload?.(null);
+        if (onFileUpload) {
+            onFileUpload(null);
+        }
     };
 
     return (
@@ -64,7 +69,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
             <div className="flex gap-2">
                 <input
                     className="flex-1 border p-3 rounded-lg shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
-                    placeholder="Stellen Sie Fragen zu den PDFs (Shift+Enter für neue Zeile)"
+                    placeholder="Stellen Sie Fragen zu diesem PDF (Shift+Enter um in die nächste Zeile zu springen)"
                     value={prompt}
                     onChange={(e) => setPrompt(e.target.value)}
                     onKeyDown={handleKeyDown}
@@ -79,41 +84,29 @@ const ChatInput: React.FC<ChatInputProps> = ({
                     {isSending ? "Senden..." : "Senden"}
                 </button>
             </div>
-
             <div className="mt-2 flex items-center gap-2">
-                {/* Upload button */}
                 <button
                     className="bg-gray-200 hover:bg-gray-300 px-3 py-2 rounded-md text-sm"
                     onClick={handleButtonClick}
                     disabled={isSending}
                 >
-                    {localSelectedFileName ? "Andere Dateien wählen" : "PDFs hochladen"}
+                    {localSelectedFileName ? "Andere Datei wählen" : "PDF hochladen"}
                 </button>
-
-                {/* Hidden input */}
                 <input
                     type="file"
                     accept=".pdf"
-                    multiple
                     ref={fileInputRef}
                     onChange={handleFileChange}
                     className="hidden"
                     disabled={isSending}
                 />
-
-                {/* File name display */}
                 {localSelectedFileName && (
                     <div className="flex items-center gap-1">
-                        <span className="text-sm truncate max-w-[200px]">
-                            {localSelectedFileName.split(",").length > 1
-                                ? `${localSelectedFileName.split(",").length} PDFs ausgewählt`
-                                : localSelectedFileName}
-                        </span>
+                        <span className="text-sm truncate max-w-[150px]">{localSelectedFileName}</span>
                         <button
                             className="text-gray-500 hover:text-gray-700"
                             onClick={clearFileSelection}
                             disabled={isSending}
-                            title="Auswahl löschen"
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
