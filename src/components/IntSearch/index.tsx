@@ -1,10 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 
-export default function IntSearch() {
-    const [query, setQuery] = useState('');
+export default function IntSearch({ initialQuery = '' }: { initialQuery?: string }) { // allow to pass initial query, i.e. from search in navigation
+    const [query, setQuery] = useState(initialQuery);
     const [answer, setAnswer] = useState('');
     const [renderedHtml, setRenderedHtml] = useState('');
     const [sources, setSources] = useState<{ uri: string; title: string }[]>([]);
@@ -50,9 +50,16 @@ export default function IntSearch() {
         setLoading(false);
     };
 
+    // 🚀 Automatically search if there's an initial query
+    useEffect(() => {
+        if (initialQuery && initialQuery.trim().length > 2) {
+            handleSearch();
+        }
+    }, [initialQuery]);
+
     return (
-        <div className="bg-white p-4 shadow-md rounded-lg space-y-6 max-w-2xl mx-auto">
-            <div className="flex space-x-2">
+        <div className="max-w-md bg-white rounded-lg shadow-sm p-4 space-y-4">
+            <div className="flex flex-col sm:flex-row gap-2">
                 <input
                     type="text"
                     className="flex-1 border px-3 py-2 rounded-md"
@@ -69,37 +76,35 @@ export default function IntSearch() {
                 </button>
             </div>
 
-            {error && <p className="text-red-500">{error}</p>}
+            {error && <p className="text-red-500 text-sm">{error}</p>}
 
             {answer && (
                 <div>
-                    <h2 className="text-xl font-semibold text-gray-800 mb-2">Google Suche (Echtzeit) + KI Antwort</h2>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-2">Google Suche + KI Antwort</h2>
                     <ReactMarkdown
                         components={{
-                            p: ({ node, ...props }) => <p className="mb-2 text-gray-800" {...props} />,
+                            p: ({ node, ...props }) => <p className="mb-2 text-gray-800 text-sm" {...props} />,
                             strong: ({ node, ...props }) => <strong className="font-semibold text-gray-900" {...props} />,
-                            ul: ({ node, ...props }) => <ul className="list-disc pl-6 mb-2" {...props} />,
+                            ul: ({ node, ...props }) => <ul className="list-disc pl-6 mb-2 text-sm" {...props} />,
                             li: ({ node, ...props }) => <li className="mb-1" {...props} />,
                         }}
                     >
                         {answer}
                     </ReactMarkdown>
-
                 </div>
             )}
-
 
             {renderedHtml && (
                 <div>
                     <h3 className="text-md font-medium text-gray-800 mb-1">🔍 Google-Suchvorschläge</h3>
                     <div
-                        className="border rounded p-3 bg-slate-50 overflow-auto max-h-40"
+                        className="border rounded p-3 bg-slate-50 overflow-auto max-h-40 break-words text-sm"
                         dangerouslySetInnerHTML={{ __html: withTargetBlank(renderedHtml) }}
                     />
                 </div>
             )}
 
-            {sources?.length > 0 && (
+            {sources.length > 0 && (
                 <div>
                     <h3 className="text-md font-medium text-gray-800 mb-2">📚 Quellen</h3>
                     <div className="flex flex-wrap gap-2">
@@ -109,7 +114,7 @@ export default function IntSearch() {
                                 href={source.uri}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="bg-blue-100 hover:bg-blue-200 text-blue-700 text-sm px-3 py-1 rounded-full transition"
+                                className="bg-blue-100 hover:bg-blue-200 text-blue-700 text-xs px-3 py-1 rounded-full"
                             >
                                 {source.title || 'Quelle ansehen'}
                             </a>

@@ -154,7 +154,7 @@ export const NAV_ITEMS = {
         { key: 'Dermatologie', name: 'Dermatologie', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'Brett', name: 'CIRS erfassen', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'Praxischat', name: 'Praxischat (Demo)', visible_mpa: false, visible_arzt: false, visible_pro: true },
-        { key: 'Search', name: 'Websuche', visible_mpa: true, visible_arzt: true, visible_pro: true },
+        { key: 'Search', name: 'Websuche (Google)', visible_mpa: true, visible_arzt: true, visible_pro: true },
 
         // { key: 'antwortemail', name: 'antwortemail', visible_mpa: false, visible_arzt: true, visible_pro: true }
 
@@ -603,7 +603,7 @@ export const COMPONENTS = {
         buttonText: 'mcdiabetesscore'
     },
     Search: {
-        name: 'Websuche',
+        name: 'Websuche (Google)',
         component: 'Search',
         buttonText: 'search'
     },
@@ -661,6 +661,7 @@ export const ICONS = {
     Brett: PencilIcon,
     schwieriger_patient: FaceSmileIcon,
     grippe: BeakerIcon,
+    Search: BookOpenIcon,
 
 
 

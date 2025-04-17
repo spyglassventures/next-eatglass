@@ -15,6 +15,8 @@ import { NAV_ITEMS, COMPONENTS, ICONS, getActiveComponent } from '@/config/ai/co
 import { TRANSITION_PROPS } from '@/config/ai/transition';
 import { motion } from "framer-motion";
 import ComponentTimer from '@/components/AI/ai_utils/ComponentTimer';
+import IntSearch from '@/components/IntSearch';
+
 
 
 // import { tickerAd } from '@/config/ai/components';
@@ -36,6 +38,8 @@ export default function ClientPage() {
 
   // Default for different personas
   const [activeComponent, setActiveComponent] = useState<string | null>(null); // noch nichts gesetzt
+
+  const [intSearchQuery, setIntSearchQuery] = useState<string | null>(null); // for search in navigation
 
 
 
@@ -227,7 +231,7 @@ export default function ClientPage() {
             >
               <div className="p-6">
                 <div className="flex justify-between items-center">
-                  <h2 className="text-lg font-light">Komponentensuche</h2>
+                  <h2 className="text-lg font-light">Komponentensuche und Google Suche</h2>
                   <button onClick={() => setShowModal(false)}>
                     <XMarkIcon className="w-5 h-5 text-gray-600" />
                   </button>
@@ -257,8 +261,15 @@ export default function ClientPage() {
                         setHighlightedIndex(0);
                         resultRefs.current[0]?.focus();
                       }
+                    } else if (e.key === 'Enter') {
+                      e.preventDefault();
+                      if (filteredComponents.length === 0 && searchQuery.trim().length > 2) {
+                        setIntSearchQuery(searchQuery);
+                        setShowModal(false);
+                      }
                     }
                   }}
+
                 />
 
                 {/* Scrollbarer Bereich mit Animation */}
@@ -310,8 +321,21 @@ export default function ClientPage() {
                     </button>
                   ))}
                   {filteredComponents.length === 0 && (
-                    <p className="text-gray-500 p-2">Keine Treffer</p>
+                    <div className="p-2 space-y-2">
+                      <p className="text-gray-500">Keine Komponente gefunden.</p>
+                      <button
+                        className="text-blue-600 hover:underline"
+                        onClick={() => {
+                          setIntSearchQuery(searchQuery);
+                          setShowModal(false);
+                        }}
+                      >
+                        Google Suche + KI starten (Enter drücken)
+                      </button>
+                    </div>
                   )}
+
+
                 </motion.div>
               </div>
             </motion.div>
@@ -583,7 +607,12 @@ export default function ClientPage() {
             </div>
 
 
-            {ActiveComponent && <ActiveComponent />}
+            {intSearchQuery ? (
+              <IntSearch initialQuery={intSearchQuery} />
+            ) : (
+              ActiveComponent && <ActiveComponent />
+            )}
+
             <p className="text-center text-gray-500 text-sm pt-2">
               Testversion – kein Medizinalprodukt. Nicht verwenden für Patientenentscheidungen oder wenn ärztliche Entscheidungen beeinflusst werden könnten. Der Copilot kann Fehler machen. Alle Angaben im Detail kontrollieren, nicht blind kopieren.
             </p>
