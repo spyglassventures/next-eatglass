@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
+import SafeHtmlFrame from './SafeHtmlFrame';
 
 export default function IntSearch({ initialQuery = '' }: { initialQuery?: string }) { // allow to pass initial query, i.e. from search in navigation
     const [query, setQuery] = useState(initialQuery);
@@ -15,6 +16,13 @@ export default function IntSearch({ initialQuery = '' }: { initialQuery?: string
     function withTargetBlank(html: string) {
         return html.replace(/<a\s/g, '<a target="_blank" rel="noopener noreferrer" ');
     }
+
+    function stripGlobalStyles(html: string) {
+        // Entfernt <style> Blöcke mit globalen Selektoren wie body, html, *
+        return html.replace(/<style[^>]*>[\s\S]*?(body|html|\*)[\s\S]*?<\/style>/gi, '');
+      }
+      
+      
 
     const handleSearch = async () => {
         setLoading(true);
@@ -58,7 +66,9 @@ export default function IntSearch({ initialQuery = '' }: { initialQuery?: string
     }, [initialQuery]);
 
     return (
-        <div className="max-w-md bg-white rounded-lg shadow-sm p-4 space-y-4">
+        <div className="max-w-5xl mx-auto bg-white rounded-lg shadow-md p-8 space-y-6">
+
+
             <div className="flex flex-col sm:flex-row gap-2">
                 <input
                     type="text"
@@ -95,14 +105,13 @@ export default function IntSearch({ initialQuery = '' }: { initialQuery?: string
             )}
 
             {renderedHtml && (
-                <div>
-                    <h3 className="text-md font-medium text-gray-800 mb-1">🔍 Google-Suchvorschläge</h3>
-                    <div
-                        className="border rounded p-3 bg-slate-50 overflow-auto max-h-40 break-words text-sm"
-                        dangerouslySetInnerHTML={{ __html: withTargetBlank(renderedHtml) }}
-                    />
-                </div>
+            <div>
+                <h3 className="text-md font-medium text-gray-800 mb-1">🔍 Google-Suchvorschläge</h3>
+                <SafeHtmlFrame html={renderedHtml} />
+            </div>
             )}
+
+
 
             {sources.length > 0 && (
                 <div>
