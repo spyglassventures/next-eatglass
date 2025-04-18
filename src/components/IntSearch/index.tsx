@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import SafeHtmlFrame from './SafeHtmlFrame';
+import ParsedLinks from './ParsedLinks'; // am Anfang hinzufügen
+import SafeHtmlContent from './SafeHtmlFrame';
 
 export default function IntSearch({ initialQuery = '' }: { initialQuery?: string }) { // allow to pass initial query, i.e. from search in navigation
     const [query, setQuery] = useState(initialQuery);
@@ -68,17 +70,24 @@ export default function IntSearch({ initialQuery = '' }: { initialQuery?: string
     
 
     return (
-        <div className="max-w-5xl mx-auto bg-white rounded-lg shadow-md p-8 space-y-6">
+        <div className="max-w-5xl mx-auto bg-white rounded-lg p-8 space-y-6 pt-13">
 
 
             <div className="flex flex-col sm:flex-row gap-2">
-                <input
-                    type="text"
-                    className="flex-1 border px-3 py-2 rounded-md"
-                    placeholder="Frag etwas (z. B. 'Wer gewann Wimbledon 2024?')"
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                />
+            <input
+  type="text"
+  className="flex-1 border px-3 py-2 rounded-md"
+  placeholder="Frag etwas (z. B. 'Wie steht der Bitcoin heute?')"
+  value={query}
+  onChange={(e) => setQuery(e.target.value)}
+  onKeyDown={(e) => {
+    if (e.key === 'Enter' && query.trim()) {
+      e.preventDefault(); // verhindert ungewolltes Absenden von Formularen
+      handleSearch();
+    }
+  }}
+/>
+
               <button
   onClick={handleSearch}
   disabled={loading || !query.trim()}
@@ -127,12 +136,18 @@ export default function IntSearch({ initialQuery = '' }: { initialQuery?: string
                 </div>
             )}
 
-            {renderedHtml && (
-            <div>
-                <h3 className="text-md font-medium text-gray-800 mb-1">🔍 Google-Suchvorschläge</h3>
-                <SafeHtmlFrame html={renderedHtml} />
-            </div>
-            )}
+
+
+{renderedHtml && (
+  <div>
+    {/* <h3 className="text-md font-medium text-gray-800 mb-1">🔍 Google-Suchvorschläge</h3> */}
+    {/* <SafeHtmlContent html={renderedHtml} /> */}
+    <ParsedLinks html={renderedHtml} />
+  </div>
+)}
+
+
+            
 
 
 

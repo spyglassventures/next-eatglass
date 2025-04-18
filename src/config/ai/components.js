@@ -199,7 +199,9 @@ import {
     HeartIcon,              // For QM
     AcademicCapIcon,        // For HIN+
     CheckBadgeIcon,      // For Abrechnung
-    ArrowRightEndOnRectangleIcon, // Vertrauensarzt
+    ArrowRightEndOnRectangleIcon,
+    MagnifyingGlassIcon, // For Search
+    XMarkIcon, // Vertrauensarzt
 
 
 } from '@heroicons/react/24/solid';
@@ -661,7 +663,7 @@ export const ICONS = {
     Brett: PencilIcon,
     schwieriger_patient: FaceSmileIcon,
     grippe: BeakerIcon,
-    Search: BookOpenIcon,
+    Search: MagnifyingGlassIcon,
 
 
 
