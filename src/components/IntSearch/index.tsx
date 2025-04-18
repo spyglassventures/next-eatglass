@@ -61,9 +61,11 @@ export default function IntSearch({ initialQuery = '' }: { initialQuery?: string
     // 🚀 Automatically search if there's an initial query
     useEffect(() => {
         if (initialQuery && initialQuery.trim().length > 2) {
+            setQuery(initialQuery);
             handleSearch();
         }
     }, [initialQuery]);
+    
 
     return (
         <div className="max-w-5xl mx-auto bg-white rounded-lg shadow-md p-8 space-y-6">
@@ -77,13 +79,34 @@ export default function IntSearch({ initialQuery = '' }: { initialQuery?: string
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                 />
-                <button
-                    onClick={handleSearch}
-                    disabled={loading || !query.trim()}
-                    className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
-                >
-                    {loading ? 'Lädt...' : 'Suchen'}
-                </button>
+              <button
+  onClick={handleSearch}
+  disabled={loading || !query.trim()}
+  style={{
+    backgroundColor: loading ? '#4B5563' : '#2563EB', // Grau wenn lädt, Blau sonst
+    color: 'white',
+    padding: '0.5rem 1rem',
+    borderRadius: '0.375rem',
+    cursor: loading || !query.trim() ? 'not-allowed' : 'pointer',
+    fontWeight: 500,
+    fontSize: '0.875rem',
+    boxShadow: '0 1px 2px rgba(0,0,0,0.1)',
+    transition: 'background-color 0.3s ease',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    minWidth: '6rem',
+  }}
+>
+  {loading ? (
+    <>
+      <span style={{ marginRight: '0.5rem' }}>⏳</span> Lädt...
+    </>
+  ) : (
+    'Suchen'
+  )}
+</button>
+
             </div>
 
             {error && <p className="text-red-500 text-sm">{error}</p>}

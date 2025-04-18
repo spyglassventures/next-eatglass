@@ -10,12 +10,15 @@
 import { useState, useEffect, useRef } from 'react';
 import { FilterProvider, useFilter } from '@/components/AI/FilterContext'; // for mpa, arzt, pro mode filter for models and theme
 import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react';
-import { MicrophoneIcon, ChevronDownIcon, MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/solid';
+import { MicrophoneIcon, ChevronDownIcon, MagnifyingGlassIcon, XMarkIcon, ArrowsUpDownIcon } from '@heroicons/react/24/solid';
 import { NAV_ITEMS, COMPONENTS, ICONS, getActiveComponent } from '@/config/ai/components';
 import { TRANSITION_PROPS } from '@/config/ai/transition';
 import { motion } from "framer-motion";
 import ComponentTimer from '@/components/AI/ai_utils/ComponentTimer';
 import IntSearch from '@/components/IntSearch';
+
+
+
 
 
 
@@ -220,18 +223,22 @@ export default function ClientPage() {
         {showModal && (
           <div
             className="fixed inset-0 z-[9999] flex items-center justify-center bg-black bg-opacity-50"
-            onClick={() => setShowModal(false)} // Hintergrund klick → schließt Modal
+            onClick={() => {
+              setShowModal(false);
+              setIntSearchQuery('');
+            }}
+             // Hintergrund klick → schließt Modal und ersetzt Suchbegriff, wichtig fuer NAECHSTE Suche
           >
             <motion.div
               onClick={(e) => e.stopPropagation()} // verhindert Schließen beim Klick ins Modal
               initial={{ height: "2px", opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
-              transition={{ duration: 0.4, ease: "easeInOut" }}
-              className="bg-white rounded-lg shadow-xl font-light w-[30rem] max-w-full overflow-hidden"
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="bg-white rounded-lg shadow-xl font-light w-[35rem] max-w-full overflow-hidden"
             >
               <div className="p-6">
                 <div className="flex justify-between items-center">
-                  <h2 className="text-lg font-light">Komponentensuche und Google Suche</h2>
+                  <h2 className="text-lg font-light">Komponentenwechsel und Google Suche</h2>
                   <button onClick={() => setShowModal(false)}>
                     <XMarkIcon className="w-5 h-5 text-gray-600" />
                   </button>
@@ -239,7 +246,7 @@ export default function ClientPage() {
 
                 {/* Erklärung */}
                 <p className="text-sm text-gray-500 mt-2">
-                  Gib einen Begriff ein, um nach einer Komponente zu suchen. Klicke dann auf das gewünschte Ergebnis, um es zu öffnen.
+                  Gib einen Begriff ein, um nach einer Komponente zu suchen oder die Goolge Suche zu starten. Klicke dann auf das gewünschte Ergebnis, um es zu öffnen.
                 </p>
                 <p className="text-sm text-gray-400 italic mt-1">
                   Du kannst dieses Fenster auch mit <span className="font-medium">Strg + K</span> (Windows) oder <span className="font-medium">⌘ + K</span> (Mac) öffnen. Mit der Pfeiltaste nach unten kannst du durch die Ergebnisse navigieren und mit Enter auswählen.
@@ -247,30 +254,58 @@ export default function ClientPage() {
 
 
                 {/* Suchfeld */}
-                <input
-                  ref={inputRef}
-                  type="text"
-                  className="w-full mt-4 p-2 border rounded font-light"
-                  placeholder="Komponente suchen..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'ArrowDown') {
-                      e.preventDefault();
-                      if (filteredComponents.length > 0) {
-                        setHighlightedIndex(0);
-                        resultRefs.current[0]?.focus();
-                      }
-                    } else if (e.key === 'Enter') {
-                      e.preventDefault();
-                      if (filteredComponents.length === 0 && searchQuery.trim().length > 2) {
-                        setIntSearchQuery(searchQuery);
-                        setShowModal(false);
-                      }
-                    }
-                  }}
+                <div className="relative w-full mt-4">
+  <input
+    ref={inputRef}
+    type="text"
+    className="w-full p-2 pr-10 border rounded font-light"
+    placeholder="Komponente suchen (Schnellzugriff) oder Google Suche ..."
+    value={searchQuery}
+    onChange={(e) => setSearchQuery(e.target.value)}
+    onKeyDown={(e) => {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (filteredComponents.length > 0) {
+          setHighlightedIndex(0);
+          resultRefs.current[0]?.focus();
+        }
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        if (filteredComponents.length === 0 && searchQuery.trim().length > 2) {
+          setIntSearchQuery(searchQuery);
+          setActiveComponent('Search');
+          setShowModal(false);
+        }
+      }
+    }}
+  />
 
-                />
+  {searchQuery.trim().length > 0 &&
+    (filteredComponents.length === 0 ? (
+      <img
+      src="/images/brands/google.png"
+      alt="Google-Suche"
+      className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 opacity-60 cursor-pointer"
+      title="Google-Suche wird verwendet"
+      onClick={() => {
+        if (searchQuery.trim().length > 2) {
+          setIntSearchQuery(searchQuery);
+          setActiveComponent('Search');
+          setShowModal(false);
+        }
+      }}
+    />
+
+    ) : (
+      <ArrowsUpDownIcon
+      className="w-5 h-5 text-gray-400 absolute right-3 top-1/2 transform -translate-y-1/2"
+      title="Mit Pfeiltasten navigieren"
+    />
+    ))}
+</div>
+
+
+
 
                 {/* Scrollbarer Bereich mit Animation */}
                 <motion.div
@@ -607,11 +642,12 @@ export default function ClientPage() {
             </div>
 
 
-            {intSearchQuery ? (
-              <IntSearch initialQuery={intSearchQuery} />
-            ) : (
-              ActiveComponent && <ActiveComponent />
-            )}
+            {activeComponent === 'Search' ? (
+  <IntSearch initialQuery={intSearchQuery || ''} />
+) : (
+  ActiveComponent && <ActiveComponent />
+)}
+
 
             <p className="text-center text-gray-500 text-sm pt-2">
               Testversion – kein Medizinalprodukt. Nicht verwenden für Patientenentscheidungen oder wenn ärztliche Entscheidungen beeinflusst werden könnten. Der Copilot kann Fehler machen. Alle Angaben im Detail kontrollieren, nicht blind kopieren.
