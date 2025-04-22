@@ -64,10 +64,12 @@ export default function MedienDiktat() {
 
 
     const ENGINES = [
-        { key: "whisper", label: "Whisper", route: "/api/transcribe_az_whisper" },
+        { key: "gpt4o", label: "Transkript (Azure GPT‑4o)", route: "/api/transcribe_az-gpt-4o-transcribe" },
+        { key: "gpt4o_ft", label: "KG Eintrag (Azure GPT‑4o, fine‑tuned)", route: "/api/transcribe_az-gpt-4o-finetuned" },
         { key: "speech", label: "Azure Speech", route: "/api/transcribe_az_speech" },
-        { key: "gpt4o", label: "Azure GPT‑4o (Base, Transcribe))", route: "/api/transcribe_az-gpt-4o-transcribe" },
-        { key: "gpt4o_ft", label: "Azure GPT‑4o (Fine‑tuned)", route: "/api/transcribe_az-gpt-4o-finetuned" },
+        { key: "whisper", label: "Whisper", route: "/api/transcribe_az_whisper" },
+
+
     ] as const;
 
 

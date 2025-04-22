@@ -54,6 +54,7 @@ export const NAV_ITEMS = {
         { key: 'image', name: 'Bild (Upload)', visible_mpa: true, visible_arzt: false, visible_pro: false },
         { key: 'ernaehrung', name: 'Ernährungsempfehlung', visible_mpa: true, visible_arzt: false, visible_pro: true },
         { key: 'HIN', name: 'HIN Teilnehmer Suche', visible_mpa: false, visible_arzt: true, visible_pro: false },
+
     ],
 
     toolsDropdown: [
@@ -70,9 +71,10 @@ export const NAV_ITEMS = {
         { key: 'verordnung', name: 'Verordnung', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'verhaltensempfehlung', name: 'Verhaltensempfehlung', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'ncp_assessment', name: 'NCP Assessment', visible_mpa: true, visible_arzt: true, visible_pro: true },
-        { key: 'ncp_diagnose', name: 'NCP Ernährungsdiagnose (PES)', visible_mpa: true, visible_arzt: true, visible_pro: true },
-        { key: 'ncp_intervention', name: 'NCP Interventionsplan', visible_mpa: true, visible_arzt: true, visible_pro: true },
-        { key: 'ncp_monitoring', name: 'NCP Monitoring- und Evaluation', visible_mpa: true, visible_arzt: true, visible_pro: true },
+        { key: 'ncp_diagnose', name: 'NCP Ernährungsdiagnose (PES)', visible_mpa: false, visible_arzt: false, visible_pro: false },
+        { key: 'ncp_intervention', name: 'NCP Interventionsplan', visible_mpa: false, visible_arzt: false, visible_pro: false },
+        { key: 'ncp_monitoring', name: 'NCP Monitoring- und Evaluation', visible_mpa: false, visible_arzt: false, visible_pro: false },
+        { key: 'Laborwerte', name: 'Laborwerte', visible_mpa: false, visible_arzt: true, visible_pro: true },
 
 
     ], // Medien KI 
@@ -155,6 +157,8 @@ export const NAV_ITEMS = {
         { key: 'Brett', name: 'CIRS erfassen', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'Praxischat', name: 'Praxischat (Demo)', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'Search', name: 'Websuche (Google)', visible_mpa: true, visible_arzt: true, visible_pro: true },
+        { key: 'Arbeitszeugnis', name: 'Arbeitszeugnis', visible_mpa: false, visible_arzt: true, visible_pro: true },
+
 
         // { key: 'antwortemail', name: 'antwortemail', visible_mpa: false, visible_arzt: true, visible_pro: true }
 
@@ -283,7 +287,7 @@ export const COMPONENTS = {
         buttonText: 'Medis'
     },
     labor: {
-        name: 'Laborwerte',
+        name: 'Laborwerte original',
         component: 'Chat_labor',
         buttonText: 'Labor'
     },
@@ -609,6 +613,16 @@ export const COMPONENTS = {
         component: 'Search',
         buttonText: 'search'
     },
+    Arbeitszeugnis: {
+        name: 'Arbeitszeugnis',
+        component: 'Chat_arbeitszeugnis',
+        buttonText: 'arbeitszeugnis'
+    },
+    Laborwerte: {
+        name: 'Laborwerte',
+        component: 'Chat_laborwerte',
+        buttonText: 'laborwerte'
+    },
 
 
 
@@ -664,6 +678,8 @@ export const ICONS = {
     schwieriger_patient: FaceSmileIcon,
     grippe: BeakerIcon,
     Search: MagnifyingGlassIcon,
+    Laborwerte: BeakerIcon,
+    Arbeitszeugnis: DocumentTextIcon,
 
 
 
@@ -747,6 +763,7 @@ export const getActiveComponent = (activeComponent) => {
             return Dermatologie;
         case 'Search':
             return Search;
+
 
 
 

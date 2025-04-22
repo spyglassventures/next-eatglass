@@ -33,12 +33,15 @@ import Chat_ekg from '@/components/AI/chat_ekg';
 import Chat_24_BD from '@/components/AI/chat_24_BD';
 import Chat_schwieriger_patient from '@/components/AI/chat_schwieriger_patient';
 import Chat_grippe from '@/components/AI/chat_grippe';
+import Chat_arbeitszeugnis from '@/components/AI/chat_arbeitszeugnis';
+import Chat_laborwerte from '@/components/AI/chat_laborwerte';
 
 // NCP
 import Chat_ncp_assessment from '@/components/AI/chat_ncp_assessment';
 import Chat_ncp_diagnose from '@/components/AI/chat_ncp_diagnose';
 import Chat_ncp_intervention from '@/components/AI/chat_ncp_intervention';
 import Chat_ncp_monitoring from '@/components/AI/chat_ncp_monitoring';
+
 
 
 // Freitext
@@ -96,6 +99,9 @@ const AIComponents = {
     Chat_versicherungsanfrage,
     Chat_ekg,
     Chat_24_BD,
+    Chat_arbeitszeugnis,
+    Chat_laborwerte,
+
     // KI FORMS
     Chat_KI_FORMS_AZ_Jugendliche,
     Chat_KI_FORMS_ktg_erstbericht,

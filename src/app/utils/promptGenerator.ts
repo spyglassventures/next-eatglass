@@ -37,7 +37,7 @@ export const aiParameterDefinitions: AiParameterConfig[] = [
     },
     {
         id: 'kg_Eintrag',
-        label: 'KG Eintrag',
+        label: 'KG Eintrag erstellen aus Transkription',
         defaultChecked: true,
         promptInstruction: 'Analysiere die Transkription eines Tonmitschnittes einer hausaerztlichen Konsultation in der Praxis. Erstelle daraus einen kurzes Krankengeschichteneintrag. Beziehe dich dabei auf die wichtigsten Informationen, die für den Eintrag relevant sind. Achte darauf, dass der Eintrag klar und präzise formuliert ist. Verwende medizinische Fachbegriffe, wo es angebracht ist, und achte auf hohe Informationsdichte. Folge diesem Muster: AP (aktuelles Problem), B: (Befunde), T: (Therapie und Bewertung), P: (Prozerde)',
     },
