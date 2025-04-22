@@ -19,21 +19,27 @@ export const aiParameterDefinitions: AiParameterConfig[] = [
     {
         id: 'language',
         label: 'Sprachliche Verbesserung (Stil)',
-        defaultChecked: true,
+        defaultChecked: false,
         promptInstruction: 'Verbessere den sprachlichen Stil, die Satzstruktur und die allgemeine Lesbarkeit. Formuliere Sätze klarer und prägnanter, wo sinnvoll.',
     },
     {
         id: 'isMedicalReport',
         label: 'Als Arztbericht formatieren',
-        defaultChecked: true,
+        defaultChecked: false,
         promptInstruction: 'Formatiere den gesamten Text als professionellen medizinischen Bericht. Nutze sinnvolle Absätze für verschiedene Themenbereiche (z.B. Anamnese, Befund, Diagnose, Prozedere). Stelle Aufzählungen (Listen) korrekt dar, falls sie im Text vorkommen oder sinnvoll sind.',
         // Note: Add alternative prompt logic if needed within generateSystemPrompt
     },
     {
         id: 'fixInterpretation',
         label: 'Kontextbasierte Korrektur (Fehlinterpretationen)',
-        defaultChecked: true,
+        defaultChecked: false,
         promptInstruction: 'Analysiere den Text auf wahrscheinliche Fehlinterpretationen durch die Spracherkennungssoftware. Korrigiere diese basierend auf dem üblichen medizinischen Kontext und Fachjargon (z.B. falsch erkannte Abkürzungen, Laborwerte, Schweizer Institutionen, Zahlen, Namen). Sei dabei vorsichtig und ändere nur, wenn eine Fehlinterpretation sehr wahrscheinlich ist.',
+    },
+    {
+        id: 'kg_Eintrag',
+        label: 'KG Eintrag',
+        defaultChecked: true,
+        promptInstruction: 'Analysiere die Transkription eines Tonmitschnittes einer hausaerztlichen Konsultation in der Praxis. Erstelle daraus einen kurzes Krankengeschichteneintrag. Beziehe dich dabei auf die wichtigsten Informationen, die für den Eintrag relevant sind. Achte darauf, dass der Eintrag klar und präzise formuliert ist. Verwende medizinische Fachbegriffe, wo es angebracht ist, und achte auf hohe Informationsdichte. Folge diesem Muster: AP (aktuelles Problem), B: (Befunde), T: (Therapie und Bewertung), P: (Prozerde)',
     },
     // --- Add new parameters here in the future ---
     // {

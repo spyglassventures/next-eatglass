@@ -45,7 +45,7 @@ import { stripHtml } from '../../app/utils/textUtils'; // used to clean up the t
 
 export default function MedienDiktat() {
     const [transcription, setTranscription] = useState<string | null>(null);
-    const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
+    const [audioBlob, setAudioBlob] = useState<File | null>(null);
     const [loading, setLoading] = useState(false); // Note: 'loading' state doesn't seem used, consider removing if true.
     const [error, setError] = useState<string | null>(null);
 
@@ -59,10 +59,27 @@ export default function MedienDiktat() {
     const finalTranscriptRef = useRef<string>("");
 
     const primaryColor = "#24a0ed";
-    const WHISPER_API_ROUTE = "/api/transcribe_az_whisper";
-    const AZURE_SPEECH_API_ROUTE = "/api/transcribe_az_speech";
 
-    const [currentApiRoute, setCurrentApiRoute] = useState<string>(WHISPER_API_ROUTE); // Default to Whisper
+    const MAX_BYTES = 25 * 1024 * 1024;  // 25 MB in bytes
+
+
+    const ENGINES = [
+        { key: "whisper", label: "Whisper", route: "/api/transcribe_az_whisper" },
+        { key: "speech", label: "Azure Speech", route: "/api/transcribe_az_speech" },
+        { key: "gpt4o", label: "Azure GPT‑4o (Base, Transcribe))", route: "/api/transcribe_az-gpt-4o-transcribe" },
+        { key: "gpt4o_ft", label: "Azure GPT‑4o (Fine‑tuned)", route: "/api/transcribe_az-gpt-4o-finetuned" },
+    ] as const;
+
+
+    type EngineKey = typeof ENGINES[number]["key"];
+
+
+    const [engineIndex, setEngineIndex] = useState(0); // 0 = Whisper by default
+
+    // Helper to access current engine
+    const currentEngine = ENGINES[engineIndex];
+
+    // const [currentApiRoute, setCurrentApiRoute] = useState<string>(WHISPER_API_ROUTE); // Default to Whisper
 
     // lift state of edited transaction up 
     // Add this near your other useState hooks
@@ -140,17 +157,14 @@ export default function MedienDiktat() {
     };
 
     // ========== AUDIO FILE TRANSCRIPTION LOGIC ============
-    const toggleApiRoute = () => {
-        setCurrentApiRoute(prevRoute =>
-            prevRoute === WHISPER_API_ROUTE
-                ? AZURE_SPEECH_API_ROUTE
-                : WHISPER_API_ROUTE
-        );
+    const cycleEngine = () => {
+        setEngineIndex((idx) => (idx + 1) % ENGINES.length);
     };
 
-    const getCurrentApiName = () => {
-        return currentApiRoute === WHISPER_API_ROUTE ? "Whisper" : "Azure Speech";
-    };
+
+    // const getCurrentApiName = () => {
+    //     return currentApiRoute === WHISPER_API_ROUTE ? "Whisper" : "Azure Speech";
+    // };
 
     const [loadingFileTranscription, setLoadingFileTranscription] = useState(false);
 
@@ -161,29 +175,46 @@ export default function MedienDiktat() {
     };
 
     const handleRecordingComplete = (blob: Blob) => {
-        setAudioBlob(blob);
+        // Turn the anonymous blob into a File named “recording.wav”
+        const file = new File(
+            [blob],
+            "recording.wav",
+            { type: blob.type, lastModified: Date.now() }
+        );
+        setAudioBlob(file);
     };
 
     const transcribeAudio = async () => {
         if (!audioBlob) {
             return setError("Bitte laden Sie zuerst eine Audiodatei hoch oder nehmen Sie eine auf.");
         }
+        if (audioBlob.size > MAX_BYTES) {
+            return setError("Die Datei überschreitet das 25 MB‑Limit.");
+        }
+
         setLoadingFileTranscription(true);
         setError(null);
+
         try {
             const formData = new FormData();
-            formData.append("file", audioBlob, "audio.wav");
-            // const res = await axios.post("/api/transcribe_az_speech", formData); // allow to switch transcribe_az_whisper
-            const res = await axios.post(currentApiRoute, formData, { /* ... headers ... */ });
-            const text = res.data.DisplayText || "Keine Transkription gefunden.";
-            handleNewTranscription(text); // This now handles saving if saveLocal is true
+            formData.append("file", audioBlob, audioBlob.name);
+
+            const res = await axios.post(currentEngine.route, formData);
+            const text =
+                // adjust according to which engine returns which key
+                res.data.DisplayText ??
+                res.data.transcriptionText ??
+                "Keine Transkription gefunden.";
+
+            handleNewTranscription(text);
         } catch (err) {
-            console.error("Fehler:", err);
+            console.error("Fehler bei der Transkription:", err);
             setError("Fehler bei der Transkription der Audiodatei.");
         } finally {
             setLoadingFileTranscription(false);
         }
     };
+
 
     // ========== REAL-TIME TRANSCRIPTION LOGIC ============
     // const startRealtimeTranscription = () => {
@@ -535,14 +566,14 @@ export default function MedienDiktat() {
                                         {/* Only show toggle if not in Realtime mode */}
                                         {!isRealtimeActive && (
                                             <button
-                                                onClick={toggleApiRoute}
+                                                onClick={cycleEngine}
                                                 className="flex items-center justify-center gap-2 px-5 py-2.5 border border-gray-400 text-gray-600 hover:bg-gray-100 rounded-md text-sm transition-colors shadow"
-
-                                                title={`Transkriptions-Engine wechseln. Aktuell: ${getCurrentApiName()}`}
+                                                title={`Transkriptions-Engine wechseln. Aktuell: ${currentEngine.label}`}
                                             >
                                                 <ArrowPathIcon className="h-4 w-4 text-gray-500" />
-                                                Engine: <span className="font-semibold">{getCurrentApiName()}</span>
+                                                Engine: <span className="font-semibold">{currentEngine.label}</span>
                                             </button>
+
                                         )}
 
                                     </div>
