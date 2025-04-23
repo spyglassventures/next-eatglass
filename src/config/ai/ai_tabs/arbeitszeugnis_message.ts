@@ -107,7 +107,9 @@ export const inputCloudBtn = {
     ],
     // 5. Beurteilung
     'Beurteilung': [
-        "zuverlässig, verantwortungsbewusst, belastbar",
+        "zuverlässig",
+        "verantwortungsbewusst",
+        "belastbar",
         "stets motiviert, belastbar und ausdauernd",
         "identifiziert sich stets mit ihren Aufgaben",
         "hohe Identifikation mit Aufgaben",

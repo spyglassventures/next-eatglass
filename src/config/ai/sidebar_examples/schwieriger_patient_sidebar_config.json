@@ -27,7 +27,12 @@
         "keine telefonische Diagnose möglich.",
         "für jedes Problem wird ein separater Termin benötigt.",
         "bitte haben Sie Verständnis für längere Wartezeiten.",
-        "wir können keine Krankschreibungen per E-Mail ausstellen."
+        "wir können keine Krankschreibungen per E-Mail ausstellen.",
+        "können keine Arbeitsunfähigkeitsbescheinigung ausstellen, da Sie nicht persönlich in der Sprechstunde erschienen sind.",
+        "für eine Terminvergabe am selben Kalendertag ohne akuten Notfall haben wir leider keine Kapazitäten mehr.",
+        "die durchgeführte Untersuchung war aus ärztlicher Sicht medizinisch notwendig und gerechtfertigt.",
+        "eine Arbeitsunfähigkeitsbescheinigung für Ihr krankes Kind stellen wir nur im Beisein des Sorgeberechtigten aus.",
+        "da Sie den Termin nicht fristgerecht abgesagt haben, müssen wir Ihnen eine Ausfallgebühr in Rechnung stellen."
     ],
     "abkuerzungen": [
         "keine"
