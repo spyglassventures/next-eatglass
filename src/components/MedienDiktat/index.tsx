@@ -15,6 +15,9 @@ import { generateDocx } from '../../app/utils/docxGenerator'; // Adjust path if 
 import { CommandLineIcon, ArrowPathIcon } from '@heroicons/react/24/solid';
 
 import RealtimeTranscription from "@/components/Transcribe/RealtimeTranscription"; // Pfad ggf. anpassen
+import { useFileLogger } from './useFileLogger';
+
+
 
 
 import { diffWords } from "diff";
@@ -61,6 +64,9 @@ export default function MedienDiktat() {
     const primaryColor = "#24a0ed";
 
     const MAX_BYTES = 25 * 1024 * 1024;  // 25 MB in bytes
+
+    const { writeAll, clearLog, ready: loggerReady } = useFileLogger();
+    const logTimer = useRef<number>();
 
 
     const ENGINES = [
@@ -113,6 +119,20 @@ export default function MedienDiktat() {
         setCurrentEditedTranscription(newValue);
     }, []); // Empty dependency array is fine here
     // --- END CENTRALIZED AI State ---
+
+    useEffect(() => {
+        if (!isRealtimeActive || !loggerReady) return;
+
+        // 1) write the full realtime text
+        writeAll(realtimeText);
+
+        // 2) reset a 3s timer to clear log.txt when typing stops
+        if (logTimer.current) clearTimeout(logTimer.current);
+        logTimer.current = window.setTimeout(() => {
+            clearLog();
+        }, 3000);
+    }, [realtimeText, isRealtimeActive, loggerReady]);
+
 
 
 
@@ -217,68 +237,6 @@ export default function MedienDiktat() {
         }
     };
 
-
-    // ========== REAL-TIME TRANSCRIPTION LOGIC ============
-    // const startRealtimeTranscription = () => {
-    //     if (!("webkitSpeechRecognition" in window)) {
-    //         setError("Echtzeit-Transkription wird in diesem Browser nicht unterstützt.");
-    //         return;
-    //     }
-    //     setRealtimeText("");
-    //     finalTranscriptRef.current = "";
-    //     setIsRealtimeActive(true);
-
-    //     const recognition = new (window as any).webkitSpeechRecognition();
-    //     recognitionRef.current = recognition;
-    //     recognition.continuous = true;
-    //     recognition.interimResults = true;
-    //     recognition.lang = "de-DE";
-
-    //     recognition.onresult = (event: any) => {
-    //         let interimTranscript = "";
-    //         let finalTranscript = "";
-
-    //         for (let i = event.resultIndex; i < event.results.length; i++) {
-    //             const result = event.results[i][0].transcript + " ";
-    //             if (event.results[i].isFinal) {
-    //                 finalTranscript += result;
-    //             } else {
-    //                 interimTranscript += result;
-    //             }
-    //         }
-    //         if (finalTranscript) {
-    //             finalTranscriptRef.current += finalTranscript;
-    //         }
-    //         setRealtimeText(finalTranscriptRef.current + interimTranscript);
-    //     };
-
-    //     recognition.onerror = (event: any) => {
-    //         console.error("Spracherkennungsfehler:", event.error);
-    //         setError("Fehler bei der Echtzeit-Transkription.");
-    //         stopRealtimeTranscription();
-    //     };
-
-    //     recognition.start();
-    // };
-
-    // const stopRealtimeTranscription = () => {
-    //     setIsRealtimeActive(false);
-    //     recognitionRef.current?.stop();
-
-    //     const finalText = finalTranscriptRef.current.trim();
-    //     if (finalText) {
-    //         handleNewTranscription(finalText); // This now handles saving if saveLocal is true
-    //     }
-    //     finalTranscriptRef.current = "";
-    // };
-
-    // const toggleRealtimeMode = () => {
-    //     if (isRealtimeActive) {
-    //         stopRealtimeTranscription();
-    //     } else {
-    //         startRealtimeTranscription();
-    //     }
-    // };
 
     // ========== UI Handlers for tabs ============
     const [loadingMode, setLoadingMode] = useState("Aufnahme");
@@ -638,7 +596,16 @@ export default function MedienDiktat() {
                             primaryColor={primaryColor}
                             modelName="Azure Speech (webkitSpeechRecognition)" // fix fo dynamic
                         />
+
+
+
                     )}
+
+                    {!loggerReady && isRealtimeActive && (
+                        <p>Logger wird initialisiert – bitte kurz warten…</p>
+                    )}
+
+
 
                     {/* Error msg */}
                     {error && (<div className="mt-6 p-4 bg-red-50 border border-red-200 text-red-600 rounded-lg"> <p className="flex items-center gap-2"> <span className="text-xl">⚠️</span> {error} </p> </div>)}
