@@ -1,0 +1,32 @@
+{
+    "filename": "laborwerte_sidebar_config.json",
+    "examples": [
+        "Alter: 20-30, Husten, Infekt / Grippaler Infekt, Schwangerschaft, Schilddrüsenmedikamente",
+        "Alter: 65-75, Brustschmerzen, V.a. Herzinfarkt, Blutverdünner, Hypertonie",
+        "Alter: 45-55, Müdigkeit, Abgeschlagenheit, Fieber, V.a. Anämie, keine Medis",
+        "Alter: 30-40, Gelenkschmerzen, Morgensteifigkeit, Rheuma-Verdacht, Immunsuppressiva",
+        "Alter: 70-80, Atemnot, Beinödeme, V.a. Herzinsuffizienz, Diuretika",
+        "Alter: 25-35, Halsschmerzen, Fieber, Tonsillitis-Verdacht, keine Medis",
+        "Alter: 55-65, Gewichtsverlust, Nachtschweiß, Tumorverdacht, Cholesterinsenker",
+        "Alter: 5-10, Fieber, Bauchschmerzen, V.a. Appendizitis, keine Medis",
+        "Alter: 40-50, Polyurie, Polydipsie, V.a. Diabetes mellitus, keine bekannte Medikation",
+        "Alter: 50-60, Rückenschmerzen, Bewegungseinschränkung, Osteoporoseverdacht, Vitamin D Substitution"
+    ],
+    "abkuerzungen": [
+        "T: Tage",
+        "J: Jahre",
+        "w: weiblich",
+        "m: männlich",
+        "Medis: Medikamente",
+        "KG: Krankengeschichte",
+        "F: Fieber",
+        "Sz: Schmerzen"
+    ],
+    "videoPath": "",
+    "hinweise": [
+        "Markieren: Halten Sie die linke Maustaste gedrückt und fahren Sie mit der Maus über den zu kopierenden Text. Dieser ist nun blau hinterlegt.",
+        "Kopieren: Ist der Text markiert, dann drücken Sie gleichzeit Strg + C um den Text in die Zwischenablage zu kopieren.",
+        "Einfügen: Klicken Sie mit der Maus an eine beliebige Stelle, an der Sie den Text einfügen möchten. Dann drücken Sie gleichzeit Strg + V.",
+        "Alternativen: Sie können auch mit der rechten Maustaste auf den markierten Text klicken und dann 'Kopieren' bzw. 'Einfügen' auswählen."
+    ]
+}

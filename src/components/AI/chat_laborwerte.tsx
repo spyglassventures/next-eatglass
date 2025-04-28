@@ -10,7 +10,7 @@ import {
   placeHolderInput,
   examplesData,
   rawInitialMessages,
-} from '@/config/ai/ai_tabs/grippe_message';
+} from '@/config/ai/ai_tabs/laborwerte_message';
 
 import ModelSelector from './ModelSelector';
 
