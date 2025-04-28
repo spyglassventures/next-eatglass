@@ -1,7 +1,7 @@
 import examplesData from '../sidebar_examples/laborwerte_sidebar_config.json';
 import rawInitialMessages from '../ai_context/laborwerte_message.json';
 
-export const warning_msg = 'Closed-Beta Test: Inhalt klicken statt Eingabemaske ausfüller ➜ Laborparameter zur Diskussion erhalten (Recherche)';
+export const warning_msg = 'Closed-Beta Test: Inhalt klicken statt Eingabemaske ausfüllen ➜ Laborparameter zur Diskussion erhalten (Recherche)';
 
 export const followupBtn = ['Normwerte LDL', 'Normbereich CRP', 'tiefere Recherche'];
 

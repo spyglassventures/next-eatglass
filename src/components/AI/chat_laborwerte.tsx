@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useFilter } from '@/components/AI/FilterContext'; // If needed
-import ChatStructure from './gen_chat_structure';
+import ChatStructure from './gen_chat_structure_expandable';
 import {
   warning_msg,
   followupBtn,
