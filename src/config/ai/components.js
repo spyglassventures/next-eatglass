@@ -26,6 +26,7 @@ import Abrechnung from '@/components/IntAbrechnung'; //
 import QR from '@/components/IntQR'; //
 import Brett from '@/components/IntBrett'; //
 import ChatWithPdf from '@/components/ChatWithPdf'; //
+import ChatRAG from '@/components/ChatRAG'; //
 import ChatWithPdfKardio from '@/components/ChatWithPdfKardio'; //
 import Logs from '@/components/IntLogs'; //
 import Dermatologie from '@/components/IntDermatologie'; //
@@ -150,6 +151,7 @@ export const NAV_ITEMS = {
         { key: 'QR', name: 'QR Codes', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'Logs', name: 'Letzte KI Anfragen', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'ChatWithPdf', name: 'ChatWithPdf', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'ChatRAG', name: 'ChatRAG', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'ChatWithPdfKardio', name: 'ChatWithPdfKardio', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'Tardoc', name: 'TARDOC', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'Materialauswertung', name: 'Materialauswertung', visible_mpa: true, visible_arzt: true, visible_pro: true },
@@ -563,6 +565,11 @@ export const COMPONENTS = {
         component: 'ChatWithPdf',
         buttonText: 'chat_with_pdf'
     },
+    ChatRAG: {
+        name: 'Chat mit RAG',
+        component: 'ChatRAG',
+        buttonText: 'chat_with_rag'
+    },
     ChatWithPdfKardio: {
         name: 'Chat mit PDF',
         component: 'ChatWithPdfKardio',
@@ -661,6 +668,7 @@ export const ICONS = {
     Materialauswertung: PencilIcon,
     Tardoc: HeartIcon,
     ChatWithPdf: DocumentTextIcon,
+    ChatRAG: SparklesIcon,
     ChatWithPdfKardio: HeartIcon,
     Abrechnung: CheckBadgeIcon,
     QR: CheckBadgeIcon,
@@ -737,6 +745,8 @@ export const getActiveComponent = (activeComponent) => {
             return QR;
         case 'ChatWithPdf':
             return ChatWithPdf;
+        case 'ChatRAG':
+            return ChatRAG;
         case 'ChatWithPdfKardio':
             return ChatWithPdfKardio;
         case 'Diktat':

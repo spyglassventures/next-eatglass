@@ -63,14 +63,14 @@ export default function MedienDiktat() {
 
     const primaryColor = "#24a0ed";
 
-    const MAX_BYTES = 125 * 1024 * 1024;  // 125 MB in bytes
+    const MAX_BYTES = 25 * 1024 * 1024;  // 25 MB in bytes
 
     const { writeAll, clearLog, ready: loggerReady } = useFileLogger();
     const logTimer = useRef<number>();
 
 
     const ENGINES = [
-        { key: "gpt4o", label: "Transkript (Azure GPT‑4o)", route: "/api/transcribe_az-gpt-4o-transcribe-url" },
+        { key: "gpt4o", label: "Transkript (Azure GPT‑4o)", route: "/api/transcribe_az-gpt-4o-transcribe" },
         { key: "gpt4o_ft", label: "KG Eintrag (Azure GPT‑4o, fine‑tuned)", route: "/api/transcribe_az-gpt-4o-finetuned" },
         { key: "speech", label: "Azure Speech", route: "/api/transcribe_az_speech" },
         { key: "whisper", label: "Whisper", route: "/api/transcribe_az_whisper" },
@@ -211,40 +211,24 @@ export default function MedienDiktat() {
             return setError("Bitte laden Sie zuerst eine Audiodatei hoch oder nehmen Sie eine auf.");
         }
         if (audioBlob.size > MAX_BYTES) {
-            return setError("Die Datei überschreitet das 125 MB‑Limit.");
+            return setError("Die Datei überschreitet das 25 MB‑Limit.");
         }
 
         setLoadingFileTranscription(true);
         setError(null);
 
         try {
-            // Step 1: Upload to Azure using fetch
-            const uploadForm = new FormData();
-            uploadForm.append("file", audioBlob, audioBlob.name);
+            const formData = new FormData();
+            formData.append("file", audioBlob, audioBlob.name);
 
-            const uploadRes = await fetch("/api/upload-to-azure-blob-audio", {
-                method: "POST",
-                body: uploadForm,
-            });
-            if (!uploadRes.ok) {
-                throw new Error("Azure upload failed");
-            }
-            const { sasUrl } = await uploadRes.json();
-
-            console.log("✅ Azure Audio URL:", sasUrl);
-
-            // Step 2: Send SAS URL to transcription engine
-            const transcribeRes = await axios.post(currentEngine.route, {
-                url: sasUrl,
-            });
-
+            const res = await axios.post(currentEngine.route, formData);
             const text =
-                transcribeRes.data.DisplayText ??
-                transcribeRes.data.transcriptionText ??
+                // adjust according to which engine returns which key
+                res.data.DisplayText ??
+                res.data.transcriptionText ??
                 "Keine Transkription gefunden.";
 
             handleNewTranscription(text);
-
         } catch (err) {
             console.error("Fehler bei der Transkription:", err);
             setError("Fehler bei der Transkription der Audiodatei.");
@@ -252,8 +236,6 @@ export default function MedienDiktat() {
             setLoadingFileTranscription(false);
         }
     };
-
-
 
 
     // ========== UI Handlers for tabs ============

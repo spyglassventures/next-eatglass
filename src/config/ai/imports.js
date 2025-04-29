@@ -25,7 +25,8 @@ import Chat_verhaltensempfehlung from '@/components/AI/chat_verhaltensempfehlung
 import Chat_news from '@/components/AI/chat_news';
 import Chat_freitext from '@/components/AI/chat_freitext';
 import Chat_reise from '@/components/AI/chat_reise';
-import Chat_pdf from '@/components/AI/chat_pdf';
+import Chat_pdf from '@/components/AI/chat_pdf'; // braucht es? / ja weil Summary of pdf, depreciated 
+//import ChatRAG from '@/components/AI/chat_rag'; // braucht es? nein weil kein chat component
 import Chat_image from '@/components/AI/chat_image';
 import Chat_versicherungsanfrage from '@/components/AI/chat_versicherungsanfrage';
 import Chat_triage from '@/components/AI/chat_triage';
@@ -69,6 +70,7 @@ import Chat_KI_FORMS_Zwischenbericht_uvg_unfall from '@/components/AI/KI_FORMS/c
 import Chat_KI_FORMS_ktg_2_phasen from '@/components/AI/struc/chat_KI_FORMS_ktg_2_phasen'; // working
 import Chat_STRUC_diagnosen_extract from '@/components/AI/struc/chat_STRUC_diagnosen_extract';
 import Chat_STRUC_group_blocks from '@/components/AI/struc/chat_STRUC_group_blocks';
+import ChatRAG from '@/components/ChatRAG';
 
 
 
@@ -91,6 +93,7 @@ const AIComponents = {
     Chat_freitext,
     Chat_reise,
     Chat_pdf,
+    ChatRAG,
     Chat_image,
     Chat_mediausland,
     Chat_ueberweisungfacharzt,
