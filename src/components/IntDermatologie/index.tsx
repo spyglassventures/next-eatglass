@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
+import PictureQualityModal from './PictureQualityModal';
+
 
 const generateId = () => {
     return Math.random().toString(36).substring(2, 6) + '-' + Math.random().toString(36).substring(2, 6);
 };
+
+
 
 
 
@@ -34,6 +38,8 @@ const Dermatologie = () => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
 
 
@@ -124,6 +130,17 @@ const Dermatologie = () => {
                             <p className="mt-2 font-medium">Nahaufnahme anderer Winkel</p>
                         </div>
                     </div>
+
+                    <div className="text-center mt-6">
+                        <button
+                            type="button"
+                            onClick={() => setIsModalOpen(true)}
+                            className="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 transition"
+                        >
+                            Was ist ein gutes Bild? Beispiele ansehen
+                        </button>
+                    </div>
+
 
                     <div>
                         <label className="block font-semibold mb-1">Vorname</label>
@@ -398,6 +415,9 @@ const Dermatologie = () => {
 
                 </div>
             </form>
+
+            <PictureQualityModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+
         </div>
     );
 };
