@@ -1,4 +1,5 @@
-// pages/brett.tsx
+// pages/brett.tsx   aka CIRS
+
 import React, { useState } from 'react';
 import cirsConfig from '../../config/cirsConfig.json';
 
