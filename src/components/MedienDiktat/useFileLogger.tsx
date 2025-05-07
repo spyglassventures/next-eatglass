@@ -3,6 +3,9 @@
 import React, { useState, useEffect, useRef, ChangeEvent } from 'react';
 import { openDB } from 'idb';
 
+export const logging_turned_on = false; // Toggle this to false to fully disable logging
+
+
 // Extend FileSystemFileHandle with permission methods
 interface FSHandleWithPermissions extends FileSystemFileHandle {
     queryPermission(opts?: { mode: 'read' | 'readwrite' }): Promise<PermissionState>;
@@ -35,6 +38,15 @@ async function storeDirectoryHandle(handle: FileSystemDirectoryHandle) {
 
 // Hook: manage live log.txt and persistent timestamp file with header
 export function useFileLogger(maxBytes: number = 25 * 1024 * 1024) {
+    if (!logging_turned_on) {
+        return {
+            writeAll: async () => { },
+            clearLog: async () => { },
+            error: null,
+            ready: false
+        };
+    }
+
     const [dirHandle, setDirHandle] = useState<FileSystemDirectoryHandle | null>(null);
     const [logHandle, setLogHandle] = useState<FSHandleWithPermissions | null>(null);
     const [tsHandle, setTsHandle] = useState<FSHandleWithPermissions | null>(null);
