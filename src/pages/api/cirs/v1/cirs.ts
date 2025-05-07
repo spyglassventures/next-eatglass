@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { pool } from './postgres_lib_db';
+import { pool } from '../../postgres_lib_db';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     console.log('🔵 API hit at /pages/api/cirs');
