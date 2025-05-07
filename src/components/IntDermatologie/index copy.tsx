@@ -57,7 +57,7 @@ const Dermatologie: React.FC = () => {
         allergienText: '',
         vorerkrankungen: [] as Symptom[],
         vorerkrankungenText: '',
-        weitereSymptome: '' as '' | 'ja' | 'nein',
+        weitereSymptome: 'nein' as 'ja' | 'nein',
     });
 
     const [medikamente, setMedikamente] = useState([
@@ -75,10 +75,6 @@ const Dermatologie: React.FC = () => {
     ) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
-        // Clear specific error when user types
-        if (errors[name]) {
-            setErrors(prevErrors => ({ ...prevErrors, [name]: '' }));
-        }
     };
 
     const handleSymptomChange = (symptom: Symptom) => {
@@ -87,10 +83,6 @@ const Dermatologie: React.FC = () => {
             set.has(symptom) ? set.delete(symptom) : set.add(symptom);
             return { ...prev, vorerkrankungen: Array.from(set) };
         });
-        // Clear vorerkrankungen error if a selection is made and weitereSymptome is 'ja'
-        if (formData.weitereSymptome === 'ja' && errors.vorerkrankungen) {
-            setErrors(prevErrors => ({ ...prevErrors, vorerkrankungen: '' }));
-        }
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -112,48 +104,40 @@ const Dermatologie: React.FC = () => {
         }
         if (!formData.hautproblem.trim())
             newErrors.hautproblem = 'Bitte das Hautproblem beschreiben.';
-        if (!formData.dauer) newErrors.dauer = 'Bitte eine Dauer auswählen.'; // Error if ''
-        if (!formData.beginn) newErrors.beginn = 'Bitte angeben, wie es begann.'; // Error if ''
-
-        // Frage 4: Behandlung
-        if (!formData.behandlung) // Checks for initial '' state
+        if (!formData.dauer) newErrors.dauer = 'Bitte eine Dauer auswählen.';
+        if (!formData.beginn) newErrors.beginn = 'Bitte angeben, wie es begann.';
+        if (!formData.behandlung)
             newErrors.behandlung = 'Bitte ja oder nein auswählen.';
-        else if ( // Only validate behandlungText if 'ja' is selected
+        if (
             formData.behandlung === 'ja' &&
             !formData.behandlungText.trim()
         )
             newErrors.behandlungText =
                 'Bitte erläutern, welche Behandlung erfolgte.';
 
-        // Frage 5: Vergangenheit
         if (!formData.vergangenheit)
             newErrors.vergangenheit = 'Bitte ja oder nein auswählen.';
-        else if (
+        if (
             formData.vergangenheit === 'ja' &&
             !formData.vergangenheitText.trim()
         )
             newErrors.vergangenheitText =
                 'Bitte Vorgeschichte beschreiben.';
 
-        // Frage 6: Weitere Vorerkrankungen
-        // formData.weitereSymptome is initialized to 'nein', so !formData.weitereSymptome should not be an issue
-        // unless it's somehow cleared, which tabOptions prevents.
-        if (formData.weitereSymptome === 'ja') {
-            const hasBoxes = formData.vorerkrankungen.length > 0;
-            const hasText = formData.vorerkrankungenText.trim().length > 0;
-            if (!hasBoxes && !hasText) {
-                newErrors.vorerkrankungen =
-                    'Bitte mindestens eine Vorerkrankung wählen oder im Textfeld beschreiben.';
-            }
-        }
+        if (!formData.weitereSymptome)
+            newErrors.weitereSymptome = 'Bitte ja oder nein auswählen.';
+        if (
+            formData.weitereSymptome === 'ja' &&
+            formData.vorerkrankungen.length === 0
+        )
+            newErrors.vorerkrankungen =
+                'Bitte mindestens eine Vorerkrankung wählen.';
 
-
-        // Frage 7: Allergien
         if (!formData.allergien)
             newErrors.allergien = 'Bitte ja oder nein auswählen.';
-        else if (
+        if (
             formData.allergien === 'ja' &&
-            !formData.allergienText.trim() // Only validate allergienText if 'ja'
+            !formData.allergienText.trim()
         )
             newErrors.allergienText =
                 'Bitte Ihre Allergien beschreiben.';
@@ -161,7 +145,7 @@ const Dermatologie: React.FC = () => {
         // Fehler gefunden?
         if (Object.keys(newErrors).length > 0) {
             setErrors(newErrors);
-            setFeedback('❌ Bitte füllen Sie alle Pflichtfelder korrekt aus.');
+            setFeedback('❌ Bitte füllen Sie alle Pflichtfelder aus.');
             return;
         }
 
@@ -170,32 +154,22 @@ const Dermatologie: React.FC = () => {
         setFeedback('');
         setIsSending(true);
 
-        // Prepare data for sending: ensure medikamente is empty if behandlung is 'nein'
-        const dataToSend = {
-            ...formData,
-            medikamente: formData.behandlung === 'ja' ? medikamente : [], // Key change for sending
-            patientId,
-        };
-
-
         try {
             const response = await fetch('/api/sendgrid_dermatologie', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(dataToSend), // Send the adjusted data
+                body: JSON.stringify({ ...formData, medikamente, patientId }),
             });
             const result = await response.json();
 
             if (response.ok) {
                 setFeedback('✅ Ihre Anfrage wurde erfolgreich übermittelt.');
-                // Optionally reset form here
             } else {
                 setFeedback(
                     `❌ Fehler: ${result.message || 'Bitte versuchen Sie es erneut.'}`
                 );
             }
-        } catch (error) {
-            console.error("Sending error:", error);
+        } catch {
             setFeedback(
                 '❌ Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.'
             );
@@ -205,12 +179,7 @@ const Dermatologie: React.FC = () => {
     };
 
     const downloadJSON = () => {
-        const dataToDownload = {
-            ...formData,
-            medikamente: formData.behandlung === 'ja' ? medikamente : [],
-            patientId
-        };
-        const json = JSON.stringify(dataToDownload, null, 2);
+        const json = JSON.stringify({ ...formData, medikamente, patientId }, null, 2);
         const blob = new Blob([json], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -219,7 +188,6 @@ const Dermatologie: React.FC = () => {
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
-        URL.revokeObjectURL(url);
     };
 
     return (
@@ -229,6 +197,7 @@ const Dermatologie: React.FC = () => {
                     Vorbereitung: 3 Bilder machen, dann Online-Hautfragebogen ausfüllen
                 </h1>
 
+                {/* Beispielbilder */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                     {[1, 2, 3].map((i) => (
                         <div key={i} className="text-center">
@@ -244,6 +213,7 @@ const Dermatologie: React.FC = () => {
                     ))}
                 </div>
 
+                {/* Modal-Button */}
                 <div className="text-center">
                     <button
                         type="button"
@@ -254,6 +224,7 @@ const Dermatologie: React.FC = () => {
                     </button>
                 </div>
 
+                {/* Daten-Optionen */}
                 <div className="space-y-4">
                     <label className="block font-semibold mb-2">
                         Wie möchten Sie die Patientendaten übermitteln?
@@ -283,12 +254,17 @@ const Dermatologie: React.FC = () => {
                                 }
                                 className="mr-2"
                             />
-                            Foto der Versichertenkarte
+                            Foto der Karte
                         </label>
                     </div>
-                    {/* No specific error for dataOption in original code, assuming it's not strictly required before other fields */}
+                    {errors.dataOption && (
+                        <p className="text-red-600 text-sm mt-1">
+                            {errors.dataOption}
+                        </p>
+                    )}
                 </div>
 
+                {/* Formularfelder, nur wenn dataOption==='form' */}
                 {formData.dataOption === 'form' && (
                     <>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -296,7 +272,7 @@ const Dermatologie: React.FC = () => {
                                 <input
                                     name="firstName"
                                     placeholder="Vorname"
-                                    className={`border p-3 rounded w-full ${errors.firstName ? 'border-red-500' : 'border-gray-300'
+                                    className={`border p-3 rounded w-full ${errors.firstName ? 'border-red-500' : ''
                                         }`}
                                     value={formData.firstName}
                                     onChange={handleChange}
@@ -311,7 +287,7 @@ const Dermatologie: React.FC = () => {
                                 <input
                                     name="lastName"
                                     placeholder="Nachname"
-                                    className={`border p-3 rounded w-full ${errors.lastName ? 'border-red-500' : 'border-gray-300'
+                                    className={`border p-3 rounded w-full ${errors.lastName ? 'border-red-500' : ''
                                         }`}
                                     value={formData.lastName}
                                     onChange={handleChange}
@@ -325,13 +301,10 @@ const Dermatologie: React.FC = () => {
                         </div>
 
                         <div>
-                            <label htmlFor="dateOfBirth" className="sr-only">Geburtsdatum</label>
                             <input
                                 type="date"
-                                id="dateOfBirth"
                                 name="dateOfBirth"
-                                aria-label="Geburtsdatum"
-                                className={`w-full border p-3 rounded ${errors.dateOfBirth ? 'border-red-500' : 'border-gray-300'
+                                className={`w-full border p-3 rounded ${errors.dateOfBirth ? 'border-red-500' : ''
                                     }`}
                                 value={formData.dateOfBirth}
                                 onChange={handleChange}
@@ -348,7 +321,7 @@ const Dermatologie: React.FC = () => {
                                 <input
                                     name="insurance"
                                     placeholder="Versicherung"
-                                    className={`border p-3 rounded w-full ${errors.insurance ? 'border-red-500' : 'border-gray-300'
+                                    className={`border p-3 rounded w-full ${errors.insurance ? 'border-red-500' : ''
                                         }`}
                                     value={formData.insurance}
                                     onChange={handleChange}
@@ -363,7 +336,7 @@ const Dermatologie: React.FC = () => {
                                 <input
                                     name="insuranceNumber"
                                     placeholder="Versichertennummer"
-                                    className={`border p-3 rounded w-full ${errors.insuranceNumber ? 'border-red-500' : 'border-gray-300'
+                                    className={`border p-3 rounded w-full ${errors.insuranceNumber ? 'border-red-500' : ''
                                         }`}
                                     value={formData.insuranceNumber}
                                     onChange={handleChange}
@@ -378,16 +351,16 @@ const Dermatologie: React.FC = () => {
                     </>
                 )}
 
+                {/* Frage 1 */}
                 <div>
                     <label className="block font-semibold mb-2">
-                        1. Beschreiben Sie das aktuelle Hautproblem so detailliert wie möglich (max. 1500 Zeichen):
-
+                        1. Beschreiben Sie das aktuelle Hautproblem (max. 1500 Zeichen):
                     </label>
                     <textarea
                         name="hautproblem"
                         maxLength={1500}
-                        placeholder="Krankheitsbeginn, Krankheitsverlauf, Ausdehnung des Hautbefundes, Juckreiz, Brennen, Fieber, ..."
-                        className={`w-full border p-3 rounded ${errors.hautproblem ? 'border-red-500' : 'border-gray-300'
+                        placeholder="Krankheitsbeginn, Verlauf, Juckreiz..."
+                        className={`w-full border p-3 rounded ${errors.hautproblem ? 'border-red-500' : ''
                             }`}
                         rows={4}
                         value={formData.hautproblem}
@@ -400,6 +373,7 @@ const Dermatologie: React.FC = () => {
                     )}
                 </div>
 
+                {/* Frage 2 */}
                 <div>
                     <label className="block font-semibold mb-2">
                         2. Seit wann besteht dieses Problem?
@@ -407,16 +381,14 @@ const Dermatologie: React.FC = () => {
                     {tabOptions(
                         ['< 3 Tage', '3–7 Tage', '> 1 Woche', '> 1 Monat', '> 1 Jahr'] as const,
                         formData.dauer,
-                        (v) => {
-                            setFormData((p) => ({ ...p, dauer: v }));
-                            if (errors.dauer) setErrors(prev => ({ ...prev, dauer: '' }));
-                        }
+                        (v) => setFormData((p) => ({ ...p, dauer: v }))
                     )}
                     {errors.dauer && (
                         <p className="text-red-600 text-sm mt-1">{errors.dauer}</p>
                     )}
                 </div>
 
+                {/* Frage 3 */}
                 <div>
                     <label className="block font-semibold mb-2">
                         3. Wie hat das Problem begonnen?
@@ -424,10 +396,7 @@ const Dermatologie: React.FC = () => {
                     {tabOptions(
                         ['plötzlich', 'langsam', 'weiß ich nicht'] as const,
                         formData.beginn,
-                        (v) => {
-                            setFormData((p) => ({ ...p, beginn: v }));
-                            if (errors.beginn) setErrors(prev => ({ ...prev, beginn: '' }));
-                        }
+                        (v) => setFormData((p) => ({ ...p, beginn: v }))
                     )}
                     {errors.beginn && (
                         <p className="text-red-600 text-sm mt-1">{errors.beginn}</p>
@@ -440,15 +409,8 @@ const Dermatologie: React.FC = () => {
                         4. Wurde bereits eine Behandlung durchgeführt?
                     </label>
                     {tabOptions(['ja', 'nein'] as const, formData.behandlung, (v) => {
-                        setFormData((p) => ({ ...p, behandlung: v, ...(v === 'nein' && { behandlungText: '' }) })); // Clear text if 'nein'
-                        if (v === 'nein') {
-                            setShowMedSection(false);
-                            // Medikamente will be handled at submission (set to [] if behandlung is 'nein')
-                            // Or, if you want to clear it from state immediately:
-                            // setMedikamente([{ name: '', frequenz: '', seit: '' }]); // or []
-                        }
-                        if (errors.behandlung) setErrors(prev => ({ ...prev, behandlung: '' }));
-                        if (errors.behandlungText && v === 'nein') setErrors(prev => ({ ...prev, behandlungText: '' }));
+                        setFormData((p) => ({ ...p, behandlung: v }));
+                        if (v === 'nein') setShowMedSection(false);
                     })}
                     {errors.behandlung && (
                         <p className="text-red-600 text-sm mt-1">
@@ -460,8 +422,8 @@ const Dermatologie: React.FC = () => {
                         <>
                             <textarea
                                 name="behandlungText"
-                                placeholder="Welche Behandlung (Cremes, Salben, Tabletten, ...?"
-                                className={`w-full border p-3 rounded mt-2 ${errors.behandlungText ? 'border-red-500' : 'border-gray-300'
+                                placeholder="Welche Behandlung?"
+                                className={`w-full border p-3 rounded mt-2 ${errors.behandlungText ? 'border-red-500' : ''
                                     }`}
                                 rows={3}
                                 value={formData.behandlungText}
@@ -475,13 +437,7 @@ const Dermatologie: React.FC = () => {
 
                             <button
                                 type="button"
-                                onClick={() => {
-                                    // Ensure medikamente has an initial item if empty and showing section
-                                    if (!showMedSection && medikamente.length === 0) {
-                                        setMedikamente([{ name: '', frequenz: '', seit: '' }]);
-                                    }
-                                    setShowMedSection((s) => !s);
-                                }}
+                                onClick={() => setShowMedSection((s) => !s)}
                                 className="mt-2 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition"
                             >
                                 {showMedSection
@@ -504,14 +460,11 @@ const Dermatologie: React.FC = () => {
                 {/* Frage 5 */}
                 <div>
                     <label className="block font-semibold mb-2">
-                        5. Bestanden diese oder andere Hautveränderungen schon mal in der Vergangenheit?
+                        5. Bestehen Hautveränderungen in der Vergangenheit?
                     </label>
-                    {tabOptions(['ja', 'nein'] as const, formData.vergangenheit, (v) => {
-                        setFormData((p) => ({ ...p, vergangenheit: v, ...(v === 'nein' && { vergangenheitText: '' }) }));
-                        if (errors.vergangenheit) setErrors(prev => ({ ...prev, vergangenheit: '' }));
-                        if (errors.vergangenheitText && v === 'nein') setErrors(prev => ({ ...prev, vergangenheitText: '' }));
-                    })}
-
+                    {tabOptions(['ja', 'nein'] as const, formData.vergangenheit, (v) =>
+                        setFormData((p) => ({ ...p, vergangenheit: v }))
+                    )}
                     {errors.vergangenheit && (
                         <p className="text-red-600 text-sm mt-1">
                             {errors.vergangenheit}
@@ -521,8 +474,8 @@ const Dermatologie: React.FC = () => {
                         <>
                             <textarea
                                 name="vergangenheitText"
-                                placeholder="z. B. Ekzem, damals behandelt mit Salbe, erfolgreich. Beschreiben Sie die Vorgeschichte. Wurde bereits eine Diagnose gestellt? Welche Therapien wurde damals durchgefuehrt? War Therapie erfolgreich? …"
-                                className={`w-full border p-3 rounded mt-2 text-gray-700 placeholder-gray-400 ${errors.vergangenheitText ? 'border-red-500' : 'border-gray-300'
+                                placeholder="z. B. Ekzem, damals behandelt…"
+                                className={`w-full border p-3 rounded mt-2 text-gray-600 placeholder-gray-400 ${errors.vergangenheitText ? 'border-red-500' : ''
                                     }`}
                                 rows={3}
                                 value={formData.vergangenheitText}
@@ -540,20 +493,18 @@ const Dermatologie: React.FC = () => {
                 {/* Frage 6 */}
                 <div>
                     <label className="block font-semibold mb-2">
-                        6. Bestehen weitere Krankheitssymptome oder Vorerkrankungen?
+                        6. Weitere Vorerkrankungen?
                     </label>
-                    {tabOptions(['ja', 'nein'] as const, formData.weitereSymptome, (v) => {
+                    {tabOptions(['ja', 'nein'] as const, formData.weitereSymptome, (v) =>
                         setFormData((p) => ({
                             ...p,
                             weitereSymptome: v,
                             ...(v === 'nein'
                                 ? { vorerkrankungen: [], vorerkrankungenText: '' }
                                 : {}),
-                        }));
-                        if (errors.weitereSymptome) setErrors(prev => ({ ...prev, weitereSymptome: '' }));
-                        if (errors.vorerkrankungen && v === 'nein') setErrors(prev => ({ ...prev, vorerkrankungen: '' }));
-                    })}
-                    {errors.weitereSymptome && ( // This error message might be redundant if default is 'nein'
+                        }))
+                    )}
+                    {errors.weitereSymptome && (
                         <p className="text-red-600 text-sm mt-1">
                             {errors.weitereSymptome}
                         </p>
@@ -583,13 +534,12 @@ const Dermatologie: React.FC = () => {
                             )}
                             <textarea
                                 name="vorerkrankungenText"
-                                placeholder="Weitere Angaben zu Vorerkrankungen (falls 'andere' oder zur Erläuterung)"
-                                className={`w-full border p-3 rounded mt-2 ${errors.vorerkrankungenText ? 'border-red-500' : 'border-gray-300'}`}
+                                placeholder="Weitere Angaben…"
+                                className="w-full border p-3 rounded mt-2"
                                 rows={3}
                                 value={formData.vorerkrankungenText}
                                 onChange={handleChange}
                             />
-                            {/* You might add errors.vorerkrankungenText if it becomes mandatory */}
                         </>
                     )}
                 </div>
@@ -599,11 +549,9 @@ const Dermatologie: React.FC = () => {
                     <label className="block font-semibold mb-2">
                         7. Sind Allergien bekannt?
                     </label>
-                    {tabOptions(['ja', 'nein'] as const, formData.allergien, (v) => {
-                        setFormData((p) => ({ ...p, allergien: v, ...(v === 'nein' && { allergienText: '' }) }));
-                        if (errors.allergien) setErrors(prev => ({ ...prev, allergien: '' }));
-                        if (errors.allergienText && v === 'nein') setErrors(prev => ({ ...prev, allergienText: '' }));
-                    })}
+                    {tabOptions(['ja', 'nein'] as const, formData.allergien, (v) =>
+                        setFormData((p) => ({ ...p, allergien: v }))
+                    )}
                     {errors.allergien && (
                         <p className="text-red-600 text-sm mt-1">
                             {errors.allergien}
@@ -613,8 +561,7 @@ const Dermatologie: React.FC = () => {
                         <>
                             <textarea
                                 name="allergienText"
-                                placeholder="Bitte Ihre Allergien beschreiben"
-                                className={`w-full border p-3 rounded mt-2 ${errors.allergienText ? 'border-red-500' : 'border-gray-300'
+                                className={`w-full border p-3 rounded mt-2 ${errors.allergienText ? 'border-red-500' : ''
                                     }`}
                                 rows={3}
                                 value={formData.allergienText}
@@ -629,50 +576,41 @@ const Dermatologie: React.FC = () => {
                     )}
                 </div>
 
+                {/* Frage 8 */}
                 <div>
                     <label className="block font-semibold mb-2">
                         8. Fotos an <b>spyglass@hin.ch</b> mailen
                     </label>
                     <p className="text-sm text-gray-600">
                         Betreff: Hautproblem-ID{' '}
-                        <span className="font-mono bg-gray-200 px-1 rounded">{patientId}</span>
+                        <span className="font-mono">{patientId}</span>
                     </p>
                 </div>
 
+                {/* Hinweise & AGB etc. */}
                 <div className="bg-yellow-50 border border-yellow-200 p-4 rounded text-sm text-yellow-900">
                     <p>
-                        <strong>Hinweis:</strong> Wird die Überweisung in Ihrer Abwesenheit erstellt (z. B. wenn Sie nicht persönlich anwesend sind),
-                        kann gemäss <a
-                            href="https://www.tarmed-browser.ch/de/leistungen/00.0145-uberweisungen-an-konsiliararzte-in-abwesenheit-des-patienten-bei-personen-uber-6-jahren-und-unter-75-jahren-pro-1-min"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="underline"
-                        >
-                            TARMED-Ziffer 00.0145
-                        </a>
-                        pro zusätzlicher Minute verrechnet werden.
+                        <strong>Hinweis:</strong> Falls in Abwesenheit, kann TARMED-Ziff. 00.0145
+                        verrechnet werden.
                     </p>
+                </div>
+                <div className="bg-gray-100 border p-4 rounded text-sm space-y-2">
                     <p>
-                        Oben rechts läuft ein Timer, der Ihnen in Echtzeit anzeigt, wie lange Sie bereits
-                        zum Ausfüllen dieses Formulars benötigt haben.
+                        Mir ist bekannt, dass es sich um eine Selbstzahlerleistung handeln
+                        kann…
+                    </p>
+                    <p>Ich akzeptiere die Nutzungsbedingungen der Derma2go AG.</p>
+                    <p>
+                        Ich verzichte auf vorherige Aufklärung über Risiken und Alternativen.
                     </p>
                 </div>
 
-                <div className="bg-gray-100 border border-gray-200 p-4 rounded text-sm space-y-2">
-                    <p>
-                        Mir ist bekannt, dass es sich bei der hier angebotenen Leistung und allfälligen Folgeleistungen über diese Plattform um eine Selbstzahlerleistung handeln kann, welche i.d.R. nicht von der gesetzlichen Krankenversicherung erstattet wird. Mit dem Abschliessen der Anfrage bestätigen Sie, dass der Patient in der Schweiz obligatorisch krankenversichert ist.
-                    </p>
-                    <p>Ich akzeptiere die allgemeinen Nutzungsbedingungen von Derma2go AG. Die Datenschutzerklärung von Derma2go AG finden Sie hier.</p>
-                    <p>
-                        Sie, bzw. der Patient verzichtet auf eine vorherige Aufklärung zu Art, Umfang, Durchführung, zu erwartenden Folgen und Risiken der Behandlung sowie ihrer Notwendigkeit, Dringlichkeit, Eignung und Erfolgsaussichten im Hinblick auf die Diagnose oder die Therapie. Sie verzichten weiter auf eine Information zu Alternativen zur Massnahme, insbesondere die Alternativen zu einer Fernbehandlung.
-                    </p>
-                </div>
-
+                {/* Aktionen */}
                 <div className="text-center space-x-4">
                     <button
                         type="submit"
                         disabled={isSending}
-                        className="bg-gray-800 text-white px-6 py-3 rounded hover:bg-gray-700 transition disabled:opacity-50"
+                        className="bg-gray-800 text-white px-6 py-3 rounded hover:bg-gray-700 transition"
                     >
                         {isSending ? 'Wird gesendet…' : 'Anfrage absenden'}
                     </button>
@@ -685,6 +623,7 @@ const Dermatologie: React.FC = () => {
                     </button>
                 </div>
 
+                {/* Feedback */}
                 {feedback && (
                     <div
                         className={`mt-4 p-3 rounded text-sm ${feedback.startsWith('✅')

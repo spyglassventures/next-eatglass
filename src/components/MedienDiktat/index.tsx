@@ -69,6 +69,8 @@ export default function MedienDiktat() {
     const logTimer = useRef<number>();
 
 
+
+
     const ENGINES = [
         { key: "gpt4o", label: "Transkript (Azure GPT‑4o)", route: "/api/transcribe_az-gpt-4o-transcribe-url" },
         { key: "gpt4o_ft", label: "KG Eintrag (Azure GPT‑4o, fine‑tuned)", route: "/api/transcribe_az-gpt-4o-finetuned" },

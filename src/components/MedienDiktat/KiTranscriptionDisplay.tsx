@@ -4,6 +4,10 @@ import Image from 'next/image';
 import AiParameterBox from './AiParameterBox'; // Assuming it's in the same directory
 import { AiParameterConfig, AiPromptParams } from '../../app/utils/promptGenerator'; // Adjust path
 
+import { useState } from 'react'; // at top if not already
+
+
+
 
 // Define structure for AI parameters and handlers for cleaner props
 interface AiParams {
@@ -38,6 +42,21 @@ interface Props {
     renderDiff: (original: string, changed: string) => React.ReactNode;
 }
 
+
+function renderBoldMarkdown(text: string) {
+    const parts = text.split(/(\*\*[^*]+\*\*)/g); // split at **bold**
+
+    return parts.map((part, i) => {
+        if (part.startsWith('**') && part.endsWith('**')) {
+            return <strong key={i}>{part.slice(2, -2)}</strong>;
+        }
+        return <span key={i}>{part}</span>;
+    });
+}
+
+
+
+
 const KiTranscriptionDisplay: React.FC<Props> = ({
     originalTranscription,
     kiResponse,
@@ -53,15 +72,16 @@ const KiTranscriptionDisplay: React.FC<Props> = ({
     onDownloadKi,
     renderDiff,
 }) => {
+    const [viewMode, setViewMode] = useState<'diff' | 'full'>('full'); // Default to 'full' is the last entry
     return (
         <div className="w-full md:w-1/2 p-3 border rounded bg-gray-50 overflow-auto flex flex-col">
             {/* Header and Sparkle Button ... */}
-             {/* Header for KI Box */}
-                <div className="flex items-center justify-between mb-2">
-                    <h2 className="font-bold text-md" style={{ color: primaryColor }}>
-                        Verfeinerte Version (KI)
-                    </h2>
-                    <button
+            {/* Header for KI Box */}
+            <div className="flex items-center justify-between mb-2">
+                <h2 className="font-bold text-md" style={{ color: primaryColor }}>
+                    Verfeinerte Version (KI)
+                </h2>
+                <button
                     onClick={onGenerateKi}
                     className="inline-flex items-center px-3 py-1 rounded bg-blue-500 hover:bg-purple-600 hover:animate-pulse text-white text-sm font-medium disabled:opacity-50"
                     disabled={isGenerating || !originalTranscription}
@@ -86,44 +106,44 @@ const KiTranscriptionDisplay: React.FC<Props> = ({
                 currentParams={currentAiParams}
                 onParamChange={onAiParamChange}
                 primaryColor={primaryColor}
-                // Remove spread of old props: {...aiParams}, {...aiParamHandlers}
+            // Remove spread of old props: {...aiParams}, {...aiParamHandlers}
             />
 
-            {/* KI Response Area */}
-            <div className="flex-1">
-                {isLoading && ( // Use general loading state if needed, or rely on isGenerating for sparkle button
-                    <div className="text-sm text-gray-500 text-center p-4">KI-Antwort wird generiert...</div>
-                )}
-                {!isLoading && kiResponse && originalTranscription && (
-                    <div className="text-xs font-light whitespace-pre-wrap flex-1 leading-relaxed">
-                        {renderDiff(originalTranscription, kiResponse)}
-                    </div>
-                )}
-                {!isLoading && !kiResponse && (
-                    <div className="text-sm text-gray-400 text-center p-4 italic">
-                        Klicken Sie auf ✨KI, um basierend auf den obigen Anweisungen eine Version zu generieren. Sie können die Korrektur auch mehrmals mit unterschiedlicher Konfiguration wiederholen.
-                    </div>
-                )}
-            </div>
+
 
             {/* Download KI Version Button */}
-            {!isLoading && kiResponse && (
-                <button
-                    onClick={onDownloadKi}
-                    className="mt-3 inline-flex items-center border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-3 py-1 rounded-md text-xs font-medium transition-colors duration-150 ease-in-out self-start"
-                    title="KI-Version als Word-Datei herunterladen"
-                >
-                    <div className="relative mr-1.5 h-4 w-4">
-                        <Image
-                            src="/images/brands/Microsoft-Word-Icon-PNG.png"
-                            alt="Word Icon"
-                            fill
-                            style={{ objectFit: 'contain' }}
-                        />
+            {/* KI Response Tabs */}
+            {!isLoading && kiResponse && originalTranscription && (
+                <>
+                    <div className="flex space-x-2 mb-2">
+                        <button
+                            onClick={() => setViewMode('diff')}
+                            className={`px-3 py-1 text-xs rounded border ${viewMode === 'diff'
+                                ? 'bg-blue-600 text-white border-blue-600'
+                                : 'bg-white text-blue-600 border-blue-300 hover:bg-blue-50'
+                                }`}
+                        >
+                            Änderungen anzeigen
+                        </button>
+                        <button
+                            onClick={() => setViewMode('full')}
+                            className={`px-3 py-1 text-xs rounded border ${viewMode === 'full'
+                                ? 'bg-blue-600 text-white border-blue-600'
+                                : 'bg-white text-blue-600 border-blue-300 hover:bg-blue-50'
+                                }`}
+                        >
+                            Korrigierte Version
+                        </button>
                     </div>
-                    KI als Word
-                </button>
+
+                    <div className="text-xs font-light whitespace-pre-wrap leading-relaxed">
+                        {viewMode === 'diff'
+                            ? renderDiff(originalTranscription, kiResponse)
+                            : renderBoldMarkdown(kiResponse)}
+                    </div>
+                </>
             )}
+
         </div>
     );
 };

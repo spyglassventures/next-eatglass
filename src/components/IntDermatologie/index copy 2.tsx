@@ -57,7 +57,7 @@ const Dermatologie: React.FC = () => {
         allergienText: '',
         vorerkrankungen: [] as Symptom[],
         vorerkrankungenText: '',
-        weitereSymptome: '' as '' | 'ja' | 'nein',
+        weitereSymptome: 'nein' as 'ja' | 'nein', // Default to 'nein' is good
     });
 
     const [medikamente, setMedikamente] = useState([
@@ -138,13 +138,17 @@ const Dermatologie: React.FC = () => {
         // Frage 6: Weitere Vorerkrankungen
         // formData.weitereSymptome is initialized to 'nein', so !formData.weitereSymptome should not be an issue
         // unless it's somehow cleared, which tabOptions prevents.
-        if (formData.weitereSymptome === 'ja') {
-            const hasBoxes = formData.vorerkrankungen.length > 0;
-            const hasText = formData.vorerkrankungenText.trim().length > 0;
-            if (!hasBoxes && !hasText) {
-                newErrors.vorerkrankungen =
-                    'Bitte mindestens eine Vorerkrankung wählen oder im Textfeld beschreiben.';
-            }
+        if (!formData.weitereSymptome) { // This should ideally not trigger due to default 'nein'
+            newErrors.weitereSymptome = 'Bitte ja oder nein auswählen.';
+        } else if (
+            formData.weitereSymptome === 'ja' &&
+            formData.vorerkrankungen.length === 0 && // Only require vorerkrankungen if 'ja'
+            !formData.vorerkrankungenText.trim() // Also consider if 'andere' needs text. For now, just length.
+            // If 'andere' is selected, vorerkrankungenText might be required.
+            // For this fix, we primarily care about the 'ja'/'nein' logic.
+        ) {
+            newErrors.vorerkrankungen =
+                'Bitte mindestens eine Vorerkrankung wählen oder Details angeben.';
         }
 
 
@@ -283,7 +287,7 @@ const Dermatologie: React.FC = () => {
                                 }
                                 className="mr-2"
                             />
-                            Foto der Versichertenkarte
+                            Foto der Karte
                         </label>
                     </div>
                     {/* No specific error for dataOption in original code, assuming it's not strictly required before other fields */}
@@ -380,13 +384,12 @@ const Dermatologie: React.FC = () => {
 
                 <div>
                     <label className="block font-semibold mb-2">
-                        1. Beschreiben Sie das aktuelle Hautproblem so detailliert wie möglich (max. 1500 Zeichen):
-
+                        1. Beschreiben Sie das aktuelle Hautproblem (max. 1500 Zeichen):
                     </label>
                     <textarea
                         name="hautproblem"
                         maxLength={1500}
-                        placeholder="Krankheitsbeginn, Krankheitsverlauf, Ausdehnung des Hautbefundes, Juckreiz, Brennen, Fieber, ..."
+                        placeholder="Krankheitsbeginn, Verlauf, Juckreiz..."
                         className={`w-full border p-3 rounded ${errors.hautproblem ? 'border-red-500' : 'border-gray-300'
                             }`}
                         rows={4}
@@ -460,7 +463,7 @@ const Dermatologie: React.FC = () => {
                         <>
                             <textarea
                                 name="behandlungText"
-                                placeholder="Welche Behandlung (Cremes, Salben, Tabletten, ...?"
+                                placeholder="Welche Behandlung?"
                                 className={`w-full border p-3 rounded mt-2 ${errors.behandlungText ? 'border-red-500' : 'border-gray-300'
                                     }`}
                                 rows={3}
@@ -504,7 +507,7 @@ const Dermatologie: React.FC = () => {
                 {/* Frage 5 */}
                 <div>
                     <label className="block font-semibold mb-2">
-                        5. Bestanden diese oder andere Hautveränderungen schon mal in der Vergangenheit?
+                        5. Bestehen Hautveränderungen in der Vergangenheit?
                     </label>
                     {tabOptions(['ja', 'nein'] as const, formData.vergangenheit, (v) => {
                         setFormData((p) => ({ ...p, vergangenheit: v, ...(v === 'nein' && { vergangenheitText: '' }) }));
@@ -521,7 +524,7 @@ const Dermatologie: React.FC = () => {
                         <>
                             <textarea
                                 name="vergangenheitText"
-                                placeholder="z. B. Ekzem, damals behandelt mit Salbe, erfolgreich. Beschreiben Sie die Vorgeschichte. Wurde bereits eine Diagnose gestellt? Welche Therapien wurde damals durchgefuehrt? War Therapie erfolgreich? …"
+                                placeholder="z. B. Ekzem, damals behandelt…"
                                 className={`w-full border p-3 rounded mt-2 text-gray-700 placeholder-gray-400 ${errors.vergangenheitText ? 'border-red-500' : 'border-gray-300'
                                     }`}
                                 rows={3}
@@ -540,7 +543,7 @@ const Dermatologie: React.FC = () => {
                 {/* Frage 6 */}
                 <div>
                     <label className="block font-semibold mb-2">
-                        6. Bestehen weitere Krankheitssymptome oder Vorerkrankungen?
+                        6. Weitere Vorerkrankungen?
                     </label>
                     {tabOptions(['ja', 'nein'] as const, formData.weitereSymptome, (v) => {
                         setFormData((p) => ({
@@ -641,30 +644,18 @@ const Dermatologie: React.FC = () => {
 
                 <div className="bg-yellow-50 border border-yellow-200 p-4 rounded text-sm text-yellow-900">
                     <p>
-                        <strong>Hinweis:</strong> Wird die Überweisung in Ihrer Abwesenheit erstellt (z. B. wenn Sie nicht persönlich anwesend sind),
-                        kann gemäss <a
-                            href="https://www.tarmed-browser.ch/de/leistungen/00.0145-uberweisungen-an-konsiliararzte-in-abwesenheit-des-patienten-bei-personen-uber-6-jahren-und-unter-75-jahren-pro-1-min"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="underline"
-                        >
-                            TARMED-Ziffer 00.0145
-                        </a>
-                        pro zusätzlicher Minute verrechnet werden.
-                    </p>
-                    <p>
-                        Oben rechts läuft ein Timer, der Ihnen in Echtzeit anzeigt, wie lange Sie bereits
-                        zum Ausfüllen dieses Formulars benötigt haben.
+                        <strong>Hinweis:</strong> Falls in Abwesenheit, kann TARMED-Ziff. 00.0145
+                        verrechnet werden.
                     </p>
                 </div>
-
                 <div className="bg-gray-100 border border-gray-200 p-4 rounded text-sm space-y-2">
                     <p>
-                        Mir ist bekannt, dass es sich bei der hier angebotenen Leistung und allfälligen Folgeleistungen über diese Plattform um eine Selbstzahlerleistung handeln kann, welche i.d.R. nicht von der gesetzlichen Krankenversicherung erstattet wird. Mit dem Abschliessen der Anfrage bestätigen Sie, dass der Patient in der Schweiz obligatorisch krankenversichert ist.
+                        Mir ist bekannt, dass es sich um eine Selbstzahlerleistung handeln
+                        kann und die Kosten gemäss TARMED-Ansatz (digitale Konsultation) CHF 60 betragen.
                     </p>
-                    <p>Ich akzeptiere die allgemeinen Nutzungsbedingungen von Derma2go AG. Die Datenschutzerklärung von Derma2go AG finden Sie hier.</p>
+                    <p>Ich akzeptiere die Nutzungsbedingungen der Derma2go AG.</p>
                     <p>
-                        Sie, bzw. der Patient verzichtet auf eine vorherige Aufklärung zu Art, Umfang, Durchführung, zu erwartenden Folgen und Risiken der Behandlung sowie ihrer Notwendigkeit, Dringlichkeit, Eignung und Erfolgsaussichten im Hinblick auf die Diagnose oder die Therapie. Sie verzichten weiter auf eine Information zu Alternativen zur Massnahme, insbesondere die Alternativen zu einer Fernbehandlung.
+                        Ich verzichte auf vorherige Aufklärung über Risiken und Alternativen.
                     </p>
                 </div>
 

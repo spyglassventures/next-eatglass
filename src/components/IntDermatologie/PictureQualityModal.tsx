@@ -1,23 +1,49 @@
 import React from 'react';
 
-const PictureQualityModal = ({ isOpen, onClose }) => {
+interface PictureQualityModalProps {
+    isOpen: boolean;
+    onClose: () => void;
+}
+
+const PictureQualityModal: React.FC<PictureQualityModalProps> = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
+
+    const goodExamples = [
+        {
+            src: '/images/dermatologie/DermaGood1.jpg',
+            label: 'Übersichtsaufnahme (~30 cm)',
+        },
+        {
+            src: '/images/dermatologie/DermaGood2.jpg',
+            label: 'Nahaufnahme (~10 cm), Hautveränderung klar und detailliert',
+        },
+        {
+            src: '/images/dermatologie/DermaGood3.jpg',
+            label: 'Nahaufnahme aus anderem Winkel (~10 cm), Struktur sichtbar',
+        },
+    ] as const;
+
+    const badExamples = [
+        { src: '/images/dermatologie/DermaBad1.jpg', label: 'Unscharf / Verwackelt' },
+        { src: '/images/dermatologie/DermaBad2.jpg', label: 'Zu dunkel' },
+        { src: '/images/dermatologie/DermaBad3.jpg', label: 'Blitzlicht' },
+        { src: '/images/dermatologie/DermaBad4.jpg', label: 'Zu grosser Abstand' },
+        { src: '/images/dermatologie/DermaBad5.jpg', label: 'Zu nah, unscharf' },
+    ] as const;
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-start justify-center z-[120] p-4 pt-24">
-
             <div className="bg-white rounded-lg max-w-5xl w-full relative flex flex-col max-h-[90vh]">
                 {/* Close Button */}
                 <div className="sticky top-0 z-10 flex justify-end bg-white pt-2 pr-2">
                     <button
                         onClick={onClose}
                         className="text-gray-600 hover:text-black text-2xl"
-                        aria-label="Schliessen"
+                        aria-label="Schließen"
                     >
                         ×
                     </button>
                 </div>
-
 
                 {/* Scrollable Content */}
                 <div className="overflow-y-auto p-6">
@@ -33,24 +59,11 @@ const PictureQualityModal = ({ isOpen, onClose }) => {
                     <div className="mb-8">
                         <h3 className="text-xl font-semibold mb-2">Gute Beispiele:</h3>
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-                            {[
-                                {
-                                    src: '/images/dermatologie/DermaGood1.jpg',
-                                    label: 'Übersichtsaufnahme (~30 cm)',
-                                },
-                                {
-                                    src: '/images/dermatologie/DermaGood2.jpg',
-                                    label: 'Nahaufnahme (~10 cm), Hautveränderung klar und detailliert',
-                                },
-                                {
-                                    src: '/images/dermatologie/DermaGood3.jpg',
-                                    label: 'Nahaufnahme aus anderem Winkel (~10 cm), Struktur sichtbar',
-                                },
-                            ].map((img, index) => (
-                                <div key={index}>
+                            {goodExamples.map((img, idx) => (
+                                <div key={idx}>
                                     <img
                                         src={img.src}
-                                        alt={`Gutes Beispiel ${index + 1}`}
+                                        alt={img.label}
                                         className="rounded shadow w-full h-36 object-cover"
                                     />
                                     <p className="text-sm mt-2">{img.label}</p>
@@ -63,17 +76,11 @@ const PictureQualityModal = ({ isOpen, onClose }) => {
                     <div className="mb-8">
                         <h3 className="text-xl font-semibold mb-2">Schlechte Beispiele:</h3>
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-                            {[
-                                { src: '/images/dermatologie/DermaBad1.jpg', label: 'Unscharf / Verwackelt' },
-                                { src: '/images/dermatologie/DermaBad2.jpg', label: 'Zu dunkel' },
-                                { src: '/images/dermatologie/DermaBad3.jpg', label: 'Blitzlicht' },
-                                { src: '/images/dermatologie/DermaBad4.jpg', label: 'Zu grosser Abstand' },
-                                { src: '/images/dermatologie/DermaBad5.jpg', label: 'Zu nah, unscharf' },
-                            ].map((img, index) => (
-                                <div key={index}>
+                            {badExamples.map((img, idx) => (
+                                <div key={idx}>
                                     <img
                                         src={img.src}
-                                        alt={`Schlechtes Beispiel ${index + 1}`}
+                                        alt={img.label}
                                         className="rounded shadow w-full h-36 object-cover"
                                     />
                                     <p className="text-sm mt-2">{img.label}</p>
