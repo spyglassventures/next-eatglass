@@ -9,7 +9,7 @@ const CirsInstructions = () => {
             <h3 className="text-xl font-semibold mt-6 mb-2">So funktioniert die Erfassung:</h3>
             <ul className="list-disc list-inside space-y-2">
                 <li>
-                    Wählen Sie den Tab <strong>"Erfassen"</strong>, um ein neues Ereignis zu dokumentieren.
+                    Wählen Sie den Tab <strong>Erfassen</strong>, um ein neues Ereignis zu dokumentieren.
                 </li>
                 <li>
                     Füllen Sie die Felder möglichst vollständig aus. Relevante Felder sind mit Zusatzinformationen versehen.
@@ -21,7 +21,7 @@ const CirsInstructions = () => {
                     Die <strong>Take-home-Message</strong> hilft anderen Mitarbeitenden, aus dem Fall zu lernen.
                 </li>
                 <li>
-                    Nach dem Absenden wird der Fall gespeichert und unter dem Tab <strong>"Historie"</strong> sichtbar.
+                    Nach dem Absenden wird der Fall gespeichert und unter dem Tab <strong>Historie</strong> sichtbar.
                 </li>
             </ul>
 
