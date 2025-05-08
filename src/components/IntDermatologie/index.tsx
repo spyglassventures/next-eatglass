@@ -648,7 +648,7 @@ const Dermatologie: React.FC = () => {
                             rel="noopener noreferrer"
                             className="underline"
                         >
-                            TARMED-Ziffer 00.0145
+                            TARMED-Ziffer 00.0145 -
                         </a>
                         pro zusätzlicher Minute verrechnet werden.
                     </p>
@@ -679,10 +679,11 @@ const Dermatologie: React.FC = () => {
                     <button
                         type="button"
                         onClick={downloadJSON}
-                        className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition"
+                        className="text-sm text-gray-500 focus:outline-none"
                     >
-                        Als JSON speichern
+                        Als JSON speichern (optional)
                     </button>
+
                 </div>
 
                 {feedback && (
