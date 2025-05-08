@@ -46,7 +46,7 @@ const fieldMetadata: Record<string, { label: string; description?: string }> = {
 };
 
 
-const CirsNew = () => {
+const CirsCreate = () => {
     const [entry, setEntry] = useState(initialCIRSEntry);
     const [feedback, setFeedback] = useState('');
 
@@ -155,4 +155,4 @@ const CirsNew = () => {
     );
 };
 
-export default CirsNew;
+export default CirsCreate;

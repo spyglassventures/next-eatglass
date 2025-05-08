@@ -1,7 +1,7 @@
 // pages/brett.tsx   aka CIRS
 import React, { useState } from "react";
 import CirsHistory from "@/components/IntBrett/CirsHistory";
-import CirsNew from "@/components/IntBrett/CirsNew";
+import CirsCreate from "@/components/IntBrett/CirsCreate";
 import CirsInstructions from "@/components/IntBrett/CirsInstructions";
 
 
@@ -62,7 +62,7 @@ const Brett = () => {
         <CirsHistory />
       )}
       {activeTab === "erstellen" && (
-        <CirsNew />
+        <CirsCreate />
       )}
     </div>
   );
