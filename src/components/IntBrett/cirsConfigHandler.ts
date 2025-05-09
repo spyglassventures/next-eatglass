@@ -5,12 +5,13 @@ export interface CIRSField {
   alias: string;
   label?: string;
   description?: string;
-  values?: {string: string};
-  valueLabels?: string[];
+  values?: string[];
+  valueLabels?: {string: string};
   default?: string | number;
   topNButtons?: number;
   freetextLength?: number;
   hidden: false;
+  immutable: false;
 }
 
 const cirsFieldFromConfig = (config: any) => {

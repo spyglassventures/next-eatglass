@@ -198,8 +198,15 @@
             ]
         },
         {
-            "name": "bemerkungen",
-            "label": "Bemerkungen zum Berichtssystem"
+            "name": "fallnummer",
+            "label": "Fallnummer",
+            "immutable": true
+        },
+        {
+            "name": "createdAt",
+            "alias": "created_at",
+            "label": "Creation Timestamp",
+            "immutable": true
         }
     ]
 }
