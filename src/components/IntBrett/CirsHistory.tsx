@@ -1,41 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import cirsConfig from "../../config/cirsConfig.json";
-
-export interface CIRSEntry {
-  id: number;
-  fallnummer: string;
-  praxis_id: number;
-  fachgebiet: string;
-  ereignis_ort: string;
-  ereignis_tag: string;
-  versorgungsart: string;
-  asa_klassifizierung: string;
-  patientenzustand: string;
-  begleitumstaende: string;
-  medizinprodukt_beteiligt: string;
-  fallbeschreibung: string;
-  positiv: string;
-  negativ: string;
-  take_home_message: string;
-  haeufigkeit: string;
-  berichtet_von: string;
-  berufserfahrung: string;
-  bemerkungen: string;
-  created_at: Date;
-  // ToDo: this could be used in api/pg_getCirs.ts
-}
+import React, { useEffect, useState } from "react";
+import cirsConfig from "@/components/IntBrett/cirsConfigHandler";
+import RenderedCirsEntry from "@/components/IntBrett/renderedCirsEntry";
+import { CIRSEntry } from "@/components/IntBrett/dtypes";
 
 interface CirsTableProps {
   cirsHistory: CIRSEntry[];
+  setCirsHistory: (history: CIRSEntry[]) => void;
   loadMore: () => void;
-  refreshHistory: () => void;
-  loading: boolean;
-  error: string;
 }
-
-/**
- * ExpandableJsonCell and ExpandableCell components remain unchanged.
- */
 
 const ExpandableJsonCell: React.FC<{
   jsonText: string;
@@ -150,17 +122,117 @@ const ExpandableCell: React.FC<{
 
 const CirsTable: React.FC<CirsTableProps> = ({
   cirsHistory,
+  setCirsHistory,
   loadMore,
-  refreshHistory,
-  loading,
-  error,
 }) => {
-  // Always call hooks unconditionally.
+
+  // UPDATE hook
+  const [updateSelected, setUpdateState] = useState<boolean>(false);
   const [selectedEntry, setSelectedEntry] = useState<CIRSEntry | null>(null);
+  const [feedback, setFeedback] = useState('');
+
+  const handleSubmit = async () => {
+    setFeedback('⏳ Speichern...');
+    if (!selectedEntry) {
+      setFeedback('❌ Fehler: Kein Eintrag ausgewählt.');
+      return;
+    }
+    try {
+      console.log(selectedEntry);
+      const originalEntry = cirsHistory.find(entry => entry.id === selectedEntry.id);
+      if (!originalEntry) {
+        setFeedback('❌ Fehler: Originaleintrag nicht gefunden. Kann Änderungen nicht vergleichen.');
+        return;
+      }
+
+      const differences: Partial<Record<keyof CIRSEntry, string | number | Date>> = {};
+
+      let hasChanges = false;
+      // Compare selectedEntry with originalEntry and find differences
+      for (const key in selectedEntry) {
+        if (Object.prototype.hasOwnProperty.call(selectedEntry, key)) {
+          const typedKey = key as keyof CIRSEntry;
+          if (selectedEntry[typedKey] !== originalEntry[typedKey]) {
+            differences[typedKey] = selectedEntry[typedKey];
+            hasChanges = true;
+          }
+        }
+      }
+      if (!hasChanges) {
+        setFeedback('ℹ️ Keine Änderungen zu Speichern festgestellt.');
+        return;
+      }
+      const payload = {
+        id: selectedEntry.id,
+        praxisId: cirsConfig.getField("praxisId").default,
+        updates: differences,
+      };
+      const res = await fetch('/api/cirs/v1/pg_updateCirs', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const responseData = await res.json();
+      if (!res.ok) {
+        throw new Error(responseData.error || 'Fehler beim Speichern der Änderungen');
+      }
+      setFeedback('✅ Änderungen erfolgreich gespeichert!');
+      // replace entry in global list
+      setCirsHistory(
+        cirsHistory.map(entry =>
+          entry.id === selectedEntry.id ? selectedEntry : entry
+        )
+      );
+    } catch (err: any) {
+      setFeedback(`❌ Fehler: ${err.message}`);
+    }
+  };
+
+  const handleDelete = async () => {
+    setFeedback('⏳ Löschen...');
+    if (!selectedEntry) {
+      setFeedback('❌ Fehler: Kein Eintrag ausgewählt.');
+      return;
+    }
+    try {
+      const payload = {
+        id: selectedEntry.id,
+        praxisId: cirsConfig.getField("praxisId").default,
+      };
+
+      const res = await fetch('/api/cirs/v1/pg_deleteCirs', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      const responseData = await res.json();
+      if (!res.ok) {
+        throw new Error(responseData.error || 'Fehler beim Löschen des Eintrags');
+      }
+
+      setFeedback('✅ Eintrag erfolgreich gelöscht!');
+
+      // Remove entry from global list
+      setCirsHistory(
+        cirsHistory.filter(entry =>
+          entry.id !== selectedEntry.id
+        )
+      );
+
+      closeModal(); // Close modal after deletion
+
+    } catch (err: any) {
+      setFeedback(`❌ Fehler: ${err.message}`);
+    }
+  };
+
 
   const closeModal = () => {
     setSelectedEntry(null);
+    setUpdateState(false);
   };
+
 
   return (
     <>
@@ -202,6 +274,29 @@ const CirsTable: React.FC<CirsTableProps> = ({
                           strokeLinejoin="round"
                           strokeWidth={2}
                           d="M21 21l-4.35-4.35m1.35-5.65a7 7 0 11-14 0 7 7 0 0114 0z"
+                        />
+                      </svg>
+                    </button>
+                    <button
+                      onClick={() => {
+                        setSelectedEntry(entry);
+                        setUpdateState(true);
+                      }}
+                      title="Edit Details"
+                      className="focus:outline-none"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4 text-green-500"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
                         />
                       </svg>
                     </button>
@@ -255,41 +350,40 @@ const CirsTable: React.FC<CirsTableProps> = ({
                 &times;
               </button>
             </div>
-            <div className="flex-1 overflow-auto p-4">
-              <div className="mb-4">
-                <strong>Fallnummer:</strong> {selectedEntry.fallnummer}
+            {!updateSelected && (
+              <div className="flex-1 overflow-auto p-4">
+                <RenderedCirsEntry
+                  entry={selectedEntry}
+                  rawView={true}
+                />
               </div>
-              {/*<div className="mb-4">*/}
-              {/*  <strong>Timestamp:</strong>{" "}*/}
-              {/*  {selectedEntry.timestamp*/}
-              {/*    ? new Date(selectedEntry.timestamp).toLocaleString()*/}
-              {/*    : "N/A"}*/}
-              {/*</div>*/}
-              {/*<div className="mb-4">*/}
-              {/*  <strong>Request:</strong>*/}
-              {/*  <div*/}
-              {/*    className="mt-1 overflow-auto bg-gray-100 p-2"*/}
-              {/*    style={{ maxHeight: "40vh" }}*/}
-              {/*  >*/}
-              {/*    <ExpandableCell*/}
-              {/*      text={selectedEntry.request}*/}
-              {/*      alwaysExpanded={true}*/}
-              {/*    />*/}
-              {/*  </div>*/}
-              {/*</div>*/}
-              {/*<div>*/}
-              {/*  <strong>Response:</strong>*/}
-              {/*  <div*/}
-              {/*    className="mt-1 overflow-auto bg-gray-100 p-2"*/}
-              {/*    style={{ maxHeight: "40vh" }}*/}
-              {/*  >*/}
-              {/*    <ExpandableCell*/}
-              {/*      text={selectedEntry.response}*/}
-              {/*      alwaysExpanded={true}*/}
-              {/*    />*/}
-              {/*  </div>*/}
-              {/*</div>*/}
-            </div>
+            )}
+            {updateSelected && (
+              <div className="flex justify-between items-center w-full p-4">
+                <button
+                  onClick={handleSubmit}
+                  className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  Update senden
+                </button>
+                <button
+                  onClick={handleDelete}
+                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  Eintrag löschen!
+                </button>
+              </div>
+            )}
+            {updateSelected && feedback && <p className="text-sm mt-2 text-center">{feedback}</p>}
+            {updateSelected && (
+              <div className="flex-1 overflow-auto p-4">
+                <RenderedCirsEntry
+                  entry={selectedEntry}
+                  setEntry={setSelectedEntry}
+                  editView={true}
+                />
+              </div>
+            )}
           </div>
         </div>
       )}
@@ -297,82 +391,84 @@ const CirsTable: React.FC<CirsTableProps> = ({
   );
 };
 
-
 const CirsHistory: React.FC = () => {
-    const [cirsHistory, setCirsHistory] = useState<CIRSEntry[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string>('');
-    const [offset, setOffset] = useState(0);
-    const limit = 20; // Load 20 rows at a time
+  const [cirsHistory, setCirsHistory] = useState<CIRSEntry[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string>("");
+  const [offset, setOffset] = useState(0);
+  const limit = 20; // Load 20 rows at a time
 
-    // Initial load on component mount.
-    useEffect(() => {
-        const initialFetch = async () => {
-            const CirsHistory = await fetchCirsHistory(0);
-            setCirsHistory(CirsHistory);
-            setLoading(false);
-        };
-        initialFetch();
-    }, []);
-
-    const fetchCirsHistory = async (offsetParam = 0): Promise<CIRSEntry[]> => {
-        try {
-            // Build the URL with query parameters based on the filter state.
-            let url = `/api/cirs/v1/pg_getCirs?limit=${limit}&offset=${offsetParam}&praxisId=${cirsConfig.praxisId}`;
-            const res = await fetch(url);
-            if (!res.ok) {
-                throw new Error('Error fetching logs');
-            }
-            const data = await res.json();
-            return data.cirsEntries as CIRSEntry[];
-        } catch (err: any) {
-            setError(err.message);
-            return [];
-        }
+  // Initial load on component mount.
+  useEffect(() => {
+    const initialFetch = async () => {
+      const CirsHistory = await fetchCirsHistory(0);
+      setCirsHistory(CirsHistory);
+      setLoading(false);
     };
+    initialFetch();
+  }, []);
 
-    const loadMore = async () => {
-        const newOffset = offset + limit;
-        const moreCirsHistory = await fetchCirsHistory(newOffset);
-        setCirsHistory((prev) => [...prev, ...moreCirsHistory]);
-        setOffset(newOffset);
-    };
+  const fetchCirsHistory = async (offsetParam = 0): Promise<CIRSEntry[]> => {
+    try {
+      // Build the URL with query parameters based on the filter state.
+      let url = `/api/cirs/v1/pg_getCirs?limit=${limit}&offset=${offsetParam}&praxisId=${cirsConfig.getField("praxisId").default}`;
+      const res = await fetch(url);
+      if (!res.ok) {
+        throw new Error("Error fetching logs");
+      }
+      const data = await res.json();
+      return data.cirsEntries.map((entry: any) => ({
+        ...entry,
+        created_at: new Date(entry.created_at),
+      })) as CIRSEntry[];
+    } catch (err: any) {
+      setError(err.message);
+      return [];
+    }
+  };
 
-    const refreshHistory = async () => {
-        setLoading(true);
-        setOffset(0);
-        const refreshedHistory = await fetchCirsHistory(0);
-        setCirsHistory(refreshedHistory);
-        setLoading(false);
-    };
+  const loadMore = async () => {
+    const newOffset = offset + limit;
+    const moreCirsHistory = await fetchCirsHistory(newOffset);
+    setCirsHistory((prev) => [...prev, ...moreCirsHistory]);
+    setOffset(newOffset);
+  };
 
-    return (
-        // Full-width container with no horizontal padding or max-width restrictions.
-        <div className="w-full" style={{ margin: 0, padding: 0 }}>
-            <div className="flex items-center justify-between mb-4 px-4">
-                <h1 className="text-2xl font-bold">CIRS Historie</h1>
-                <button
-                    onClick={refreshHistory}
-                    className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded text-xs"
-                >
-                    Aktualisieren
-                </button>
-            </div>
+  const refreshHistory = async () => {
+    setLoading(true);
+    setOffset(0);
+    const refreshedHistory = await fetchCirsHistory(0);
+    setCirsHistory(refreshedHistory);
+    setLoading(false);
+  };
 
-            {loading && <p className="text-xs px-4">Loading history...</p>}
-            {error && <p className="text-red-500 text-xs px-4">Error: {error}</p>}
-            {!loading && cirsHistory.length === 0 && <p className="px-4 text-xs">No history found.</p>}
-            {!loading && cirsHistory.length > 0 && (
-                <CirsTable
-                    cirsHistory={cirsHistory}
-                    loadMore={() => loadMore()}
-                    refreshHistory={refreshHistory}
-                    loading={loading}
-                    error={error}
-                />
-            )}
-        </div>
-    );
-}
+  return (
+    // Full-width container with no horizontal padding or max-width restrictions.
+    <div className="w-full" style={{ margin: 0, padding: 0 }}>
+      <div className="mb-4 flex items-center justify-between px-4">
+        <h1 className="text-2xl font-bold">CIRS Historie</h1>
+        <button
+          onClick={refreshHistory}
+          className="rounded bg-green-500 px-4 py-2 text-xs text-white hover:bg-green-600"
+        >
+          Aktualisieren
+        </button>
+      </div>
+
+      {loading && <p className="px-4 text-xs">Loading history...</p>}
+      {error && <p className="px-4 text-xs text-red-500">Error: {error}</p>}
+      {!loading && cirsHistory.length === 0 && (
+        <p className="px-4 text-xs">No history found.</p>
+      )}
+      {!loading && cirsHistory.length > 0 && (
+        <CirsTable
+          cirsHistory={cirsHistory}
+          setCirsHistory={setCirsHistory}
+          loadMore={() => loadMore()}
+        />
+      )}
+    </div>
+  );
+};
 
 export default CirsHistory;

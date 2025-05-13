@@ -1,99 +1,212 @@
 {
-    "praxisName": "Praxis Doc Dialog",
-    "praxisId": 100,
-    "dropdownOptions": {
-        "praxisname": [
-            "Praxis Doc Dialog"
-        ],
-        "fachgebiet": [
-            "Allgemeinmedizin",
-            "Innere Medizin",
-            "Praktische Medizin",
-            "Gynäkologie",
-            "Pädiatrie",
-            "Kardiologie",
-            "Neurologie",
-            "Chirurgie",
-            "Orthopädie",
-            "Urologie",
-            "HNO",
-            "Dermatologie",
-            "Anästhesie",
-            "Intensivmedizin",
-            "Notfallmedizin",
-            "Radiologie",
-            "Psychiatrie",
-            "Zahnmedizin",
-            "Augenheilkunde",
-            "Kieferchirurgie",
-            "Mund-Kiefer-Gesichtschirurgie",
-            "Nephrologie",
-            "Endokrinologie"
-        ],
-        "ereignisOrt": [
-            "Sprechzimmer",
-            "Labor",
-            "Röntgen",
-            "Anmeldung",
-            "Infusionszimmer",
-            "Wartezimmer",
-            "Sonstige Räume",
-            "Hausbesuch",
-            "Ambulanz",
-            "----------",
-            "Krankenhaus",
-            "Rettungsdienst",
-            "Praxis",
-            "Einleitung",
-            "OP",
-            "Ausleitung",
-            "AWR",
-            "Transport",
-            "Funktions-/Diagnostikraum",
-            "ITS / IMC",
-            "Normalstation",
-            "Schmerzambulanz",
-            "PM-Ambulanz",
-            "Akutschmerzdienst",
-            "Notfallaufnahme",
-            "Notfall-Team-Einsatz",
-            "anderer Ort"
-        ],
-        "ereignisTag": [
-            "Wochentag",
-            "Wochenende / Feiertag"
-        ],
-        "versorgungsart": [
-            "Routinebetrieb",
-            "Notfall"
-        ],
-        "asaKlassifizierung": [
-            "ASA I",
-            "ASA II",
-            "ASA III",
-            "ASA IV",
-            "ASA V"
-        ],
-        "medizinproduktBeteiligt": [
-            "Ja",
-            "Nein"
-        ],
-        "haeufigkeit": [
-            "fast täglich",
-            "jede Woche",
-            "jeden Monat",
-            "mehrmals pro Jahr",
-            "selten",
-            "nur dieses mal"
-        ],
-        "berichtetVon": [
-            "Ärztin / Arzt",
-            "Pflegekraft",
-            "andere"
-        ],
-        "berufserfahrung": [
-            "bis 5 Jahre",
-            "über 5 Jahre"
-        ]
-    }
+    "fields": [
+        {
+            "name": "praxisName",
+            "alias": "praxis_name",
+            "values": [
+                "Praxis Doc Dialog"
+            ],
+            "default": "Praxis Doc Dialog"
+        },
+        {
+            "name": "praxisId",
+            "alias": "paxis_id",
+            "default": 100,
+            "hidden": true
+        },
+        {
+            "name": "fachgebiet",
+            "label": "Zuständiges Fachgebiet",
+            "values": [
+                "Allgemeinmedizin",
+                "Innere Medizin",
+                "Praktische Medizin",
+                "Gynäkologie",
+                "Pädiatrie",
+                "Kardiologie",
+                "Neurologie",
+                "Chirurgie",
+                "Orthopädie",
+                "Urologie",
+                "HNO",
+                "Dermatologie",
+                "Anästhesie",
+                "Intensivmedizin",
+                "Notfallmedizin",
+                "Radiologie",
+                "Psychiatrie",
+                "Zahnmedizin",
+                "Augenheilkunde",
+                "Kieferchirurgie",
+                "Mund-Kiefer-Gesichtschirurgie",
+                "Nephrologie",
+                "Endokrinologie"
+            ],
+            "default": "Allgemeinmedizin",
+            "topNButtons": 3
+        },
+        {
+            "name": "ereignisOrt",
+            "alias": "ereignis_ort",
+            "label": "Ort des Ereignisses",
+            "values": [
+                "Sprechzimmer",
+                "Labor",
+                "Röntgen",
+                "Anmeldung",
+                "Infusionszimmer",
+                "Wartezimmer",
+                "Sonstige Räume",
+                "Hausbesuch",
+                "Ambulanz",
+                "----------",
+                "Krankenhaus",
+                "Rettungsdienst",
+                "Praxis",
+                "Einleitung",
+                "OP",
+                "Ausleitung",
+                "AWR",
+                "Transport",
+                "Funktions-/Diagnostikraum",
+                "ITS / IMC",
+                "Normalstation",
+                "Schmerzambulanz",
+                "PM-Ambulanz",
+                "Akutschmerzdienst",
+                "Notfallaufnahme",
+                "Notfall-Team-Einsatz",
+                "anderer Ort"
+            ]
+        },
+        {
+            "name": "ereignisTag",
+            "alias": "ereignis_tag",
+            "label": "Tag des Ereignisses",
+            "values": [
+                "Wochentag",
+                "Wochenende / Feiertag"
+            ]
+        },
+        {
+            "name": "versorgungsart",
+            "label": "Versorgungsart",
+            "values": [
+                "Routinebetrieb",
+                "Notfall"
+            ]
+        },
+        {
+            "name": "asaKlassifizierung",
+            "alias": "asa_klassifizierung",
+            "label": "ASA-Klassifizierung",
+            "description": "Vor dem Ereignis gemäss Anästhesie-Risikoklassifikation",
+            "values": [
+                "ASA I",
+                "ASA II",
+                "ASA III",
+                "ASA IV",
+                "ASA V",
+                "ASA VI"
+            ],
+            "valueLabels": {
+                "ASA I": "Gesunder <a href=\"https://flexikon.doccheck.com/de/Patient\">Patient - nicht weiter definiert</a>",
+                "ASA II": "Patient mit geringfügiger Erkrankung ohne Einschränkungen",
+                "ASA III": "Patient mit Erkrankung mit deutlicher Beeinträchtigung",
+                "ASA IV": "Patient mit lebensbedrohlicher Erkrankung",
+                "ASA V": "<a href=\"https://flexikon.doccheck.com/de/Moribund\">Moribunder</a> Patient, der ohne Operation wahrscheinlich nicht überleben wird",
+                "ASA VI": "gestorbener Patient mit festgestelltem Hirntod, <a href=\"https://flexikon.doccheck.com/de/Organspende\">Organspender</a>"
+            },
+            "topNButtons": 99
+        },
+        {
+            "name": "patientenzustand",
+            "label": "Patientenzustand",
+            "description": "Nur wenn relevant oder besonders"
+        },
+        {
+            "name": "begleitumstaende",
+            "label": "Wichtige Begleitumstände"
+        },
+        {
+            "name": "medizinproduktBeteiligt",
+            "alias": "medizinprodukt_beteiligt",
+            "label": "War ein Medizinprodukt beteiligt?",
+            "values": [
+                "Ja",
+                "Nein"
+            ]
+        },
+        {
+            "name": "fallbeschreibung",
+            "label": "Fallbeschreibung",
+            "description": "Was, warum, Verlauf, Maßnahmen etc."
+        },
+        {
+            "name": "positiv",
+            "label": "Was war besonders gut?"
+        },
+        {
+            "name": "negativ",
+            "label": "Was war besonders ungünstig?"
+        },
+        {
+            "name": "takeHomeMessage",
+            "alias": "take_home_message",
+            "label": "Take-home-Message",
+            "description": "Was kann man daraus lernen?"
+        },
+        {
+            "name": "haeufigkeit",
+            "alias": "haeufigkeit",
+            "label": "Häufigkeit solcher Ereignisse",
+            "values": [
+                "fast täglich",
+                "jede Woche",
+                "jeden Monat",
+                "mehrmals pro Jahr",
+                "selten",
+                "nur dieses mal"
+            ]
+        },
+        {
+            "name": "berichtetVon",
+            "alias": "berichtet_von",
+            "label": "Wer berichtet?",
+            "values": [
+                "Ärztin / Arzt",
+                "MPA"
+            ],
+            "freetextLength": 100
+        },
+        {
+            "name": "berufserfahrung",
+            "alias": "berufserfahrung",
+            "label": "Berufserfahrung",
+            "values": [
+                "bis 5 Jahre",
+                "über 5 Jahre"
+            ]
+        },
+        {
+            "name": "publicOption",
+            "alias": "public_option",
+            "label": "Wird dieser Report extern verfügbar?",
+            "values": [
+                "öffentlich",
+                "nur intern"
+            ]
+        },
+        {
+            "name": "fallnummer",
+            "label": "Fallnummer",
+            "immutable": true
+        },
+        {
+            "name": "createdAt",
+            "alias": "created_at",
+            "label": "Creation Timestamp",
+            "immutable": true
+        }
+    ]
 }

@@ -216,7 +216,7 @@ import {
 // NAME in Header Page, just below the menu
 export const COMPONENTS = {
     diagnose: {                         // key from NAV_ITEMS
-        name: 'Differentialdiagnosen', // Name in Header Page, below grey navigation, free form
+        name: 'Differentialdiagnosen', // Name in Header Page, below grey navigation, free form // also for strg K search
         component: 'Chat_diagnose',
         buttonText: 'Diagnose'
     },
@@ -397,7 +397,7 @@ export const COMPONENTS = {
     },
 
     Brett: {
-        name: 'Brett',
+        name: 'CIRS',
         component: 'Brett',
         buttonText: 'Brett'
     },
