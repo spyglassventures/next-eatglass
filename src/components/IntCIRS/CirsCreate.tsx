@@ -1,8 +1,8 @@
 // pages/brett.tsx
 import React, { useState } from "react";
-import cirsConfig from "@/components/IntBrett/cirsConfigHandler";
-import RenderedCirsEntry from "@/components/IntBrett/renderedCirsEntry";
-import { CIRSEntry } from "@/components/IntBrett/dtypes";
+import cirsConfig from "@/components/IntCIRS/cirsConfigHandler";
+import RenderedCirsEntry from "@/components/IntCIRS/renderedCirsEntry";
+import { CIRSEntry } from "@/components/IntCIRS/dtypes";
 
 const initialCIRSEntry: Omit<CIRSEntry, "id" | "fallnummer" | "created_at"> = {
     praxis_id: cirsConfig.getField("praxisId").default as number,
@@ -48,7 +48,7 @@ const CirsCreate = () => {
 
     return (
         <div className="p-6 max-w-7xl mx-auto">
-            <h1 className="text-3xl font-bold mb-8">CIRS-Fall erfassen</h1>
+            <h1 className="text-3xl font-bold mb-8">CIRS erfassen</h1>
             <div className="bg-white p-6 shadow rounded space-y-4">
                 <RenderedCirsEntry entry={entry} setEntry={setEntry} />
                 <div className="flex justify-end">

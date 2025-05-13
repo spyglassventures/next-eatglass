@@ -1,0 +1,129 @@
+{
+    "fields": [
+        {
+            "name": "praxisName",
+            "alias": "praxis_name",
+            "label": "Praxis Name",
+            "default": "Praxis Doc Dialog"
+        },
+        {
+            "name": "praxisId",
+            "alias": "praxis_id",
+            "hidden": true,
+            "default": 100
+        },
+        {
+            "name": "patientenname",
+            "alias": "patientenname",
+            "label": "Patientenname",
+            "description": "Name des Patienten",
+            "default": ""
+        },
+        {
+            "name": "geburtsdatum",
+            "alias": "geburtsdatum",
+            "label": "Geburtsdatum",
+            "description": "Geburtsdatum des Patienten (YYYY-MM-DD)",
+            "default": ""
+        },
+        {
+            "name": "kontaktart",
+            "alias": "kontaktart",
+            "label": "Kontaktart",
+            "values": [
+                "Telefon",
+                "E-Mail",
+                "Brief",
+                "SMS"
+            ],
+            "default": "Telefon",
+            "topNButtons": 4
+        },
+        {
+            "name": "kontaktinfo",
+            "alias": "kontaktinfo",
+            "label": "Kontaktinfo",
+            "description": "Telefonnummer oder E-Mail-Adresse",
+            "default": ""
+        },
+        {
+            "name": "erinnerungsanlass",
+            "alias": "erinnerungsanlass",
+            "label": "Erinnerungsanlass",
+            "values": [
+                "Diabetes Jahreskontrolle",
+                "KHK Kontrolluntersuchung",
+                "COPD Check",
+                "Jahreskontrolle",
+                "Sonstige"
+            ],
+            "default": "Jahreskontrolle",
+            "topNButtons": 3
+        },
+        {
+            "name": "recallsystem",
+            "alias": "recallsystem",
+            "label": "Recallsystem",
+            "values": [
+                "E-Mail",
+                "Telefon",
+                "Brief",
+                "SMS"
+            ],
+            "default": "E-Mail",
+            "topNButtons": 2
+        },
+        {
+            "name": "recallDatum",
+            "alias": "recall_datum",
+            "label": "Recall-Datum",
+            "description": "Datum, an dem die Erinnerung erfolgen soll (YYYY-MM-DD)",
+            "default": ""
+        },
+        {
+            "name": "rueckmeldungErhalten",
+            "alias": "rueckmeldung_erhalten",
+            "label": "Rückmeldung erhalten",
+            "values": [
+                "Ja",
+                "Nein"
+            ],
+            "default": "Nein"
+        },
+        {
+            "name": "naechsterTermin",
+            "alias": "naechster_termin",
+            "label": "Nächster Termin",
+            "description": "Datum des nächsten vereinbarten Termins (optional)",
+            "default": ""
+        },
+        {
+            "name": "bemerkungen",
+            "alias": "bemerkungen",
+            "label": "Bemerkungen",
+            "description": "Zusätzliche Notizen",
+            "default": ""
+        },
+        {
+            "name": "zusätzlicheLaborwerte",
+            "alias": "zusätzliche_laborwerte",
+            "label": "Zusätzliche Laborwerte",
+            "description": "Weitere Laborwerte, die berücksichtigt werden sollen",
+            "default": ""
+        },
+        {
+            "name": "zusätzlicheDiagnostik",
+            "alias": "zusätzliche_diagnostik",
+            "label": "Zusätzliche Diagnostik",
+            "description": "Zusätzliche Untersuchungen wie Röntgen, EKG usw.",
+            "default": ""
+        },
+        {
+            "name": "naechsterRecallInTagen",
+            "alias": "naechster_recall_in_tagen",
+            "label": "Nächster Recall in Tagen",
+            "description": "Anzahl Tage bis zum nächsten Recall",
+            "default": 365
+        }
+    ]
+}

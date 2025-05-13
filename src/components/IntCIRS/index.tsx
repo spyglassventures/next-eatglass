@@ -1,8 +1,8 @@
 // pages/brett.tsx   aka CIRS
 import React, { useState } from "react";
-import CirsHistory from "@/components/IntBrett/CirsHistory";
-import CirsCreate from "@/components/IntBrett/CirsCreate";
-import CirsInstructions from "@/components/IntBrett/CirsInstructions";
+import CirsHistory from "@/components/IntCIRS/CirsHistory";
+import CirsCreate from "@/components/IntCIRS/CirsCreate";
+import CirsInstructions from "@/components/IntCIRS/CirsInstructions";
 
 
 interface TabDef {
@@ -17,7 +17,7 @@ const TABS: TabDef[] = [
 ]
 const primaryColor = "#24a0ed";  // ToDo: store in config
 
-const Brett = () => {
+const CIRS = () => {
 
   const [activeTab, setActiveTab] = useState(TABS[0].name);
 
@@ -68,4 +68,4 @@ const Brett = () => {
   );
 };
 
-export default Brett;
+export default CIRS;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import cirsConfig from "@/components/IntBrett/cirsConfigHandler";
-import RenderedCirsEntry from "@/components/IntBrett/renderedCirsEntry";
-import { CIRSEntry } from "@/components/IntBrett/dtypes";
+import cirsConfig from "@/components/IntCIRS/cirsConfigHandler";
+import RenderedCirsEntry from "@/components/IntCIRS/renderedCirsEntry";
+import { CIRSEntry } from "@/components/IntCIRS/dtypes";
 
 interface CirsTableProps {
   cirsHistory: CIRSEntry[];

@@ -24,7 +24,8 @@ import Materialauswertung from '@/components/IntMaterialauswertung'; //
 import Tardoc from '@/components/IntTardoc'; //
 import Abrechnung from '@/components/IntAbrechnung'; //
 import QR from '@/components/IntQR'; //
-import Brett from '@/components/IntBrett'; //
+import CIRS from '@/components/IntCIRS'; // ehem Schwarzes Brett - content geht aber in Chat auf
+import Recall from '@/components/IntRecall'; //
 import ChatWithPdf from '@/components/ChatWithPdf'; //
 import ChatRAG from '@/components/ChatRAG'; //
 import ChatWithPdfKardio from '@/components/ChatWithPdfKardio'; //
@@ -156,7 +157,8 @@ export const NAV_ITEMS = {
         { key: 'Tardoc', name: 'TARDOC', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'Materialauswertung', name: 'Materialauswertung', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'Dermatologie', name: 'Dermatologie', visible_mpa: true, visible_arzt: true, visible_pro: true },
-        { key: 'Brett', name: 'CIRS erfassen', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'CIRS', name: 'CIRS erfassen', visible_mpa: false, visible_arzt: false, visible_pro: true },
+        { key: 'Recall', name: 'Recall', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'Praxischat', name: 'Praxischat (Demo)', visible_mpa: false, visible_arzt: false, visible_pro: true },
         { key: 'Search', name: 'Websuche (Google)', visible_mpa: true, visible_arzt: true, visible_pro: true },
         { key: 'Arbeitszeugnis', name: 'Arbeitszeugnis', visible_mpa: false, visible_arzt: true, visible_pro: true },
@@ -396,10 +398,16 @@ export const COMPONENTS = {
         buttonText: 'Praxischat (Demo)'
     },
 
-    Brett: {
+    CIRS: {
         name: 'CIRS',
-        component: 'Brett',
-        buttonText: 'Brett'
+        component: 'CIRS',
+        buttonText: 'CIRS'
+    },
+
+    Recall: {
+        name: 'Recall',
+        component: 'Recall',
+        buttonText: 'Recall'
     },
 
 
@@ -682,7 +690,8 @@ export const ICONS = {
     mcsged: AcademicCapIcon,
     mcdiabetesscore: AcademicCapIcon,
     Dermatologie: AcademicCapIcon,
-    Brett: PencilIcon,
+    CIRS: PencilIcon,
+    Recall: GlobeAltIcon,
     schwieriger_patient: FaceSmileIcon,
     grippe: BeakerIcon,
     Search: MagnifyingGlassIcon,
@@ -735,8 +744,10 @@ export const getActiveComponent = (activeComponent) => {
             return Logs;
         case 'QM':
             return QM;
-        case 'Brett':
-            return Brett;
+        case 'CIRS':
+            return CIRS;
+        case 'Recall':
+            return Recall;
         case 'Materialauswertung':
             return Materialauswertung;
         case 'Tardoc':

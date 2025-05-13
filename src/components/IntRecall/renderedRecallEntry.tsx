@@ -1,5 +1,5 @@
 import React from "react";
-import cirsConfig, { CIRSField } from "@/components/IntBrett/cirsConfigHandler";
+import cirsConfig, { CIRSField } from "@/components/IntRecall/recallConfigHandler";
 
 const defaultNTopOptionsSplit = 6
 
