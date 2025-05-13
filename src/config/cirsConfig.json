@@ -110,7 +110,7 @@
                 "ASA VI"
             ],
             "valueLabels": {
-                "ASA I": "Gesunder <a href=\"https://flexikon.doccheck.com/de/Patient\">Patient</a>",
+                "ASA I": "Gesunder <a href=\"https://flexikon.doccheck.com/de/Patient\">Patient - nicht weiter definiert</a>",
                 "ASA II": "Patient mit geringfügiger Erkrankung ohne Einschränkungen",
                 "ASA III": "Patient mit Erkrankung mit deutlicher Beeinträchtigung",
                 "ASA IV": "Patient mit lebensbedrohlicher Erkrankung",

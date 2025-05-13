@@ -5,23 +5,23 @@ import RenderedCirsEntry from "@/components/IntBrett/renderedCirsEntry";
 import { CIRSEntry } from "@/components/IntBrett/dtypes";
 
 const initialCIRSEntry: Omit<CIRSEntry, "id" | "fallnummer" | "created_at"> = {
-  praxis_id: cirsConfig.getField("praxisId").default as number,
-  fachgebiet: cirsConfig.getField("fachgebiet").default as string,
-  ereignis_ort: "",
-  ereignis_tag: "",
-  versorgungsart: "",
-  asa_klassifizierung: "",
-  patientenzustand: "",
-  begleitumstaende: "",
-  medizinprodukt_beteiligt: "",
-  fallbeschreibung: "",
-  positiv: "",
-  negativ: "",
-  take_home_message: "",
-  haeufigkeit: "",
-  berichtet_von: "",
-  berufserfahrung: "",
-  bemerkungen: "",
+    praxis_id: cirsConfig.getField("praxisId").default as number,
+    fachgebiet: cirsConfig.getField("fachgebiet").default as string,
+    ereignis_ort: "",
+    ereignis_tag: "",
+    versorgungsart: "",
+    asa_klassifizierung: "",
+    patientenzustand: "",
+    begleitumstaende: "",
+    medizinprodukt_beteiligt: "",
+    fallbeschreibung: "",
+    positiv: "",
+    negativ: "",
+    take_home_message: "",
+    haeufigkeit: "",
+    berichtet_von: "",
+    berufserfahrung: "",
+    bemerkungen: "",
 };
 
 
@@ -50,11 +50,11 @@ const CirsCreate = () => {
         <div className="p-6 max-w-7xl mx-auto">
             <h1 className="text-3xl font-bold mb-8">CIRS-Fall erfassen</h1>
             <div className="bg-white p-6 shadow rounded space-y-4">
-                <RenderedCirsEntry entry={entry} setEntry={setEntry}/>
+                <RenderedCirsEntry entry={entry} setEntry={setEntry} />
                 <div className="flex justify-end">
                     <button
                         onClick={handleSubmit}
-                        className="px-6 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
+                        className="px-6 py-2 bg-primary text-white rounded hover:bg-primary"
                     >
                         Fall senden
                     </button>

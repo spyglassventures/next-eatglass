@@ -132,98 +132,99 @@ const CirsTable: React.FC<CirsTableProps> = ({
   const [feedback, setFeedback] = useState('');
 
   const handleSubmit = async () => {
-      setFeedback('⏳ Speichern...');
-      if (!selectedEntry) {
-        setFeedback('❌ Fehler: Kein Eintrag ausgewählt.');
+    setFeedback('⏳ Speichern...');
+    if (!selectedEntry) {
+      setFeedback('❌ Fehler: Kein Eintrag ausgewählt.');
+      return;
+    }
+    try {
+      console.log(selectedEntry);
+      const originalEntry = cirsHistory.find(entry => entry.id === selectedEntry.id);
+      if (!originalEntry) {
+        setFeedback('❌ Fehler: Originaleintrag nicht gefunden. Kann Änderungen nicht vergleichen.');
         return;
       }
-      try {
-          console.log(selectedEntry);
-          const originalEntry = cirsHistory.find(entry => entry.id === selectedEntry.id);
-          if (!originalEntry) {
-            setFeedback('❌ Fehler: Originaleintrag nicht gefunden. Kann Änderungen nicht vergleichen.');
-            return;
-          }
 
-          const differences: Partial<CIRSEntry> = {};
-          let hasChanges = false;
-          // Compare selectedEntry with originalEntry and find differences
-          for (const key in selectedEntry) {
-            if (Object.prototype.hasOwnProperty.call(selectedEntry, key)) {
-              const typedKey = key as keyof CIRSEntry;
-              if (selectedEntry[typedKey] !== originalEntry[typedKey]) {
-                differences[typedKey] = selectedEntry[typedKey];
-                hasChanges = true;
-              }
-            }
+      const differences: Partial<Record<keyof CIRSEntry, string | number | Date>> = {};
+
+      let hasChanges = false;
+      // Compare selectedEntry with originalEntry and find differences
+      for (const key in selectedEntry) {
+        if (Object.prototype.hasOwnProperty.call(selectedEntry, key)) {
+          const typedKey = key as keyof CIRSEntry;
+          if (selectedEntry[typedKey] !== originalEntry[typedKey]) {
+            differences[typedKey] = selectedEntry[typedKey];
+            hasChanges = true;
           }
-          if (!hasChanges) {
-            setFeedback('ℹ️ Keine Änderungen zu Speichern festgestellt.');
-            return;
-          }
-          const payload = {
-            id: selectedEntry.id,
-            praxisId: cirsConfig.getField("praxisId").default,
-            updates: differences,
-          };
-          const res = await fetch('/api/cirs/v1/pg_updateCirs', {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload),
-          });
-          const responseData = await res.json();
-          if (!res.ok) {
-            throw new Error(responseData.error || 'Fehler beim Speichern der Änderungen');
-          }
-          setFeedback('✅ Änderungen erfolgreich gespeichert!');
-          // replace entry in global list
-          setCirsHistory(
-            cirsHistory.map(entry =>
-              entry.id === selectedEntry.id ? selectedEntry : entry
-            )
-          );
-      } catch (err: any) {
-          setFeedback(`❌ Fehler: ${err.message}`);
+        }
       }
+      if (!hasChanges) {
+        setFeedback('ℹ️ Keine Änderungen zu Speichern festgestellt.');
+        return;
+      }
+      const payload = {
+        id: selectedEntry.id,
+        praxisId: cirsConfig.getField("praxisId").default,
+        updates: differences,
+      };
+      const res = await fetch('/api/cirs/v1/pg_updateCirs', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const responseData = await res.json();
+      if (!res.ok) {
+        throw new Error(responseData.error || 'Fehler beim Speichern der Änderungen');
+      }
+      setFeedback('✅ Änderungen erfolgreich gespeichert!');
+      // replace entry in global list
+      setCirsHistory(
+        cirsHistory.map(entry =>
+          entry.id === selectedEntry.id ? selectedEntry : entry
+        )
+      );
+    } catch (err: any) {
+      setFeedback(`❌ Fehler: ${err.message}`);
+    }
   };
 
   const handleDelete = async () => {
-      setFeedback('⏳ Löschen...');
-      if (!selectedEntry) {
-        setFeedback('❌ Fehler: Kein Eintrag ausgewählt.');
-        return;
+    setFeedback('⏳ Löschen...');
+    if (!selectedEntry) {
+      setFeedback('❌ Fehler: Kein Eintrag ausgewählt.');
+      return;
+    }
+    try {
+      const payload = {
+        id: selectedEntry.id,
+        praxisId: cirsConfig.getField("praxisId").default,
+      };
+
+      const res = await fetch('/api/cirs/v1/pg_deleteCirs', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      const responseData = await res.json();
+      if (!res.ok) {
+        throw new Error(responseData.error || 'Fehler beim Löschen des Eintrags');
       }
-      try {
-          const payload = {
-            id: selectedEntry.id,
-            praxisId: cirsConfig.getField("praxisId").default,
-          };
 
-          const res = await fetch('/api/cirs/v1/pg_deleteCirs', {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload),
-          });
+      setFeedback('✅ Eintrag erfolgreich gelöscht!');
 
-          const responseData = await res.json();
-          if (!res.ok) {
-            throw new Error(responseData.error || 'Fehler beim Löschen des Eintrags');
-          }
+      // Remove entry from global list
+      setCirsHistory(
+        cirsHistory.filter(entry =>
+          entry.id !== selectedEntry.id
+        )
+      );
 
-          setFeedback('✅ Eintrag erfolgreich gelöscht!');
+      closeModal(); // Close modal after deletion
 
-          // Remove entry from global list
-          setCirsHistory(
-            cirsHistory.filter(entry =>
-              entry.id !== selectedEntry.id
-            )
-          );
-
-          closeModal(); // Close modal after deletion
-
-      } catch (err: any) {
-          setFeedback(`❌ Fehler: ${err.message}`);
-      }
+    } catch (err: any) {
+      setFeedback(`❌ Fehler: ${err.message}`);
+    }
   };
 
 
@@ -350,38 +351,38 @@ const CirsTable: React.FC<CirsTableProps> = ({
               </button>
             </div>
             {!updateSelected && (
-            <div className="flex-1 overflow-auto p-4">
+              <div className="flex-1 overflow-auto p-4">
                 <RenderedCirsEntry
                   entry={selectedEntry}
                   rawView={true}
                 />
-            </div>
+              </div>
             )}
             {updateSelected && (
-            <div className="flex justify-between items-center w-full p-4">
-              <button
-                onClick={handleSubmit}
-                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-              >
-                Update senden
-              </button>
-              <button
-                onClick={handleDelete}
-                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-              >
-                Eintrag löschen!
-              </button>
-            </div>
+              <div className="flex justify-between items-center w-full p-4">
+                <button
+                  onClick={handleSubmit}
+                  className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  Update senden
+                </button>
+                <button
+                  onClick={handleDelete}
+                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  Eintrag löschen!
+                </button>
+              </div>
             )}
             {updateSelected && feedback && <p className="text-sm mt-2 text-center">{feedback}</p>}
             {updateSelected && (
-            <div className="flex-1 overflow-auto p-4">
+              <div className="flex-1 overflow-auto p-4">
                 <RenderedCirsEntry
                   entry={selectedEntry}
                   setEntry={setSelectedEntry}
                   editView={true}
                 />
-            </div>
+              </div>
             )}
           </div>
         </div>
@@ -416,7 +417,10 @@ const CirsHistory: React.FC = () => {
         throw new Error("Error fetching logs");
       }
       const data = await res.json();
-      return data.cirsEntries as CIRSEntry[];
+      return data.cirsEntries.map((entry: any) => ({
+        ...entry,
+        created_at: new Date(entry.created_at),
+      })) as CIRSEntry[];
     } catch (err: any) {
       setError(err.message);
       return [];

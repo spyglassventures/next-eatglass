@@ -35,7 +35,7 @@ const Brett = () => {
       <button
         key={tabDef.name}
         onClick={() => handleTabClick(tabDef.name)}
-        className={`px-4 py-2 rounded-md transition-colors ${active ? "text-white" : "text-gray-700 hover:bg-gray-200"}`}
+        className={`px-4 py-2 rounded-md bg-primary transition-colors ${active ? "text-white" : "text-gray-700 bg-primary hover:bg-gray-200"}`}
         style={{ backgroundColor: active ? primaryColor : "transparent" }}
       >
         {tabDef.label}
