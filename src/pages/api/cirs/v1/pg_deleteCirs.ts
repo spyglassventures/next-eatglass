@@ -1,6 +1,7 @@
 // File: pages/api/cirs/v1/pg_deleteCirs.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { Pool } from 'pg';
+import checkUserAuthorizedWrapper from "@/components/Common/auth";
 
 // Database connection pool (configure this according to your setup)
 const pool = new Pool({
@@ -13,7 +14,7 @@ interface DeleteRequestBody {
     praxisId: number; // To ensure deletion is scoped to the correct practice
 }
 
-export default async function handler(
+async function innerHandler(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
@@ -33,7 +34,7 @@ export default async function handler(
     }
 
     const sqlQuery = `
-        DELETE FROM cirs_entries 
+        DELETE FROM cirs_entries
         WHERE id = $1 AND praxis_id = $2;
     `;
     const values = [id, praxisId];
@@ -66,4 +67,8 @@ export default async function handler(
             client.release();
         }
     }
+}
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  return checkUserAuthorizedWrapper(req, res, innerHandler)
 }

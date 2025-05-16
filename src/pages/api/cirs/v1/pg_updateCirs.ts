@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { Pool } from 'pg';
 
 import { CIRSEntry } from "@/components/IntCIRS/dtypes";
+import checkUserAuthorizedWrapper from "@/components/Common/auth";
 
 const ALLOWED_UPDATE_FIELDS: (
     keyof Omit<CIRSEntry, 'id' | 'created_at' | 'fallnummer' | 'praxis_id'>
@@ -37,7 +38,7 @@ interface UpdateRequestBody {
     updates: Partial<Omit<CIRSEntry, 'id' | 'created_at' | "praxis_id">>;
 }
 
-export default async function handler(
+async function innerHandler(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
@@ -88,8 +89,8 @@ export default async function handler(
     values.push(praxisId); // Add the praxis ID for the WHERE clause
 
     const sqlQuery = `
-        UPDATE cirs_entries 
-        SET ${setClauses.join(', ')} 
+        UPDATE cirs_entries
+        SET ${setClauses.join(', ')}
         WHERE id = $${paramIndex} AND praxis_id = $${paramIndex + 1}
         RETURNING *;
     `;
@@ -118,4 +119,8 @@ export default async function handler(
             client.release();
         }
     }
+}
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  return checkUserAuthorizedWrapper(req, res, innerHandler)
 }

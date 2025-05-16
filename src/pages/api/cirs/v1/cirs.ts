@@ -1,14 +1,15 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { pool } from '../../postgres_lib_db';
+import checkUserAuthorizedWrapper from "@/components/Common/auth";
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+async function innerHandler(req: NextApiRequest, res: NextApiResponse) {
     console.log('🔵 API hit at /pages/api/cirs');
 
     if (req.method === 'POST') {
         const data = req.body;
 
         const fields = [
-            'praxis_id',
+            'praxis_id',  // ToDo: take it from config!
             'fachgebiet',
             'ereignis_ort',
             'ereignis_tag',
@@ -32,6 +33,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         try {
             // Generiere Fallnummer (z. B. CIRS-2025-0001)
+            // ToDo: Race-Condition! Is there a unique constraint?
+            // Todo: Flawed Logic: deleting non-latest entry creates collision
             const year = new Date().getFullYear();
             const prefix = `CIRS-${year}`;
             const { rows: countRows } = await pool.query(
@@ -59,4 +62,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     return res.status(405).json({ error: '❌ Methode nicht erlaubt' });
+}
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  return checkUserAuthorizedWrapper(req, res, innerHandler)
 }
