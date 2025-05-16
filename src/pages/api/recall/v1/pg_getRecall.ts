@@ -1,6 +1,7 @@
-// pages/api/cirs/v1/pg_getCirs.ts
+// pages/api/recall/v1/pg_getRecall.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { Pool } from 'pg';
+import checkUserAuthorizedWrapper from "@/components/Common/auth";
 
 
 const pool = new Pool({
@@ -8,45 +9,46 @@ const pool = new Pool({
     ssl: { rejectUnauthorized: false }
 });
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+async function innerHandler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== 'GET') {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
-    console.log('🔵 API hit at /api/getCirs');
+    console.log('🔵 API hit at /api/getRecall');
 
     try {
         const client = await pool.connect();
         const limit = parseInt(req.query.limit as string) || 10;
         const offset = parseInt(req.query.offset as string) || 0;
-        // default praxis_id to eatglass dev
-        const praxisId = parseInt(req.query.praxis_id as string) || 100;
 
         // Build the base query.
         let query = `
-      SELECT 
+      SELECT
         id,
-        fallnummer,
-        praxis_id,
-        fachgebiet,
-        ereignis_ort,
-        ereignis_tag,
-        versorgungsart,
-        asa_klassifizierung,
-        patientenzustand,
-        begleitumstaende,
-        medizinprodukt_beteiligt,
-        fallbeschreibung,
-        positiv,
-        negativ,
-        take_home_message,
-        haeufigkeit,
-        berichtet_von,
-        berufserfahrung,
+        vorname,
+        nachname,
+        geburtsdatum,
+        erinnerungsanlass,
+        recallsystem,
+        kontaktinfo,
+        periodicity_interval,
+        periodicity_unit,
+        recall_target_datum,
+        reminder_send_date,
+        responsible_person,
+        rueckmeldung_erhalten,
+        sms_template,
+        email_template,
+        letter_template,
+        recall_done,
+        naechster_termin,
+        appointment_status,
+        zusaetzliche_laborwerte,
+        zusaetzliche_diagnostik,
         bemerkungen,
         created_at
-      FROM cirs_entries
-      WHERE praxis_id = ${praxisId}
+      FROM recall_list
+      WHERE praxis_id = ${process.env.PRAXIS_ID ?? "100"}
         `;
         const params: any[] = [];
 
@@ -55,9 +57,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         const result = await client.query(query, params);
         client.release();
-        res.status(200).json({ cirsEntries: result.rows });
+        res.status(200).json({ recallEntries: result.rows });
     } catch (error: any) {
-        console.error('Error fetching CIRS entries:', error);
-        res.status(500).json({ error: 'Error fetching CIRS entries'});
+        console.error('Error fetching Recall entries:', error);
+        res.status(500).json({ error: 'Error fetching Recall entries'});
     }
+}
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  return checkUserAuthorizedWrapper(req, res, innerHandler)
 }

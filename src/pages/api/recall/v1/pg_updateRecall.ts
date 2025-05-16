@@ -1,28 +1,35 @@
-// File: pages/api/cirs/v1/pg_updateCirs.ts
+// File: pages/api/recall/v1/pg_updateRecall.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { Pool } from 'pg';
 
-import { CIRSEntry } from "@/components/IntCIRS/dtypes";
+import { RecallEntry } from "@/components/IntRecall/dtypes";
+import checkUserAuthorizedWrapper from "@/components/Common/auth";
 
 const ALLOWED_UPDATE_FIELDS: (
-    keyof Omit<CIRSEntry, 'id' | 'created_at' | 'fallnummer' | 'praxis_id'>
+    keyof Omit<RecallEntry, 'id' | 'created_at' | 'praxis_id'>
 )[] = [
-        'fachgebiet',
-        'ereignis_ort',
-        'ereignis_tag',
-        'versorgungsart',
-        'asa_klassifizierung',
-        'patientenzustand',
-        'begleitumstaende',
-        'medizinprodukt_beteiligt',
-        'fallbeschreibung',
-        'positiv',
-        'negativ',
-        'take_home_message',
-        'haeufigkeit',
-        'berichtet_von',
-        'berufserfahrung',
-        'bemerkungen',
+      'patient_id',
+      'vorname',
+      'nachname',
+      'geburtsdatum',
+      'erinnerungsanlass',
+      'recallsystem',
+      'kontaktinfo',
+      'periodicity_interval',
+      'periodicity_unit',
+      'recall_target_datum',
+      'reminder_send_date',
+      'responsible_person',
+      'rueckmeldung_erhalten',
+      'sms_template',
+      'email_template',
+      'letter_template',
+      'recall_done',
+      'naechster_termin',
+      'appointment_status',
+      'zusaetzliche_laborwerte',
+      'zusaetzliche_diagnostik',
+      'bemerkungen'
     ];
 
 // Database connection pool (configure this according to your setup)
@@ -33,11 +40,10 @@ const pool = new Pool({
 
 interface UpdateRequestBody {
     id: number;
-    praxisId: number;
-    updates: Partial<Omit<CIRSEntry, 'id' | 'created_at' | "praxis_id">>;
+    updates: Partial<Omit<RecallEntry, 'id' | 'created_at' | "praxis_id">>;
 }
 
-export default async function handler(
+async function innerHandler(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
@@ -46,14 +52,12 @@ export default async function handler(
         return res.status(405).json({ error: `Method ${req.method} Not Allowed` });
     }
 
-    const { id, praxisId, updates } = req.body as UpdateRequestBody;
+    const { id, updates } = req.body as UpdateRequestBody;
+    const praxisId: number | string = process.env.PRAXIS_ID ?? 100;
 
     // --- Input Validation ---
     if (typeof id !== 'number') {
         return res.status(400).json({ error: 'Entry ID is required and must be a number.' });
-    }
-    if (typeof praxisId !== 'number') {
-        return res.status(400).json({ error: 'Praxis ID is required and must be a number.' });
     }
 
     if (!updates || typeof updates !== 'object' || Object.keys(updates).length === 0) {
@@ -88,8 +92,8 @@ export default async function handler(
     values.push(praxisId); // Add the praxis ID for the WHERE clause
 
     const sqlQuery = `
-        UPDATE cirs_entries 
-        SET ${setClauses.join(', ')} 
+        UPDATE recall_entries
+        SET ${setClauses.join(', ')}
         WHERE id = $${paramIndex} AND praxis_id = $${paramIndex + 1}
         RETURNING *;
     `;
@@ -105,10 +109,10 @@ export default async function handler(
 
         return res.status(200).json({
             message: 'Entry updated successfully.',
-            updatedEntry: result.rows[0] as CIRSEntry,
+            updatedEntry: result.rows[0] as RecallEntry,
         });
     } catch (error: any) {
-        console.error('Database error updating CIRS entry:', error);
+        console.error('Database error updating Recall entry:', error);
         return res.status(500).json({
             error: 'Failed to update entry.',
             details: error.message,
@@ -118,4 +122,8 @@ export default async function handler(
             client.release();
         }
     }
+}
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  return checkUserAuthorizedWrapper(req, res, innerHandler)
 }
