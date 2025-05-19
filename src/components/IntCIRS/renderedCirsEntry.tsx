@@ -53,7 +53,7 @@ const RenderedCirsEntry: React.FC<RenderedCirsEntryProps> = (
     const field = cirsConfig.getFieldAlias(key)
     if (field === undefined) return undefined;
 
-    // hidden fields: only stored, not shown 
+    // hidden fields: only stored, not shown
     if (field.hidden) {
       return (
         <input
@@ -121,7 +121,7 @@ const RenderedCirsEntry: React.FC<RenderedCirsEntryProps> = (
     if (rawView) {
       // display everything raw and read-only
       fieldInput = (
-        <p>{entry[key]}</p>
+        <p>{(key == "created_at") ? entry["created_at"].toLocaleString("de") : entry[key]}</p>
       )
     } else if (!Array.isArray(field.values)) {
       if (editView && field.immutable) {

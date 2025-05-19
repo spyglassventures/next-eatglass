@@ -309,7 +309,7 @@ const CirsTable: React.FC<CirsTableProps> = ({
                   <td className="border px-4 py-2">{entry.berichtet_von}</td>
                   <td className="border px-4 py-2">
                     {entry.created_at
-                      ? entry.created_at.toLocaleString()
+                      ? entry.created_at.toLocaleString("de")
                       : "N/A"}
                   </td>
                 </tr>
