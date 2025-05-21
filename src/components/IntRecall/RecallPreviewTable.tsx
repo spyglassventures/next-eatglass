@@ -43,6 +43,14 @@ const RecallPreviewTable: React.FC<Props> = ({ rows, setRows, eventQueue }) => {
 
     const updateCreationForm = (row) => {
       const newRecallEntry = { ...InitialRecallEntry}
+      if ("id" in row && "created_at" in row) {
+        for (const key in row) {
+          if (key in newRecallEntry) {
+            newRecallEntry[key] = row[key]
+          }
+        }
+        eventQueue.publish("insert-create-recall-data", newRecallEntry);
+      }
       const fieldMapping: {key: string, fieldAlias: string} = Object.fromEntries(
         [
           ["Patient ID", "patient_id"],

@@ -19,6 +19,8 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormStateInner } from "@/components/Common/CrudForms/formElements";
+import { exportToXlsx } from "@/components/Common/exportToXlsx";
+import { format } from "date-fns";
 
 const PreviewFields: string[] = ["id", ...QueryFields, "created_at"];
 
@@ -435,6 +437,13 @@ const RecallHistory: React.FC = () => {
     setLoading(false);
   };
 
+  const handleDownloadXLSX = () => {
+    exportToXlsx(
+      recallHistory,
+      `recall_history_${format(new Date(), "yyyyMMddTHHmmss")}.xlsx`,
+    );
+  };
+
   return (
     // Full-width container with no horizontal padding or max-width restrictions.
     <div className="w-full" style={{ margin: 0, padding: 0 }}>
@@ -446,6 +455,12 @@ const RecallHistory: React.FC = () => {
           disabled={loading}
         >
           Aktualisieren
+        </button>
+        <button
+          onClick={handleDownloadXLSX}
+          className="rounded bg-green-500 px-4 py-2 text-xs text-white hover:bg-green-600"
+        >
+          Download as XLSX
         </button>
       </div>
 
