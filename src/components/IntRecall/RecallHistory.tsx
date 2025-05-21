@@ -13,8 +13,8 @@ import {
   RecallEntrySchemaAPICreate,
   RecallEntrySchemaAPIRead,
   RecallEntrySchemaAPIUpdate,
-  TRecallEntry,
-  TRecallEntrySchemaAPIUpdate,
+  TRecallEntry, TRecallEntryCreateFrontend,
+  TRecallEntrySchemaAPIUpdate
 } from "@/components/IntRecall/RecallListSchemaV1";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";

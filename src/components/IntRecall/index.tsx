@@ -62,10 +62,10 @@ const Recall = () => {
         <RecallInstructions />
       </div>
       <div style={{ display: activeTab === "historie" ? "block" : "none" }}>
-        <RecallHistory />
+        <RecallHistory/>
       </div>
       <div style={{ display: activeTab === "erstellen" ? "block" : "none" }}>
-        <RecallCreate onSubmitSuccess={ () => {}} />
+        <RecallCreate/>
       </div>
     </div>
   );
