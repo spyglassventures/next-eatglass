@@ -2,35 +2,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { Pool } from 'pg';
 
-import { RecallEntry } from "@/components/IntRecall/dtypes";
 import checkUserAuthorizedWrapper from "@/components/Common/auth";
+import {
+  TableName, RecallEntrySchemaDBUpdate, TRecallEntrySchemaAPIUpdate, TRecallEntry, RecallEntrySchemaAPIRead
+} from "@/components/IntRecall/RecallListSchemaV1";
 
-const ALLOWED_UPDATE_FIELDS: (
-    keyof Omit<RecallEntry, 'id' | 'created_at' | 'praxis_id'>
-)[] = [
-      'patient_id',
-      'vorname',
-      'nachname',
-      'geburtsdatum',
-      'erinnerungsanlass',
-      'recallsystem',
-      'kontaktinfo',
-      'periodicity_interval',
-      'periodicity_unit',
-      'recall_target_datum',
-      'reminder_send_date',
-      'responsible_person',
-      'rueckmeldung_erhalten',
-      'sms_template',
-      'email_template',
-      'letter_template',
-      'recall_done',
-      'naechster_termin',
-      'appointment_status',
-      'zusaetzliche_laborwerte',
-      'zusaetzliche_diagnostik',
-      'bemerkungen'
-    ];
 
 // Database connection pool (configure this according to your setup)
 const pool = new Pool({
@@ -40,7 +16,7 @@ const pool = new Pool({
 
 interface UpdateRequestBody {
     id: number;
-    updates: Partial<Omit<RecallEntry, 'id' | 'created_at' | "praxis_id">>;
+    updates: TRecallEntrySchemaAPIUpdate;
 }
 
 async function innerHandler(
@@ -64,23 +40,21 @@ async function innerHandler(
         return res.status(400).json({ error: 'Update data is required and must be a non-empty object.' });
     }
 
+    const parsedUpdates = RecallEntrySchemaDBUpdate.parse(updates)
+    if (Object.keys(parsedUpdates).length === 0) {
+        return res.status(400).json({ error: 'No valid update data provided.' });
+    }
+
     const setClauses: string[] = [];
     const values: any[] = [];
     let paramIndex = 1;
 
-    for (const key in updates) {
-        if (Object.prototype.hasOwnProperty.call(updates, key)) {
-            // Check if the key is an allowed field to update
-            if (ALLOWED_UPDATE_FIELDS.includes(key as any)) {
-                // Ensure column names are double-quoted if they might be case-sensitive or reserved keywords
-                setClauses.push(`"${key}" = $${paramIndex}`);
-                values.push((updates as any)[key]);
-                paramIndex++;
-            } else {
-                console.warn(`Attempted to update disallowed or unknown field: ${key}`);
-                // Optionally, you could return a 400 error here if strictness is required
-                // return res.status(400).json({ error: `Field '${key}' is not allowed for update.` });
-            }
+    for (const key in parsedUpdates) {
+        if (Object.prototype.hasOwnProperty.call(parsedUpdates, key)) {
+            // Ensure column names are double-quoted if they might be case-sensitive or reserved keywords
+            setClauses.push(`"${key}" = $${paramIndex}`);
+            values.push((parsedUpdates as any)[key]);
+            paramIndex++;
         }
     }
 
@@ -92,7 +66,7 @@ async function innerHandler(
     values.push(praxisId); // Add the praxis ID for the WHERE clause
 
     const sqlQuery = `
-        UPDATE recall_entries
+        UPDATE ${TableName}
         SET ${setClauses.join(', ')}
         WHERE id = $${paramIndex} AND praxis_id = $${paramIndex + 1}
         RETURNING *;
@@ -109,7 +83,7 @@ async function innerHandler(
 
         return res.status(200).json({
             message: 'Entry updated successfully.',
-            updatedEntry: result.rows[0] as RecallEntry,
+            updatedEntry: result.rows[0],
         });
     } catch (error: any) {
         console.error('Database error updating Recall entry:', error);

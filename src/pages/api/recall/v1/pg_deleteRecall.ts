@@ -2,6 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { Pool } from 'pg';
 import checkUserAuthorizedWrapper from "@/components/Common/auth";
+import { TableName } from "@/components/IntRecall/RecallListSchemaV1";
 
 // Database connection pool (configure this according to your setup)
 const pool = new Pool({
@@ -27,7 +28,7 @@ async function innerHandler(
     }
 
     const sqlQuery = `
-        DELETE FROM recall_entries
+        DELETE FROM ${TableName}
         WHERE id = $1 AND praxis_id = $2;
     `;
     const values = [id, praxisId];

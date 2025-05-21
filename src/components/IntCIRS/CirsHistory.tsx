@@ -410,6 +410,8 @@ const CirsHistory: React.FC = () => {
 
   const fetchCirsHistory = async (offsetParam = 0): Promise<CIRSEntry[]> => {
     try {
+      // clear error
+      setError("")
       // Build the URL with query parameters based on the filter state.
       let url = `/api/cirs/v1/pg_getCirs?limit=${limit}&offset=${offsetParam}&praxisId=${cirsConfig.getField("praxisId").default}`;
       const res = await fetch(url);

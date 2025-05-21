@@ -1,4 +1,4 @@
-// pages/brett.tsx   aka CIRS
+// pages/IntRecall/index.tsx
 import React, { useState } from "react";
 import RecallHistory from "@/components/IntRecall/RecallHistory";
 import RecallCreate from "@/components/IntRecall/RecallCreate";
@@ -46,7 +46,6 @@ const Recall = () => {
   // ToDo: inactive tabs are nonexistent: entered Data disappears
   return (
     <div className="p-6 max-w-7xl mx-auto">
-
       <h1 className="text-3xl font-bold mb-6 text-center" style={{ color: primaryColor }}>
         Recall Erfassung
       </h1>
@@ -57,13 +56,17 @@ const Recall = () => {
           {TABS.map(createTab)}
         </div>
       </div>
-      {activeTab === "anleitung" && <RecallInstructions />}
-      {activeTab === "historie" && (
+
+      {/* use hidden divs */}
+      <div style={{ display: activeTab === "anleitung" ? "block" : "none" }}>
+        <RecallInstructions />
+      </div>
+      <div style={{ display: activeTab === "historie" ? "block" : "none" }}>
         <RecallHistory />
-      )}
-      {activeTab === "erstellen" && (
-        <RecallCreate />
-      )}
+      </div>
+      <div style={{ display: activeTab === "erstellen" ? "block" : "none" }}>
+        <RecallCreate onSubmitSuccess={ () => {}} />
+      </div>
     </div>
   );
 };

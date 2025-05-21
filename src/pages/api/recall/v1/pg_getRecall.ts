@@ -2,7 +2,13 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { Pool } from 'pg';
 import checkUserAuthorizedWrapper from "@/components/Common/auth";
+import {
+  getSchemaKeys,
+  RecallEntrySchemaAPIRead,
+  TableName
+} from "@/components/IntRecall/RecallListSchemaV1";
 
+const QueryFields = getSchemaKeys(RecallEntrySchemaAPIRead)
 
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
@@ -24,30 +30,8 @@ async function innerHandler(req: NextApiRequest, res: NextApiResponse) {
         // Build the base query.
         let query = `
       SELECT
-        id,
-        vorname,
-        nachname,
-        geburtsdatum,
-        erinnerungsanlass,
-        recallsystem,
-        kontaktinfo,
-        periodicity_interval,
-        periodicity_unit,
-        recall_target_datum,
-        reminder_send_date,
-        responsible_person,
-        rueckmeldung_erhalten,
-        sms_template,
-        email_template,
-        letter_template,
-        recall_done,
-        naechster_termin,
-        appointment_status,
-        zusaetzliche_laborwerte,
-        zusaetzliche_diagnostik,
-        bemerkungen,
-        created_at
-      FROM recall_list
+        ${QueryFields.join(', ')}
+      FROM ${TableName}
       WHERE praxis_id = ${process.env.PRAXIS_ID ?? "100"}
         `;
         const params: any[] = [];
