@@ -1,5 +1,6 @@
 // pages/IntRecall/index.tsx
 import React, { useState } from "react";
+import TinyEventQueue from "@/components/Common/TinyEventQueue";
 import RecallHistory from "@/components/IntRecall/RecallHistory";
 import RecallCreate from "@/components/IntRecall/RecallCreate";
 import RecallInstructions from "@/components/IntRecall/RecallInstructions";
@@ -19,6 +20,7 @@ const primaryColor = "#24a0ed";  // ToDo: store in config
 
 const Recall = () => {
 
+  const eventQueue = new TinyEventQueue()
   const [activeTab, setActiveTab] = useState(TABS[0].name);
 
   function isActiveTab(tabName: string) {
@@ -62,10 +64,10 @@ const Recall = () => {
         <RecallInstructions />
       </div>
       <div style={{ display: activeTab === "historie" ? "block" : "none" }}>
-        <RecallHistory/>
+        <RecallHistory eventQueue={eventQueue}/>
       </div>
       <div style={{ display: activeTab === "erstellen" ? "block" : "none" }}>
-        <RecallCreate/>
+        <RecallCreate eventQueue={eventQueue}/>
       </div>
     </div>
   );

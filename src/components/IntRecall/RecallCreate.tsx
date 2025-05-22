@@ -58,6 +58,8 @@ const RecallCreateForm: React.FC<{
             console.log('Form submitted successfully!');
             setFeedback("✅ Eintrag erfolgreich");
             reset();
+            // notify listeners that an entry was created
+            eventQueue.publish("recall-entry-created", null);
           } else {
             const errorData = await res.json();
             console.error('API submission failed:', errorData);
@@ -120,10 +122,9 @@ const RecallCreateForm: React.FC<{
 }
 
 
-const RecallCreate: React.FC = () => {
+const RecallCreate: React.FC<{eventQueue: TinyEventQueue}> = ({eventQueue}) => {
 
     const [parsedRows, setParsedRows] = useState<any[]>([]);
-    const eventQueue = new TinyEventQueue()
 
 
     return (

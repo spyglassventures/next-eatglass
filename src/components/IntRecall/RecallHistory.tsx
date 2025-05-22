@@ -21,6 +21,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FormStateInner } from "@/components/Common/CrudForms/formElements";
 import { exportToXlsx } from "@/components/Common/exportToXlsx";
 import { format } from "date-fns";
+import TinyEventQueue from "@/components/Common/TinyEventQueue";
 
 const PreviewFields: string[] = ["id", ...QueryFields, "created_at"];
 
@@ -201,7 +202,6 @@ const RecallTable: React.FC<RecallTableProps> = ({
       return;
     }
     try {
-      RecallEntrySchemaAPICreate.parse(entry); // Validate entry
       const originalEntry = recallHistory.find(
         (x) => x.id === entry.id,
       );
@@ -217,8 +217,9 @@ const RecallTable: React.FC<RecallTableProps> = ({
       const differences: TRecallEntrySchemaAPIUpdate = {};
 
       let hasChanges = false;
-      // Compare selectedEntry with originalEntry and find differences
-      for (const key in entry) {
+      // Compare selectedEntry with originalEntry and find differences.
+      // Restrict to fields relevant to the API.
+      for (const key of Object.keys(RecallEntrySchemaAPIUpdate.parse(entry))) {
         if (Object.prototype.hasOwnProperty.call(entry, key)) {
           const typedKey = key as keyof TRecallEntry;
           if (entry[typedKey] !== originalEntry[typedKey]) {
@@ -378,7 +379,8 @@ const RecallTable: React.FC<RecallTableProps> = ({
   );
 };
 
-const RecallHistory: React.FC = () => {
+const RecallHistory: React.FC<{eventQueue: TinyEventQueue}> = ({eventQueue}) => {
+
   const [recallHistory, setRecallHistory] = useState<TRecallEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>("");
@@ -436,6 +438,8 @@ const RecallHistory: React.FC = () => {
     setRecallHistory(refreshedHistory);
     setLoading(false);
   };
+
+  eventQueue.subscribe("recall-entry-created", "history-refresh", refreshHistory)
 
   const handleDownloadXLSX = () => {
     exportToXlsx(
