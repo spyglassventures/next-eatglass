@@ -1,6 +1,50 @@
 import { z } from "zod";
 import { parse, format } from "date-fns";
 
+/*
+Database Schema:
+
+CREATE TABLE recall_entries (
+  -- system fields
+  id                        SERIAL       PRIMARY KEY,
+  praxis_id                 INTEGER      NOT NULL,  -- no default!
+  created_at timestamp without time zone DEFAULT now(),
+
+  -- patient details
+  patient_id                INTEGER      NOT NULL,
+  vorname                   TEXT,
+  nachname                  TEXT,
+  geburtsdatum              DATE,
+
+  -- reminder settings
+  erinnerungsanlass         TEXT         NOT NULL DEFAULT 'Jahreskontrolle',
+  recallsystem              TEXT         NOT NULL DEFAULT 'E-Mail',
+  kontaktinfo               TEXT         DEFAULT '',
+  periodicity_interval      INTEGER, -- z. B. die „n“ aus „alle n Wochen/Monate“
+  periodicity_unit          TEXT,    -- z. B. 'once', 'weeks', 'months', 'yearly', 'semiannually'
+
+  recall_target_datum       DATE,
+  reminder_send_date        DATE,  -- “Ausdruck Aufgebot” – wann der Reminder gedruckt/versandt werden soll
+  responsible_person        TEXT,    -- wer ist zuständig für den Recall
+
+  -- templates
+  sms_template              TEXT,
+  email_template            TEXT,
+  letter_template           TEXT,
+
+  -- status flags
+  rueckmeldung_erhalten     BOOLEAN      NOT NULL DEFAULT FALSE,
+  recall_done               BOOLEAN      NOT NULL DEFAULT FALSE,
+  naechster_termin          DATE,
+  appointment_status        TEXT,    -- z. B. 'vereinbart', 'kein Termin gewollt', 'nicht weiter probieren'
+
+  -- free-text fields
+  bemerkungen               TEXT         DEFAULT '',
+  zusaetzliche_laborwerte   TEXT         DEFAULT '',
+  zusaetzliche_diagnostik   TEXT         DEFAULT ''
+);
+ */
+
 export const TableName = "recall_entries";
 
 const toDate = (val: string) => {

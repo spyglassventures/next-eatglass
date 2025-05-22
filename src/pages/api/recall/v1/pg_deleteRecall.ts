@@ -17,14 +17,18 @@ async function innerHandler(
 ) {
     if (req.method !== 'DELETE') {
         res.setHeader('Allow', ['DELETE']);
-        return res.status(405).json({ error: `Method ${req.method} Not Allowed` });
+        return res.status(405).json(
+          { error: `Method ${req.method} Not Allowed` }
+        );
     }
 
     const id: any = req.body.id
 
     // --- Input Validation ---
     if (typeof id !== 'number') {
-        return res.status(400).json({ error: 'Entry ID is required and must be a number.' });
+        return res.status(400).json(
+          { error: 'Entry ID is required and must be a number.' }
+        );
     }
 
     const sqlQuery = `
@@ -42,7 +46,7 @@ async function innerHandler(
             // This means no row matched the id and praxis_id,
             // either it doesn't exist or praxis_id doesn't match.
             return res.status(404).json(
-              { error: `Entry with ID ${id} not found for` +
+              { error: `Entry with ID ${id} not found for ` +
                `praxis ID ${recallConfig.praxisID}, or already deleted.`
               }
             );
