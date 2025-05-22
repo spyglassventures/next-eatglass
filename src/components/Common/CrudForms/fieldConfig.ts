@@ -1,3 +1,5 @@
+const PraxisIdDefault = 100;
+
 interface FormFieldRaw {
   name: string;
   alias?: string;  // API-query field name (may be same as database)
@@ -22,8 +24,9 @@ export interface FormField extends FormFieldRaw {
   inPreview: boolean;  // error-prone if a boolean can be undefined
 }
 
-export interface FormFieldRawConfig {
+interface FormFieldRawConfig {
   fields: FormFieldRaw[];
+  praxisID?: number;
 }
 
 const formFieldFromConfig = (config: FormFieldRaw) => {
@@ -34,13 +37,22 @@ const formFieldFromConfig = (config: FormFieldRaw) => {
   return config as FormField;
 };
 
-const getFieldConfig = (config: FormFieldRawConfig) => {
+export interface FieldConfig {
+  fields: { string: FormField };
+  praxisID: number;
+  getField: (name: string) => FormField | undefined;
+  getFieldAlias: (alias: string) => FormField | undefined;
+}
+
+const getFieldConfig = (config: FormFieldRawConfig): FieldConfig => {
   const fields: { string: FormField } = {} as { string: FormField };
   config.fields.map((x) => {
     fields[x.name] = formFieldFromConfig(x);
   });
+  const praxisID: string | number = process.env.PRAXIS_ID ?? config.praxisID ?? PraxisIdDefault;
   return {
     fields: fields,
+    praxisID: typeof praxisID == "string" ? parseInt(praxisID) : praxisID,
     getField: (name: string): FormField => {
       return fields[name];
     },

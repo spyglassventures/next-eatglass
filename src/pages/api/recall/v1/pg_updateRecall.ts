@@ -6,6 +6,7 @@ import checkUserAuthorizedWrapper from "@/components/Common/auth";
 import {
   TableName, RecallEntrySchemaDBUpdate, TRecallEntrySchemaAPIUpdate, TRecallEntry, RecallEntrySchemaAPIRead
 } from "@/components/IntRecall/RecallListSchemaV1";
+import recallConfig from "@/components/IntRecall/recallConfigHandler";
 
 
 // Database connection pool (configure this according to your setup)
@@ -29,7 +30,6 @@ async function innerHandler(
     }
 
     const { id, updates } = req.body as UpdateRequestBody;
-    const praxisId: number | string = process.env.PRAXIS_ID ?? 100;
 
     // --- Input Validation ---
     if (typeof id !== 'number') {
@@ -63,7 +63,7 @@ async function innerHandler(
     }
 
     values.push(id); // Add the ID for the WHERE clause
-    values.push(praxisId); // Add the praxis ID for the WHERE clause
+    values.push(recallConfig.praxisID); // Add the praxis ID for the WHERE clause
 
     const sqlQuery = `
         UPDATE ${TableName}

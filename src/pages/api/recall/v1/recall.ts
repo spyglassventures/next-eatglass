@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { pool } from '../../postgres_lib_db';
 import checkUserAuthorizedWrapper from "@/components/Common/auth";
 import { RecallEntrySchemaDBCreate, TableName } from "@/components/IntRecall/RecallListSchemaV1";
+import recallConfig from "@/components/IntRecall/recallConfigHandler";
 
 async function innerHandler(req: NextApiRequest, res: NextApiResponse) {
     console.log('🔵 API hit at /pages/api/recall-list');
@@ -16,7 +17,7 @@ async function innerHandler(req: NextApiRequest, res: NextApiResponse) {
         const fields = Object.keys(values)
         const query = `
             INSERT INTO ${TableName} (praxis_id, ${fields.join(', ')})
-            VALUES (${process.env.PRAXIS_ID ?? "100"}, ${fields.map((_, i) => `$${i + 1}`).join(', ')})
+            VALUES (${recallConfig.praxisID}, ${fields.map((_, i) => `$${i + 1}`).join(', ')})
             RETURNING *
         `;
         const result = await pool.query(query, Object.values(values));

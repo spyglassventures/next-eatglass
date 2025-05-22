@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { Pool } from 'pg';
 import checkUserAuthorizedWrapper from "@/components/Common/auth";
 import { TableName } from "@/components/IntRecall/RecallListSchemaV1";
+import recallConfig from "@/components/IntRecall/recallConfigHandler";
 
 // Database connection pool (configure this according to your setup)
 const pool = new Pool({
@@ -20,7 +21,6 @@ async function innerHandler(
     }
 
     const id: any = req.body.id
-    const praxisId: number | string = process.env.PRAXIS_ID ?? 100;
 
     // --- Input Validation ---
     if (typeof id !== 'number') {
@@ -31,7 +31,7 @@ async function innerHandler(
         DELETE FROM ${TableName}
         WHERE id = $1 AND praxis_id = $2;
     `;
-    const values = [id, praxisId];
+    const values = [id, recallConfig.praxisID];
 
     let client;
     try {
@@ -41,7 +41,11 @@ async function innerHandler(
         if (result.rowCount === 0) {
             // This means no row matched the id and praxis_id,
             // either it doesn't exist or praxis_id doesn't match.
-            return res.status(404).json({ error: `Entry with ID ${id} not found for praxis ID ${praxisId}, or already deleted.` });
+            return res.status(404).json(
+              { error: `Entry with ID ${id} not found for` +
+               `praxis ID ${recallConfig.praxisID}, or already deleted.`
+              }
+            );
         }
 
         // Successfully deleted

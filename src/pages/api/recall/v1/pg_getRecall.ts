@@ -7,6 +7,7 @@ import {
   RecallEntrySchemaAPIRead,
   TableName
 } from "@/components/IntRecall/RecallListSchemaV1";
+import recallConfig from "@/components/IntRecall/recallConfigHandler";
 
 const QueryFields = getSchemaKeys(RecallEntrySchemaAPIRead)
 
@@ -32,7 +33,7 @@ async function innerHandler(req: NextApiRequest, res: NextApiResponse) {
       SELECT
         ${QueryFields.join(', ')}
       FROM ${TableName}
-      WHERE praxis_id = ${process.env.PRAXIS_ID ?? "100"}
+      WHERE praxis_id = ${recallConfig.praxisID}
         `;
         const params: any[] = [];
 
