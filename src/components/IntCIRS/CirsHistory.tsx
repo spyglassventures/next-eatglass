@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import RenderedCirsEntry from "@/components/IntCIRS/renderedCirsEntry";
 import { CIRSEntry } from "@/components/IntCIRS/dtypes";
+import TinyEventQueue from "@/components/Common/TinyEventQueue";
 
 interface CirsTableProps {
   cirsHistory: CIRSEntry[];
@@ -388,7 +389,7 @@ const CirsTable: React.FC<CirsTableProps> = ({
   );
 };
 
-const CirsHistory: React.FC = () => {
+const CirsHistory: React.FC<{eventQueue: TinyEventQueue}> = ({eventQueue}) => {
   const [cirsHistory, setCirsHistory] = useState<CIRSEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>("");
@@ -440,6 +441,8 @@ const CirsHistory: React.FC = () => {
     setCirsHistory(refreshedHistory);
     setLoading(false);
   };
+
+  eventQueue.subscribe("cirs-entry-created", "history-refresh", refreshHistory)
 
   return (
     // Full-width container with no horizontal padding or max-width restrictions.

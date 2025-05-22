@@ -1,5 +1,6 @@
-// pages/brett.tsx   aka CIRS
+// components/IntCIRS/index.tsx
 import React, { useState } from "react";
+import TinyEventQueue from "@/components/Common/TinyEventQueue";
 import CirsHistory from "@/components/IntCIRS/CirsHistory";
 import CirsCreate from "@/components/IntCIRS/CirsCreate";
 import CirsInstructions from "@/components/IntCIRS/CirsInstructions";
@@ -19,6 +20,7 @@ const primaryColor = "#24a0ed";  // ToDo: store in config
 
 const CIRS = () => {
 
+  const eventQueue = new TinyEventQueue()
   const [activeTab, setActiveTab] = useState(TABS[0].name);
 
   function isActiveTab(tabName: string) {
@@ -43,7 +45,6 @@ const CIRS = () => {
     );
   }
 
-  // ToDo: inactive tabs are nonexistent: entered Data disappears
   return (
     <div className="p-6 max-w-7xl mx-auto">
 
@@ -57,13 +58,17 @@ const CIRS = () => {
           {TABS.map(createTab)}
         </div>
       </div>
-      {activeTab === "anleitung" && <CirsInstructions />}
-      {activeTab === "historie" && (
-        <CirsHistory />
-      )}
-      {activeTab === "erstellen" && (
-        <CirsCreate />
-      )}
+
+      {/* use hidden divs */}
+      <div style={{ display: activeTab === "anleitung" ? "block" : "none" }}>
+        <CirsInstructions />
+      </div>
+      <div style={{ display: activeTab === "historie" ? "block" : "none" }}>
+        <CirsHistory eventQueue={eventQueue}/>
+      </div>
+      <div style={{ display: activeTab === "erstellen" ? "block" : "none" }}>
+        <CirsCreate eventQueue={eventQueue}/>
+      </div>
     </div>
   );
 };

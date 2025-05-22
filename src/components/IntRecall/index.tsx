@@ -1,4 +1,4 @@
-// pages/IntRecall/index.tsx
+// components/IntRecall/index.tsx
 import React, { useState } from "react";
 import TinyEventQueue from "@/components/Common/TinyEventQueue";
 import RecallHistory from "@/components/IntRecall/RecallHistory";
@@ -45,9 +45,9 @@ const Recall = () => {
     );
   }
 
-  // ToDo: inactive tabs are nonexistent: entered Data disappears
   return (
     <div className="p-6 max-w-7xl mx-auto">
+
       <h1 className="text-3xl font-bold mb-6 text-center" style={{ color: primaryColor }}>
         Recall Erfassung
       </h1>
