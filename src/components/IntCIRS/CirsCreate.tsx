@@ -3,10 +3,12 @@ import React, { useState } from "react";
 import cirsConfig from "@/components/IntCIRS/cirsConfigHandler";
 import RenderedCirsEntry from "@/components/IntCIRS/renderedCirsEntry";
 import { CIRSEntry } from "@/components/IntCIRS/dtypes";
+import TinyEventQueue from "@/components/Common/TinyEventQueue";
 
-const initialCIRSEntry: Omit<CIRSEntry, "id" | "fallnummer" | "created_at"> = {
-    praxis_id: cirsConfig.getField("praxisId").default as number,
-    fachgebiet: cirsConfig.getField("fachgebiet").default as string,
+const initialCIRSEntry: Omit<CIRSEntry, "id" | "fallnummer" | "created_at" | "praxis_id"> = {
+    fachgebiet: (
+      cirsConfig.getField("fachgebiet") ?? {default: ""}
+    ).default as string,
     ereignis_ort: "",
     ereignis_tag: "",
     versorgungsart: "",
@@ -25,7 +27,7 @@ const initialCIRSEntry: Omit<CIRSEntry, "id" | "fallnummer" | "created_at"> = {
 };
 
 
-const CirsCreate = () => {
+const CirsCreate: React.FC<{eventQueue: TinyEventQueue}> = ({eventQueue}) => {
     const [entry, setEntry] = useState(initialCIRSEntry);
     const [feedback, setFeedback] = useState('');
 
@@ -41,6 +43,8 @@ const CirsCreate = () => {
             if (!res.ok) throw new Error(data.error || 'Fehler');
             setFeedback('✅ Fall gespeichert!');
             setEntry(initialCIRSEntry);
+            // notify listeners that an entry was created
+            eventQueue.publish("cirs-entry-created", null);
         } catch (err: any) {
             setFeedback(`❌ Fehler: ${err.message}`);
         }

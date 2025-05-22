@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import cirsConfig from "@/components/IntCIRS/cirsConfigHandler";
 import RenderedCirsEntry from "@/components/IntCIRS/renderedCirsEntry";
 import { CIRSEntry } from "@/components/IntCIRS/dtypes";
+import TinyEventQueue from "@/components/Common/TinyEventQueue";
 
 interface CirsTableProps {
   cirsHistory: CIRSEntry[];
@@ -164,7 +164,6 @@ const CirsTable: React.FC<CirsTableProps> = ({
       }
       const payload = {
         id: selectedEntry.id,
-        praxisId: cirsConfig.getField("praxisId").default,
         updates: differences,
       };
       const res = await fetch('/api/cirs/v1/pg_updateCirs', {
@@ -197,7 +196,6 @@ const CirsTable: React.FC<CirsTableProps> = ({
     try {
       const payload = {
         id: selectedEntry.id,
-        praxisId: cirsConfig.getField("praxisId").default,
       };
 
       const res = await fetch('/api/cirs/v1/pg_deleteCirs', {
@@ -309,7 +307,7 @@ const CirsTable: React.FC<CirsTableProps> = ({
                   <td className="border px-4 py-2">{entry.berichtet_von}</td>
                   <td className="border px-4 py-2">
                     {entry.created_at
-                      ? entry.created_at.toLocaleString()
+                      ? entry.created_at.toLocaleString("de")
                       : "N/A"}
                   </td>
                 </tr>
@@ -391,7 +389,7 @@ const CirsTable: React.FC<CirsTableProps> = ({
   );
 };
 
-const CirsHistory: React.FC = () => {
+const CirsHistory: React.FC<{eventQueue: TinyEventQueue}> = ({eventQueue}) => {
   const [cirsHistory, setCirsHistory] = useState<CIRSEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>("");
@@ -410,8 +408,10 @@ const CirsHistory: React.FC = () => {
 
   const fetchCirsHistory = async (offsetParam = 0): Promise<CIRSEntry[]> => {
     try {
+      // clear error
+      setError("")
       // Build the URL with query parameters based on the filter state.
-      let url = `/api/cirs/v1/pg_getCirs?limit=${limit}&offset=${offsetParam}&praxisId=${cirsConfig.getField("praxisId").default}`;
+      let url = `/api/cirs/v1/pg_getCirs?limit=${limit}&offset=${offsetParam}}`;
       const res = await fetch(url);
       if (!res.ok) {
         throw new Error("Error fetching logs");
@@ -441,6 +441,8 @@ const CirsHistory: React.FC = () => {
     setCirsHistory(refreshedHistory);
     setLoading(false);
   };
+
+  eventQueue.subscribe("cirs-entry-created", "history-refresh", refreshHistory)
 
   return (
     // Full-width container with no horizontal padding or max-width restrictions.

@@ -1,238 +1,311 @@
 import React, { useEffect, useState } from "react";
-import cirsConfig from "@/components/IntCIRS/cirsConfigHandler";
-import RenderedCirsEntry from "@/components/IntCIRS/renderedCirsEntry";
-import { CIRSEntry } from "@/components/IntCIRS/dtypes";
+import RenderedEntryForm from "@/components/Common/CrudForms/renderedEntryForm";
+import {
+  HeaderRowFactory,
+  PreviewRowFactory,
+} from "@/components/Common/CrudForms/previewTable";
+import { editIcon, focusIcon } from "@/components/Common/CrudForms/icons";
+import recallConfig from "@/components/IntRecall/recallConfigHandler";
+import { QueryFields } from "@/components/IntRecall/RecallCreate";
+import {
+  RecallEntry,
+  RecallEntryCreateFrontend,
+  RecallEntrySchemaAPICreate,
+  RecallEntrySchemaAPIRead,
+  RecallEntrySchemaAPIUpdate,
+  TRecallEntry, TRecallEntryCreateFrontend,
+  TRecallEntrySchemaAPIUpdate
+} from "@/components/IntRecall/RecallListSchemaV1";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FormStateInner } from "@/components/Common/CrudForms/formElements";
+import { exportToXlsx } from "@/components/Common/exportToXlsx";
+import { format } from "date-fns";
+import TinyEventQueue from "@/components/Common/TinyEventQueue";
 
-interface CirsTableProps {
-  cirsHistory: CIRSEntry[];
-  setCirsHistory: (history: CIRSEntry[]) => void;
-  loadMore: () => void;
+const PreviewFields: string[] = ["id", ...QueryFields, "created_at"];
+
+const ReadOnlyView: React.FC<{
+  formStateInner: FormStateInner;
+  setUpdateSelected: (x: boolean) => void;
+}> = ({ formStateInner, setUpdateSelected }) => {
+  return (
+    <>
+      <div className="flex w-full items-center justify-between p-4">
+        <button
+          onClick={() => {
+            setUpdateSelected(true);
+          }}
+          className="rounded bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-700"
+        >
+          Bearbeiten
+        </button>
+      </div>
+      <div className="flex-1 overflow-auto p-4">
+        <RenderedEntryForm
+          fields={Object.fromEntries(
+            Object.keys(RecallEntryCreateFrontend.shape).map((x) => [
+              x,
+              recallConfig.getFieldAlias(x),
+            ]),
+          )}
+          formStateInner={formStateInner}
+          rawView={true}
+        />
+      </div>
+    </>
+  );
+};
+
+const UpdateView: React.FC<{
+  formStateInner: FormStateInner;
+  feedback: string | undefined;
+  isSubmitting: boolean;
+  submitHandler: (x) => void;
+  deleteHandler: () => void;
+}> = ({ formStateInner, feedback, isSubmitting, submitHandler, deleteHandler}) => {
+  return (
+    <>
+      <div className="flex w-full items-center justify-between p-4">
+        <button
+          onClick={submitHandler}
+          disabled={isSubmitting}
+          className="rounded bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-700"
+        >
+          Update senden
+        </button>
+        <button
+          onClick={deleteHandler}
+          className="rounded bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-700"
+        >
+          Eintrag löschen!
+        </button>
+      </div>
+      {feedback && <p className="mt-2 text-center text-sm">{feedback}</p>}
+      <div className="flex-1 overflow-auto p-4">
+        <RenderedEntryForm
+          fields={Object.fromEntries(
+            Object.keys(RecallEntryCreateFrontend.shape).map((x) => [
+              x,
+              recallConfig.getFieldAlias(x),
+            ]),
+          )}
+          formStateInner={formStateInner}
+          editView={true}
+        />
+      </div>
+    </>
+  );
+};
+
+interface SelectionViewProps {
+  selectedEntry: TRecallEntry;
+  updateSelected: boolean;
+  onSubmit: (entry: TRecallEntry) => void;
+  handleDelete: () => void;
+  closeModal: () => void;
+  feedback: string;
+  setUpdateSelected: any;
 }
 
-const ExpandableJsonCell: React.FC<{
-  jsonText: string;
-  defaultExpanded?: boolean;
-}> = ({ jsonText, defaultExpanded = false }) => {
-  const [expanded, setExpanded] = useState(defaultExpanded);
-  let parsed: any;
-  try {
-    parsed = JSON.parse(jsonText);
-  } catch (e) {
-    return <div style={{ whiteSpace: "pre-wrap" }}>{jsonText}</div>;
-  }
-  const messages = parsed.messages;
-  if (!messages || !Array.isArray(messages)) {
-    return <div style={{ whiteSpace: "pre-wrap" }}>{jsonText}</div>;
-  }
-
-  const displayMessages = expanded ? messages : messages.slice(0, 2);
-
-  return (
-    <div className="text-xs">
-      {displayMessages.map((msg: any, index: number) => (
-        <div key={index}>
-          <strong>{msg.role}:</strong>{" "}
-          {msg.role === "user" ? (
-            <span style={{ backgroundColor: "yellow", padding: "0 2px" }}>
-              {msg.content}
-            </span>
-          ) : (
-            msg.content
-          )}
-        </div>
-      ))}
-      {messages.length > displayMessages.length &&
-        !defaultExpanded &&
-        !expanded && (
-          <button
-            onClick={() => setExpanded(true)}
-            className="text-blue-500 underline"
-          >
-            Read More
-          </button>
-        )}
-      {!defaultExpanded && expanded && messages.length > 2 && (
-        <button
-          onClick={() => setExpanded(false)}
-          className="ml-2 text-blue-500 underline"
-        >
-          Show Less
-        </button>
-      )}
-    </div>
-  );
-};
-
-const ExpandableCell: React.FC<{
-  text: string;
-  limit?: number;
-  alwaysExpanded?: boolean;
-}> = ({ text, limit = 50, alwaysExpanded = false }) => {
-  // Attempt to parse the text as JSON.
-  // This is done unconditionally.
-  const parsed = (() => {
-    try {
-      return JSON.parse(text);
-    } catch (e) {
-      return null;
-    }
-  })();
-  const hasMessages =
-    parsed && parsed.messages && Array.isArray(parsed.messages);
-
-  // Always call the hook
-  const [expanded, setExpanded] = useState(false);
-
-  // If the text contains a valid messages array, delegate to ExpandableJsonCell.
-  if (hasMessages) {
-    return (
-      <ExpandableJsonCell jsonText={text} defaultExpanded={alwaysExpanded} />
-    );
-  }
-
-  // If alwaysExpanded, render the full text.
-  if (alwaysExpanded) {
-    return (
-      <div className="text-xs">
-        <pre style={{ whiteSpace: "pre-wrap", margin: 0 }}>{text}</pre>
-      </div>
-    );
-  }
-
-  // Otherwise, use the expandable/collapsible logic.
-  const toggle = () => setExpanded(!expanded);
-  const safeText = text || "";
-  const displayText =
-    !expanded && safeText.length > limit
-      ? safeText.substring(0, limit)
-      : safeText;
-
-  return (
-    <div className="text-xs">
-      <pre style={{ whiteSpace: "pre-wrap", margin: 0 }}>{displayText}</pre>
-      {!expanded && safeText.length > limit && "..."}
-      {safeText.length > limit && (
-        <button onClick={toggle} className="ml-1 text-blue-500 underline">
-          {expanded ? "Show Less" : "Read More"}
-        </button>
-      )}
-    </div>
-  );
-};
-
-const CirsTable: React.FC<CirsTableProps> = ({
-  cirsHistory,
-  setCirsHistory,
-  loadMore,
+const SelectionView: React.FC<SelectionViewProps> = ({
+  selectedEntry,
+  updateSelected,
+  onSubmit,
+  handleDelete,
+  closeModal,
+  feedback,
+  setUpdateSelected,
 }) => {
+  const {
+    control,
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    resolver: zodResolver(RecallEntry),
+    defaultValues: {...selectedEntry},
+    mode: "onTouched",
+  });
 
+  const formStateInner: FormStateInner = {
+    register: register,
+    control: control,
+    errors: errors,
+  };
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center"
+      style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
+      onClick={closeModal}
+    >
+      <div
+        className="flex flex-col rounded bg-white shadow-lg"
+        style={{ width: "85vw", height: "85vh" }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex items-center justify-between border-b p-4">
+          <h2 className="text-xl font-bold">
+            Log Details (ID: {selectedEntry.id})
+          </h2>
+          <button
+            onClick={closeModal}
+            className="text-2xl leading-none text-gray-500 hover:text-gray-700"
+            title="Close"
+          >
+            &times;
+          </button>
+        </div>
+        {!updateSelected &&
+          <ReadOnlyView
+            formStateInner={formStateInner}
+            setUpdateSelected={setUpdateSelected}
+          />
+        }
+        {updateSelected &&
+          <UpdateView
+            formStateInner={formStateInner}
+            feedback={feedback}
+            isSubmitting={isSubmitting}
+            submitHandler={handleSubmit(onSubmit)}
+            deleteHandler={handleDelete}
+          />
+        }
+      </div>
+    </div>
+  );
+};
+
+interface RecallTableProps {
+  recallHistory: TRecallEntry[];
+  setRecallHistory: (history: TRecallEntry[]) => void;
+  loadMore: () => void;
+  loading: boolean;
+}
+
+const RecallTable: React.FC<RecallTableProps> = ({
+  recallHistory,
+  setRecallHistory,
+  loadMore,
+  loading,
+}) => {
   // UPDATE hook
-  const [updateSelected, setUpdateState] = useState<boolean>(false);
-  const [selectedEntry, setSelectedEntry] = useState<CIRSEntry | null>(null);
-  const [feedback, setFeedback] = useState('');
+  const [updateSelected, setUpdateSelected] = useState<boolean>(false);
+  const [selectedEntry, setSelectedEntry] = useState<TRecallEntry | null>(null);
+  const [feedback, setFeedback] = useState("");
 
-  const handleSubmit = async () => {
-    setFeedback('⏳ Speichern...');
-    if (!selectedEntry) {
-      setFeedback('❌ Fehler: Kein Eintrag ausgewählt.');
+  const onSubmit = async (entry: TRecallEntry) => {
+    setFeedback("⏳ Speichern...");
+    if (!entry) {
+      setFeedback("❌ Fehler: Kein Eintrag ausgewählt.");
       return;
     }
     try {
-      console.log(selectedEntry);
-      const originalEntry = cirsHistory.find(entry => entry.id === selectedEntry.id);
+      const originalEntry = recallHistory.find(
+        (x) => x.id === entry.id,
+      );
       if (!originalEntry) {
-        setFeedback('❌ Fehler: Originaleintrag nicht gefunden. Kann Änderungen nicht vergleichen.');
+        setFeedback(
+          `❌ Fehler: Originaleintrag mit ID ${entry.id} nicht gefunden. `
+          + "Kann Änderungen nicht vergleichen.",
+        );
         return;
       }
+      console.log(originalEntry);
 
-      const differences: Partial<Record<keyof CIRSEntry, string | number | Date>> = {};
+      const differences: TRecallEntrySchemaAPIUpdate = {};
 
       let hasChanges = false;
-      // Compare selectedEntry with originalEntry and find differences
-      for (const key in selectedEntry) {
-        if (Object.prototype.hasOwnProperty.call(selectedEntry, key)) {
-          const typedKey = key as keyof CIRSEntry;
-          if (selectedEntry[typedKey] !== originalEntry[typedKey]) {
-            differences[typedKey] = selectedEntry[typedKey];
+      // Compare selectedEntry with originalEntry and find differences.
+      // Restrict to fields relevant to the API.
+      for (const key of Object.keys(RecallEntrySchemaAPIUpdate.parse(entry))) {
+        if (Object.prototype.hasOwnProperty.call(entry, key)) {
+          const typedKey = key as keyof TRecallEntry;
+          if (entry[typedKey] !== originalEntry[typedKey]) {
+            differences[typedKey] = entry[typedKey];
             hasChanges = true;
           }
         }
       }
       if (!hasChanges) {
-        setFeedback('ℹ️ Keine Änderungen zu Speichern festgestellt.');
+        setFeedback("ℹ️ Keine Änderungen zu Speichern festgestellt.");
         return;
       }
+      console.log(differences);
       const payload = {
-        id: selectedEntry.id,
-        praxisId: cirsConfig.getField("praxisId").default,
-        updates: differences,
+        id: entry.id,
+        updates: RecallEntrySchemaAPIUpdate.parse(differences),
       };
-      const res = await fetch('/api/cirs/v1/pg_updateCirs', {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/recall/v1/pg_updateRecall", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
       const responseData = await res.json();
       if (!res.ok) {
-        throw new Error(responseData.error || 'Fehler beim Speichern der Änderungen');
+        throw new Error(
+          responseData.error || "Fehler beim Speichern der Änderungen",
+        );
       }
-      setFeedback('✅ Änderungen erfolgreich gespeichert!');
+      setFeedback("✅ Änderungen erfolgreich gespeichert!");
       // replace entry in global list
-      setCirsHistory(
-        cirsHistory.map(entry =>
-          entry.id === selectedEntry.id ? selectedEntry : entry
-        )
+      const updatedEntry = RecallEntrySchemaAPIRead.parse(
+        responseData.updatedEntry,
+      ) as TRecallEntry;
+      setRecallHistory(
+        recallHistory.map((x) =>
+          x.id === updatedEntry.id ? updatedEntry : x,
+        ),
       );
     } catch (err: any) {
       setFeedback(`❌ Fehler: ${err.message}`);
+      console.log(err);
     }
   };
 
   const handleDelete = async () => {
-    setFeedback('⏳ Löschen...');
+    setFeedback("⏳ Löschen...");
     if (!selectedEntry) {
-      setFeedback('❌ Fehler: Kein Eintrag ausgewählt.');
+      setFeedback("❌ Fehler: Kein Eintrag ausgewählt.");
       return;
     }
     try {
       const payload = {
         id: selectedEntry.id,
-        praxisId: cirsConfig.getField("praxisId").default,
       };
 
-      const res = await fetch('/api/cirs/v1/pg_deleteCirs', {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/recall/v1/pg_deleteRecall", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
 
       const responseData = await res.json();
       if (!res.ok) {
-        throw new Error(responseData.error || 'Fehler beim Löschen des Eintrags');
+        throw new Error(
+          responseData.error || "Fehler beim Löschen des Eintrags",
+        );
       }
 
-      setFeedback('✅ Eintrag erfolgreich gelöscht!');
+      setFeedback("✅ Eintrag erfolgreich gelöscht!");
 
       // Remove entry from global list
-      setCirsHistory(
-        cirsHistory.filter(entry =>
-          entry.id !== selectedEntry.id
-        )
+      setRecallHistory(
+        recallHistory.filter((entry) => entry.id !== selectedEntry.id),
       );
 
       closeModal(); // Close modal after deletion
-
     } catch (err: any) {
       setFeedback(`❌ Fehler: ${err.message}`);
+      console.log(err);
     }
   };
 
-
   const closeModal = () => {
     setSelectedEntry(null);
-    setUpdateState(false);
+    setUpdateSelected(false);
   };
-
 
   return (
     <>
@@ -242,74 +315,37 @@ const CirsTable: React.FC<CirsTableProps> = ({
             className="table-auto divide-y divide-gray-200 border text-xs"
             style={{ minWidth: "1600px" }}
           >
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="border px-4 py-2">ID</th>
-                <th className="border px-4 py-2">Fallnummer</th>
-                <th className="border px-4 py-2">Fachgebiet</th>
-                <th className="border px-4 py-2">Fallbeschreibung</th>
-                <th className="border px-4 py-2">Berichtet von</th>
-                <th className="border px-4 py-2">Timestamp</th>
-              </tr>
-            </thead>
+            {HeaderRowFactory(PreviewFields)}
             <tbody className="bg-white">
-              {cirsHistory.map((entry) => (
+              {recallHistory.map((entry) => (
                 <tr key={entry.id}>
-                  <td className="flex items-center space-x-1 border px-4 py-2">
+                  {/* ID cell with functional buttons */}
+                  <td className="flex justify-end space-x-1 border px-4 py-2">
                     <span>{entry.id}</span>
                     <button
                       onClick={() => setSelectedEntry(entry)}
                       title="View Details"
                       className="focus:outline-none"
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-4 w-4 text-blue-500"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M21 21l-4.35-4.35m1.35-5.65a7 7 0 11-14 0 7 7 0 0114 0z"
-                        />
-                      </svg>
+                      {focusIcon("text-blue-500")}
                     </button>
                     <button
                       onClick={() => {
                         setSelectedEntry(entry);
-                        setUpdateState(true);
+                        setUpdateSelected(true);
                       }}
                       title="Edit Details"
                       className="focus:outline-none"
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-4 w-4 text-green-500"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                        />
-                      </svg>
+                      {editIcon("text-green-500")}
                     </button>
                   </td>
-                  <td className="border px-4 py-2">{entry.fallnummer}</td>
-                  <td className="border px-4 py-2">{entry.fachgebiet}</td>
-                  <td className="whitespace-pre-wrap border px-4 py-2">
-                    <ExpandableCell text={entry.fallbeschreibung} limit={50} />
-                  </td>
-                  <td className="border px-4 py-2">{entry.berichtet_von}</td>
+                  {/* all other cells, skip id and created_at */}
+                  {PreviewRowFactory(entry, PreviewFields.slice(1, -1))}
+                  {/* created_at cell */}
                   <td className="border px-4 py-2">
                     {entry.created_at
-                      ? entry.created_at.toLocaleString()
+                      ? entry.created_at.toLocaleString("de")
                       : "N/A"}
                   </td>
                 </tr>
@@ -320,6 +356,7 @@ const CirsTable: React.FC<CirsTableProps> = ({
         <div className="mt-4">
           <button
             onClick={loadMore}
+            disabled={loading}
             className="rounded bg-blue-500 px-4 py-2 text-xs text-white hover:bg-blue-600"
           >
             Mehr Einträge laden
@@ -328,71 +365,23 @@ const CirsTable: React.FC<CirsTableProps> = ({
       </div>
 
       {selectedEntry && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center"
-          style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
-          onClick={closeModal}
-        >
-          <div
-            className="flex flex-col rounded bg-white shadow-lg"
-            style={{ width: "85vw", height: "85vh" }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex items-center justify-between border-b p-4">
-              <h2 className="text-xl font-bold">
-                Log Details (ID: {selectedEntry.id})
-              </h2>
-              <button
-                onClick={closeModal}
-                className="text-2xl leading-none text-gray-500 hover:text-gray-700"
-                title="Close"
-              >
-                &times;
-              </button>
-            </div>
-            {!updateSelected && (
-              <div className="flex-1 overflow-auto p-4">
-                <RenderedCirsEntry
-                  entry={selectedEntry}
-                  rawView={true}
-                />
-              </div>
-            )}
-            {updateSelected && (
-              <div className="flex justify-between items-center w-full p-4">
-                <button
-                  onClick={handleSubmit}
-                  className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-                >
-                  Update senden
-                </button>
-                <button
-                  onClick={handleDelete}
-                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                >
-                  Eintrag löschen!
-                </button>
-              </div>
-            )}
-            {updateSelected && feedback && <p className="text-sm mt-2 text-center">{feedback}</p>}
-            {updateSelected && (
-              <div className="flex-1 overflow-auto p-4">
-                <RenderedCirsEntry
-                  entry={selectedEntry}
-                  setEntry={setSelectedEntry}
-                  editView={true}
-                />
-              </div>
-            )}
-          </div>
-        </div>
+        <SelectionView
+          selectedEntry={selectedEntry}
+          updateSelected={updateSelected}
+          onSubmit={onSubmit}
+          handleDelete={handleDelete}
+          closeModal={closeModal}
+          feedback={feedback}
+          setUpdateSelected={setUpdateSelected}
+        />
       )}
     </>
   );
 };
 
-const CirsHistory: React.FC = () => {
-  const [cirsHistory, setCirsHistory] = useState<CIRSEntry[]>([]);
+const RecallHistory: React.FC<{eventQueue: TinyEventQueue}> = ({eventQueue}) => {
+
+  const [recallHistory, setRecallHistory] = useState<TRecallEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>("");
   const [offset, setOffset] = useState(0);
@@ -401,74 +390,99 @@ const CirsHistory: React.FC = () => {
   // Initial load on component mount.
   useEffect(() => {
     const initialFetch = async () => {
-      const CirsHistory = await fetchCirsHistory(0);
-      setCirsHistory(CirsHistory);
+      const RecallHistory = await fetchRecallHistory(0);
+      setRecallHistory(RecallHistory);
       setLoading(false);
     };
     initialFetch();
   }, []);
 
-  const fetchCirsHistory = async (offsetParam = 0): Promise<CIRSEntry[]> => {
+  const fetchRecallHistory = async (
+    offsetParam = 0,
+  ): Promise<TRecallEntry[]> => {
     try {
+      // clear error
+      setError("");
       // Build the URL with query parameters based on the filter state.
-      let url = `/api/cirs/v1/pg_getCirs?limit=${limit}&offset=${offsetParam}&praxisId=${cirsConfig.getField("praxisId").default}`;
+      let url = `/api/recall/v1/pg_getRecall?limit=${limit}&offset=${offsetParam}`;
       const res = await fetch(url);
       if (!res.ok) {
         throw new Error("Error fetching logs");
       }
       const data = await res.json();
-      return data.cirsEntries.map((entry: any) => ({
-        ...entry,
-        created_at: new Date(entry.created_at),
-      })) as CIRSEntry[];
+      console.log(data);
+      return data.recallEntries.map((x) =>
+        RecallEntrySchemaAPIRead.parse(x),
+      ) as TRecallEntry[];
     } catch (err: any) {
       setError(err.message);
+      console.log(err);
       return [];
     }
   };
 
   const loadMore = async () => {
+    setLoading(true);
     const newOffset = offset + limit;
-    const moreCirsHistory = await fetchCirsHistory(newOffset);
-    setCirsHistory((prev) => [...prev, ...moreCirsHistory]);
+    const moreRecallHistory = await fetchRecallHistory(newOffset);
+    setRecallHistory((prev) => [...prev, ...moreRecallHistory]);
     setOffset(newOffset);
+    setLoading(false);
   };
 
   const refreshHistory = async () => {
     setLoading(true);
     setOffset(0);
-    const refreshedHistory = await fetchCirsHistory(0);
-    setCirsHistory(refreshedHistory);
+    const refreshedHistory = await fetchRecallHistory(0);
+    console.log(refreshedHistory);
+    setRecallHistory(refreshedHistory);
     setLoading(false);
+  };
+
+  eventQueue.subscribe("recall-entry-created", "history-refresh", refreshHistory)
+
+  const handleDownloadXLSX = () => {
+    exportToXlsx(
+      recallHistory,
+      `recall_history_${format(new Date(), "yyyyMMddTHHmmss")}.xlsx`,
+    );
   };
 
   return (
     // Full-width container with no horizontal padding or max-width restrictions.
     <div className="w-full" style={{ margin: 0, padding: 0 }}>
       <div className="mb-4 flex items-center justify-between px-4">
-        <h1 className="text-2xl font-bold">CIRS Historie</h1>
+        <h1 className="text-2xl font-bold">Recall Historie</h1>
         <button
           onClick={refreshHistory}
           className="rounded bg-green-500 px-4 py-2 text-xs text-white hover:bg-green-600"
+          disabled={loading}
         >
           Aktualisieren
+        </button>
+        <button
+          onClick={handleDownloadXLSX}
+          className="rounded bg-green-500 px-4 py-2 text-xs text-white hover:bg-green-600"
+        >
+          Download as XLSX
         </button>
       </div>
 
       {loading && <p className="px-4 text-xs">Loading history...</p>}
       {error && <p className="px-4 text-xs text-red-500">Error: {error}</p>}
-      {!loading && cirsHistory.length === 0 && (
+      {!loading && recallHistory.length === 0 && (
         <p className="px-4 text-xs">No history found.</p>
       )}
-      {!loading && cirsHistory.length > 0 && (
-        <CirsTable
-          cirsHistory={cirsHistory}
-          setCirsHistory={setCirsHistory}
+      {!loading && recallHistory.length > 0 && (
+        <RecallTable
+          recallHistory={recallHistory}
+          setRecallHistory={setRecallHistory}
           loadMore={() => loadMore()}
+          loading={loading}
         />
       )}
     </div>
   );
 };
 
-export default CirsHistory;
+export default RecallHistory;

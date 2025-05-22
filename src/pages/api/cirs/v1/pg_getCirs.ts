@@ -1,6 +1,8 @@
 // pages/api/cirs/v1/pg_getCirs.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { Pool } from 'pg';
+import checkUserAuthorizedWrapper from "@/components/Common/auth";
+import cirsConfig from "@/components/IntCIRS/cirsConfigHandler";
 
 
 const pool = new Pool({
@@ -8,7 +10,8 @@ const pool = new Pool({
     ssl: { rejectUnauthorized: false }
 });
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+async function innerHandler(req: NextApiRequest, res: NextApiResponse) {
+
     if (req.method !== 'GET') {
         return res.status(405).json({ error: 'Method not allowed' });
     }
@@ -24,7 +27,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         // Build the base query.
         let query = `
-      SELECT 
+      SELECT
         id,
         fallnummer,
         praxis_id,
@@ -46,7 +49,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         bemerkungen,
         created_at
       FROM cirs_entries
-      WHERE praxis_id = ${praxisId}
+      WHERE praxis_id = ${cirsConfig.praxisID}
         `;
         const params: any[] = [];
 
@@ -60,4 +63,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         console.error('Error fetching CIRS entries:', error);
         res.status(500).json({ error: 'Error fetching CIRS entries'});
     }
+}
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  return checkUserAuthorizedWrapper(req, res, innerHandler)
 }

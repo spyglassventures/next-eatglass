@@ -1,10 +1,13 @@
 // components/Recall/RecallPreviewTable.tsx
 import React, { useMemo } from "react";
 import { format, parseISO, isBefore } from "date-fns";
+import { InitialRecallEntry } from "@/components/IntRecall/RecallCreate";
+import TinyEventQueue from "@/components/Common/TinyEventQueue";
 
 interface Props {
     rows: any[];
     setRows: (rows: any[]) => void;
+    eventQueue: TinyEventQueue;
 }
 
 const recallIntervalMapping: Record<string, number> = {
@@ -13,7 +16,7 @@ const recallIntervalMapping: Record<string, number> = {
     "Nachsorge": 90,
 };
 
-const RecallPreviewTable: React.FC<Props> = ({ rows, setRows }) => {
+const RecallPreviewTable: React.FC<Props> = ({ rows, setRows, eventQueue }) => {
     const handleContact = (index: number, type: "whatsapp" | "email") => {
         const newRows = [...rows];
         newRows[index].Status = `kontaktiert via ${type}`;
@@ -37,6 +40,63 @@ const RecallPreviewTable: React.FC<Props> = ({ rows, setRows }) => {
             return false;
         }
     };
+
+    const updateCreationForm = (row) => {
+      const newRecallEntry = { ...InitialRecallEntry}
+      if ("id" in row && "created_at" in row) {
+        for (const key in row) {
+          if (key in newRecallEntry) {
+            newRecallEntry[key] = row[key]
+          }
+        }
+        eventQueue.publish("insert-create-recall-data", newRecallEntry);
+      }
+      const fieldMapping: {key: string, fieldAlias: string} = Object.fromEntries(
+        [
+          ["Patient ID", "patient_id"],
+          ["Vorname", "vorname"],
+          ["Nachname", "nachname"],
+          ["Geburtsdatum", "geburtsdatum"],
+          ["Kontaktart", "recallsystem"],
+          ["Kontaktinfo", "kontaktinfo"],
+          ["Erinnerungsanlass", "erinnerungsanlass"],
+          ["Ziel-Termin", "recall_target_datum"],
+          ["Reminder-Datum", "reminder_send_date"],
+          ["Bemerkungen", "bemerkungen"],
+        ]
+      )
+      const periodMapping: {key: string, period: string} = Object.fromEntries(
+        [
+          ["W", "weeks"],
+          ["M", "months"],
+          ["Y", "yearly"],
+          ["J", "yearly"],
+          ["O", "once"],
+        ]
+      )
+      for (const [key, fieldAlias] of Object.entries(fieldMapping)) {
+        let row_val = row[key]
+        if (typeof row_val === "string") {
+          row_val = row_val.trim()
+        }
+        if (row_val !== undefined && row_val !== "" && fieldAlias in newRecallEntry) {
+          newRecallEntry[fieldAlias] = row_val
+        }
+      }
+      const recallInterval = (row["Recall Intervall"] ?? "").trim()
+      if (!!recallInterval) {
+        const regex = /^(\d+)([WMYJO])$/;
+        const match = recallInterval.match(regex);
+        newRecallEntry["periodicity_interval"] = parseInt(match[1])
+        newRecallEntry["periodicity_unit"] = periodMapping[match[2]]
+      }
+      const rueckmeldung_erhalten = row["Rückmeldung erhalten"]
+      if (typeof rueckmeldung_erhalten === "boolean") {
+        newRecallEntry["rueckmeldung_erhalten"] = rueckmeldung_erhalten ? "Ja" : "Nein"
+      }
+      console.log(newRecallEntry);
+      eventQueue.publish("insert-create-recall-data", newRecallEntry);
+    }
 
     const headers = useMemo(() => rows.length > 0 ? Object.keys(rows[0]) : [], [rows]);
 
@@ -80,6 +140,12 @@ const RecallPreviewTable: React.FC<Props> = ({ rows, setRows }) => {
                                         className="text-gray-700 underline text-xs block"
                                     >
                                         ✅ Termin stattgefunden – Recall planen
+                                    </button>
+                                    <button
+                                        onClick={() => updateCreationForm(row)}
+                                        className="text-orange-700 underline text-xs block"
+                                    >
+                                        ⇓ Daten übernehmen
                                     </button>
                                 </td>
                             </tr>

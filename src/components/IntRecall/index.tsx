@@ -1,5 +1,6 @@
-// pages/brett.tsx   aka CIRS
+// components/IntRecall/index.tsx
 import React, { useState } from "react";
+import TinyEventQueue from "@/components/Common/TinyEventQueue";
 import RecallHistory from "@/components/IntRecall/RecallHistory";
 import RecallCreate from "@/components/IntRecall/RecallCreate";
 import RecallInstructions from "@/components/IntRecall/RecallInstructions";
@@ -19,6 +20,7 @@ const primaryColor = "#24a0ed";  // ToDo: store in config
 
 const Recall = () => {
 
+  const eventQueue = new TinyEventQueue()
   const [activeTab, setActiveTab] = useState(TABS[0].name);
 
   function isActiveTab(tabName: string) {
@@ -43,7 +45,6 @@ const Recall = () => {
     );
   }
 
-  // ToDo: inactive tabs are nonexistent: entered Data disappears
   return (
     <div className="p-6 max-w-7xl mx-auto">
 
@@ -57,13 +58,17 @@ const Recall = () => {
           {TABS.map(createTab)}
         </div>
       </div>
-      {activeTab === "anleitung" && <RecallInstructions />}
-      {activeTab === "historie" && (
-        <RecallHistory />
-      )}
-      {activeTab === "erstellen" && (
-        <RecallCreate />
-      )}
+
+      {/* use hidden divs */}
+      <div style={{ display: activeTab === "anleitung" ? "block" : "none" }}>
+        <RecallInstructions />
+      </div>
+      <div style={{ display: activeTab === "historie" ? "block" : "none" }}>
+        <RecallHistory eventQueue={eventQueue}/>
+      </div>
+      <div style={{ display: activeTab === "erstellen" ? "block" : "none" }}>
+        <RecallCreate eventQueue={eventQueue}/>
+      </div>
     </div>
   );
 };

@@ -1,6 +1,8 @@
 // File: pages/api/cirs/v1/pg_deleteCirs.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { Pool } from 'pg';
+import checkUserAuthorizedWrapper from "@/components/Common/auth";
+import cirsConfig from "@/components/IntCIRS/cirsConfigHandler";
 
 // Database connection pool (configure this according to your setup)
 const pool = new Pool({
@@ -9,11 +11,10 @@ const pool = new Pool({
 });
 
 interface DeleteRequestBody {
-    id: number;
-    praxisId: number; // To ensure deletion is scoped to the correct practice
+    id?: number;
 }
 
-export default async function handler(
+async function innerHandler(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
@@ -22,21 +23,20 @@ export default async function handler(
         return res.status(405).json({ error: `Method ${req.method} Not Allowed` });
     }
 
-    const { id, praxisId } = req.body as DeleteRequestBody;
+    const { id } = req.body as DeleteRequestBody;
 
     // --- Input Validation ---
     if (typeof id !== 'number') {
-        return res.status(400).json({ error: 'Entry ID is required and must be a number.' });
-    }
-    if (typeof praxisId !== 'number') {
-        return res.status(400).json({ error: 'Praxis ID is required and must be a number.' });
+        return res.status(400).json(
+          { error: 'Entry ID is required and must be a number.' }
+        );
     }
 
     const sqlQuery = `
-        DELETE FROM cirs_entries 
+        DELETE FROM cirs_entries
         WHERE id = $1 AND praxis_id = $2;
     `;
-    const values = [id, praxisId];
+    const values = [id, cirsConfig.praxisID];
 
     let client;
     try {
@@ -46,7 +46,9 @@ export default async function handler(
         if (result.rowCount === 0) {
             // This means no row matched the id and praxis_id,
             // either it doesn't exist or praxis_id doesn't match.
-            return res.status(404).json({ error: `Entry with ID ${id} not found for praxis ID ${praxisId}, or already deleted.` });
+            return res.status(404).json(
+              { error: `Entry with ID ${id} not found ` +
+              `for praxis ID ${cirsConfig.praxisID}, or already deleted.` });
         }
 
         // Successfully deleted
@@ -66,4 +68,8 @@ export default async function handler(
             client.release();
         }
     }
+}
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  return checkUserAuthorizedWrapper(req, res, innerHandler)
 }

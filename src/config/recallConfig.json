@@ -1,4 +1,5 @@
 {
+    "praxisID": 100,
     "fields": [
         {
             "name": "praxisName",
@@ -7,44 +8,39 @@
             "default": "Praxis Doc Dialog"
         },
         {
-            "name": "praxisId",
-            "alias": "praxis_id",
-            "hidden": true,
-            "default": 100
+            "name": "patientId",
+            "alias": "patient_id",
+            "label": "Patienten-ID",
+            "description": "Eindeutige Kennzeichnung des Patienten",
+            "default": "",
+            "nRows": 1
         },
         {
-            "name": "patientenname",
-            "alias": "patientenname",
-            "label": "Patientenname",
-            "description": "Name des Patienten",
-            "default": ""
+            "name": "vorname",
+            "alias": "vorname",
+            "label": "Vorname",
+            "description": "Vorname des Patienten",
+            "default": "",
+            "nRows": 1,
+            "inPreview": true
+        },
+        {
+            "name": "nachname",
+            "alias": "nachname",
+            "label": "Nachname",
+            "description": "Nachname des Patienten",
+            "default": "",
+            "nRows": 1,
+            "inPreview": true
         },
         {
             "name": "geburtsdatum",
             "alias": "geburtsdatum",
             "label": "Geburtsdatum",
-            "description": "Geburtsdatum des Patienten (YYYY-MM-DD)",
-            "default": ""
-        },
-        {
-            "name": "kontaktart",
-            "alias": "kontaktart",
-            "label": "Kontaktart",
-            "values": [
-                "Telefon",
-                "E-Mail",
-                "Brief",
-                "SMS"
-            ],
-            "default": "Telefon",
-            "topNButtons": 4
-        },
-        {
-            "name": "kontaktinfo",
-            "alias": "kontaktinfo",
-            "label": "Kontaktinfo",
-            "description": "Telefonnummer oder E-Mail-Adresse",
-            "default": ""
+            "description": "Geburtsdatum des Patienten (TT.MM.JJJJ)",
+            "default": "",
+            "nRows": 1,
+            "inPreview": true
         },
         {
             "name": "erinnerungsanlass",
@@ -58,7 +54,8 @@
                 "Sonstige"
             ],
             "default": "Jahreskontrolle",
-            "topNButtons": 3
+            "topNButtons": 3,
+            "inPreview": true
         },
         {
             "name": "recallsystem",
@@ -74,16 +71,99 @@
             "topNButtons": 2
         },
         {
-            "name": "recallDatum",
-            "alias": "recall_datum",
-            "label": "Recall-Datum",
-            "description": "Datum, an dem die Erinnerung erfolgen soll (YYYY-MM-DD)",
-            "default": ""
+            "name": "kontaktinfo",
+            "alias": "kontaktinfo",
+            "label": "Kontaktinfo",
+            "description": "Telefonnummer / E-Mail-Adresse etc.",
+            "default": "",
+            "nRows": 1
+        },
+        {
+            "name": "periodicityInterval",
+            "alias": "periodicity_interval",
+            "label": "Turnus Intervall",
+            "description": "Die 'n' aus 'alle n Wochen/Monate'",
+            "default": "1",
+            "inPreview": true,
+            "nRows": 1
+        },
+        {
+            "name": "periodicityUnit",
+            "alias": "periodicity_unit",
+            "label": "Turnus Einheit",
+            "values": [
+                "once",
+                "weeks",
+                "months",
+                "yearly",
+                "semiannually"
+            ],
+            "default": "yearly",
+            "inPreview": true
+        },
+        {
+            "name": "recallTargetDatum",
+            "alias": "recall_target_datum",
+            "label": "Zieldatum",
+            "description": "Zieldatum für den Praxistermin (TT.MM.JJJJ)",
+            "default": "",
+            "nRows": 1,
+            "inPreview": true
+        },
+        {
+            "name": "reminderSendDate",
+            "alias": "reminder_send_date",
+            "label": "Ausdruck Aufgebot",
+            "description": "Datum, an dem der Reminder versandt werden soll (TT.MM.JJJJ)",
+            "default": "",
+            "nRows": 1,
+            "inPreview": true
+        },
+        {
+            "name": "responsiblePerson",
+            "alias": "responsible_person",
+            "label": "Zuständige Person",
+            "description": "Wer ist zuständig für den Recall?",
+            "default": "",
+            "nRows": 1,
+            "inPreview": true
         },
         {
             "name": "rueckmeldungErhalten",
             "alias": "rueckmeldung_erhalten",
             "label": "Rückmeldung erhalten",
+            "values": [
+                "Ja",
+                "Nein"
+            ],
+            "default": "Nein",
+            "inPreview": true
+        },
+        {
+            "name": "smsTemplate",
+            "alias": "sms_template",
+            "label": "SMS Vorlage",
+            "description": "Vorlage für SMS-Erinnerungen",
+            "default": ""
+        },
+        {
+            "name": "emailTemplate",
+            "alias": "email_template",
+            "label": "E-Mail Vorlage",
+            "description": "Vorlage für E-Mail-Erinnerungen",
+            "default": ""
+        },
+        {
+            "name": "letterTemplate",
+            "alias": "letter_template",
+            "label": "Brief Vorlage",
+            "description": "Vorlage für Brief-Erinnerungen",
+            "default": ""
+        },
+        {
+            "name": "recallDone",
+            "alias": "recall_done",
+            "label": "Recall erledigt",
             "values": [
                 "Ja",
                 "Nein"
@@ -95,7 +175,20 @@
             "alias": "naechster_termin",
             "label": "Nächster Termin",
             "description": "Datum des nächsten vereinbarten Termins (optional)",
-            "default": ""
+            "default": "",
+            "nRows": 1
+        },
+        {
+            "name": "appointmentStatus",
+            "alias": "appointment_status",
+            "label": "Termin Status",
+            "values": [
+                "...",
+                "vereinbart",
+                "kein Termin gewollt",
+                "nicht weiter probieren"
+            ],
+            "default": "..."
         },
         {
             "name": "bemerkungen",
@@ -105,25 +198,18 @@
             "default": ""
         },
         {
-            "name": "zusätzlicheLaborwerte",
-            "alias": "zusätzliche_laborwerte",
+            "name": "zusaetzlicheLaborwerte",
+            "alias": "zusaetzliche_laborwerte",
             "label": "Zusätzliche Laborwerte",
             "description": "Weitere Laborwerte, die berücksichtigt werden sollen",
             "default": ""
         },
         {
-            "name": "zusätzlicheDiagnostik",
-            "alias": "zusätzliche_diagnostik",
+            "name": "zusaetzlicheDiagnostik",
+            "alias": "zusaetzliche_diagnostik",
             "label": "Zusätzliche Diagnostik",
             "description": "Zusätzliche Untersuchungen wie Röntgen, EKG usw.",
             "default": ""
-        },
-        {
-            "name": "naechsterRecallInTagen",
-            "alias": "naechster_recall_in_tagen",
-            "label": "Nächster Recall in Tagen",
-            "description": "Anzahl Tage bis zum nächsten Recall",
-            "default": 365
         }
     ]
 }
