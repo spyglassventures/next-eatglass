@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import cirsConfig from "@/components/IntCIRS/cirsConfigHandler";
 import RenderedCirsEntry from "@/components/IntCIRS/renderedCirsEntry";
 import { CIRSEntry } from "@/components/IntCIRS/dtypes";
 
@@ -164,7 +163,6 @@ const CirsTable: React.FC<CirsTableProps> = ({
       }
       const payload = {
         id: selectedEntry.id,
-        praxisId: cirsConfig.getField("praxisId").default,
         updates: differences,
       };
       const res = await fetch('/api/cirs/v1/pg_updateCirs', {
@@ -197,7 +195,6 @@ const CirsTable: React.FC<CirsTableProps> = ({
     try {
       const payload = {
         id: selectedEntry.id,
-        praxisId: cirsConfig.getField("praxisId").default,
       };
 
       const res = await fetch('/api/cirs/v1/pg_deleteCirs', {
@@ -413,7 +410,7 @@ const CirsHistory: React.FC = () => {
       // clear error
       setError("")
       // Build the URL with query parameters based on the filter state.
-      let url = `/api/cirs/v1/pg_getCirs?limit=${limit}&offset=${offsetParam}&praxisId=${cirsConfig.getField("praxisId").default}`;
+      let url = `/api/cirs/v1/pg_getCirs?limit=${limit}&offset=${offsetParam}}`;
       const res = await fetch(url);
       if (!res.ok) {
         throw new Error("Error fetching logs");

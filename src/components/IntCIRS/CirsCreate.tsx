@@ -4,9 +4,10 @@ import cirsConfig from "@/components/IntCIRS/cirsConfigHandler";
 import RenderedCirsEntry from "@/components/IntCIRS/renderedCirsEntry";
 import { CIRSEntry } from "@/components/IntCIRS/dtypes";
 
-const initialCIRSEntry: Omit<CIRSEntry, "id" | "fallnummer" | "created_at"> = {
-    praxis_id: cirsConfig.getField("praxisId").default as number,
-    fachgebiet: cirsConfig.getField("fachgebiet").default as string,
+const initialCIRSEntry: Omit<CIRSEntry, "id" | "fallnummer" | "created_at" | "praxis_id"> = {
+    fachgebiet: (
+      cirsConfig.getField("fachgebiet") ?? {default: ""}
+    ).default as string,
     ereignis_ort: "",
     ereignis_tag: "",
     versorgungsart: "",

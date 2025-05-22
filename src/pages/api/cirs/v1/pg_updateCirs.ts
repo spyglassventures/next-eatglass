@@ -4,6 +4,7 @@ import { Pool } from 'pg';
 
 import { CIRSEntry } from "@/components/IntCIRS/dtypes";
 import checkUserAuthorizedWrapper from "@/components/Common/auth";
+import cirsConfig from "@/components/IntCIRS/cirsConfigHandler";
 
 const ALLOWED_UPDATE_FIELDS: (
     keyof Omit<CIRSEntry, 'id' | 'created_at' | 'fallnummer' | 'praxis_id'>
@@ -33,9 +34,8 @@ const pool = new Pool({
 });
 
 interface UpdateRequestBody {
-    id: number;
-    praxisId: number;
-    updates: Partial<Omit<CIRSEntry, 'id' | 'created_at' | "praxis_id">>;
+    id?: number;
+    updates?: Partial<Omit<CIRSEntry, 'id' | 'created_at' | "praxis_id">>;
 }
 
 async function innerHandler(
@@ -47,14 +47,11 @@ async function innerHandler(
         return res.status(405).json({ error: `Method ${req.method} Not Allowed` });
     }
 
-    const { id, praxisId, updates } = req.body as UpdateRequestBody;
+    const { id, updates } = req.body as UpdateRequestBody;
 
     // --- Input Validation ---
     if (typeof id !== 'number') {
         return res.status(400).json({ error: 'Entry ID is required and must be a number.' });
-    }
-    if (typeof praxisId !== 'number') {
-        return res.status(400).json({ error: 'Praxis ID is required and must be a number.' });
     }
 
     if (!updates || typeof updates !== 'object' || Object.keys(updates).length === 0) {
@@ -86,7 +83,7 @@ async function innerHandler(
     }
 
     values.push(id); // Add the ID for the WHERE clause
-    values.push(praxisId); // Add the praxis ID for the WHERE clause
+    values.push(cirsConfig.praxisID); // Add the praxis ID for the WHERE clause
 
     const sqlQuery = `
         UPDATE cirs_entries

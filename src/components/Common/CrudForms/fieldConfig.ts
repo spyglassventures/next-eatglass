@@ -6,7 +6,7 @@ interface FormFieldRaw {
   label?: string;  // Label in web view
   description?: string;  // explanation given in web view
   values?: string[];  // options button and/or dropdown; textarea if empty
-  valueLabels?: { string: string };  // optional mapping of value -> label
+  valueLabels?: { [key: string]: string };  // optional mapping of value -> label
   default?: string | number;  // initial value in creation view
   topNButtons?: number;  // display N first values as buttons
   freetextLength?: number;  // limitation of textarea
